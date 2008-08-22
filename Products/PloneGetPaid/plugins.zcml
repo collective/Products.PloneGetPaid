@@ -1,0 +1,48 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+	   xmlns:zcml="http://namespaces.zope.org/zcml">
+
+<!-- GetPaid plugins of various types, with configuration loaded if present -->
+
+<!-- Optional Payment Processors and Dependency Checks-->
+
+<configure zcml:condition="installed gchecky">
+  <include zcml:condition="installed getpaid.googlecheckout" 
+	   package="getpaid.googlecheckout" />
+</configure>
+
+<configure zcml:condition="installed M2Crypto">
+  <include zcml:condition="installed getpaid.authorizedotnet"
+	   package="getpaid.authorizedotnet" />
+</configure>
+
+<include zcml:condition="installed getpaid.paypal"
+	 package="getpaid.paypal" />
+
+<include zcml:condition="installed getpaid.ogone"
+	 package="getpaid.ogone" />
+
+<include zcml:condition="installed getpaid.nullpayment"
+	 package="getpaid.nullpayment" />
+
+<include zcml:condition="installed getpaid.paymentech"
+	 package="getpaid.paymentech" />
+	 
+<include zcml:condition="installed getpaid.discount"
+	 package="getpaid.discount" />
+
+<!-- Optional Shipping Modules -->
+<include zcml:condition="installed getpaid.flatrateshipping"
+	 package="getpaid.flatrateshipping" />
+	 
+<include zcml:condition="installed getpaid.ups"
+	 package="getpaid.ups" />	 
+
+<!-- Warehouse Inventory Management -->
+<include zcml:condition="installed getpaid.warehouse"
+	 package="getpaid.warehouse" />	 	 
+
+<!-- Reports - RDB Sync -->
+<include zcml:condition="installed getpaid.report"
+	 package="getpaid.report" />
+	 
+</configure>	 

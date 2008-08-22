@@ -1,0 +1,26 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# ThreePointsWeb Team <contato@threepointsweb.com>, 2007.
+# never generate this file with i18ndude, it is managed manual
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1.0\n"
+"POT-Creation-Date: 2007-08-25 15:18+0000\n"
+"PO-Revision-Date: 2007-08-25 17:05-0300\n"
+"Last-Translator: ThreePointsWeb Team <contato@threepointsweb.com>\n"
+"Language-Team: ThreePointsWeb Team <contato@threepointsweb.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: pt_BR\n"
+"Language-Name: Brazilian Portuguese\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+
+msgid "Manage Cart"
+msgstr "Modificar Carrinho"
+
+msgid "Order History"
+msgstr "Histórico de Pedidos"
+

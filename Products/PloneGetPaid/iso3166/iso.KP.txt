@@ -1,0 +1,15 @@
+
+ISO3166-2 regions for KP
+
+   KP-KAE : Kaesong-si
+   KP-NAM : Nampo-si
+   KP-PYO : Pyongyang-ai
+   KP-CHA : Chagang-do
+   KP-HAB : Hamgyongbuk-do
+   KP-HAN : Hamgyongnam-do
+   KP-HWB : Hwanghaebuk-do
+   KP-HWN : Hwanghaenam-do
+   KP-KAN : Kangwon-do
+   KP-PYB : Pyonganbuk-do
+   KP-PYN : Pyongannam-do
+   KP-YAN : Yanggang-do

@@ -1,0 +1,182 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+           i18n_domain="plonegetpaid">
+
+
+  <!-- Management UI Overview -->
+  <browser:page
+     for="*"
+     name="manage-getpaid-overview"
+     class=".admin.Overview"
+     template="templates/admin-overview.pt"
+     permission="cmf.ManagePortal"
+     menu="getpaid_admin"
+     title="Settings"
+     />
+
+  <!-- Profile -->
+  <!-- Management UI Identification Options -->
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-identification"
+     class=".admin.Identification"
+     permission="cmf.ManagePortal"
+     menu="getpaid_settings"
+     title="Site Profile"
+     />
+
+  <!-- Configure -->
+  <!-- Management Content Types Editing -->
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-content-types"
+     class=".admin.ContentTypes"     
+     permission="cmf.ManagePortal"
+     menu="getpaid_settings"
+     title="Content Types"
+     />
+
+   <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-shipping-methods"
+     class=".admin.ShippingSettings"     
+     permission="cmf.ManagePortal"
+     menu="getpaid_settings"
+     title="Shipping Methods"
+     />
+   
+  <browser:viewletManager
+     name="getpaid.shipment.settings"
+     permission="cmf.ManagePortal"
+     provides="..interfaces.ISettingsShipmentManager"
+     class=".admin.ShippingViewletManager" 
+     />
+
+  <browser:viewlet
+     name="settings"
+     manager="..interfaces.ISettingsShipmentManager"
+     class=".admin.ShippingServices"
+     permission="cmf.ManagePortal"
+     weight="10"
+     />
+
+  <!--
+   <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-shipping-settings"
+     class=".admin.ShippingSettings"     
+     permission="cmf.ManagePortal"
+     menu="getpaid_settings"
+     title="Shipping Method Settings"
+     />
+   -->
+   
+  <!-- Management Payment Options Editing -->
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-payment-options"
+     class=".admin.PaymentOptions"     
+     permission="cmf.ManagePortal"
+     menu="getpaid_settings"
+     title="Payment Options"
+     />
+
+  <!-- Management Payment Processor Editing -->
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-payment-processor"
+     class=".admin.PaymentProcessor"     
+     permission="cmf.ManagePortal"
+     menu="getpaid_settings"
+     title="Payment Processor Settings"
+     />
+     
+     
+  <!-- Sales Tax Options -->
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-sales-tax"
+     class=".admin.SalesTax"
+     permission="cmf.ManagePortal"
+     menu="getpaid_settings"
+     title="Sales Tax Configuration"
+     />
+     
+  <!-- Emails -->
+
+  <!-- Management Email Options -->
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-email"
+     class=".admin.Email"     
+     permission="cmf.ManagePortal"
+     menu="getpaid_settings"
+     title="Email Notifications"
+     />
+     
+  <!-- Customize Legal Disclaimers -->   
+     
+  <!-- Management Legal Disclaimer Options -->
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-legal-disclaimers"
+     class=".admin.LegalDisclaimers"     
+     permission="cmf.ManagePortal"
+     menu="getpaid_settings"
+     title="Legal Disclaimers"
+     />       
+
+
+  <!-- Order Management -->
+  
+  <!-- Customer Information 
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-customer-information"
+     class=".admin.CustomerInformation"
+     permission="cmf.ManagePortal"
+     />  
+  -->
+
+  <!-- Payment Processing Options
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-payment-processing"
+     class=".admin.PaymentProcessing"
+     permission="cmf.ManagePortal"
+     />
+   -->
+
+  <!-- Weight Measurement Options 
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-weight-units"
+     class=".admin.WeightUnits"
+     permission="cmf.ManagePortal"
+     />
+  -->
+     
+  <!-- Session Timeout Options 
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-session-timeout"
+     class=".admin.SessionTimeout"
+     permission="cmf.ManagePortal"
+     />  
+  -->
+
+  <!-- Currency -->
+  
+  <!-- Management Currency Options Editing 
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-currency"
+     class=".admin.Currency"     
+     permission="cmf.ManagePortal"
+     />     
+  -->
+
+
+
+</configure>

@@ -1,0 +1,52 @@
+<metal:page use-macro="context/@@getpaid-content-template/macros/content_space" i18n:domain="plonegetpaid">
+  <metal:block fill-slot="getpaid_content">
+    <h3 i18n:translate="heading_checkout"> Checkout </h3>
+
+    <form action="."
+        tal:attributes="action request/URL"
+        method="post"
+        enctype="multipart/form-data">
+    <div class="hidden_fields" tal:content="structure view/hidden_inputs"> </div>
+
+    <div class="portalMessage" tal:content="view/status" tal:condition="view/status"> </div>
+    <div metal:use-macro="here/global_statusmessage/macros/portal_message">
+        Portal status message
+    </div>
+
+    <div class="portalMessage" tal:content="view/status" tal:condition="view/status"> </div>
+    
+    <fieldset tal:define="service_names view/ship_service_names">
+      <legend i18n:translate="">Select a shipping rate: </legend>
+        <tal:loop tal:repeat="service service_names">
+          <tal:loop tal:repeat="sM python:view.service_options[service]">
+          <input tal:attributes="value string:${service}.${sM/service_code};" type="radio" name="shipping_method_code"/>  
+          <span tal:content="python:sM.service + ', ' + str(sM.currency) + ' ' + ('%0.2f' % sM.cost)" /><br />
+
+          </tal:loop>
+        </tal:loop>
+      </fieldset>
+      
+   <br/><br/>
+      <div id="actionsView">
+        <span class="actionButtons"
+          tal:condition="view/availableActions">
+  <!-- action/render doesn't handle i18n translations (fix)
+    <input tal:repeat="action view/actions"
+           tal:replace="structure action/render"
+           />
+  -->
+      <tal:loop tal:repeat="action view/availableActions">
+        <input type="submit" class="button context"
+               id="" name="" value=""
+               tal:attributes="id action/__name__;
+                               name action/__name__;
+                               value python:str(action.label);"
+               i18n:attributes="value" />
+      </tal:loop>
+        </span>
+      </div>
+    </form> 
+  <metal:legal use-macro="context/@@legal-disclaimers-links/links" />
+
+  </metal:block>
+</metal:page>

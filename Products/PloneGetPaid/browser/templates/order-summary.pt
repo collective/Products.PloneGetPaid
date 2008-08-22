@@ -1,0 +1,94 @@
+<fieldset i18n:domain="plonegetpaid">
+
+    <legend i18n:translate="legend_summary"> Summary </legend>
+    <ul>
+        <li>
+            <span i18n:translate="text_order_id"> Order Id</span> -
+            <span i18n:translate="" tal:content="view/getOrderId"> order id </span>
+        </li>
+        <li>
+            <span i18n:translate="text_customer_id"> Customer Id</span> -
+            <span i18n:translate="" tal:content="view/getUserId"> user_id </span>
+        </li>
+        <li>
+            <span i18n:translate="text_creation_date"> Creation Date</span> -
+            <span i18n:translate="" tal:content="view/getCreationDate"> creation_date </span>
+        </li>
+        <li>
+            <span i18n:translate="text_finance_status"> Finance Status </span> -
+            <span i18n:translate="" tal:content="view/finance_status"> finance_status </span>
+        </li>
+        <li>
+            <span i18n:translate="text_fulfillment_status"> Fulfillment Status </span> -
+            <span i18n:translate="" tal:content="view/fulfillment_status"> finance_status </span>
+        </li>
+        <li>
+            <span i18n:translate="text_total_price"> Total Price </span> -
+            <span i18n:translate="" tal:content="view/getTotalPrice"> total price </span>
+            <br /><br />
+        </li>
+        <li>
+          <tal:def define="b_contact view/getContactInformation;
+                           name  b_contact/name|nothing;
+                           email b_contact/email|nothing;
+                           phone b_contact/phone|nothing;">
+            <span i18n:translate="">Contact Name</span> -
+            <span tal:content="name" /><br />
+            <span i18n:translate="">E-mail</span> -
+            <span tal:content="email" /><br />
+            <span i18n:translate="">Phone Number</span> -
+            <span tal:content="phone" /><br />
+          </tal:def>
+    
+          <table width="50%" cellpadding="10px">
+            <tr>
+              <td width="25%" valign="top">
+                <span i18n:translate="">Billing Address</span><br /><br />
+                <tal:i repeat="line view/getBillingAddress">
+                  <tal:c condition="line">
+                  <span tal:content="line" /><br />
+                  </tal:c>
+                </tal:i>
+              </td>
+              <td width="25%"
+                  valign="top" 
+                  tal:define="ship_ad view/getShippingAddress;">
+                  <span i18n:translate="">Mailing Address</span><br /><br />
+                  <tal:cond condition="ship_ad">
+                    <tal:i repeat="line ship_ad">
+                      <tal:c condition="line">
+                        <span tal:content="line" /><br />
+                      </tal:c>
+                    </tal:i>
+                  </tal:cond>
+                  <tal:cond condition="not:ship_ad">
+                    <span i18n:translate="">Same as billing</span>
+                  </tal:cond>
+              </td>
+            </tr>
+          </table>
+        </li>
+        <tal:cond condition="view/getShippingMethod">
+        <li>
+            <span i18n:translate="text_fulfillment_shipping_method"> Shipping Service </span> -
+            <span tal:content="view/getShippingMethod" />
+        </li>
+        <li>
+            <span i18n:translate="text_fulfillment_shipping_weight"> Shipment Weight </span> -
+            <span tal:content="view/getShipmentWeight" />
+        </li>
+
+        <tal:cond condition="view/getShimpentTrackNumbers">
+        <li>                                                                                                                  <span i18n:translate="text_fulfillment_shipping_track_number"> Shipment Tracking Numbers: </span>
+            <ul tal:repeat="trackNumber view/getShimpentTrackNumbers">
+              <li tal:content="structure trackNumber"></li>
+            </ul>
+        </li>
+        </tal:cond>
+
+        </tal:cond>
+
+    </ul>
+
+</fieldset>
+

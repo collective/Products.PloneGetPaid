@@ -1,0 +1,79 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+           i18n_domain="plone">
+
+  <browser:page
+     for="*"
+     name="portlet-shopping-cart"
+     class=".portlet.ShoppingCart"
+     template="templates/portlet-cart.pt"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     for="*"
+     name="getpaid-shopping-cart"
+     class=".portlet.ShoppingCart"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     for="*"
+     name="getpaid-cart"
+     class=".cart.ShoppingCart"
+     template="templates/cart-manage.pt"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     for="*"
+     name="getpaid-cart-add"
+     class=".cart.ShoppingCartAddItem"
+     template="templates/cart-manage.pt"
+     permission="zope2.View"
+     />
+
+  <browser:page
+      for="..interfaces.IDonatableMarker"
+      name="getpaid-cart-add"
+      class=".cart.ShoppingCartAddItemAndGoToCheckout"
+      template="templates/cart-manage.pt"
+      permission="zope2.View"
+      />
+
+  <browser:viewletManager
+     name="shopping_cart"
+     permission="zope2.View"
+     provides="..interfaces.IGetPaidCartViewletManager"
+     class=".cart.ShoppingCartManager" 
+     />
+
+  <browser:viewlet
+     name="cart-listing"
+     manager="..interfaces.IGetPaidCartViewletManager"
+     template="templates/cart-listing.pt"
+     class=".cart.ShoppingCartListing"
+     permission="zope2.View"
+     weight="10"
+     />
+
+  <browser:viewlet  
+     name="cart-actions"
+     manager="..interfaces.IGetPaidCartViewletManager"
+     template="templates/cart-actions.pt"
+     class=".cart.ShoppingCartActions"
+     permission="zope2.View"
+     weight="20"
+     />
+
+  <browser:viewlet  
+     name="cart-order-template"
+     manager="..interfaces.IGetPaidCartViewletManager"
+     class=".cart.OrderTemplate"
+     permission="zope2.View"
+     weight="30"
+     />
+
+</configure>

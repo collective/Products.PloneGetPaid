@@ -1,0 +1,258 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:zcml="http://namespaces.zope.org/zcml"
+           xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+           i18n_domain="plone">
+
+  <include zcml:condition="installed plone.app.portlets"
+      package=".portlets" />
+      
+  <include zcml:condition="installed plone.app.viewletmanager"
+      package=".viewlets" />
+
+  <!-- Formlib Plone Goodness -->
+  <browser:page
+     for="*"
+     name="getpaid-form"
+     template="templates/form.pt"
+     permission="zope2.View"
+     />
+     
+   <browser:page
+      for="*"
+      name="getpaid-form-valuesonly"
+      template="templates/form-valuesonly.pt"
+      permission="zope2.View"
+      />
+
+  <!-- Generic Content Space which hides context actions -->
+  <browser:page
+     for="*"
+     name="getpaid-content-template"
+     template="templates/content-space-template.pt"
+     permission="zope2.View"
+     />
+
+  <!-- Create some Z3 Menus parallel to Plone actions -->
+  <browser:menu
+     id="user"
+     title="Plone User Menu"
+     />
+
+  <browser:menu
+     id="object_tabs"
+     title="Plone Object Tabs Menu"
+     />
+
+  <!-- Resources -->
+  <browser:resource
+      name="getpaid.png"
+      image="resources/getpaid.png" />
+
+  <browser:resource
+      name="jquery.js"
+      file="resources/jquery-1.2.1.pack.js" />
+      
+  <browser:resource
+      name="checkout-process.js"
+      file="resources/checkout-process.js" />
+
+  <browser:resource
+      name="country-states-selection.js"
+      file="resources/country-states-selection.js" />
+
+  <browser:resource
+      name="batching.css"
+      file="resources/batching.css" />
+
+  <!-- Admin UI -->
+  <include file="admin.zcml" />
+
+  <!-- Content Integration UI -->
+  <include file="content.zcml" />
+
+  <!-- Shopping Cart UI -->
+  <include file="cart.zcml" />
+
+  <!-- Checkout UI -->
+  <browser:page
+     for="*"
+     name="getpaid-checkout-wizard"
+     class=".checkout.CheckoutWizard"
+     permission="zope2.View"
+     />
+   
+  <adapter 
+      for="getpaid.wizard.interfaces.IWizard"
+      provides="getpaid.wizard.interfaces.IWizardController"
+      factory=".checkout.CheckoutController" />
+    
+  <adapter 
+      for="getpaid.wizard.interfaces.IWizard"
+      provides="getpaid.wizard.interfaces.IWizardDataManager"
+      factory="getpaid.wizard.DataManager"/>
+      
+  <browser:page
+     for="*"
+     name="checkout-address-info"
+     class=".checkout.CheckoutAddress"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     for="*"
+     name="checkout-review-pay"
+     class=".checkout.CheckoutReviewAndPay"
+     permission="zope2.View"
+     />
+     
+  <browser:page
+    for="*"
+    name="checkout-select-shipping"
+    class=".checkout.CheckoutSelectShipping"
+    permission="zope2.View"
+    />
+        
+  <browser:page
+     for="*"
+     name="addresbook-listing"
+     class=".checkout.AddressBookView"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     for="*"
+     template="templates/checkout-thank-you.pt"
+     name="getpaid-thank-you"
+     permission="zope2.View"
+     />
+     
+  <browser:page
+     for="*"
+     template="templates/checkout-cancelled-declined.pt"
+     name="getpaid-cancelled-declined"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     for="*"
+     template="templates/cart-empty.pt"
+     name="empty-cart"
+     permission="zope2.View"
+     />
+
+  <!-- User's Order View -->
+  <browser:page
+      for="getpaid.core.interfaces.IStore"
+      name="getpaid-order"
+      class=".order.OrderRoot"
+      permission="zope2.View"
+      />
+
+  <five:traversable class=".order.TraversableWrapper" />
+  <five:defaultViewable class=".order.TraversableWrapper"/>
+
+  <browser:defaultView
+     for="getpaid.core.interfaces.IOrder"
+     name="details"
+     />
+
+  <browser:page
+     for="getpaid.core.interfaces.IOrder"
+     name="details"
+     class=".order.OrderDetails"
+     template="templates/order-history.pt"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
+     name="order-summary"
+     manager="..interfaces.IOrderDetailsManager"
+     template="templates/order-summary.pt"
+     class=".admin_order.OrderSummaryComponent"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
+     name="order-all-items"
+     manager="..interfaces.IOrderDetailsManager"
+     template="templates/order-item-listing.pt"
+     class=".admin_order.AllItems"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
+     name="order-workflow-log"
+     manager="..interfaces.IOrderDetailsManager"
+     class=".admin_order.OrderWorkflowLog"
+     permission="zope2.View"
+     />
+
+  <!-- User's Order History -->
+  <browser:page
+     for="*"
+     name="getpaid-order-history"
+     class=".order.UserOrderHistory"
+     template="templates/order-history.pt"
+     permission="zope2.View"
+     />
+
+  <browser:viewletManager
+      name="orders_history"
+      permission="zope2.View"
+      provides="..interfaces.IOrderHistoryManager"
+      class=".order.OrderHistoryManager"
+      />
+
+  <!-- 'name' determines the order viewlets show up -->
+  <browser:viewlet
+      name="order-history"
+      manager="..interfaces.IOrderHistoryManager"
+      template="templates/order-history-viewlet.pt"
+      class=".order.UserOrderHistoryComponent"
+      permission="zope2.View"
+      />
+
+  <browser:viewlet
+      name="privacy-policy-disclaimer-links"
+      manager="..interfaces.IOrderHistoryManager"
+      template="templates/legal-disclaimers-links.pt"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
+      name="states-ajax"
+      class=".portlet.StatesAjax"
+      permission="zope2.View"
+  />
+
+  <!-- Disclaimer and Privacy Policy -->
+  <browser:page
+     for="*"
+     name="disclaimer"
+     class=".checkout.DisclaimerView"
+     template="templates/disclaimer.pt"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     for="*"
+     name="privacy-policy"
+     class=".checkout.PrivacyPolicyView"
+     template="templates/privacy-policy.pt"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     for="*"
+     name="legal-disclaimers-links"
+     template="templates/legal-disclaimers-links.pt"
+     permission="zope2.View"
+     />
+
+
+      
+
+</configure>

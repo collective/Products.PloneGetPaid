@@ -1,0 +1,27 @@
+<portlets>
+  <portlet
+      addview="getpaid.shippable"
+      title="Shippable portlet"
+      description="A portlet that handles shippable items"
+      />
+  <portlet
+      addview="getpaid.buyable"
+      title="Buyable portlet"
+      description="A portlet that handles buyable items"
+      />
+  <portlet
+      addview="getpaid.donatable"
+      title="Donatable portlet"
+      description="A portlet that handles donatable items"
+      />
+  <portlet
+      addview="getpaid.premium"
+      title="Premium portlet"
+      description="A portlet that handles premium items"
+      />
+  <portlet
+      addview="getpaid.cart"
+      title="Cart portlet"
+      description="A portlet that shows the shopping cart"
+      />
+</portlets>

@@ -1,0 +1,16 @@
+
+ISO3166-2 regions for CL
+
+   CL-AI : Aisén del General Carlos Ibáñez del Campo
+   CL-AN : Antofagasta
+   CL-AR : Araucanía
+   CL-AT : Atacama
+   CL-BI : Bío-Bío
+   CL-CO : Coquimbo
+   CL-LI : Libertador General Bernardo O'Higgins
+   CL-LL : Los Lagos
+   CL-MA : Magallanes
+   CL-ML : Maule
+   CL-RM : Region Metropolitana de Santiago
+   CL-TA : Tarapacá
+   CL-VS : Valparaíso

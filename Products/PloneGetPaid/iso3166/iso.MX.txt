@@ -1,0 +1,35 @@
+
+ISO3166-2 regions for MX
+
+   MX-DIF : Distrito Federal
+   MX-AGU : Aguascalientes
+   MX-BCN : Baja California
+   MX-BCS : Baja California Sur
+   MX-CAM : Campeche
+   MX-COA : Coahu ila
+   MX-COL : Col ima
+   MX-CHP : Chiapas
+   MX-CHH : Chihushua
+   MX-DUR : Durango
+   MX-GUA : Guanajuato
+   MX-GRO : Guerrero
+   MX-HID : Hidalgo
+   MX-JAL : Jalisco
+   MX-MEX : Mexico
+   MX-MIC : Michoacin
+   MX-MOR : Moreloa
+   MX-NAY : Nayarit
+   MX-NLE : Nuevo León
+   MX-OAX : Oaxaca
+   MX-PUE : Puebla
+   MX-QUE : Querétaro
+   MX-ROO : Quintana Roo
+   MX-SLP : San Luis Potosí
+   MX-SIN : Sinaloa
+   MX-SON : Sonora
+   MX-TAB : Tabasco
+   MX-TAM : Tamaulipas
+   MX-TLA : Tlaxcala
+   MX-VER : Veracruz
+   MX-YUC : Yucatán
+   MX-ZAC : Zacatecas

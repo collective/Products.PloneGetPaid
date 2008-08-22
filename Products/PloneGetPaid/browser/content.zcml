@@ -1,0 +1,172 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+           i18n_domain="plone">
+
+  <!-- Get Paid Content UI -->
+
+  <!-- This view contains action conditions that control the visibility
+       of the other activation views, based on portal settings -->
+  <browser:page
+     for="*"
+     name="getpaid_control"
+     class=".content.ContentControl"
+     permission="zope2.View"
+     />
+
+  <!-- Activation Views, turning content into payables -->
+  <browser:page
+     for="*"
+     name="activate-buyable"
+     class=".content.BuyableCreation"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
+     for="*"
+     name="activate-premium-content"
+     class=".content.PremiumCreation"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
+     for="*"
+     name="activate-shippable"
+     class=".content.ShippableCreation"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
+     for="*"
+     name="activate-donate"
+     class=".content.DonateCreation"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <!-- Edit Views, on payable -->
+  <browser:page
+     for="..interfaces.IBuyableMarker"
+     name="edit-payable"
+     class=".content.BuyableEdit"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <!-- We need to add this here because the permission directive is not working as expected,
+       so we add a menuItem to use the filter directive and check permissions using
+       portal_membership.
+  -->
+  <browser:menuItem
+     for="..interfaces.IBuyableMarker"
+     menu="object"
+     title="Payable"
+     action="edit-payable"
+     filter="python:object.portal_membership.checkPermission('Modify portal content', object)"
+     />
+
+  <!-- This view exists mainly to solve this issue:
+       http://code.google.com/p/getpaid/issues/detail?id=152 -->
+
+  <browser:page
+     for="..interfaces.IPremiumMarker"
+     name="edit-payable"
+     menu="object"
+     title="Payable"
+     class=".content.PremiumEdit"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
+     for="..interfaces.IShippableMarker"
+     name="edit-payable"
+     menu="object"
+     title="Payable"
+     class=".content.ShippableEdit"
+     permission="cmf.ModifyPortalContent"
+     />     
+
+  <browser:page
+    for="..interfaces.IDonatableMarker"
+    name="edit-payable"
+    class=".content.DonateEdit"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:menuItem
+     for="..interfaces.IDonatableMarker"
+     menu="object"
+     title="Payable"
+     action="edit-payable"
+     filter="python:object.portal_membership.checkPermission('Modify portal content', object)"
+     />
+
+  <!-- Deactivation Views, turning paybles back into content -->
+  <browser:page
+     for="*"
+     name="deactivate-buyable"
+     class=".content.BuyableDestruction"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
+     for="*"
+     name="deactivate-premium-content"
+     class=".content.PremiumDestruction"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
+     for="*"
+     name="deactivate-shippable"
+     class=".content.ShippableDestruction"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
+     for="*"
+     name="deactivate-donate"
+     class=".content.DonateDestruction"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
+    name="portlet-contentwidget"
+    for="..interfaces.IDonatableMarker"
+    class=".content.ContentPortlet"
+    template="templates/portlet-content-donatable.pt"
+    permission="zope2.View"
+    />
+    
+  <browser:page
+    name="portlet-contentwidget"
+    for="..interfaces.IBuyableMarker"
+    class=".content.ContentPortlet"
+    template="templates/portlet-content-buyable.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="portlet-contentwidget"
+    for="..interfaces.IShippableMarker"
+    class=".content.ContentPortlet"
+    template="templates/portlet-content-shippable.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="portlet-contentwidget"
+    for="..interfaces.IPremiumMarker"
+    class=".content.ContentPortlet"
+    template="templates/portlet-content-premium.pt"
+    permission="zope2.View"
+    />
+
+  <!-- null portlet for displaying blank portlet-contentwidget for non-getpaid content without blowing up -->
+  <browser:page
+    name="portlet-contentwidget"
+    for="*"
+    template="templates/portlet-content-none.pt"
+    permission="zope2.View"
+    />
+
+</configure>

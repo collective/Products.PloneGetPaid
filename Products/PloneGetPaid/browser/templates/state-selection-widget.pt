@@ -1,0 +1,31 @@
+<div xmls:tal="http://xml.zope.org/namespaces/tal"
+     id="form.contact_state_container"
+     tal:attributes="id string:${view/name}_container">
+
+  <tal:widget tal:define="name python:view.name;
+                          value python:view._getFormValue()">
+
+    <div tal:attributes="id string:${name}_container"> 
+      <select tal:attributes="id name; name name">
+        <ul
+            tal:define="has_input python:view.hasInput()">
+          <li tal:content="python:has_input and 'input' or 'no input'" />
+          <li tal:content="python:has_input and view.getInputValue() or 'nope'" />
+        </ul>
+        <tal:loop tal:repeat="i python: view.getVocabulary()">
+          <tal:block tal:define="selected python:view.hasInput() and view.getInputValue() == i.value or (value and value==i.value)">
+            <option tal:attributes="value python:i.value;"
+                    tal:content="python:i.title"
+                    tal:condition="selected"
+                    selected/>
+            <option tal:attributes="value python:i.value;"
+                    tal:content="python:i.title"
+                    tal:condition="not:selected"/>
+          </tal:block>
+        </tal:loop>
+      </select>
+    </div>
+
+  </tal:widget>
+
+</div>

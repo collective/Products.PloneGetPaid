@@ -1,0 +1,28 @@
+<metal:page use-macro="context/@@getpaid-form/macros/form">
+<metal:block fill-slot="form-inner">
+    
+<fieldset>    
+    <legend i18n:translate="" tal:content="view/form_name"></legend>
+    <p tal:content="view/form_description" i18n:translate=""></p>
+    
+    Orders:
+    <select name="order-template-id">
+        <tal:block repeat="order view/orders">
+          <option tal:attributes="value order/order_id" 
+                  tal:define="order_item_count python: len(order.shopping_cart);
+                              order_date python: order.creation_date.strftime('%m/%d/%Y')"
+                  tal:content="string: ${order_date} ${order_item_count}">
+          </option>
+        </tal:block>
+    </select>
+        
+    <metal:block use-macro="context/@@getpaid-form/macros/buttons"
+                 i18n:domain="plonegetpaid">
+    </metal:block>
+    
+</fieldset>
+</metal:block>
+<metal:block fill-slot="actions"></metal:block> 
+
+</metal:page>
+

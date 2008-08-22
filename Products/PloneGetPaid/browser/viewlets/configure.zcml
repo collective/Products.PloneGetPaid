@@ -1,0 +1,12 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser">
+    
+  <browser:viewletManager
+        name="getpaid.belowcartlisting"
+        provides=".interfaces.IBelowCartListing"
+        permission="zope2.View"
+        class="plone.app.viewletmanager.manager.OrderedViewletManager"
+        />
+        
+</configure>

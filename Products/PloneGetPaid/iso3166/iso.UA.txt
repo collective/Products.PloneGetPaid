@@ -1,0 +1,30 @@
+
+ISO3166-2 regions for UA
+
+   UA-71 : Cherkas'ka Oblast'
+   UA-74 : Chernihivs'ka Oblast'
+   UA-77 : Chernivets'ka Oblast'
+   UA-12 : Dnipropetrovs'ka Oblast'
+   UA-14 : Donets'ka Oblast'
+   UA-26 : Ivano-Frankivs'ka Oblast'
+   UA-63 : Kharkivs'ka Oblast'
+   UA-65 : Khersons'ka Oblast'
+   UA-68 : Khmel'nyts'ka Oblast'
+   UA-35 : Kirovohrads'ka Oblast'
+   UA-32 : Kyivs'ka Oblast'
+   UA-09 : Luhans'ka Oblast'
+   UA-46 : L'vivs'ka Oblast'
+   UA-48 : Mykolaivs'ka Oblast'
+   UA-51 : Odes 'ka Oblast'
+   UA-53 : Poltavs'ka Oblast'
+   UA-56 : Rivnens'ka Oblast'
+   UA-59 : Sums 'ka Oblast'
+   UA-61 : Ternopil's'ka Oblast'
+   UA-05 : Vinnyts'ka Oblast'
+   UA-07 : Volyos'ka Oblast'
+   UA-21 : Zakarpats'ka Oblast'
+   UA-23 : Zaporiz'ka Oblast'
+   UA-18 : Zhytomyrs'ka Oblast'
+   UA-43 : Respublika Krym
+   UA-30 : Kyïv
+   UA-40 : Sevastopol'

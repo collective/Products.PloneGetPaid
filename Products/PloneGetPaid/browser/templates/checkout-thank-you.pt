@@ -1,0 +1,45 @@
+<metal:page use-macro="context/@@getpaid-content-template/macros/content_space"
+            i18n:domain="plonegetpaid">
+  <metal:block fill-slot="getpaid_content"
+               tal:define="finance_state request/form/finance_state|nothing;
+                           order_id request/form/order_id|string:">
+
+
+    <h3 i18n:translate="heading_checkout_thank_you"> Thank you for your order </h3>
+
+
+    <div>
+        <div tal:condition="finance_state|nothing">
+            <span i18n:translate="your_finance_state_is">
+                Your finance state is
+            </span>
+            <tal:replace tal:replace="finance_state"></tal:replace>
+        </div>
+        <div tal:condition="order_id|nothing">
+            <span i18n:translate="your_order_id">
+                Your order id is
+            </span>
+            <tal:replace tal:replace="order_id"></tal:replace>
+        </div>
+    </div>
+    
+    <div tal:condition="not:isAnon">
+      <span i18n:translate="box_order_status_url_description">You can check the status of your order
+	  <span i18n:name="status_url">
+      <a href=""
+         tal:attributes="href
+         string:${context/portal_url}/@@getpaid-order/${order_id}"
+         i18n:translate="">here</a>
+      </span>
+	  </span>
+	  </div>
+
+    <div class="documentActions">
+       <a href="javascript:this.print()" i18n:domain="plone" i18n:translate="">
+           Print this page
+       </a>
+    </div>
+
+
+  </metal:block>
+</metal:page>

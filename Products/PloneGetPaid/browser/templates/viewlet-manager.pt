@@ -1,0 +1,7 @@
+<div class="viewport">
+
+  <tal:loop repeat="viewlet options/viewlets">
+     <tal:block replace="structure viewlet/render"/>
+  </tal:loop>
+
+</div>

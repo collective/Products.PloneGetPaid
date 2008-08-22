@@ -1,0 +1,14 @@
+
+ISO3166-2 regions for AM
+
+   AM-ER : Erevan
+   AM-AG : Aragacotn
+   AM-AR : Ararat
+   AM-AV : Armavir
+   AM-GR : Gegark'unik'
+   AM-KT : Kotayk'
+   AM-LO : Lory
+   AM-SH : Sirak
+   AM-SU : Syunik'
+   AM-TV : Tavus
+   AM-VD : Vayoc Jor

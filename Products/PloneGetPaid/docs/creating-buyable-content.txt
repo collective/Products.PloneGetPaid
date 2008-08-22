@@ -1,0 +1,110 @@
+**Creating Content Buyable Content for GetPaid**
+
+This document assumes you have already set up a Plone site with
+GetPaid. If you haven't, please read setup.txt
+
+Now you need to make content buyable, donatable or shippable.
+
+To do this, go to the "site setup" section of your site when viewed
+through the Plone interface and click on "GetPaid" in the "Add-on
+Product Configuration" section. 
+
+Here, click on the "Content Types" sub-section and use
+the arrows to move any appropriate content types to the "Selected"
+column on the right of the Buyable, Donatable or Shippable sections.
+
+The differences are explained below:
+
+- Buyable
+
+  Buyable content is anything that can be bought that doesn't fall
+  into another category.
+
+  Content selected to be buyable will have a "make buyable"
+  action available. Performing this action will add a "payable" view
+  to the content where the Product Code and Price of this item can be
+  entered. 
+
+  The Product Code is an optional internal code for the product as
+  used by the organisation selling it.
+
+  The Price is the price to charge for each item of this type that is
+  sold. 
+
+  Once a price has been entered, viewing the content will show a
+  "Product Details" portlet which allow end users to add the product
+  to their cart.
+
+- Donatable
+
+  xxx Donatable doesn't appear to differ from Buyable functionally
+  apart from one text field, which arguably Buyable should also have.
+
+  This will mean content of the selected types has a 
+  "make this a donation" action available. Performing this action will
+  add a "payable" view to the content where the Product Code, Price
+  and Donation Description of this item can be entered. 
+
+  The Product Code is an optional internal code used to refer to the
+  item to which money can be donated as used by the organisation
+  making it available.
+
+  The Price is the donation required for the item. 
+
+  The Donation Description is a textual description that will show up
+  in the Product Details portlet when this content is viewed.
+
+  Once a price has been entered, viewing the content will show a
+  "Product Details" portlet which allow end users to add the product
+  to their cart.
+
+- Shippable
+
+  Any content type that represents something that can be physcially
+  shipped to a customer should be marked as Shippable.
+
+  This will mean content of the selected types has a 
+  "make shippable product" action available. Performing this action will
+  add a "payable" view to the content where the Product Code, Price,
+  Dimensions, Product SKU and Shipping Weight of this item can be entered. 
+
+  The Product Code is an optional internal code used to refer to the
+  item to which money can be donated as used by the organisation
+  making it available.
+
+  The Price is the donation required for the item. 
+
+  xxx what unit is dimensions in? what is it used for?
+
+  xxx why have a seperate Stock Keeping Unit? What's wrong with the
+  Product Code?!
+
+  The Shipping Weight lets you specify the value and units for the
+  weight of the content.
+
+  xxx what is shipping weight used for?
+
+  To use shippables, you must have a shipping method configured or the
+  checkout will not function.
+
+In addition to making existing content types buyable, donatable or
+shippable, content types can be specifically created to be of these
+types. The following example shows how to do this:
+
+from Products.Archetypes.public import BaseContent,registerType
+from Products.PloneGetPaid.interfaces import IBuyableMarker
+from Products.PloneGetPaid.interfaces import IDonatableMarker
+from Products.PloneGetPaid.interfaces import IShippableMarker
+from zope.interface import implements
+
+class MyBuyable(BaseContent):
+   implements(IBuyableMarker)
+registerType(MyBuyable)
+
+class MyDonatable(BaseContent):
+   implements(IBuyableMarker)
+registerType(MyDonatable)
+
+class MyShippable(BaseContent):
+   implements(IBuyableMarker)
+registerType(MyShippable)

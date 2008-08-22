@@ -1,0 +1,10 @@
+<action-icons>
+    <action-icon category="controlpanel" action_id="getpaid" title="GetPaid" priority="0" icon_expr="++resource++getpaid.png"/>
+    <action-icon category="object_buttons" action_id="getpaid_make_buyable" title="Make Buyable" priority="0" icon_expr="user.gif"/>
+    <action-icon category="object_buttons" action_id="getpaid_make_shippable" title="Make Shippable Product" priority="0" icon_expr="user.gif"/>
+    <action-icon category="object_buttons" action_id="getpaid_make_donatable" title="Make this a Donation" priority="0" icon_expr="user.gif"/>
+    <action-icon category="object_buttons" action_id="getpaid_make_not_buyable" title="Make Not Buyable" priority="0" icon_expr="user.gif"/>
+    <action-icon category="object_buttons" action_id="getpaid_make_not_shippable" title="Make Not Shippable Product" priority="0" icon_expr="user.gif"/>
+    <action-icon category="object_buttons" action_id="getpaid_make_not_premium" title="Make Not Premium Members Only" priority="0" icon_expr="user.gif"/>
+    <action-icon category="object_buttons" action_id="getpaid_make_not_donatable" title="Make this not a Donation" priority="0" icon_expr="user.gif"/>
+</action-icons>

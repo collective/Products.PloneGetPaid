@@ -1,0 +1,14 @@
+
+ISO3166-2 regions for MZ
+
+   MZ-MPM : Maputo
+   MZ-P : Cabo Delgado
+   MZ-G : Gaza
+   MZ-I : Inhambane
+   MZ-B : Manica
+   MZ-L : Maputo
+   MZ-N : Numpula
+   MZ-A : Niaaea
+   MZ-S : Sofala
+   MZ-T : Tete
+   MZ-Q : Zambézia

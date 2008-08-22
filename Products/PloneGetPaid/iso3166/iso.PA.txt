@@ -1,0 +1,13 @@
+
+ISO3166-2 regions for PA
+
+   PA-1 : Bocas del Toro
+   PA-2 : Coclé
+   PA-3 : Colón
+   PA-4 : Chiriqui
+   PA-5 : Darién
+   PA-6 : Herrera
+   PA-7 : Loa Santoa
+   PA-8 : Panamá
+   PA-9 : Veraguas
+   PA-Q : Comarca de San Blas

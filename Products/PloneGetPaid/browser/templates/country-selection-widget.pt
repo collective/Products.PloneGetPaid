@@ -1,0 +1,28 @@
+<div xmls:tal="http://xml.zope.org/namespaces/tal">
+
+<script type="text/javascript" src="++resource++country-states-selection.js">
+</script>
+
+<tal:widget tal:define="name python:view.name;
+                        value python:view._getFormValue()">
+
+<select tal:attributes="id name; name name" onchange="get_states_from_country(this, 'country', 'state')">
+<tal:loop tal:repeat="i python: view.getVocabulary()">
+        <tal:block tal:define="selected python:view.hasInput() and view.getInputValue() == i.value or (value and value==i.value)">
+            <option tal:attributes="value python: i.value;"
+                    tal:content="python: i.title"
+                    tal:condition="selected"
+                    selected="selected" />
+            <option tal:attributes="value python: i.value;"
+            		tal:content="python: i.title"
+                    tal:condition="not:selected" />
+        </tal:block>
+</tal:loop>
+</select>
+
+    <script type="text/javascript" tal:content="string:country_select = document.getElementById('${name}');
+                                                       get_states_from_country(country_select, 'country', 'state');"/>
+
+</tal:widget>
+
+</div>

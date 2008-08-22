@@ -1,0 +1,46 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:plone="http://namespaces.plone.org/plone">
+
+  <include package="plone.app.portlets" />
+
+  <plone:portlet
+      name="getpaid.shippable"
+      interface=".ship.IShippablePortlet"
+      assignment=".ship.Assignment"
+      renderer=".ship.Renderer"
+      addview=".ship.AddForm"
+      />
+
+  <plone:portlet
+      name="getpaid.buyable"
+      interface=".buy.IBuyablePortlet"
+      assignment=".buy.Assignment"
+      renderer=".buy.Renderer"
+      addview=".buy.AddForm"
+      />
+
+  <plone:portlet
+      name="getpaid.donatable"
+      interface=".donate.IDonatablePortlet"
+      assignment=".donate.Assignment"
+      renderer=".donate.Renderer"
+      addview=".donate.AddForm"
+      />
+
+  <plone:portlet
+      name="getpaid.premium"
+      interface=".premium.IPremiumPortlet"
+      assignment=".premium.Assignment"
+      renderer=".premium.Renderer"
+      addview=".premium.AddForm"
+      />
+
+  <plone:portlet
+      name="getpaid.cart"
+      interface=".cart.ICartPortlet"
+      assignment=".cart.Assignment"
+      renderer=".cart.Renderer"
+      addview=".cart.AddForm"
+      />
+
+</configure>
