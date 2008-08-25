@@ -25,7 +25,6 @@ setup(name='Products.PloneGetPaid',
       install_requires=[
           'setuptools',
           'getpaid.core',
-          'zope.formlib',
           'getpaid.wizard',
           'zc.table',
           'zope.interface',
