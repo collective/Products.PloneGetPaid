@@ -1,11 +1,10 @@
-# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
-# SOME DESCRIPTIVE TITLE.
-# Eurotux Development Team <udp@eurotux.com>, 2007.
+# Portuguse translation for PloneGetPaid.
+# Ricardo Alves <rsa@eurotux.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1.0\n"
 "POT-Creation-Date: 2008-08-05 16:33+0000\n"
-"PO-Revision-Date: 2008-04-13 02:15+0100\n"
+"PO-Revision-Date: 2008-08-26 03:30+0100\n"
 "Last-Translator: Ricardo Alves <rsa@eurotux.com>\n"
 "Language-Team: Eurotux Development Team <udp@eurotux.com>\n"
 "MIME-Version: 1.0\n"
@@ -32,11 +31,11 @@ msgstr "Uma lista de anos"
 #. Default: "A name you remember this address by. Will not appear on shipping label."
 #: ./browser/templates/checkout-address.pt:51
 msgid "A name you remember this address by. Will not appear on shipping label."
-msgstr ""
+msgstr "Um nome que permita relembrar este endereço. Este nome não aparece na etiqueta de envio."
 
 #: ./browser/checkout.py:446
 msgid "A new address has been saved"
-msgstr ""
+msgstr "Livro de endereços foi guardado"
 
 #: ./interfaces.py:248
 msgid "Accepted Credit Cards"
@@ -49,7 +48,7 @@ msgstr "Activar"
 #. Default: "Addressbook entry name"
 #: ./browser/templates/checkout-address.pt:50
 msgid "Addressbook entry name"
-msgstr ""
+msgstr "Nome de entrada no livro de endereços"
 
 #: ./interfaces.py:243
 msgid "Allow Anonymous Checkout"
@@ -161,7 +160,7 @@ msgstr "Tipos de Conteúdo que representam bens que podem ser vendidos e enviado
 
 #: ./browser/admin_order.py:727
 msgid "Contents"
-msgstr ""
+msgstr "Conteúdos"
 
 #: ./browser/checkout.py:454
 msgid "Continue"
@@ -173,7 +172,7 @@ msgstr "Continuar as Compras"
 
 #: ./browser/cart.py:330
 msgid "Could not find order"
-msgstr ""
+msgstr "Impossível encontrar pedido"
 
 #: ./browser/admin_order.py:93
 msgid "Created"
@@ -247,7 +246,7 @@ msgstr "Níveis de Doação"
 #. Default: "E-mail"
 #: ./browser/templates/order-summary.pt:37
 msgid "E-mail"
-msgstr ""
+msgstr "E-mail"
 
 #: ./browser/admin.py:291
 msgid "Email Notifications"
@@ -259,7 +258,7 @@ msgstr "Exportar"
 
 #: ./browser/admin_order.py:162
 msgid "Export All"
-msgstr ""
+msgstr "Exportar Todos"
 
 #: ./browser/admin_order.py:129
 msgid "Export Search"
@@ -267,7 +266,7 @@ msgstr "Exportar Pesquisa"
 
 #: ./browser/cart.py:319
 msgid "Fill"
-msgstr ""
+msgstr "Preencher"
 
 #: ./browser/admin_order.py:231
 msgid "Filter"
@@ -336,7 +335,7 @@ msgstr "Identificador do Pedido"
 
 #: ./browser/cart.py:294
 msgid "Order Templates"
-msgstr ""
+msgstr "Pedidos Anteriores"
 
 #. Default: "Payment Details"
 #: ./browser/templates/checkout-review-pay.pt:51
@@ -358,7 +357,7 @@ msgstr "Configuracão da Agência de Pagamentos"
 #. Default: "Phone Number"
 #: ./browser/templates/order-summary.pt:39
 msgid "Phone Number"
-msgstr ""
+msgstr "Número de Telefone"
 
 #: ./browser/admin.py:231
 msgid "Please Select Payment Processor in Payment Options Settings"
@@ -387,7 +386,7 @@ msgstr "Premium não implementado ainda"
 
 #: ./browser/cart.py:342
 msgid "Previous Order Loaded into Cart"
-msgstr ""
+msgstr "Pedido anterior carregado para o carrinho de compras"
 
 #: ./browser/admin_order.py:92
 msgid "Price"
@@ -409,21 +408,21 @@ msgstr "Configuração de taxa de Venda"
 #. Default: "Same as billing"
 #: ./browser/templates/order-summary.pt:65
 msgid "Same as billing"
-msgstr ""
+msgstr "Igual à cobrança"
 
 #. Default: "Save to address book"
 #: ./browser/templates/checkout-address.pt:55
 msgid "Save to address book"
-msgstr ""
+msgstr "Guardar no livro de endereços"
 
 #: ./browser/cart.py:295
 msgid "Select a previous order to fill your cart."
-msgstr ""
+msgstr "Seleccione um pedido anterior para preencher o carrinho."
 
 #. Default: "Select a shipping rate:"
 #: ./browser/templates/checkout-shipping-method.pt:19
 msgid "Select a shipping rate:"
-msgstr ""
+msgstr "Seleccione a taxa de envio:"
 
 #: ./vocabularies.py:92
 msgid "Send customer email notification of a completed transaction"
@@ -451,19 +450,19 @@ msgstr "Tipos de Conteúdo que podem ser enviados"
 
 #: ./browser/admin.py:182
 msgid "Shipping Methods"
-msgstr ""
+msgstr "Métodos de Envio"
 
 #: ./interfaces.py:230
 msgid "Shipping Rate Service"
-msgstr ""
+msgstr "Serviço de Taxa de Envio"
 
 #: ./interfaces.py:225
 msgid "Shipping methods to offer for orders in your store"
-msgstr ""
+msgstr "Métodos de envio a oferecer para pedidos na sua loja"
 
 #: ./interfaces.py:233
 msgid "Shipping services to offer for orders in your store"
-msgstr ""
+msgstr "Métodos de envio a oferecer para pedidos na sua loja"
 
 #. Default: "Shopping Cart"
 #: ./browser/templates/checkout-review-pay.pt:44
@@ -516,12 +515,12 @@ msgstr "Actualizar"
 
 #: ./interfaces.py:245
 msgid "Use SSL for checkout"
-msgstr ""
+msgstr "Utilizar SSL para checkout"
 
 #. Default: "We are sorry but your credit card was declined."
 #: ./browser/templates/checkout-cancelled-declined.pt:5
 msgid "We are sorry but your credit card was declined."
-msgstr ""
+msgstr "Pedimos desculpa, mas o seu cartão de crédito foi recusado."
 
 #: ./interfaces.py:271
 msgid "Weight Units"
@@ -623,9 +622,8 @@ msgstr "Informações Gerais"
 
 #. Default: "Site Orders"
 #: ./browser/templates/orders-template.pt:44
-#, fuzzy
 msgid "heading_getpaid_setup"
-msgstr "Configuração do GetPaid"
+msgstr "Ordens de Pagamento"
 
 #. Default: "new state"
 #: ./browser/templates/order-workflow-log.pt:9
@@ -700,7 +698,7 @@ msgstr "Voltar para a configuração do GetPaid"
 #. Default: "Your Address Book entries"
 #: ./browser/templates/addressbook-listing.pt:4
 msgid "legend_addressbook_contents"
-msgstr ""
+msgstr "Entradas no seu livro de endereços"
 
 #. Default: "Your Cart Contents"
 #: ./browser/templates/cart-listing.pt:4
@@ -710,7 +708,7 @@ msgstr "Conteúdo do seu Carrinho"
 #. Default: "Export List of Emails and Preferences"
 #: ./browser/templates/orders-emails-export-csv.pt:3
 msgid "legend_csv_email_export"
-msgstr ""
+msgstr "Exportar Lista de Emails e Preferências"
 
 #. Default: "Export to CSV"
 #: ./browser/templates/orders-export-csv.pt:3
@@ -793,17 +791,17 @@ msgstr "Estado Financeiro"
 #. Default: "Shipping Service"
 #: ./browser/templates/order-summary.pt:73
 msgid "text_fulfillment_shipping_method"
-msgstr ""
+msgstr "Serviço de Envio"
 
 #. Default: "Shipment Tracking Numbers:"
 #: ./browser/templates/order-summary.pt:82
 msgid "text_fulfillment_shipping_track_number"
-msgstr ""
+msgstr "Números de Rastreio de Envio:"
 
 #. Default: "Shipment Weight"
 #: ./browser/templates/order-summary.pt:77
 msgid "text_fulfillment_shipping_weight"
-msgstr ""
+msgstr "Peso para Envio"
 
 #. Default: "Fulfillment Status"
 #: ./browser/templates/order-summary.pt:22
