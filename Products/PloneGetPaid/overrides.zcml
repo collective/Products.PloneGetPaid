@@ -16,4 +16,10 @@
   <includeOverrides zcml:condition="installed getpaid.ogone"
       package="getpaid.ogone" />
 
+  <includeOverrides
+      zcml:condition="installed getpaid.googlecheckout"
+      package="getpaid.googlecheckout"
+      file="overrides.zcml"
+      />
+
 </configure>
