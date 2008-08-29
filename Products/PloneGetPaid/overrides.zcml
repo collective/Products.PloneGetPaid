@@ -27,5 +27,11 @@
       package="getpaid.discount"
       file="overrides.zcml"
       />
+      
+  <includeOverrides
+      zcml:condition="installed getpaid.pxpay"
+      package="getpaid.pxpay"
+      file="overrides.zcml"
+      />
 
 </configure>
