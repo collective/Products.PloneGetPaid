@@ -21,5 +21,11 @@
       package="getpaid.googlecheckout"
       file="overrides.zcml"
       />
+      
+  <includeOverrides
+      zcml:condition="installed getpaid.discount"
+      package="getpaid.discount"
+      file="overrides.zcml"
+      />
 
 </configure>
