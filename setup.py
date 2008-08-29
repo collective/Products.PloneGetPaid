@@ -1,21 +1,41 @@
-from setuptools import setup, find_packages
 import os
+from setuptools import setup, find_packages
 
-version = '0.7.0'
+def read(*rnames):
+    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
+
+version = '0.7dev'
 
 setup(name='Products.PloneGetPaid',
       version=version,
-      description="",
-      long_description=open("README.txt").read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
+      description="PloneGetPaid product",
+      long_description = (
+        read('README.txt')
+        + '\n' +
+        read('CHANGES.txt')
+        + '\n' +
+        'Detailed Documentation\n'
+        '**********************\n'
+        + '\n' +
+        read('docs', 'HISTORY.txt')
+        + '\n' +
+        'Download\n'
+        '**********************\n'
+        ),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
+        "Framework :: Plone",
         "Programming Language :: Python",
-        "Topic :: Software Development :: Libraries :: Python Modules",
-        ],
+        "Framework :: Zope3",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: Zope Public License",
+        "Operating System :: OS Independent",
+        "Topic :: Office/Business :: Financial",
+        "Topic :: Software Development :: Libraries",
+      ],
       keywords='commerce donation zope plone getpaid',
       author='GetPaid Team',
-      author_email='getpaid@plonegetpaid.com',
+      author_email='getpaid-dev@googlegroups.com',
       url='http://www.plonegetpaid.com/',
       license='ZPL',
       packages=find_packages(exclude=['ez_setup']),
