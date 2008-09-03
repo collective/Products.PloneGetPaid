@@ -4,9 +4,12 @@
 </script>
 
 <tal:widget tal:define="name python:view.name;
-                        value python:view._getFormValue()">
+                        value python:view._getFormValue();
+                        required view/required">
 
-<select tal:attributes="id name; name name" onchange="get_states_from_country(this, 'country', 'state')">
+<select tal:attributes="id name;
+                        name name;
+                        onchange string:get_states_from_country(this, 'country', 'state', '${required}')">
 <tal:loop tal:repeat="i python: view.getVocabulary()">
         <tal:block tal:define="selected python:view.hasInput() and view.getInputValue() == i.value or (value and value==i.value)">
             <option tal:attributes="value python: i.value;"
@@ -20,8 +23,20 @@
 </tal:loop>
 </select>
 
-    <script type="text/javascript" tal:content="string:country_select = document.getElementById('${name}');
-                                                       get_states_from_country(country_select, 'country', 'state');"/>
+<script type="text/javascript"
+        tal:define="jsname python:name.replace('.','_');"
+        tal:content="structure string:<!--
+var oldLoad${jsname} = window.onload;
+window.onload = function() {
+  if(oldLoad${jsname}){
+    oldLoad${jsname}();
+  }
+  var country_select_${jsname} = document.getElementById('${name}');
+  get_states_from_country(country_select_${jsname}, 'country', 'state', '${required}');
+  
+}
+//-->
+"/>
 
 </tal:widget>
 

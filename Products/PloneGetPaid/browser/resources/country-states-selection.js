@@ -7,10 +7,10 @@ function getXMLHttpRequest() {
     return ret;
 }
 
-function get_states_from_country(field, field_suffix, dep_suffix){
+function get_states_from_country(field, field_suffix, dep_suffix, required){
     var req = getXMLHttpRequest()
     var country = field.options[field.selectedIndex].value;
-    var url = "@@states-ajax?country=" + country;
+    var url = "@@states-ajax?country=" + country + "&required=" + required;
     req.open("GET", url, true);
     req.onreadystatechange = function(){
                                  update_callback(req, field.id, field_suffix, dep_suffix);

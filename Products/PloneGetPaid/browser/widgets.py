@@ -1,6 +1,7 @@
 from zope.app import zapi
 from zope.app.form.browser import FloatWidget
-from zope.app.form.browser.widget import SimpleInputWidget
+from zope.app.form.browser.widget import SimpleInputWidget, renderElement
+from zope.app.form.browser.itemswidgets import DropdownWidget
 from zope.app.form.browser.objectwidget import ObjectWidgetView as ObjectWidgetViewBase
 from zope.app.form.browser.objectwidget import ObjectWidget as ObjectWidgetBase
 from zope.app.form.browser.textwidgets import DateWidget
@@ -45,21 +46,77 @@ class CountrySelectionWidget(WithTemplateWidget):
     def getVocabulary(self):
         return self.context.vocabulary
 
-class StateSelectionWidget(WithTemplateWidget):
+    def required(self):
+        return self.context.required
+
+def StateSelectionWidget(field, request):
+    return StateSelectionInputWidget(field, field.vocabulary, request)
+
+class StateSelectionInputWidget(DropdownWidget):
     """State selection widget for non-Javascript.
 
     When Javascript is available, this widget is simply
     overwritten.
     """
-    template = ViewPageTemplateFile('templates/state-selection-widget.pt')
+    _missing = u'(no value)'
 
-    def getVocabulary(self):
+    def __call__(self):
+        """See IBrowserWidget."""
+        value = self._getFormValue()
+        contents = []
+        have_results = False
+
+        value = self._div('value', self.renderValue(value))
+        value_wraped = renderElement('div',id=self.name+'_container',
+                                           contents=value)
+        contents.append(value_wraped)
+        contents.append(self._emptyMarker())
+        contents.append(self._required())
+
+        return self._div(self.cssClass, "\n".join(contents))
+
+    def _required(self):
+        """Mark the form if the field is required or not, needed for ajax
+        refreshes."""
+        return '<input name="%s" type="hidden" value="%s" />' % (
+            self.name+'_required_marker',self.context.required)
+
+    def renderItemsWithValues(self, values):
+        """Render the list of possible values, with those found in
+        `values` being marked as selected."""
+        cssClass = self.cssClass
+        # multiple items with the same value are not allowed from a
+        # vocabulary, so that need not be considered here
+        rendered_items = []
+        count = 0
+
+        # Render normal values
+        for term in self.filteredVocabulary():
+            item_text = self.textForValue(term)
+            if term.value in values:
+                render = self.renderSelectedItem
+            else:
+                render = self.renderItem
+            rendered_item = render(count,
+                item_text,
+                term.token,
+                self.name,
+                cssClass)
+            rendered_items.append(rendered_item)
+            count += 1
+        return rendered_items
+
+    def filteredVocabulary(self):
         utility = zapi.getUtility(ICountriesStates)
-        # US is a good default for country.
-        country = 'US'
+        # Remeber that this widget must work for browsers without javascript
+        # So, by default, there is no country selected, and all possible states
+        # must be displayed.
+        country = None
 
         # Try to get the country from the form.
-        form_country = self.request.form.get('form.contact_country', '')
+        # We are replacing 'state' occurences on field name with 'country'
+        country_field_id = self.name.replace('state','country')
+        form_country = self.request.form.get(country_field_id, '')
 
         # If a country is known we can safely ignore any possible
         # setting of the state and just return the states for that
@@ -73,13 +130,13 @@ class StateSelectionWidget(WithTemplateWidget):
                 state = self._getCurrentValue()
             else:
                 state = self._getFormInput()
-            if state and state != u'(no values)':
+            if state and state not in utility.special_values:
                 # A state has been chosen.  Take the first two letters of
                 # the state value as the country.
                 country = state[:2]
         else:
             country = form_country
-        states = utility.states(country)
+        states = utility.states(country,allow_no_values=not self.context.required)
         return TitledVocabulary.fromTitles(states)
 
 class CCExpirationDateWidget(WithTemplateWidget,DateWidget):

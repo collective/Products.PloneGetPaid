@@ -107,13 +107,23 @@ class CountriesStatesFromFile(object):
     """
     implements(ICountriesStates)
 
-    _noValues = [(u'(no values)',u'(no values)')]
+    _no_values = [(u'(no values)',u'(no values)')]
+    # Be careful, somewhere else, there is code that asumes that state values
+    # length is <= 6. Don't modify this ones that are part of the vocabulary
+    _not_aplicable = [(u'??NA',u'Not Applicable')]
+    _allowed_no_values = [(u'??NV',u'(no values)')]
 
     def __init__(self):
         iso3166_path = path.join(path.dirname(__file__), 'iso3166')
         self.csparser = CountriesStatesParser(iso3166_path)
         self.csparser.parse()
         self.loaded_countries = []
+
+    def special_values(self):
+        return [self._no_values[0],
+                self._not_aplicable[0],
+                self._allowed_no_values[0]]
+    special_values = property(special_values)
 
     def countries(self):
         if self.loaded_countries:
@@ -146,19 +156,26 @@ class CountriesStatesFromFile(object):
 
     countries = property(countries)
 
-    def states(self, country=None):
+    def states(self, country=None, allow_no_values=False):
         if country is None:
-            return self.allStates()
-
-        states = self.csparser.getStatesOf(country)
+            states = self._not_aplicable + self.allStates()
+        else:
+            states = self.csparser.getStatesOf(country)
 
         if len(states) == 0:
-            return self._noValues
-
-        return self._noValues + states
+            states = self._not_aplicable
+        elif allow_no_values:
+            states = self._allowed_no_values + states
+        else:
+            states = self._no_values + states
+        return states
 
     def allStates(self):
-        return self._noValues + self.csparser.getStatesOfAllCountries()
+        return self.csparser.getStatesOfAllCountries()
+
+    def allStateValues(self):
+        all_states = self.csparser.getStatesOfAllCountries()
+        return self._allowed_no_values + self._not_aplicable + all_states
 
 def Countries( context ):
     utility = zapi.getUtility(ICountriesStates)
@@ -166,7 +183,7 @@ def Countries( context ):
 
 def States( context ):
     utility = zapi.getUtility(ICountriesStates)
-    return TitledVocabulary.fromTitles(utility.states())
+    return TitledVocabulary.fromTitles(utility.allStateValues())
 
 class MonthsAndYears(object):
     """Months-Years utility"""
