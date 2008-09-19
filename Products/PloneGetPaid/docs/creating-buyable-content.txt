@@ -3,9 +3,9 @@
 This document assumes you have already set up a Plone site with
 GetPaid. If you haven't, please read setup.txt
 
-Now you need to make content buyable, donatable or shippable.
+Now you need to make content buyable, donatable or shippable. You accomplish this by configuring the content type to be capable of being buyable, donatable or shippable and then enabling that action on each specific instance of the content type. Note: for doing this in the code for a content type, see development/make-content-types-buyable.txt . 
 
-To do this, go to the "site setup" section of your site when viewed
+To do this, first go to the "site setup" section of your site when viewed
 through the Plone interface and click on "GetPaid" in the "Add-on
 Product Configuration" section. 
 
@@ -18,7 +18,7 @@ The differences are explained below:
 - Buyable
 
   Buyable content is anything that can be bought that doesn't fall
-  into another category.
+  into another category. It is also meant as a starting point for implementing custom functionality around payable behaviors. 
 
   Content selected to be buyable will have a "make buyable"
   action available. Performing this action will add a "payable" view
@@ -37,8 +37,8 @@ The differences are explained below:
 
 - Donatable
 
-  xxx Donatable doesn't appear to differ from Buyable functionally
-  apart from one text field, which arguably Buyable should also have.
+  Donatable doesn't appear to differ from Buyable functionally
+  apart from one text field. It is also set up so that the checkout leads directly into the checkout page as opposed to the review/manage cart screen. 
 
   This will mean content of the selected types has a 
   "make this a donation" action available. Performing this action will
@@ -74,37 +74,12 @@ The differences are explained below:
 
   The Price is the donation required for the item. 
 
-  xxx what unit is dimensions in? what is it used for?
-
-  xxx why have a seperate Stock Keeping Unit? What's wrong with the
-  Product Code?!
+  Dimensions is not currently used, though in the future some shipping integration may take advantage of it. For that reason, no specific format is required. 
 
   The Shipping Weight lets you specify the value and units for the
-  weight of the content.
-
-  xxx what is shipping weight used for?
+  weight of the content. This is used when shipping calculators are integrated to determine the cost of the shipment. 
 
   To use shippables, you must have a shipping method configured or the
   checkout will not function.
 
-In addition to making existing content types buyable, donatable or
-shippable, content types can be specifically created to be of these
-types. The following example shows how to do this:
 
-from Products.Archetypes.public import BaseContent,registerType
-from Products.PloneGetPaid.interfaces import IBuyableMarker
-from Products.PloneGetPaid.interfaces import IDonatableMarker
-from Products.PloneGetPaid.interfaces import IShippableMarker
-from zope.interface import implements
-
-class MyBuyable(BaseContent):
-   implements(IBuyableMarker)
-registerType(MyBuyable)
-
-class MyDonatable(BaseContent):
-   implements(IBuyableMarker)
-registerType(MyDonatable)
-
-class MyShippable(BaseContent):
-   implements(IBuyableMarker)
-registerType(MyShippable)
