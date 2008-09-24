@@ -222,6 +222,12 @@ class OrderSearchComponent( core.ComponentViewlet ):
         )
 
     def setUpWidgets(self, ignore_request=False):
+	query_data = self.context.request['SESSION'].get('getpaid.order.filter.query',{})
+	query_data = dict([("form." + akey,query_data[akey] or "") for akey in query_data if query_data[akey]])
+	query_data.update(dict([(akey + "-empty-marker",'1') for akey in query_data if query_data[akey]]))
+	#all this to avoid excluding empty date filtering
+	query_data['form.creation_date'] = self.request.get('form.creation_date',self.context.request['SESSION'].get('getpaid.order.filter.creation_date',''))
+	self.request.form.update(query_data)
         self.adapters = {}
         self.widgets = form.setUpDataWidgets(
             self.form_fields, self.prefix, self.context, self.request,
@@ -230,16 +236,25 @@ class OrderSearchComponent( core.ComponentViewlet ):
 
     @form.action(_(u"Filter"), condition=form.haveInputWidgets)
     def handle_filter_action( self, action, data ):
+        self.context.request['SESSION']['getpaid.order.filter.creation_date'] = data.get('creation_date')
         if data.get('creation_date'):
             data['creation_date'] = self.date_search_map.get( data['creation_date'] )
+        self.context.request['SESSION']['getpaid.order.filter.query'] = data 
         self.filtered = True
         self.results = query.search( data )
 
     def update( self ):
-        super( OrderSearchComponent, self).update()
+        super(OrderSearchComponent, self).update()
         if not self.filtered:
-            self.results = query.search( {'creation_date' : datetime.timedelta(7) } )
-            self.request.set('form.creation_date', 'last 7 days')
+            if self.context.request['SESSION'].has_key('getpaid.order.filter.query'):
+                search_query = self.context.request['SESSION']['getpaid.order.filter.query']
+                self.request.set('form.creation_date', 
+                                 self.context.request['SESSION']['getpaid.order.filter.creation_date'])
+            else:
+                search_query = {'creation_date' : datetime.timedelta(7) }
+                self.request.set('form.creation_date', 'last 7 days')
+            self.results = query.search(search_query)
+
         if self.results is None:
             self.results = []
             
