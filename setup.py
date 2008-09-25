@@ -41,7 +41,7 @@ setup(name='Products.PloneGetPaid',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['Products'],
       include_package_data=True,
-      zip_safe=True,
+      zip_safe=False,
       install_requires=[
           'setuptools',
           'getpaid.core',
