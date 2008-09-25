@@ -222,12 +222,12 @@ class OrderSearchComponent( core.ComponentViewlet ):
         )
 
     def setUpWidgets(self, ignore_request=False):
-	query_data = self.context.request['SESSION'].get('getpaid.order.filter.query',{})
-	query_data = dict([("form." + akey,query_data[akey] or "") for akey in query_data if query_data[akey]])
-	query_data.update(dict([(akey + "-empty-marker",'1') for akey in query_data if query_data[akey]]))
-	#all this to avoid excluding empty date filtering
-	query_data['form.creation_date'] = self.request.get('form.creation_date',self.context.request['SESSION'].get('getpaid.order.filter.creation_date',''))
-	self.request.form.update(query_data)
+        query_data = self.context.request['SESSION'].get('getpaid.order.filter.query',{})
+        query_data = dict([("form." + akey,query_data[akey] or "") for akey in query_data if (query_data[akey]) and (("form." + akey) not in self.request.form.keys() )])
+        query_data.update(dict([(akey + "-empty-marker",'1') for akey in query_data if query_data[akey]]))
+        #all this to avoid excluding empty date filtering
+        query_data['form.creation_date'] = self.request.get('form.creation_date',self.context.request['SESSION'].get('getpaid.order.filter.creation_date',''))
+        self.request.form.update(query_data)
         self.adapters = {}
         self.widgets = form.setUpDataWidgets(
             self.form_fields, self.prefix, self.context, self.request,
