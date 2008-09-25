@@ -59,7 +59,11 @@ class LineItemFactory( object ):
         payable = self.checkPayable( self.content )
         nitem = self.createLineItem( payable, quantity)
         self.cart[ nitem.item_id ] = nitem
-        sessions.set_came_from_url(self.content)
+        #not being able to set the came from does not seem a good reason to explode
+        try:
+            sessions.set_came_from_url(self.content)
+        except:
+            pass
         return nitem
         
     def checkIncrementCart( self, content, quantity=1 ):

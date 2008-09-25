@@ -15,6 +15,7 @@ from Products.PloneGetPaid.Extensions.install import setup_payment_options
 from Products.PloneGetPaid.Extensions.install import register_shopping_cart_utility
 
 from Products.PloneGetPaid.Extensions.install import setup_addressbook
+from Products.PloneGetPaid.Extensions.install import setup_named_orders
 from Products.PloneGetPaid.Extensions.install import setup_settings
 from Products.PloneGetPaid.Extensions.install import register_shopping_cart_utility
 
@@ -64,6 +65,9 @@ def setupVarious(context):
     
     print >> out, "Installing Address Book Utility"
     setup_addressbook( site )        
+
+    print >> out, "Installing Named Orders Utility"
+    setup_named_orders(site)        
     
     print >> out, "Configure default payment options"
     setup_payment_options(site)

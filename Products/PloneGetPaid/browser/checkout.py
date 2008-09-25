@@ -602,6 +602,16 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
             order_manager = component.getUtility( interfaces.IOrderManager )
             order_manager.store( order )
             order.finance_workflow.fireTransition("authorize")
+            template_key = 'order_template_entry_name'
+            order_template_entry = self.wizard.data_manager.get(template_key)
+            del self.wizard.data_manager[template_key]
+            # if the user submits a name, it means he wants this order named
+            if order_template_entry:
+                uid = getSecurityManager().getUser().getId()
+                if uid != 'Anonymous':
+                    named_orders_list = component.getUtility(INamedOrderUtility).get(uid)
+                    if order_template_entry not in named_orders_list:
+                        named_orders_list[order.order_id] = order_template_entry
             # kill the cart after we create the order
             component.getUtility( interfaces.IShoppingCartUtility ).destroy( self.context )
         else:

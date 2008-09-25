@@ -414,4 +414,24 @@ class IAddressBook( IContainer ):
 class INamedAddress( Interface ):
     
     __name__ = schema.TextLine(title=_(u"Name"))
-    
+
+class INamedOrderUtility(Interface):
+    """
+    Only useful for authenticated users that store previous orders
+    """
+
+    def get(uid):
+        """
+        """
+
+    def destroy(uid):
+        """
+        """
+class INamedOrder(Interface):
+    __name__ = schema.TextLine(title=_(u"Order Id"))
+    order_name = schema.TextLine(title=_(u"Name"))
+
+class INamedOrderList(IContainer):
+    contains(INamedOrder)
+
+

@@ -11,7 +11,7 @@
           <option tal:attributes="value order/order_id" 
                   tal:define="order_item_count python: len(order.shopping_cart);
                               order_date python: order.creation_date.strftime('%m/%d/%Y')"
-                  tal:content="string: ${order_date} ${order_item_count}">
+                  tal:content="python: '%s' % (view.named_orders(order.order_id) or ('%s %s' % (order_date, order_item_count)))">
           </option>
         </tal:block>
     </select>
