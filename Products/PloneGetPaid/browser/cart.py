@@ -24,7 +24,7 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 
 from Products.CMFCore.utils import getToolByName
 
-from Products.PloneGetPaid.interfaces import PayableMarkers, IGetPaidCartViewletManager
+from Products.PloneGetPaid.interfaces import PayableMarkers, IGetPaidCartViewletManager, INamedOrderUtility
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IConditionalViewlet
 from Products.PloneGetPaid import sessions
 from Products.PloneGetPaid import config
@@ -315,6 +315,19 @@ class OrderTemplate( FormViewlet ):
 
     def condition_load_template( self, action ):
         return self.condition()
+
+    def named_orders(self,order_id):
+        uid = getSecurityManager().getUser().getId()
+        if uid == 'Anonymous':
+            return False
+
+        named_orders_list = component.getUtility(INamedOrderUtility).get(uid)
+
+        if order_id not in named_orders_list.keys():
+            return 
+        return named_orders_list[order_id]
+            
+
         
     @form.action(_("Fill"), condition="condition_load_template")
     def handle_load_template( self, action, data):

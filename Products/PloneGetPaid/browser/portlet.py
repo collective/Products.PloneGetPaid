@@ -13,9 +13,11 @@ from simplejson import JSONEncoder
 class StatesAjax(BrowserView):
     def __call__(self):
         country = self.request.get('country')
+        required = self.request.get('required','').lower().strip() == 'true'
         utility = zapi.getUtility(ICountriesStates)
         jsonEncoder = JSONEncoder()
-        return jsonEncoder.encode(utility.states(country=country))
+        return jsonEncoder.encode(utility.states(country=country,
+                                                 allow_no_values=not required))
 
 class ShoppingCart( BrowserView ):
 

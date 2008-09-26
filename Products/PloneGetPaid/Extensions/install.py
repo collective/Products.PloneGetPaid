@@ -12,8 +12,8 @@ from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
 from zope.event import notify
 from zope.app.component.hooks import setSite
 from zope.app.component.interfaces import ISite
-from Products.PloneGetPaid import generations, preferences, addressbook
-from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IAddressBookUtility
+from Products.PloneGetPaid import generations, preferences, addressbook, namedorder
+from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IAddressBookUtility, INamedOrderUtility
 from Products.PloneGetPaid.config import PLONE3
 from Products.PloneGetPaid.cart import ShoppingCartUtility
 from five.intid.site import add_intids
@@ -193,6 +193,16 @@ def setup_addressbook( self ):
             sm.registerUtility( addressbook.AddressBookUtility(), IAddressBookUtility)
         else:
             sm.registerUtility( IAddressBookUtility, addressbook.AddressBookUtility() )
+
+def setup_named_orders(self):
+    portal = getToolByName( self, 'portal_url').getPortalObject()
+    sm = portal.getSiteManager()
+
+    if not sm.queryUtility(INamedOrderUtility):
+        if PLONE3:
+            sm.registerUtility( namedorder.NamedOrderUtility(), INamedOrderUtility)
+        else:
+            sm.registerUtility( INamedOrderUtility, namedorder.NamedOrderUtility() )   
 
 def register_shopping_cart_utility(self):
     """ Register a local utility to make carts persists

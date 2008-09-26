@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.7'
+version = '0.7dev'
 
 setup(name='Products.PloneGetPaid',
       version=version,
@@ -41,7 +41,7 @@ setup(name='Products.PloneGetPaid',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['Products'],
       include_package_data=True,
-      zip_safe=True,
+      zip_safe=False,
       install_requires=[
           'setuptools',
           'getpaid.core',

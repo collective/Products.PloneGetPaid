@@ -1,6 +1,14 @@
 <metal:page use-macro="context/@@getpaid-content-template/macros/content_space"
 	i18n:domain="plonegetpaid">
   <metal:block fill-slot="getpaid_content">
+
+    <script language="javascript">
+    function swapVisibility(fromWho, toWho){
+        window.document.getElementById(fromWho).style.display = 'none';
+        window.document.getElementById(toWho).style.display = 'inline'
+    }
+    </script>
+
     <h3 i18n:translate="heading_checkout"> Checkout </h3>
 
   <form action="."
@@ -43,6 +51,16 @@
 	     <fieldset>
  	         <legend i18n:translate=""> Shopping Cart </legend>
 	         <div tal:replace="structure view/renderCart">cart</div>
+            <div id="save_order_template_entry" style="display: none">
+                <label for="order_template_entry_name" id="order_template_entry_name_label" i18n:translate="">Order template name</label>
+                <div class="formHelp"
+                i18n:translate="" id="order_template_entry_name_help_text">A name you can remember this order template by.</div>
+                <input type="text" id="order_template_entry_name" name="order_template_entry_name" >
+            </div>
+
+            <input type="button" id="save_order_template" class="standalone" name="save_order_template" value="Save this order as a template" onclick="swapVisibility('save_order_template','save_order_template_entry')" i18n:attributes="value" /> 
+
+
 	    </fieldset>
       </div>
 
