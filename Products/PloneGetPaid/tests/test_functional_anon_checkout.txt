@@ -119,37 +119,43 @@ save his data on the Address book
 
 And now we check that the logged user is seing the button
 
-    >>> browser.getLink('Log in').click()
-    >>> browser.getControl('Login Name').value = 'testmanager'
-    >>> browser.getControl('Password').value = 'secret'
-    >>> browser.getControl('Log in').click()
+    >>> browser2 = Browser()
+    >>> browser2.handleErrors = False
+    >>> browser2.open(portal.absolute_url())
+    >>> 'Welcome to Plone' in browser2.contents
+    True
+
+    >>> browser2.getLink('Log in').click()
+    >>> browser2.getControl('Login Name').value = 'testmanager'
+    >>> browser2.getControl('Password').value = 'secret'
+    >>> browser2.getControl('Log in').click()
 
     
 We want it (again) so we buy it.
 
-    >>> browser.getLink('Home').click()
-    >>> 'Add to Cart' in browser.contents
+    >>> browser2.getLink('Home').click()
+    >>> 'Add to Cart' in browser2.contents
     True
-    >>> browser.getLink('Add to Cart').click()
+    >>> browser2.getLink('Add to Cart').click()
 
 And we do our anonymous checkout
 
-    >>> browser.getControl('Checkout').click()
+    >>> browser2.getControl('Checkout').click()
 
 We check that the fields are not empty since now we are logged in
 
     >>> membership.getMemberById('testmanager').getProperty('email')
     'testmember@getpaid.org'
-    >>> browser.getControl(name='form.bill_first_line').value.strip() == 'here on earth'
+    >>> browser2.getControl(name='form.bill_first_line').value.strip() == 'here on earth'
     True
 
 And finally we check that the user gets offered to
 save his data on the Address book
 
-    >>> 'Save to address book' in browser.contents
+    >>> 'Save to address book' in browser2.contents
     True
     
-    >>> 'Load from address book' not in browser.contents
+    >>> 'Load from address book' not in browser2.contents
     True
 
 
