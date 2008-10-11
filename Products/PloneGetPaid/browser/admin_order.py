@@ -89,6 +89,8 @@ class OrderListingComponent( core.EventViewlet ):
         column.GetterColumn( title=_(u"Customer Id"), getter=AttrColumn("user_id" ) ), 
         column.GetterColumn( title=_(u"Last4"), getter=AttrColumn("user_payment_info_last4" ) ),
         column.GetterColumn( title=_(u"Proc Trans Id"), getter=AttrColumn("user_payment_info_trans_id" ) ),       
+        column.GetterColumn( title=_(u"Name on Card"), getter=AttrColumn("name_on_card" ) ),       
+        column.GetterColumn( title=_(u"Card Phone#"), getter=AttrColumn("bill_phone_number" ) ),       
         column.GetterColumn( title=_(u"Status"), getter=AttrColumn("finance_state") ),
         column.GetterColumn( title=_(u"Fulfillment"), getter=AttrColumn("fulfillment_state") ),
         column.GetterColumn( title=_(u"Price"), getter=PriceColumn("getTotalPrice") ),

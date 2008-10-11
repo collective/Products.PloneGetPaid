@@ -592,6 +592,8 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         
         formSchemas = component.getUtility(interfaces.IFormSchemas)
         order.user_payment_info_last4 = adapters[formSchemas.getInterface('payment')].credit_card[-4:]
+        order.name_on_card = adapters[formSchemas.getInterface('payment')].name_on_card
+        order.bill_phone_number = adapters[formSchemas.getInterface('payment')].bill_phone_number
         result = processor.authorize( order, adapters[formSchemas.getInterface('payment')] )
         if result is interfaces.keys.results_async:
             # shouldn't ever happen, on async processors we're already directed to the third party
