@@ -209,6 +209,13 @@ class PaymentOptions( BaseSettingsForm ):
     form_fields = form.Fields(interfaces.IGetPaidManagementPaymentOptions)
     form_fields['accepted_credit_cards'].custom_widget = SelectWidgetFactory
     form_name = _(u'Payment Options')
+    """
+    def __init__( self, context, request ):
+        " Used to force an initial value of 'Payment processor' option; no need to click 'Apply'
+            button to get payment process work
+        "
+        self.
+    """
 
 class PaymentProcessor( BaseSettingsForm ):
     """
@@ -218,7 +225,7 @@ class PaymentProcessor( BaseSettingsForm ):
     
     form_fields = form.Fields()
     form_name = _(u'Payment Processor Settings')
-
+    
     def __call__( self ):
         self.setupProcessorOptions()
         return super( PaymentProcessor, self).__call__()

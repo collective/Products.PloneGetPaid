@@ -32,15 +32,15 @@ msgstr "Lista degli anni"
 #. Default: "A name you remember this address by. Will not appear on shipping label."
 #: ./browser/templates/checkout-address.pt:51
 msgid "A name you remember this address by. Will not appear on shipping label."
-msgstr ""
+msgstr "Un nome per ricordare quest'indirizzo. Non comparirà sull'etichetta di vendita."
 
 #: ./browser/checkout.py:446
 msgid "A new address has been saved"
-msgstr ""
+msgstr "E' stato salvato un nuovo indirizzo"
 
 #: ./interfaces.py:248
 msgid "Accepted Credit Cards"
-msgstr ""
+msgstr "Carte di credito accettate"
 
 #: ./browser/content.py:87
 msgid "Activate"
@@ -49,7 +49,7 @@ msgstr "Attiva"
 #. Default: "Addressbook entry name"
 #: ./browser/templates/checkout-address.pt:50
 msgid "Addressbook entry name"
-msgstr ""
+msgstr "Nome in rubrica"
 
 #: ./interfaces.py:243
 msgid "Allow Anonymous Checkout"
@@ -57,7 +57,7 @@ msgstr "Permetti l'acquisto dei prodotti all'utente anonimo"
 
 #: ./interfaces.py:101
 msgid "Amount"
-msgstr ""
+msgstr "Quantità"
 
 # zope.formlib
 # Apply button
@@ -75,7 +75,7 @@ msgstr "Indirizzo di fatturazione"
 
 #: ./browser/portlets/buy.py:22
 msgid "Buyable"
-msgstr ""
+msgstr "Acquistabile"
 
 #: ./interfaces.py:190
 msgid "Buyable Content delivered through the web/virtually"
@@ -161,7 +161,7 @@ msgstr "Tipi di contenuto associati a prodotti che possono essere acquistati e s
 
 #: ./browser/admin_order.py:727
 msgid "Contents"
-msgstr ""
+msgstr "Contenuti"
 
 #: ./browser/checkout.py:454
 msgid "Continue"
@@ -173,7 +173,7 @@ msgstr "Continua lo shopping"
 
 #: ./browser/cart.py:330
 msgid "Could not find order"
-msgstr ""
+msgstr "Impossibile trovare l'ordine"
 
 #: ./browser/admin_order.py:93
 msgid "Created"
@@ -181,7 +181,7 @@ msgstr "Creato"
 
 #: ./interfaces.py:251
 msgid "Credit cards accepted for payment"
-msgstr ""
+msgstr "Carte di credito accettate per il pagamento"
 
 #: ./interfaces.py:295
 msgid "Currency Symbol"
@@ -201,7 +201,7 @@ msgstr "File per l'importazione"
 
 #: ./browser/io.py:83
 msgid "Data Imported"
-msgstr ""
+msgstr "Dati importati"
 
 #: ./interfaces.py:320
 msgid "Decimal Symbol"
@@ -240,6 +240,7 @@ msgstr "Tipi di contenuto per le donazioni"
 msgid "Donation Level Name"
 msgstr ""
 
+# What is a donation level ?
 #: ./interfaces.py:105
 msgid "Donation Levels"
 msgstr ""
@@ -247,7 +248,7 @@ msgstr ""
 #. Default: "E-mail"
 #: ./browser/templates/order-summary.pt:37
 msgid "E-mail"
-msgstr ""
+msgstr "E-mail"
 
 #: ./browser/admin.py:291
 msgid "Email Notifications"
@@ -259,7 +260,7 @@ msgstr "Esporta"
 
 #: ./browser/admin_order.py:162
 msgid "Export All"
-msgstr ""
+msgstr "Esporta tutto"
 
 #: ./browser/admin_order.py:129
 msgid "Export Search"
@@ -267,7 +268,7 @@ msgstr "Cerca"
 
 #: ./browser/cart.py:319
 msgid "Fill"
-msgstr ""
+msgstr "Compila"
 
 #: ./browser/admin_order.py:231
 msgid "Filter"
@@ -275,11 +276,11 @@ msgstr "Filtra"
 
 #: ./browser/admin_order.py:91
 msgid "Fulfillment"
-msgstr ""
+msgstr "Compilazione"
 
 #: ./browser/io.py:77
 msgid "Import"
-msgstr ""
+msgstr "Importa"
 
 #: ./browser/admin_order.py:714
 msgid "Item Id"
@@ -336,7 +337,7 @@ msgstr "Identificativo ordine"
 
 #: ./browser/cart.py:294
 msgid "Order Templates"
-msgstr ""
+msgstr "Modello di ordine"
 
 #. Default: "Payment Details"
 #: ./browser/templates/checkout-review-pay.pt:51
@@ -358,7 +359,7 @@ msgstr "Configurazione del processore per i pagamenti"
 #. Default: "Phone Number"
 #: ./browser/templates/order-summary.pt:39
 msgid "Phone Number"
-msgstr ""
+msgstr "Numero di telefono"
 
 #: ./browser/admin.py:231
 msgid "Please Select Payment Processor in Payment Options Settings"
@@ -374,7 +375,7 @@ msgstr "Sterline"
 
 #: ./browser/portlets/premium.py:22
 msgid "Premium"
-msgstr ""
+msgstr "Premium"
 
 #: ./interfaces.py:195
 msgid "Premium Content Types"
@@ -387,7 +388,7 @@ msgstr "I contenuti premium non sono stati implementati in questa release."
 
 #: ./browser/cart.py:342
 msgid "Previous Order Loaded into Cart"
-msgstr ""
+msgstr "Ordini precedenti caricati nel carrello"
 
 #: ./browser/admin_order.py:92
 msgid "Price"
@@ -409,21 +410,21 @@ msgstr "Seleziona un metodo di tassazione"
 #. Default: "Same as billing"
 #: ./browser/templates/order-summary.pt:65
 msgid "Same as billing"
-msgstr ""
+msgstr "Uguale a quello di fatturazione"
 
 #. Default: "Save to address book"
 #: ./browser/templates/checkout-address.pt:55
 msgid "Save to address book"
-msgstr ""
+msgstr "Salva nella rubrica"
 
 #: ./browser/cart.py:295
 msgid "Select a previous order to fill your cart."
-msgstr ""
+msgstr "Seleziona un ordine esistente da inserire nel carrello"
 
 #. Default: "Select a shipping rate:"
 #: ./browser/templates/checkout-shipping-method.pt:19
 msgid "Select a shipping rate:"
-msgstr ""
+msgstr "Selezionare il costo della spedizione"
 
 #: ./vocabularies.py:92
 msgid "Send customer email notification of a completed transaction"
@@ -443,7 +444,7 @@ msgstr "Impostazioni"
 
 #: ./browser/portlets/ship.py:22
 msgid "Shippable"
-msgstr ""
+msgstr "Spedibile"
 
 #: ./interfaces.py:211
 msgid "Shippable Product Types"
@@ -451,19 +452,19 @@ msgstr "Tipi di contenuto spedibili"
 
 #: ./browser/admin.py:182
 msgid "Shipping Methods"
-msgstr ""
+msgstr "Metodi di spedizione"
 
 #: ./interfaces.py:230
 msgid "Shipping Rate Service"
-msgstr ""
+msgstr "Costo del servizio di spedizione"
 
 #: ./interfaces.py:225
 msgid "Shipping methods to offer for orders in your store"
-msgstr ""
+msgstr "Metodi di spedizione da offrire per gli ordini nel tuo negozio"
 
 #: ./interfaces.py:233
 msgid "Shipping services to offer for orders in your store"
-msgstr ""
+msgstr "Servizi di spedizione da offrire per gli ordini nel tuo negozio"
 
 #. Default: "Shopping Cart"
 #: ./browser/templates/checkout-review-pay.pt:44
@@ -492,7 +493,7 @@ msgstr "Metodo di tassazione"
 
 #: ./browser/admin.py:241
 msgid "The currently configured Payment Processor cannot be found; please check if the corresponding package is installed correctly."
-msgstr ""
+msgstr "Impossibile trovare il gestore dei pagamenti attualmente configurato; per favore controllare se il prodotto è installato correttamente."
 
 #: ./interfaces.py:390
 msgid "The list of months"
@@ -516,12 +517,12 @@ msgstr "Aggiorna"
 
 #: ./interfaces.py:245
 msgid "Use SSL for checkout"
-msgstr ""
+msgstr "Usa SSL per effettuare il checkout"
 
 #. Default: "We are sorry but your credit card was declined."
 #: ./browser/templates/checkout-cancelled-declined.pt:5
 msgid "We are sorry but your credit card was declined."
-msgstr ""
+msgstr "Siamo spiacenti ma la tua carta di credito è stata rifiutata."
 
 #: ./interfaces.py:271
 msgid "Weight Units"
@@ -703,7 +704,7 @@ msgstr "Torna alla configurazione di GetPaid"
 #. Default: "Your Address Book entries"
 #: ./browser/templates/addressbook-listing.pt:4
 msgid "legend_addressbook_contents"
-msgstr ""
+msgstr "Le voci della tua rubrica"
 
 #. Default: "Your Cart Contents"
 #: ./browser/templates/cart-listing.pt:4
@@ -713,7 +714,7 @@ msgstr "Contenuto del carrello"
 #. Default: "Export List of Emails and Preferences"
 #: ./browser/templates/orders-emails-export-csv.pt:3
 msgid "legend_csv_email_export"
-msgstr ""
+msgstr "Esporta la lista di e-mail e preferenze"
 
 #. Default: "Export to CSV"
 #: ./browser/templates/orders-export-csv.pt:3
@@ -796,17 +797,17 @@ msgstr "Stato del pagamento"
 #. Default: "Shipping Service"
 #: ./browser/templates/order-summary.pt:73
 msgid "text_fulfillment_shipping_method"
-msgstr ""
+msgstr "Servizio di spedizione"
 
 #. Default: "Shipment Tracking Numbers:"
 #: ./browser/templates/order-summary.pt:82
 msgid "text_fulfillment_shipping_track_number"
-msgstr ""
+msgstr "Numeri per il controllo della spedizione:"
 
 #. Default: "Shipment Weight"
 #: ./browser/templates/order-summary.pt:77
 msgid "text_fulfillment_shipping_weight"
-msgstr ""
+msgstr "Peso della spedizione"
 
 #. Default: "Fulfillment Status"
 #: ./browser/templates/order-summary.pt:22

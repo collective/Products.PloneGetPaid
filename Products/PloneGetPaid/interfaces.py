@@ -238,7 +238,8 @@ class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
     """
     """
     payment_processor = schema.Choice( title = _(u"Payment Processor"),
-                                       source = "getpaid.payment_methods" )
+                                       source = "getpaid.payment_methods", 
+                                       default = 'Testing Processor' )
                                        
     allow_anonymous_checkout = schema.Bool( title=_(u"Allow Anonymous Checkout"), default=False)
     
