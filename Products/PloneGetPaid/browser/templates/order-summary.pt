@@ -25,7 +25,14 @@
         <li>
             <span i18n:translate="text_total_price"> Total Price </span> -
             <span i18n:translate="" tal:content="view/getTotalPrice"> total price </span>
-            <br /><br />
+        </li>
+        <li>
+            <span > Transaction ID </span> -
+            <span  tal:content="view/user_payment_info_trans_id"> user_payment_info_trans_id </span>
+        </li>
+        <li>
+            <span > Credit Card Last 4 </span> - XXXXXXXXXX-
+            <span  tal:content="view/user_payment_info_last4"> user_payment_info_last4 </span>
         </li>
         <li>
           <tal:def define="b_contact view/getContactInformation;

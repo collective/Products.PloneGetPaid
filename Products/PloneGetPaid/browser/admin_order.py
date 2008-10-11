@@ -545,9 +545,15 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
     def fulfillment_status( self ):
         return self.order.fulfillment_state
 
+    def user_payment_info_trans_id(self):
+	    return self.order.user_payment_info_trans_id
+
+    def user_payment_info_last4(self):
+        return self.order.user_payment_info_last4
+	
     def finance_status( self ):
         return self.order.finance_state
-        
+
     def getContactInformation(self):
         contact = self.order.contact_information
         contact ={'name': contact.name,

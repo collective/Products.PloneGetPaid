@@ -588,10 +588,10 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         order = self.createOrder()
         order.processor_id = processor_name
         order.finance_workflow.fireTransition( "create" )
-        
         # extract data to our adapters
         
         formSchemas = component.getUtility(interfaces.IFormSchemas)
+        order.user_payment_info_last4 = adapters[formSchemas.getInterface('payment')].credit_card[-4:]
         result = processor.authorize( order, adapters[formSchemas.getInterface('payment')] )
         if result is interfaces.keys.results_async:
             # shouldn't ever happen, on async processors we're already directed to the third party
