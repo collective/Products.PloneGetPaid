@@ -86,7 +86,9 @@ class OrderListingComponent( core.EventViewlet ):
     
     columns = [
         column.GetterColumn( title=_(u"Order Id"), getter=renderOrderId ),
-        column.GetterColumn( title=_(u"Customer Id"), getter=AttrColumn("user_id" ) ),        
+        column.GetterColumn( title=_(u"Customer Id"), getter=AttrColumn("user_id" ) ), 
+        column.GetterColumn( title=_(u"Last4"), getter=AttrColumn("user_payment_info_last4" ) ),
+        column.GetterColumn( title=_(u"Proc Trans Id"), getter=AttrColumn("user_payment_info_trans_id" ) ),       
         column.GetterColumn( title=_(u"Status"), getter=AttrColumn("finance_state") ),
         column.GetterColumn( title=_(u"Fulfillment"), getter=AttrColumn("fulfillment_state") ),
         column.GetterColumn( title=_(u"Price"), getter=PriceColumn("getTotalPrice") ),
@@ -552,7 +554,10 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
         return self.order.user_payment_info_last4
 	
     def finance_status( self ):
-        return self.order.finance_state
+        return self.order.finance_state   
+    
+    def mockmethod(self):
+        return 'test-value'
 
     def getContactInformation(self):
         contact = self.order.contact_information
