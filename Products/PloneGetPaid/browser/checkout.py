@@ -51,7 +51,7 @@ def null_condition( *args ):
 
 def named( klass ):
     return "%s.%s"%(klass.__module__, klass.__name__)
-    
+
 def make_hidden_input(*args, **kwargs):
     '''Construct a set of hidden input elements, with marshalling markup.
 
@@ -83,21 +83,21 @@ def make_hidden_input(*args, **kwargs):
                     % (hq(k), m, hq(v)))
 
     return '\n'.join(qlist)
-    
+
 class BaseCheckoutForm( BaseFormView ):
 
     template = None # must be overridden
 
     sections = ()
-    
+
     hidden_form_vars = None
     adapters = None
     next_step_name = None # next step in wizard
     _next_url = None # redirect url
     wizard = None  # wizard
-    
+
     interface.implements( wizard_interfaces.IWizardFormStep )
-    
+
     def __init__( self, context, request ):
         self.context = context
         self.request = request
@@ -119,19 +119,19 @@ class BaseCheckoutForm( BaseFormView ):
             customise_widgets(fields)
         self.__form_fields = fields
         return fields
-    
+
     def hidden_inputs( self ):
         if not self.hidden_form_vars: return ''
         return make_hidden_input( **self.hidden_form_vars )
-        
+
     hidden_inputs = property( hidden_inputs )
 
     def setExportedVariables( self, mapping ):
         assert isinstance( mapping, dict )
         self.hidden_form_vars = mapping
-        
+
     def getSchemaAdapters( self ):
-        adapters = {}        
+        adapters = {}
         user = getSecurityManager().getUser()
         formSchemas = component.getUtility(interfaces.IFormSchemas)
         for section in self.sections:
@@ -141,18 +141,18 @@ class BaseCheckoutForm( BaseFormView ):
                 adapter = formSchemas.getBagClass(section)()
             adapters[interface]=adapter
         return adapters
-    
+
     def invariantErrors( self ):
         errors = []
         for error in self.errors:
             if isinstance( error, interface.Invalid ):
                 errors.append( error )
         return errors
-    
+
     def getWidgetsBySectionName(self,name):
         formSchemas = component.getUtility(interfaces.IFormSchemas)
         return self._getWidgetsByInterface(formSchemas.getInterface(name))
-        
+
     def getWidgetsByIName( self, name ):
         for iface in self.wizard.data_manager.adapters.keys():
             if name == named( iface ):
@@ -160,7 +160,7 @@ class BaseCheckoutForm( BaseFormView ):
 
     def _getWidgetsByInterface( self, interface ):
         return [w for w in self.widgets if w.context.interface == interface ]
-        
+
     def render( self ):
         if self._next_url:
             self.request.RESPONSE.redirect( self._next_url )
@@ -187,7 +187,25 @@ class BaseCheckoutForm( BaseFormView ):
         order.user_id = getSecurityManager().getUser().getId()
 
         return order
-        
+
+    def canDisplayWidget (self, widget):
+#        import pdb;pdb.set_trace()
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        try:
+            IGetPaidManagementOptions(portal).use_contact_me_with_offers
+        except AttributeError:
+            print 'use_contact_me_with_offers is not in IGetPaidManagementOptions'
+            return True
+        else:
+            # If there was more than just a boolean in the CheckoutOptions,
+            # we could see if the current widget is in the whitelist or blacklist.
+            # However, the following will suffice for now
+            if widget.name == 'form.marketing_preference':
+                return IGetPaidManagementOptions(portal).use_contact_me_with_offers
+            else:
+                return True
+
+
 ##############################
 # Some Property Bags - transient adapters
 
@@ -206,7 +224,7 @@ class BillingInfo( options.PropertyBag ):
 BillingInfo = BillingInfo.makeclass( interfaces.IUserPaymentInformation )
 
 class ImmutableBag( object ):
-    
+
     def initfrom( self, other, iface ):
         for field_name, field in schema.getFieldsInOrder( iface ):
             setattr( self, field_name, field.get( other ) )
@@ -217,30 +235,30 @@ class CheckoutWizard( Wizard ):
     a bidirectional checkout wizard, using getpaid.wizard. See the CheckoutController
     class if you want to customize the sequence of steps. The Wizard itself is mostly
     a coordination gatekeeper, that enforces checkout constraints transparently
-    to any individual step. 
-        
-    steps should export all form variables not from themselves as hidden inputs, to 
-    allow for prepopulated forms from previous inputs on that step. 
-    
+    to any individual step.
+
+    steps should export all form variables not from themselves as hidden inputs, to
+    allow for prepopulated forms from previous inputs on that step.
+
     steps are specified in order and by view name. a step view must minimally have a
     an update/render cycle ala content_provider or formlib views.
-    
+
     forms are processed as normal, we depend on a _next_url attribute being present
     and set to the either a url or one of the marker values for next or previous steps.
-    
+
     the form must specify handlers for next / previous / finished steps.
-    
+
     steps can't override call methods, as such logic won't be processed, since we call
     update / render methods directly.
     """
-    
+
     def checkShoppingCart(self):
         cart = component.getUtility(interfaces.IShoppingCartUtility).get( self.context )
         if cart is None or not len(cart):
             self.request.response.redirect('@@empty-cart')
             return False
         return True
-    
+
     def checkAuthenticated( self ):
         membership = getToolByName( self.context, 'portal_membership')
         if membership.isAnonymousUser():
@@ -250,15 +268,15 @@ class CheckoutWizard( Wizard ):
             self.request.response.redirect('login_form?came_from=@@getpaid-checkout-wizard')
             return False
         return True
-    
+
     def checkOrderId( self ):
         """ get the current order id out of the request,
             and verify it"""
-        
+
         order_id = self.request.get('order_id', None)
         order_manager = component.getUtility( interfaces.IOrderManager )
-        
-        # if invalid order id, or no order id present 
+
+        # if invalid order id, or no order id present
         # set to first step and give new order id
         if ( order_id is None and not self.controller.hasPreviousStep() ) or \
             not order_manager.isValid( order_id ):
@@ -266,9 +284,9 @@ class CheckoutWizard( Wizard ):
             self.request['order_id'] = order_id = order_manager.newOrderId()
             self.data_manager['order_id'] = order_id
             return True
-            
+
         # if the order id is already in use check to see if its the same user that
-        # owns it    
+        # owns it
         if order_id in order_manager:
             # check for already existing order belonging to the same user from the
             # last day, and redirect them to it, else restart them in the wizard
@@ -282,23 +300,23 @@ class CheckoutWizard( Wizard ):
                     order = list( results )[0]
                     base_url = self.context.absolute_url()
                     url = base_url + '/@@getpaid-thank-you?order_id=%s' %(order_id)
-                        
+
                     if not 'http://' in url:
                         url = url.replace("https://", "http://")
-                    
+
                     self.request.response.redirect( url )
                     self.data_manager.reset()
                     return False
-                    
+
             # redirect and reset form variables
             self.data_manager.reset()
             self.request.response.redirect('@@getpaid-checkout-wizard')
 
             return False
-            
+
         self.data_manager['order_id'] = order_id
         return True
-    
+
     def checkUseSSL(self):
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
         if IGetPaidManagementOptions(portal).use_ssl_for_checkout:
@@ -309,42 +327,42 @@ class CheckoutWizard( Wizard ):
                 url = url.replace("http://", "https://")
                 self.request.response.redirect('%s?%s' % (url, mq(self.request.form)))
         return True
-    
+
     def __call__( self ):
         # if we don't have a shopping cart redirect browser to empty cart view
         if not self.checkShoppingCart():
             return
-        
+
         # if we're not authenticated redirect to login page with camefrom
-        # which points back to the checkout wizard, bypassed by admin 
+        # which points back to the checkout wizard, bypassed by admin
         # option to allow anonymous checkout
         if not self.checkAuthenticated():
             return
-        
+
         # check to make sure we have a valid unused order id associated throughout
         # the checkout process. also stores the order id in the data mangaer for
         # use by other components.
         if not self.checkOrderId():
             return
-            
+
         if not self.checkUseSSL():
             return
-        
+
         return super( CheckoutWizard, self).__call__()
-    
+
 
 class CheckoutController( ListViewController ):
-    
+
     conditions = {'checkout-select-shipping' : 'checkShippableCart'}
-    steps = ['checkout-address-info', 'checkout-select-shipping', 'checkout-review-pay']    
+    steps = ['checkout-address-info', 'checkout-select-shipping', 'checkout-review-pay']
 
     def getStep( self, step_name ):
-        step = component.getMultiAdapter( 
+        step = component.getMultiAdapter(
                     ( self.wizard.context, self.wizard.request ),
                     name=step_name
                     )
         return step.__of__( Acquisition.aq_inner( self.wizard.context ) )
-        
+
     def checkShippableCart( self ):
         cart_utility = component.getUtility( interfaces.IShoppingCartUtility )
         cart = cart_utility.get( self.wizard.context )
@@ -358,48 +376,48 @@ class CheckoutController( ListViewController ):
         if condition():
             return True
         return False
-        
-    # overridden icontroller methods        
+
+    # overridden icontroller methods
     def getNextStepName( self, step_name ):
         step_name = super( CheckoutController, self).getNextStepName( step_name )
         if self.checkStep( step_name ):
             return step_name
-        return self.getNextStepName( step_name )    
-    
+        return self.getNextStepName( step_name )
+
     def getTraversedFormSteps( self ):
         steps = super( CheckoutController, self ).getTraversedFormSteps()
         steps = filter( self.checkStep, steps )
         return steps
-        
+
     def getStep( self, step_name ):
         step = component.getMultiAdapter(
                     ( self.wizard.context, self.wizard.request ),
                     name=step_name
                     )
         return step.__of__( Acquisition.aq_inner( self.wizard.context ) )
-            
+
 
 class CheckoutAddress( BaseCheckoutForm ):
     """
     browser view for collecting credit card information and submitting it to
     a processor.
     """
-    
+
     sections = ('billing_address','shipping_address','contact_information')
-    
+
     def customise_widgets(self,fields):
         fields['ship_country'].custom_widget = CountrySelectionWidget
         fields['bill_country'].custom_widget = CountrySelectionWidget
         fields['ship_state'].custom_widget = StateSelectionWidget
         fields['bill_state'].custom_widget = StateSelectionWidget
-    
+
     template = ZopeTwoPageTemplateFile("templates/checkout-address.pt")
-    
+
     def update( self ):
         formbase.processInputs( self.request )
         self.adapters = self.wizard.data_manager.adapters
         super( CheckoutAddress, self).update()
-    
+
     def hasAddressBookEntries(self):
         """
         Do we have any entry?
@@ -422,15 +440,15 @@ class CheckoutAddress( BaseCheckoutForm ):
             if not entry:
                 return
             entry = entry[-1]
-        
+
         uid = getSecurityManager().getUser().getId()
         if uid == 'Anonymous':
             return
-                        
+
         book  = component.getUtility(IAddressBookUtility).get( uid )
         if entry in book:
             return
-            
+
         # here we get the shipping address
         formSchemas = component.getUtility(interfaces.IFormSchemas)
         ship_address_info = formSchemas.getBagClass('shipping_address')()
@@ -444,13 +462,13 @@ class CheckoutAddress( BaseCheckoutForm ):
                     ship_address_info.__setattr__(field, data[field])
         book[entry] = ship_address_info
         self.context.plone_utils.addPortalMessage(_(u'A new address has been saved'))
-    
+
     @form.action(_(u"Cancel"), name="cancel", validator=null_condition)
     def handle_cancel( self, action, data):
         url = self.context.portal_url.getPortalObject().absolute_url()
         url = url.replace("https://", "http://")
         return self.request.response.redirect(url)
-        
+
     @form.action(_(u"Continue"), name="continue")
     def handle_continue( self, action, data ):
         self.save_address(data)
@@ -458,7 +476,7 @@ class CheckoutAddress( BaseCheckoutForm ):
 
 def copy_field( field ):
     # copies a field dropping custom widgets
-    return field.__class__( 
+    return field.__class__(
         field = field.field,
         name = field.__name__,
         prefix = field.prefix,
@@ -467,7 +485,7 @@ def copy_field( field ):
         get_rendered = field.get_rendered,
         render_context = field.render_context
         )
-        
+
 def sanitize_custom_widgets( fields ):
     # we need to drop custom edit widgets so we get default display widgets
     # this method makes inplace copies of fields with custom widgets without
@@ -478,25 +496,25 @@ def sanitize_custom_widgets( fields ):
             custom_fields.append( field )
     if not custom_fields:
         return fields
-    
+
     for field in custom_fields:
         field_copy = copy_field( field )
         idx = fields.__FormFields_seq__.index( field )
         fields.__FormFields_seq__.pop(idx)
         fields.__FormFields_seq__.insert( idx, field_copy )
         fields.__FormFields_byname__[ field.__name__] = field
-        
+
     return fields
-    
+
 class CheckoutReviewAndPay( BaseCheckoutForm ):
-    
+
     sections = ('payment',)
 
     def customise_widgets(self,fields):
         fields['cc_expiration'].custom_widget = CCExpirationDateWidget
 
     template = ZopeTwoPageTemplateFile("templates/checkout-review-pay.pt")
-    
+
     columns = [
         column.GetterColumn( title=_(u"Quantity"), getter=cart_core.LineItemColumn("quantity") ),
         column.GetterColumn( title=_(u"Name"), getter=cart_core.lineItemURL ),
@@ -509,14 +527,14 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         adapters = {}
         adapters[formSchemas.getInterface('payment')] = formSchemas.getBagClass('payment')(self.context)
         return adapters
-        
+
     def setUpWidgets( self, ignore_request=False ):
         self.adapters = self.adapters is not None and self.adapters or {}
-        
+
         # grab all the adapters and fields from the entire wizard form sequence (till the current step)
         adapters = self.wizard.data_manager.adapters
         fields   = self.wizard.data_manager.fields
-        
+
         formSchemas = component.getUtility(interfaces.IFormSchemas)
         # edit widgets for payment info
         self.widgets = form.setUpEditWidgets(
@@ -524,7 +542,7 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
             self.prefix, self.context, self.request,
             adapters=adapters, ignore_request=ignore_request
             )
-        
+
         # display widgets for bill/ship address
         bill_ship_fields = []
         for i in (formSchemas.getInterface('billing_address'),
@@ -534,17 +552,17 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         bill_ship_fields = sanitize_custom_widgets(
             reduce(operator.__add__,bill_ship_fields)
             )
-        
+
         self.widgets += form.setUpEditWidgets(
             bill_ship_fields,  self.prefix, self.context, self.request,
             adapters=adapters, for_display=True, ignore_request=ignore_request
             )
-    
+
     def renderCart( self ):
         cart = component.getUtility( interfaces.IShoppingCartUtility ).get( self.context )
         if not cart:
             return _(u"N/A")
-        
+
         # create an order so that tax/shipping utilities have full order information
         # to determine costs (ie. billing/shipping address ).
         order = self.createTransientOrder()
@@ -555,41 +573,41 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
                                     visible_column_names = [c.name for c in self.columns],
                                     #sort_on = ( ('name', False)
                                     columns = self.columns )
-        
+
         formatter.cssClasses['table'] = 'listing'
         return formatter()
-        
+
     @form.action(_(u"Cancel"), name="cancel", validator=null_condition )
     def handle_cancel( self, action, data):
         url = self.context.portal_url.getPortalObject().absolute_url()
         url = url.replace("https://", "http://")
         return self.request.response.redirect(url)
-        
+
     @form.action(_(u"Back"), name="back", validator=null_condition )
     def handle_back( self, action, data):
-        self.next_step_name = wizard_interfaces.WIZARD_PREVIOUS_STEP                
-        
+        self.next_step_name = wizard_interfaces.WIZARD_PREVIOUS_STEP
+
     @form.action(_(u"Make Payment"), name="make-payment", condition=form.haveInputWidgets )
     def makePayment( self, action, data ):
         """ create an order, and submit to the processor
         """
         manage_options = IGetPaidManagementOptions( self.context )
         processor_name = manage_options.payment_processor
-        
+
         if not processor_name:
             raise RuntimeError( "No Payment Processor Specified" )
-        
+
         processor = component.getAdapter( self.context,
                                           interfaces.IPaymentProcessor,
                                           processor_name )
-        
+
         adapters = self.wizard.data_manager.adapters
-        
+
         order = self.createOrder()
         order.processor_id = processor_name
         order.finance_workflow.fireTransition( "create" )
         # extract data to our adapters
-        
+
         formSchemas = component.getUtility(interfaces.IFormSchemas)
         order.user_payment_info_last4 = adapters[formSchemas.getInterface('payment')].credit_card[-4:]
         order.name_on_card = adapters[formSchemas.getInterface('payment')].name_on_card
@@ -620,9 +638,9 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
             order.finance_workflow.fireTransition('reviewing-declined')
             self.status = result
             self.form_reset = False
-        
+
         self._next_url = self.getNextURL( order )
-        
+
     def createOrder( self ):
         order_manager = component.getUtility( interfaces.IOrderManager )
 
@@ -632,19 +650,19 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         if shipping_code is not None:
             # get the names of the selected shipping service
             shipping_service, shipping_method = decodeShipping( shipping_code )
-            
+
             # get the cost
             shipping_method_obj = getShippingMethod( order, shipping_code )
             interface.directlyProvides( order, interfaces.IShippableOrder )
-            
+
             order.shipping_service = shipping_service
             order.shipping_method = shipping_method
             order.shipping_cost = shipping_method_obj.cost
-            
+
         notify( ObjectCreatedEvent( order ) )
-        
+
         return order
-    
+
     def getNextURL(self, order):
         state = order.finance_state
         f_states = interfaces.workflow_states.order.finance
@@ -656,13 +674,13 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
                      f_states.CANCELLED_BY_PROCESSOR,
                      f_states.PAYMENT_DECLINED):
             return base_url + '/@@getpaid-cancelled-declined'
-        
+
         if state in (f_states.CHARGEABLE,
                      f_states.CHARGING,
                      f_states.REVIEWING,
                      f_states.CHARGED):
             return base_url + '/@@getpaid-thank-you?order_id=%s&finance_state=%s' %(order.order_id, state)
-        
+
 class ShippingRate( options.PropertyBag ):
     title = "Shipping Rate"
 
@@ -680,16 +698,16 @@ class CheckoutSelectShipping( BaseCheckoutForm ):
         """
         Queries shipping utilities and adapters to get the available shipping methods
         and returns a list of them for the template to display and the user to choose among.
-        
+
         """
         ship_service_names = IGetPaidManagementOptions( self.context ).shipping_services
-        
+
         if not ship_service_names:
             self.status =  "Misconfigured Store - No Shipping Method Activated"
             return
-            
+
         order = self.createTransientOrder()
-        
+
         service_options = {}
         for service_name in ship_service_names:
             service = component.getUtility( interfaces.IShippingRateService, name=service_name )
@@ -697,15 +715,15 @@ class CheckoutSelectShipping( BaseCheckoutForm ):
             if rates.error is not None:
                 self.status = '%(name)s Error: %(error)s.' % {'name':service_name, 'error':rates.error}
             service_options[ service_name ] = rates.shipments
-            
+
         self.ship_service_names = ship_service_names
         self.service_options = service_options
-        
+
     def setShippingMethods( self ):
         """
         Set the shipping methods chosen by the user
         """
-        
+
     def update( self ):
         self.setupShippingOptions()
         super( CheckoutSelectShipping, self).update()
@@ -729,11 +747,11 @@ class OrderFormatter( cart_core.CartFormatter ):
 
     def getTotals( self ):
         return OrderTotals( self.context, self.request)
-        
+
 class OrderTotals( cart.CartItemTotals ):
 
     interface.implements( interfaces.ILineContainerTotals )
-    
+
     def __init__( self, context, request ):
         self.context = context
         self.shopping_cart = context.shopping_cart
@@ -741,7 +759,7 @@ class OrderTotals( cart.CartItemTotals ):
 
     def getShippingCost( self ):
         service_code = self.request.get('shipping_method_code')
-        method = getShippingMethod( self.context, service_code )        
+        method = getShippingMethod( self.context, service_code )
         if method is None:
             return 0
         return method.cost
@@ -751,22 +769,22 @@ def getShippingMethod( order, service_code ):
     if not service_code:
         return None
     if isinstance( service_code, list):
-        service_code = service_code[-1]    
+        service_code = service_code[-1]
     service_name, service_method = service_code.split('.', 1)
     service = component.getUtility( interfaces.IShippingRateService, service_name )
     methods = service.getRates( order )
     for m in methods.shipments:
         if m.service_code == service_method:
             return m
-                
+
 def decodeShipping( service_code ):
     if isinstance( service_code, list):
         service_code = service_code[-1]
     service_name, service_method = service_code.split('.', 1)
     return service_name, service_method
-      
+
 class StorePropertyView(BrowserView):
-    
+
     def _getProperty(self, name ):
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
         settings = IGetPaidManagementOptions(portal)
@@ -782,7 +800,7 @@ class DisclaimerView( StorePropertyView ):
     @property
     def disclaimer( self ):
         return self._getProperty( 'disclaimer' )
-    
+
 class PrivacyPolicyView( StorePropertyView ):
     """ Shows the privacy policy text from the getpaid settings.
     """
@@ -791,9 +809,9 @@ class PrivacyPolicyView( StorePropertyView ):
         return self._getProperty('privacy_policy')
 
 class AddressBookView(BrowserView):
-    
+
     __call__ = ZopeTwoPageTemplateFile("templates/addressbook-listing.pt")
-        
+
     def getEntryNames(self):
         """
         get a list of entry names
@@ -819,15 +837,15 @@ class AddressBookView(BrowserView):
         Returns javascript function that fill the fields with the data
         """
         addressBookUsr = component.getUtility(IAddressBookUtility).get(getSecurityManager().getUser().getId())
-         
-        
+
+
         jstemplate = \
-        """ 
+        """
          function doWaitUntilStatesAreLoaded(theStateValue){
            window.opener.parent.document.getElementById('form.ship_state').value = theStateValue
         window.close();
         }
-        
+
         function assign_variables(contact_name,contact_link){
         contact_link.innerHTML="Please wait, retrieving data..."
         %s
@@ -840,7 +858,7 @@ class AddressBookView(BrowserView):
         javaScript = ''
         field_assignations = ''
         for entry in self.getEntryNames().keys():
-            
+
             field_assignations += "if (contact_name == '%s') {\n" % entry
             for name in apidocInterface.getElements(interfaces.IShippingAddress, type=IField).keys():
                 try:
@@ -851,10 +869,10 @@ class AddressBookView(BrowserView):
                         field_assignations += "window.opener.parent.document.getElementById('form.%s').onchange();\n"%name
                     else:
                         field_assignations += field_assign_template % (name,getattr(addressBookUsr[entry],name) or '')
-                    
+
                 except KeyError:
                     pass
             field_assignations += "}"
         javaScript += jstemplate % field_assignations
-            
+
         return javaScript

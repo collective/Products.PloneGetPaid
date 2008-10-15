@@ -48,11 +48,11 @@ class IOrdersAdminManager( zope.viewlet.interfaces.IViewletManager ):
 
 class IAdminOrderManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for admin of a single order
-    """ 
+    """
 
 class IOrderDetailsManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for a single order
-    """ 
+    """
 
 class IGetPaidContentViewletManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for content that is marked with one of the getpaid Marker interfaces
@@ -86,22 +86,22 @@ class INotificationMailMessage( Interface ):
     def __call__(settings, store_url, order_contents):
         """
         return a message suitable for passing to a mailhost.send
-        """ 
+        """
 class IConditionalViewlet( Interface ):
-    
+
     def condition( ):
-        """ 
+        """
         boolean method to determine if the viewlet should be shown,
         called before update.
         """
-        
+
 class IDonationLevel( Interface ):
-    
+
     title = schema.TextLine( title=_(u"Donation Level Name"))
     amount = schema.Int( title=_(u"Amount"))
-    
-class IEnhancedDonation( igetpaid.IDonationContent ):    
-    
+
+class IEnhancedDonation( igetpaid.IDonationContent ):
+
     donation_levels  = schema.List( title=_(u"Donation Levels"),
                                     value_type=schema.Object(IDonationLevel),
                                     required=False,
@@ -116,7 +116,7 @@ PayableMarkerMap = dict(
       (IShippableMarker, igetpaid.IShippableContent),
       (IDonatableMarker, igetpaid.IDonationContent)
     )
-)    
+)
 
 class IGetPaidManagementIdentificationOptions( igetpaid.IPersistentOptions ):
 
@@ -134,7 +134,7 @@ class IGetPaidManagementIdentificationOptions( igetpaid.IPersistentOptions ):
                                   required = False,
                                   default = u""
                                 )
-                                
+
     contact_company = schema.TextLine( title = _(u"Contact Company"),
                               required = False,
                               default = u""
@@ -144,7 +144,7 @@ class IGetPaidManagementIdentificationOptions( igetpaid.IPersistentOptions ):
                                        required = False,
                                        default = u""
                                      )
-                                
+
     contact_address2 = schema.TextLine( title = _(u"Contact Address2"),
                                         required = False,
                                         default = u""
@@ -190,7 +190,7 @@ class IGetPaidManagementContentTypes( igetpaid.IPersistentOptions ):
         description = _(u"Buyable Content delivered through the web/virtually"),
         value_type = schema.Choice( title=u"buyable_types", source="plone.content_types" )
         )
-        
+
     premium_types = schema.List(
         title = _(u"Premium Content Types"),
         required = False,
@@ -198,7 +198,7 @@ class IGetPaidManagementContentTypes( igetpaid.IPersistentOptions ):
         description = _(u"Content Types only available to premium memberships"),
         value_type = schema.Choice( title=u"premium_types", source="plone.content_types" )
         )
-                                     
+
     donate_types = schema.List(
         title = _(u"Donatable Content Types"),
         required = False,
@@ -211,21 +211,21 @@ class IGetPaidManagementContentTypes( igetpaid.IPersistentOptions ):
         title = _(u"Shippable Product Types"),
         required = False,
         default = [],
-        description = _(u"Content Types that represent goods that can be purchased and shipped"),        
+        description = _(u"Content Types that represent goods that can be purchased and shipped"),
         value_type = schema.Choice( title=u"shippable_types", source="plone.content_types" )
         )
 
 class IGetPaidManagementShippingMethods( igetpaid.IPersistentOptions ):
     """
     """
-    shipping_methods = schema.List( 
+    shipping_methods = schema.List(
         title = _(u"Shipping Methods"),
         required = False,
         default = [],
         description = _(u"Shipping methods to offer for orders in your store"),
         value_type = schema.Choice( title=u"shipping_methods", source="getpaid.shipping_methods" )
         )
-        
+
     shipping_services = schema.List(
         title = _(u"Shipping Rate Service"),
         required = True,
@@ -238,26 +238,26 @@ class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
     """
     """
     payment_processor = schema.Choice( title = _(u"Payment Processor"),
-                                       source = "getpaid.payment_methods", 
+                                       source = "getpaid.payment_methods",
                                        default = 'Testing Processor' )
-                                       
+
     allow_anonymous_checkout = schema.Bool( title=_(u"Allow Anonymous Checkout"), default=False)
-    
+
     use_ssl_for_checkout = schema.Bool( title=_(u"Use SSL for checkout"), default=False)
-                                    
+
 
     accepted_credit_cards = schema.List( title = _(u"Accepted Credit Cards"),
                                         required = False,
                                         default = list(CREDIT_CARD_TYPES),
                                         description = _(u"Credit cards accepted for payment"),
                                         value_type = schema.Choice( title=u"accepted_credit_cards", source="getpaid.core.credit_card_types" )
-                                        )    
+                                        )
 
 # Order Management
 class IGetPaidManagementCustomerInformation( igetpaid.IPersistentOptions ):
     """
     """
-    
+
 class IGetPaidManagementOrderInformation( igetpaid.IPersistentOptions ):
     """
     """
@@ -272,7 +272,7 @@ class IGetPaidManagementWeightUnits( igetpaid.IPersistentOptions ):
     weight_units = schema.Choice( title = _(u"Weight Units"),
                                   required = True,
                                   source = "getpaid.weight_units" )
-                                  
+
 class IGetPaidManagementSessionTimeout( igetpaid.IPersistentOptions ):
     """
     """
@@ -289,7 +289,7 @@ class IGetPaidManagementSalesTaxOptions( igetpaid.IPersistentOptions ):
                                 required = True,
                                 source = "getpaid.tax_methods" )
 
-# Currency    
+# Currency
 class IGetPaidManagementCurrencyOptions( igetpaid.IPersistentOptions ):
     """
     """
@@ -297,41 +297,41 @@ class IGetPaidManagementCurrencyOptions( igetpaid.IPersistentOptions ):
                                    required = True,
                                    default = u"$"
                                  )
-                                 
+
     positive_currency_format = schema.TextLine( title = _(u"Positive Currency Format"),
                                    required = False,
                                    default = u""
-                                 )                                 
-                                   
+                                 )
+
     negative_currency_format = schema.TextLine( title = _(u"Negative Currency Format"),
                                    required = False,
                                    default = u""
-                                 )   
-                                   
+                                 )
+
     digit_grouping_symbol = schema.TextLine( title = _(u"Digit Grouping Symbol"),
                                    required = False,
                                    default = u""
-                                 )   
-                                   
+                                 )
+
     digit_grouping_symbol = schema.TextLine( title = _(u"Number of Digits in Group"),
                                    required = False,
                                    default = u""
-                                 )   
-                                   
+                                 )
+
     digit_grouping_symbol = schema.TextLine( title = _(u"Decimal Symbol"),
                                    required = False,
                                    default = u""
-                                 )   
-                                   
+                                 )
+
     digits_after_decimal = schema.TextLine( title = _(u"Number of Digits After Decimal"),
                                    required = False,
                                    default = u""
-                                 )   
-                                   
+                                 )
+
     us_currency_formatting = schema.TextLine( title = _(u"US Currency Formatting"),
                                    required = False,
                                    default = u""
-                                 ) 
+                                 )
 
 # Emails
 class IGetPaidManagementEmailOptions( igetpaid.IPersistentOptions ):
@@ -351,11 +351,18 @@ class IGetPaidManagementLegalDisclaimerOptions( igetpaid.IPersistentOptions ):
     """
     disclaimer = schema.Text( title = _(u"Disclaimer"),
                               required = False, )
-                        
-                                 
+
+
     privacy_policy = schema.Text( title = _(u"Privacy Policy"),
                                   required = False )
-                                  
+
+
+# Customize Checkout Options
+class IGetPaidManagementCheckoutOptions( igetpaid.IPersistentOptions ):
+    """
+    """
+    use_contact_me_with_offers = schema.Bool( title=_(u"Display 'Contact me with offers' option on Checkout page"), default=True)
+
 
 class IGetPaidManagementOptions( IGetPaidManagementIdentificationOptions,
                                  IGetPaidManagementContentTypes,
@@ -366,13 +373,14 @@ class IGetPaidManagementOptions( IGetPaidManagementIdentificationOptions,
                                  IGetPaidManagementPaymentProcessing,
                                  IGetPaidManagementWeightUnits,
                                  IGetPaidManagementSessionTimeout,
-                                 IGetPaidManagementSalesTaxOptions,                                 
+                                 IGetPaidManagementSalesTaxOptions,
                                  IGetPaidManagementCurrencyOptions,
                                  IGetPaidManagementEmailOptions,
                                  IGetPaidManagementLegalDisclaimerOptions,
+                                 IGetPaidManagementCheckoutOptions,
                                  igetpaid.IStoreSettings
                                 ):
-    """ One-stop configuration access from a single interface 
+    """ One-stop configuration access from a single interface
     """
 
 class ICountriesStates(Interface):
@@ -403,17 +411,17 @@ class IAddressBookUtility( Interface ):
     def get( uid ):
         """
         """
-        
+
     def destroy( uid ):
         """
         """
-        
+
 class IAddressBook( IContainer ):
-    
+
     contains( igetpaid.IAbstractAddress )
-    
+
 class INamedAddress( Interface ):
-    
+
     __name__ = schema.TextLine(title=_(u"Name"))
 
 class INamedOrderUtility(Interface):

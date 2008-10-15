@@ -127,6 +127,18 @@
      title="Legal Disclaimers"
      />       
 
+  <!-- Customize Checkout Options -->
+
+  <!-- Management Checkout Options -->
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-checkout-options"
+     class=".admin.CheckoutOptions"
+     permission="cmf.ManagePortal"
+     menu="getpaid_settings"
+     title="Checkout Options"
+     />
+
 
   <!-- Order Management -->
   
