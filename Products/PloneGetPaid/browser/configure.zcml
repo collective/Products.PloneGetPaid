@@ -251,8 +251,12 @@
      template="templates/legal-disclaimers-links.pt"
      permission="zope2.View"
      />
-
-
-      
-
+     
+  <browser:page
+      for="*"
+      name="payable-content"
+      class="Products.PloneGetPaid.browser.content.ContentControl"
+      allowed_attributes="isShippable"
+      permission="zope2.View"
+      />
 </configure>
