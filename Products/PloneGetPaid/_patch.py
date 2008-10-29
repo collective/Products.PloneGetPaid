@@ -37,10 +37,10 @@ from Products.Five.formlib.formbase import FiveFormlibMixin
 from Products.Five.browser import decode
 
 def update( self ):
-    if getattr( self.request, '__inputs_processed', False ):        
+    if not getattr( self.request, '__inputs_processed', False ):        
         decode.processInputs( self.request )
         decode.setPageEncoding( self.request )
-        request.__inputs_processed = True
+        self.request.__inputs_processed = True
     super( FiveFormlibMixin, self).update()
 
 FiveFormlibMixin.update = update
