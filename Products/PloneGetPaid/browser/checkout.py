@@ -37,6 +37,9 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile,ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 
+# Bruno - missing import for INamedOrderUtility
+from Products.PloneGetPaid.interfaces import INamedOrderUtility
+
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IAddressBookUtility
 from Products.PloneGetPaid.i18n import _
 
@@ -44,7 +47,6 @@ from Products.PloneGetPaid.i18n import _
 from base import BaseFormView
 import cart as cart_core
 from widgets import CountrySelectionWidget, StateSelectionWidget, CCExpirationDateWidget
-
 
 def null_condition( *args ):
     return ()
