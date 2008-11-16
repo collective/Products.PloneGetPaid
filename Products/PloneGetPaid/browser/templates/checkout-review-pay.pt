@@ -63,7 +63,7 @@
 
 	    </fieldset>
       </div>
-        <tal:block replace="structure provider:optionalfields" />
+
       <div>
 	  <fieldset tal:define="widgets python: view.getWidgetsBySectionName('payment')">
 	    <legend i18n:translate=""> Payment Details </legend>

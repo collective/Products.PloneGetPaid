@@ -4,7 +4,6 @@ $Id$
 
 from zope import schema
 from zope.interface import Interface
-from zope.viewlet.interfaces import IViewletManager
 from zope.schema import Iterable
 from zope.app.container.interfaces import IContainer
 from zope.app.container.constraints import contains
@@ -444,31 +443,4 @@ class INamedOrder(Interface):
 class INamedOrderList(IContainer):
     contains(INamedOrder)
 
-
-class IOptionalFieldsUtility(Interface):
-    """
-    To be called by checkout in checkout-review and pay step in order to do 
-    extra things with order data without need of overriding the whole thing.
-    """
-    def async(order, cart):
-        """
-        Will be called on asyn processor (most likely never since we never 
-        arrive to that checkout step.
-        """
-
-    def success(order, cart):
-        """
-        Will be called after finishing all process of successful order 
-        processing
-        """
-
-    def declined(order, cart):
-        """
-        Will be called if the order is declined (after triggering transaction)
-        """
-
-class IOptionalFieldsManager(IViewletManager):
-    """
-    Viewlet to display optional fields during checkout
-    """
 

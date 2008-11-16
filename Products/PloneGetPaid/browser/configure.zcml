@@ -205,13 +205,6 @@
       class=".order.OrderHistoryManager"
       />
 
-    <browser:viewletManager
-      name="optionalfields"
-      permission="zope2.View"
-      provides="..interfaces.IOptionalFieldsManager"
-      class=".checkout.OptionalFieldsManager"
-    />
-
   <!-- 'name' determines the order viewlets show up -->
   <browser:viewlet
       name="order-history"
