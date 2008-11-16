@@ -38,7 +38,7 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile,ViewP
 from Products.CMFCore.utils import getToolByName
 
 # Bruno - missing import for INamedOrderUtility
-from Products.PloneGetPaid.interfaces import INamedOrderUtility
+from Products.PloneGetPaid.interfaces import INamedOrderUtility, IOptionalFieldsManager
 
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IAddressBookUtility
 from Products.PloneGetPaid.i18n import _
@@ -620,6 +620,8 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
             # site on the final checkout step, all interaction with an async processor are based on processor
             # adapter specific callback views.
             pass
+            for utilName, utilIface in component.getUtilitiesFor(IOptionalFieldsUtility):
+                utilIface.async(order, self.context)
         elif result is interfaces.keys.results_success:
             order_manager = component.getUtility( interfaces.IOrderManager )
             order_manager.store( order )
@@ -634,10 +636,17 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
                     named_orders_list = component.getUtility(INamedOrderUtility).get(uid)
                     if order_template_entry not in named_orders_list:
                         named_orders_list[order.order_id] = order_template_entry
+            for utilName, utilIface in component.getUtilitiesFor(IOptionalFieldsUtility):
+                utilIface.success(order, self.context)
+
             # kill the cart after we create the order
             component.getUtility( interfaces.IShoppingCartUtility ).destroy( self.context )
+
         else:
             order.finance_workflow.fireTransition('reviewing-declined')
+            for utilName, utilIface in component.getUtilitiesFor(IOptionalFieldsUtility):
+                utilIface.declined(order, self.context)
+
             self.status = result
             self.form_reset = False
 
@@ -878,3 +887,17 @@ class AddressBookView(BrowserView):
         javaScript += jstemplate % field_assignations
 
         return javaScript
+
+class ViewletManagerOptionalFields(object):
+    """
+    Optional Fields Viewlet Manager
+    """
+
+OptionalFieldsManager = ViewletManager("OptionalFields",
+                                     IOptionalFieldsManager,
+                                     os.path.join( os.path.dirname( __file__ ),
+                                                   "templates",
+                                                   "viewlet-manager.pt"),
+                                     bases=(ViewletManagerOptionalFields,)
+                                     )
+
