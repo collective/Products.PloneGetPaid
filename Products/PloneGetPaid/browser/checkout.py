@@ -42,7 +42,7 @@ from Products.PloneGetPaid.interfaces import INamedOrderUtility
 
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IAddressBookUtility
 from Products.PloneGetPaid.i18n import _
-
+from Products.PloneGetPaid import config
 
 from base import BaseFormView
 import cart as cart_core
@@ -682,6 +682,12 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
                      f_states.REVIEWING,
                      f_states.CHARGED):
             return base_url + '/@@getpaid-thank-you?order_id=%s&finance_state=%s' %(order.order_id, state)
+            
+    def isPlone3(self):
+        """test if it is a plone3 site
+        """
+        return config.PLONE3
+            
 
 class ShippingRate( options.PropertyBag ):
     title = "Shipping Rate"

@@ -9,4 +9,11 @@
         class="plone.app.viewletmanager.manager.OrderedViewletManager"
         />
         
+  <browser:viewletManager
+        name="getpaid.belowcartresume"
+        provides=".interfaces.IBelowCartResume"
+        permission="zope2.View"
+        class="plone.app.viewletmanager.manager.OrderedViewletManager"
+        />
+        
 </configure>
