@@ -6,7 +6,7 @@ $Id$
 """
 
 
-import decimal,operator
+import operator
 import cgi
 from cPickle import loads, dumps
 from datetime import timedelta
@@ -24,7 +24,7 @@ from zope.app.apidoc import interface as apidocInterface
 
 from zc.table import column
 from getpaid.wizard import Wizard, ListViewController, interfaces as wizard_interfaces
-from getpaid.core import interfaces, options, payment, cart
+from getpaid.core import interfaces, options, cart
 from getpaid.core.order import Order
 
 import Acquisition
@@ -34,7 +34,7 @@ from ZTUtils.Zope import complex_marshal
 
 from Products.Five.formlib import formbase
 from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile,ViewPageTemplateFile
+from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 
 # Bruno - missing import for INamedOrderUtility
@@ -171,7 +171,6 @@ class BaseCheckoutForm( BaseFormView ):
 
     def createTransientOrder( self ):
         order = Order()
-
         shopping_cart = component.getUtility( interfaces.IShoppingCartUtility ).get( self.context )
         formSchemas = component.getUtility(interfaces.IFormSchemas)
 
@@ -660,6 +659,7 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
             order.shipping_service = shipping_service
             order.shipping_method = shipping_method
             order.shipping_cost = shipping_method_obj.cost
+            order.shipments = {} # XXX not implemented
 
         notify( ObjectCreatedEvent( order ) )
 
