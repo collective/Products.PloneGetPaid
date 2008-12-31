@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.7.2dev'
+version = '0.7.3dev'
 
 setup(name='Products.PloneGetPaid',
       version=version,
