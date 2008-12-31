@@ -3,6 +3,19 @@ CHANGES
 =======
 
 
+0.7.2 (2008-12-31)
+------------------
+
+* updated the portlet "add to cart" so that we can choose a quantity
+  of items to add, this fixes issue 123 [lucielejard]
+* added a provider spot on the "review and pay" page to be able to 
+  hook a viewlet to it
+* Added 2 fixes (for when you use the shipping system):
+* gave a default value to the order.shipments, because it is never 
+  set up to anything otherwise and you can't access your order,
+* fixed the way we calculate the total, so that we have float numbers
+
+
 0.7.1 (2008-11-24)
 ------------------
 
