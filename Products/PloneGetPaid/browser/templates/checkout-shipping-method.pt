@@ -19,9 +19,11 @@
       <legend i18n:translate="">Select a shipping rate: </legend>
         <tal:loop tal:repeat="service service_names">
           <tal:loop tal:repeat="sM python:view.service_options[service]">
-          <input tal:attributes="value string:${service}.${sM/service_code};" type="radio" name="shipping_method_code"/>  
-          <span tal:content="python:sM.service + ', ' + str(sM.currency) + ' ' + ('%0.2f' % sM.cost)" /><br />
-
+              <input tal:condition="repeat/sM/start" 
+                     tal:attributes="value string:${service}.${sM/service_code};" checked type="radio" name="shipping_method_code"/>  
+              <input tal:condition="not:repeat/sM/start"  
+                     tal:attributes="value string:${service}.${sM/service_code};" type="radio" name="shipping_method_code"/>  
+              <span tal:content="python:sM.service + ', ' + str(sM.currency) + ' ' + ('%0.2f' % sM.cost)" /><br />
           </tal:loop>
         </tal:loop>
       </fieldset>
