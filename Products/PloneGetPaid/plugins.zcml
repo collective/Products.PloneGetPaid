@@ -17,6 +17,9 @@
 
 <include zcml:condition="installed getpaid.paypal"
 	 package="getpaid.paypal" />
+	 
+<include zcml:condition="installed getpaid.payflowpro"
+	 package="getpaid.payflowpro" />
 
 <include zcml:condition="installed getpaid.ogone"
 	 package="getpaid.ogone" />
