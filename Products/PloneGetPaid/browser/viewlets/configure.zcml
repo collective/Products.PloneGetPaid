@@ -16,4 +16,11 @@
         class="plone.app.viewletmanager.manager.OrderedViewletManager"
         />
         
+  <browser:viewletManager
+        name="getpaid.belowcartthankyou"
+        provides=".interfaces.IBelowCartThankYou"
+        permission="zope2.View"
+        class="plone.app.viewletmanager.manager.OrderedViewletManager"
+        />
+
 </configure>
