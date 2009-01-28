@@ -2,6 +2,13 @@
 CHANGES
 =======
 
+0.7.4 (2009-01-28)
+------------------
+
+* added the inclusion of getpaid.payflowpro if it is installed [lucielejard]
+* added a viewlet provider on thank you page (belowcartthankyou) [flejard]
+
+
 0.7.3 (2009-01-19)
 ------------------
 
