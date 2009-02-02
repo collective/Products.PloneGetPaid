@@ -592,13 +592,14 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
     def makePayment( self, action, data ):
         """ create an order, and submit to the processor
         """
-        manage_options = IGetPaidManagementOptions( self.context )
+        siteroot = getToolByName(self.context, "portal_url").getPortalObject()
+        manage_options = IGetPaidManagementOptions(siteroot)
         processor_name = manage_options.payment_processor
 
         if not processor_name:
             raise RuntimeError( "No Payment Processor Specified" )
 
-        processor = component.getAdapter( self.context,
+        processor = component.getAdapter( siteroot,
                                           interfaces.IPaymentProcessor,
                                           processor_name )
 
@@ -708,7 +709,8 @@ class CheckoutSelectShipping( BaseCheckoutForm ):
         and returns a list of them for the template to display and the user to choose among.
 
         """
-        ship_service_names = IGetPaidManagementOptions( self.context ).shipping_services
+        siteroot = getToolByName(self.context, "portal_url").getPortalObject()
+        ship_service_names = IGetPaidManagementOptions(siteroot).shipping_services
 
         if not ship_service_names:
             self.status =  "Misconfigured Store - No Shipping Method Activated"
