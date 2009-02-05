@@ -15,6 +15,11 @@
       description="A portlet that handles donatable items"
       />
   <portlet
+      addview="getpaid.variableamountdonatable"
+      title="Variable Amount Donatable portlet"
+      description="A portlet that handles donatable items"
+      />
+  <portlet
       addview="getpaid.premium"
       title="Premium portlet"
       description="A portlet that handles premium items"

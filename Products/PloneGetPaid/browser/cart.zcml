@@ -43,6 +43,14 @@
       permission="zope2.View"
       />
 
+  <browser:page
+      for="..interfaces.IVariableAmountDonatableMarker"
+      name="getpaid-cart-add"
+      class=".cart.ShoppingCartAddItemWithAmountAndGoToCheckout"
+      template="templates/cart-manage.pt"
+      permission="zope2.View"
+      />
+
   <browser:viewletManager
      name="shopping_cart"
      permission="zope2.View"

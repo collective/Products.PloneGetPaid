@@ -28,6 +28,14 @@
       />
 
   <plone:portlet
+      name="getpaid.variableamountdonatable"
+      interface=".variableamountdonate.IDonatablePortlet"
+      assignment=".variableamountdonate.Assignment"
+      renderer=".variableamountdonate.Renderer"
+      addview=".variableamountdonate.AddForm"
+      />
+
+  <plone:portlet
       name="getpaid.premium"
       interface=".premium.IPremiumPortlet"
       assignment=".premium.Assignment"

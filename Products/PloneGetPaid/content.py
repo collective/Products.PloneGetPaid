@@ -46,18 +46,23 @@ class LineItemFactory( object ):
     adapts to cart and content (payable marker marked), and creates a line item
     from said item for cart.
     """
-    
+
+    #
+    # I'm torn on if I should use the Amount=None and test for amount
+    # as the way to tell if this is a variable amount or not.  It
+    # might make sense to just create a new factory, but that seems like there
+    # would be a lot of code duplication.
     def __init__( self, cart, content ):
         self.cart = cart
         self.content = content
 
-    def create( self, quantity=1 ):
+    def create( self, quantity=1, amount=None ):
         
-        if self.checkIncrementCart( self.content, quantity=quantity ):
+        if self.checkIncrementCart( self.content, quantity=quantity, amount=amount ):
             return
         
         payable = self.checkPayable( self.content )
-        nitem = self.createLineItem( payable, quantity)
+        nitem = self.createLineItem( payable, quantity, amount)
         self.cart[ nitem.item_id ] = nitem
         #not being able to set the came from does not seem a good reason to explode
         try:
@@ -66,10 +71,14 @@ class LineItemFactory( object ):
             pass
         return nitem
         
-    def checkIncrementCart( self, content, quantity=1 ):
+    def checkIncrementCart( self, content, quantity=1, amount=None ):
         item_id = content.UID()
         if item_id in self.cart:
-            self.cart[ item_id ].quantity += quantity
+            if amount:
+                self.cart[ item_id ].amount += amount
+            else:
+                self.cart[ item_id ].quantity += quantity
+
             return True
         
     def checkPayable( self, content):
@@ -77,7 +86,7 @@ class LineItemFactory( object ):
             raise RuntimeError("Invalid Context For Cart Add")
         return interfaces.IPayable( content )
         
-    def createLineItem( self, payable, quantity ):
+    def createLineItem( self, payable, quantity, amount=None ):
         nitem = item.PayableLineItem()
         nitem.item_id = self.content.UID() # archetypes uid
         
@@ -101,7 +110,11 @@ class LineItemFactory( object ):
         # copy over information regarding the item
         nitem.name = getUnicodeString( self.content.Title() )
         nitem.description = getUnicodeString( self.content.Description() )
-        nitem.cost = payable.price
+        if amount:
+            nitem.cost = amount
+        else:
+            nitem.cost = payable.price
+            
         nitem.quantity = int( quantity )
         nitem.product_code = payable.product_code
         
@@ -199,6 +212,18 @@ class DonatableContentAdapter( DonatableContentStorage ):
     of a donate-able in an annotation adapter
     """
     interface.implements( interfaces.IDonationContent )
+
+    def __init__( self, context ):
+        self.context = context
+
+VariableAmountDonatableContentStorage = options.PersistentOptions.wire( "VariableAmountDonatableContentStorage", "getpaid.content.variableamountdonate", interfaces.IVariableAmountDonationContent )
+
+class VariableAmountDonatableContentAdapter( VariableAmountDonatableContentStorage ):
+    """
+    Default Adapter between Content and IVariableAmountDonationContent. This implementation stores attributes
+    of a donate-able in an annotation adapter
+    """
+    interface.implements( interfaces.IVariableAmountDonationContent )
 
     def __init__( self, context ):
         self.context = context

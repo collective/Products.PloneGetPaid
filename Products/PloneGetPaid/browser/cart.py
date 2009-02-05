@@ -98,6 +98,30 @@ class ShoppingCartAddItemAndGoToCheckout(ShoppingCartAddItem):
                                            url + '/@@getpaid-checkout-wizard')]))
         return self.request.RESPONSE.redirect( url )
 
+class ShoppingCartAddItemWithAmountAndGoToCheckout(ShoppingCartAddItem):
+    def addToCart( self ):
+
+        # create a line item and add it to the cart
+        item_factory = component.getMultiAdapter( (self.cart, self.context), interfaces.ILineItemFactory )
+
+        # check amount from request
+        amount = float(self.request.get('amount', 1))
+        item_factory.create(amount=amount)
+
+        portal = getToolByName( self.context, 'portal_url').getPortalObject()
+        url = portal.absolute_url()
+
+        # check if anonymous checkout is allowed
+        if IGetPaidManagementOptions(portal).allow_anonymous_checkout or \
+            getSecurityManager().getUser().getId() is not None:
+            url = url + '/@@getpaid-checkout-wizard'
+        else:
+            url = "%s/%s?%s"%( url,
+                               'login_form',
+                               urlencode([('came_from',
+                                           url + '/@@getpaid-checkout-wizard')]))
+        return self.request.RESPONSE.redirect( url )
+
 def verifyItems( cart ):
     """ verify that all the objects in the cart can be resolved, removing
     items that can no longer be resolved and returning them """
