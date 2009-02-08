@@ -29,7 +29,8 @@
 
             <p tal:define="field python: '%.2f' % (getattr(view.payable,'price',0) or 0)"
 	       i18n:translate="text_price">
-                 Donation: $ <input type="text" 
+                 Donation: $ <input id="donation_amount"
+                                    type="text" 
                                     name="donation_amount"
                                     tal:attributes="value field" 
                                     i18n:name="value_price" />
@@ -40,11 +41,29 @@
 
         <dd class="portletFooter">
 
-<!-- Todo use ajvascript to check the donation amount, and then load ${context/absolute_url}/@@getpaid-cart-add?add_item=True&amount=value -->
+            <script type="text/javascript">
+            function submitDonation(obj) {
+              /* 
+                 This will probably need work for international since I 
+                 remove ',' and assume '.' seperates the decimal
+              */
+              var input = jq("#donation_amount")[0].value;
 
-            <a href="" tal:attributes="href string:${context/absolute_url}/@@getpaid-cart-add?add_item=True" i18n:translate="label_donate!">
+              input = input.replace(/[^0-9.]+/g, '');
+              var amount = parseFloat(input);
+
+              if (amount == NaN) {
+                alert("Invalid input:" + input); 
+              } else {
+                window.location = "@@getpaid-cart-add?add_item=True&amount=" + amount;
+              }
+            
+            }
+            </script>
+
+            <span style="cursor:pointer;" onclick="javascript:submitDonation();" tal:attributes="href string:${context/absolute_url}/@@getpaid-cart-add?add_item=True" i18n:translate="label_donate!">
                Donate!
-            </a>
+            </span>
             <span class="portletBottomLeft"></span>
             <span class="portletBottomRight"></span>
         </dd>

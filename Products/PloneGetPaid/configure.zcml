@@ -116,6 +116,12 @@
    factory=".content.ShippableItemFactory"
    />
 
+<adapter
+   for="getpaid.core.interfaces.IShoppingCart
+        .interfaces.IVariableAmountDonatableMarker"
+   provides="getpaid.core.interfaces.ILineItemFactory"
+   factory=".content.VariableAmountLineItemFactory"
+   />
 
 <!-- Property Storage for Configuration Options -->
 <adapter

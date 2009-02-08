@@ -105,6 +105,7 @@ class ShoppingCartAddItemWithAmountAndGoToCheckout(ShoppingCartAddItem):
         item_factory = component.getMultiAdapter( (self.cart, self.context), interfaces.ILineItemFactory )
 
         # check amount from request
+        # todo handle non-floats
         amount = float(self.request.get('amount', 1))
         item_factory.create(amount=amount)
 
