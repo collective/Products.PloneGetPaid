@@ -136,7 +136,9 @@ class VariableAmountLineItemFactory( LineItemFactory ):
 
         itemCount = 1
         for item_id in self.cart.keys():
-            if self.content.UID == item_id:
+            # See if this item, or item-itemCount already exists in the cart
+            
+            if self.content.UID() == item_id[:-4]:
                 itemCount += 1
                 
         nitem.item_id = "%(id)s-%(num)03d" % {'id' : self.content.UID(), 'num' : itemCount}

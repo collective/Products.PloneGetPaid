@@ -29,20 +29,9 @@
 
             <p tal:define="field python: '%.2f' % (getattr(view.payable,'price',0) or 0)"
 	       i18n:translate="text_price">
-                 Donation: $ <input id="donation_amount"
-                                    type="text" 
-                                    name="donation_amount"
-                                    tal:attributes="value field" 
-                                    i18n:name="value_price" />
-            </p>
-
-          </div>
-        </dd>
-
-        <dd class="portletFooter">
 
             <script type="text/javascript">
-            function submitDonation(obj) {
+            function submitDonation() {
               /* 
                  This will probably need work for international since I 
                  remove ',' and assume '.' seperates the decimal
@@ -59,7 +48,30 @@
               }
             
             }
+
+            jq(document).ready(function(){  
+ 
+              jq("input").keypress(function (e) {
+                if (e.which == 13) {
+                  submitDonation();
+                }
+              });
+
+            });
+
             </script>
+
+                 Donation: $ <input id="donation_amount"
+                                    type="text" 
+                                    name="donation_amount"
+                                    tal:attributes="value field" 
+                                    i18n:name="value_price" />
+            </p>
+
+          </div>
+        </dd>
+
+        <dd class="portletFooter">
 
             <span style="cursor:pointer;" onclick="javascript:submitDonation();" tal:attributes="href string:${context/absolute_url}/@@getpaid-cart-add?add_item=True" i18n:translate="label_donate!">
                Donate!
