@@ -25,7 +25,7 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 
 from Products.PloneGetPaid.interfaces import PayableMarkers, IGetPaidCartViewletManager, INamedOrderUtility
-from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IConditionalViewlet
+from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IConditionalViewlet, IVariableAmountDonatableMarker
 from Products.PloneGetPaid import sessions
 from Products.PloneGetPaid import config
 
@@ -375,6 +375,10 @@ class OrderTemplate( FormViewlet ):
             content = v.resolve()
             item_factory = component.getMultiAdapter( (cart, content), 
                                      interfaces.ILineItemFactory )
-            item_factory.create( quantity = v.quantity )
+
+            if IVariableAmountDonatableMarker.providedBy(content):
+                item_factory.create( amount=v.cost )
+            else:
+                item_factory.create( quantity=v.quantity )
         
         self.status = _(u"Previous Order Loaded into Cart")        
