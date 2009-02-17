@@ -44,7 +44,11 @@
               if (amount == NaN) {
                 alert("Invalid input:" + input); 
               } else {
-                window.location = "@@getpaid-cart-add?add_item=True&amount=" + amount;
+		var url = window.location.toString();
+		if (url.charAt(url.length - 1) != '/') {
+		  url += '/';
+		}
+                window.location = url + "@@getpaid-cart-add?add_item=True&amount=" + amount;
               }
             
             }
@@ -73,7 +77,7 @@
 
         <dd class="portletFooter">
 
-            <span style="cursor:pointer;" onclick="javascript:submitDonation();" tal:attributes="href string:${context/absolute_url}/@@getpaid-cart-add?add_item=True" i18n:translate="label_donate!">
+            <span style="cursor:pointer;" onclick="javascript:submitDonation();" i18n:translate="label_donate!">
                Donate!
             </span>
             <span class="portletBottomLeft"></span>
