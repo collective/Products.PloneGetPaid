@@ -25,7 +25,6 @@ class ShoppingCartUtility(Persistent):
         """ Get the persistent cart. It does not persist for anonymous users or
         one time only usage (things like one page buy and checkout)
         """
-        import pdb; pdb.set_trace()
         if key is not None:
             if create:
                 raise ValueError('Invalid combination of optional '
