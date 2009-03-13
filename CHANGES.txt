@@ -2,6 +2,14 @@
 CHANGES
 =======
 
+0.7.5 (2009-03-13)
+------------------
+
+- updated brazilian portuguese translation [rafaelcrocha]
+- updated the code so that we make sure we get the site root when checking
+  out, otherwise we can't get the store settings
+  
+
 0.7.4 (2009-01-28)
 ------------------
 
