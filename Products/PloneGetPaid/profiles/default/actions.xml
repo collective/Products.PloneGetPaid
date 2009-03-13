@@ -24,6 +24,14 @@
                 visible="True">
             <permission>Modify portal content</permission>
         </action>
+        <action title="Make this a Variable Amount Donation" 
+                action_id="getpaid_make_variableamountdonatable" 
+                category="object_buttons" 
+                condition_expr="python:path('object/@@getpaid_control').allowMakeVariableAmountDonatable()" 
+                url_expr="string:$object_url/@@activate-variableamountdonate" 
+                visible="True">
+            <permission>Modify portal content</permission>
+        </action>
         <action title="Make Not Buyable" 
                 action_id="getpaid_make_not_buyable" 
                 category="object_buttons" 
@@ -53,6 +61,14 @@
                 category="object_buttons" 
                 condition_expr="python:path('object/@@getpaid_control').allowMakeNotDonatable()" 
                 url_expr="string:$object_url/@@deactivate-donate" 
+                visible="True">
+            <permission>Modify portal content</permission>
+        </action>
+        <action title="Make this not a Variable Amount Donation" 
+                action_id="getpaid_make_not_variableamountdonatable" 
+                category="object_buttons" 
+                condition_expr="python:path('object/@@getpaid_control').allowMakeNotVariableAmountDonatable()" 
+                url_expr="string:$object_url/@@deactivate-variableamountdonate" 
                 visible="True">
             <permission>Modify portal content</permission>
         </action>

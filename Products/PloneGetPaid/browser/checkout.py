@@ -177,6 +177,7 @@ class BaseCheckoutForm( BaseFormView ):
         # shopping cart is attached to the session, but we want to switch the storage to the persistent
         # zodb, we pickle to get a clean copy to store.
         adapters = self.wizard.data_manager.adapters
+
         order.shopping_cart = loads( dumps( shopping_cart ) )
 
         for section in ('contact_information','billing_address','shipping_address'):
@@ -190,7 +191,6 @@ class BaseCheckoutForm( BaseFormView ):
         return order
 
     def canDisplayWidget (self, widget):
-#        import pdb;pdb.set_trace()
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
         try:
             IGetPaidManagementOptions(portal).use_contact_me_with_offers

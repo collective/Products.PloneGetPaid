@@ -52,7 +52,7 @@ class ShoppingCartUtility(Persistent):
 
     def _getCartForUser(self, context, uid, create=False):
         cart = self._sessions.get(uid)
-        if cart or not create:
+        if cart is not None or not create:
             return cart
         cart = ShoppingCart()
         cart.member_id = uid

@@ -44,6 +44,13 @@
      permission="cmf.ModifyPortalContent"
      />
 
+  <browser:page
+     for="*"
+     name="activate-variableamountdonate"
+     class=".content.VariableAmountDonateCreation"
+     permission="cmf.ModifyPortalContent"
+     />
+
   <!-- Edit Views, on payable -->
   <browser:page
      for="..interfaces.IBuyableMarker"
@@ -100,6 +107,21 @@
      filter="python:object.portal_membership.checkPermission('Modify portal content', object)"
      />
 
+  <browser:page
+    for="..interfaces.IVariableAmountDonatableMarker"
+    name="edit-payable"
+    class=".content.VariableAmountDonateEdit"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:menuItem
+     for="..interfaces.IVariableAmountDonatableMarker"
+     menu="object"
+     title="Payable"
+     action="edit-payable"
+     filter="python:object.portal_membership.checkPermission('Modify portal content', object)"
+     />
+
   <!-- Deactivation Views, turning paybles back into content -->
   <browser:page
      for="*"
@@ -130,10 +152,25 @@
      />
 
   <browser:page
+     for="*"
+     name="deactivate-variableamountdonate"
+     class=".content.VariableAmountDonateDestruction"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
     name="portlet-contentwidget"
     for="..interfaces.IDonatableMarker"
     class=".content.ContentPortlet"
     template="templates/portlet-content-donatable.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="portlet-contentwidget"
+    for="..interfaces.IVariableAmountDonatableMarker"
+    class=".content.ContentPortlet"
+    template="templates/portlet-content-variableamountdonatable.pt"
     permission="zope2.View"
     />
     

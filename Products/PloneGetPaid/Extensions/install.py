@@ -147,6 +147,7 @@ def install_plone3_portlets(self):
         portlets.cart.Assignment(),
         portlets.buy.Assignment(),
         portlets.donate.Assignment(),
+        portlets.variableamountdonate.Assignment(),
         portlets.ship.Assignment(),
         portlets.premium.Assignment(),
         ]

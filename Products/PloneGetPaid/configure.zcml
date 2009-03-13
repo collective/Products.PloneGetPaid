@@ -95,6 +95,12 @@
    factory=".content.DonatableContentAdapter"
   />
 
+<adapter
+   for="Products.PloneGetPaid.interfaces.IVariableAmountDonatableMarker"
+   provides="getpaid.core.interfaces.IVariableAmountDonationContent"
+   factory=".content.VariableAmountDonatableContentAdapter"
+  />
+
 <!-- Content to Line Item Adapter -->
 <adapter
    for="getpaid.core.interfaces.IShoppingCart
@@ -110,6 +116,12 @@
    factory=".content.ShippableItemFactory"
    />
 
+<adapter
+   for="getpaid.core.interfaces.IShoppingCart
+        .interfaces.IVariableAmountDonatableMarker"
+   provides="getpaid.core.interfaces.ILineItemFactory"
+   factory=".content.VariableAmountLineItemFactory"
+   />
 
 <!-- Property Storage for Configuration Options -->
 <adapter

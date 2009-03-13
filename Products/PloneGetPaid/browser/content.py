@@ -178,6 +178,21 @@ class DonateEdit( DonateForm ): pass
 class DonateDestruction( PayableDestruction ):
     marker = interfaces.IDonatableMarker
 
+class VariableAmountDonateForm( PayableForm ):
+    """ donation operations """
+    form_fields = form.Fields( igetpaid.IVariableAmountDonationContent )
+    form_fields['price'].custom_widget = widgets.PriceWidget
+    interface = interfaces.IEnhancedDonation
+    marker = interfaces.IVariableAmountDonatableMarker
+
+class VariableAmountDonateCreation( VariableAmountDonateForm, PayableCreation ):
+    actions = PayableCreation.actions
+    update  = PayableCreation.update
+
+class VariableAmountDonateEdit( VariableAmountDonateForm ): pass
+class VariableAmountDonateDestruction( PayableDestruction ):
+    marker = interfaces.IVariableAmountDonatableMarker
+
 
 class ContentControl( BrowserView ):
     """ conditions for presenting various actions
@@ -295,6 +310,21 @@ class ContentControl( BrowserView ):
         return self._allowChangePayable(self.options.donate_types) \
                and self.isDonatable()
     allowMakeNotDonatable.__roles__ = None
+
+    def allowMakeVariableAmountDonatable( self ):
+        """
+        """
+        return self._allowChangePayable(self.options.donate_types) \
+               and not self.isPayable() and not self.request.URL0.endswith('@@activate-variableamountdonate')
+
+    allowMakeVariableAmountDonatable.__roles__ = None
+
+    def allowMakeNotVariableAmountDonatable( self ):
+        """
+        """
+        return self._allowChangePayable(self.options.donate_types) \
+               and self.isDonatable()
+    allowMakeNotVariableAmountDonatable.__roles__ = None
 
     def showManageCart( self ):
         """

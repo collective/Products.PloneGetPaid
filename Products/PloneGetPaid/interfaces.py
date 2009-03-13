@@ -77,6 +77,9 @@ class IShippableMarker( IPayableMarker ):
 class IDonatableMarker( IPayableMarker ):
     """ donate-able interface added to shippable content """
 
+class IVariableAmountDonatableMarker( IPayableMarker ):
+    """ variable amount donate-able interface added to shippable content """
+
 
 class IStoreMember( Interface ):
     """ marker interface so we can adapt to members """
@@ -107,14 +110,15 @@ class IEnhancedDonation( igetpaid.IDonationContent ):
                                     required=False,
                                     default=list() )
 
-PayableMarkers = [ IBuyableMarker, IPremiumMarker, IShippableMarker, IDonatableMarker ]
+PayableMarkers = [ IBuyableMarker, IPremiumMarker, IShippableMarker, IDonatableMarker, IVariableAmountDonatableMarker ]
 
 PayableMarkerMap = dict(
      (
       (IBuyableMarker, igetpaid.IBuyableContent),
       (IPremiumMarker, igetpaid.IPremiumContent),
       (IShippableMarker, igetpaid.IShippableContent),
-      (IDonatableMarker, igetpaid.IDonationContent)
+      (IDonatableMarker, igetpaid.IDonationContent),
+      (IVariableAmountDonatableMarker, igetpaid.IVariableAmountDonationContent)
     )
 )
 

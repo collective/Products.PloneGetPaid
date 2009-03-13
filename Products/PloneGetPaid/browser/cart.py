@@ -25,7 +25,7 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 
 from Products.PloneGetPaid.interfaces import PayableMarkers, IGetPaidCartViewletManager, INamedOrderUtility
-from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IConditionalViewlet
+from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IConditionalViewlet, IVariableAmountDonatableMarker
 from Products.PloneGetPaid import sessions
 from Products.PloneGetPaid import config
 
@@ -87,6 +87,31 @@ class ShoppingCartAddItemAndGoToCheckout(ShoppingCartAddItem):
         super(ShoppingCartAddItemAndGoToCheckout, self).addToCart()
         portal = getToolByName( self.context, 'portal_url').getPortalObject()
         url = portal.absolute_url()
+        # check if anonymous checkout is allowed
+        if IGetPaidManagementOptions(portal).allow_anonymous_checkout or \
+            getSecurityManager().getUser().getId() is not None:
+            url = url + '/@@getpaid-checkout-wizard'
+        else:
+            url = "%s/%s?%s"%( url,
+                               'login_form',
+                               urlencode([('came_from',
+                                           url + '/@@getpaid-checkout-wizard')]))
+        return self.request.RESPONSE.redirect( url )
+
+class ShoppingCartAddItemWithAmountAndGoToCheckout(ShoppingCartAddItem):
+    def addToCart( self ):
+
+        # create a line item and add it to the cart
+        item_factory = component.getMultiAdapter( (self.cart, self.context), interfaces.ILineItemFactory )
+
+        # check amount from request
+        # todo handle non-floats
+        amount = float(self.request.get('amount', 1))
+        item_factory.create(amount=amount)
+
+        portal = getToolByName( self.context, 'portal_url').getPortalObject()
+        url = portal.absolute_url()
+
         # check if anonymous checkout is allowed
         if IGetPaidManagementOptions(portal).allow_anonymous_checkout or \
             getSecurityManager().getUser().getId() is not None:
@@ -350,6 +375,10 @@ class OrderTemplate( FormViewlet ):
             content = v.resolve()
             item_factory = component.getMultiAdapter( (cart, content), 
                                      interfaces.ILineItemFactory )
-            item_factory.create( quantity = v.quantity )
+
+            if IVariableAmountDonatableMarker.providedBy(content):
+                item_factory.create( amount=v.cost )
+            else:
+                item_factory.create( quantity=v.quantity )
         
         self.status = _(u"Previous Order Loaded into Cart")        
