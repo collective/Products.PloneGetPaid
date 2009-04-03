@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2008-08-05 16:33+0000\n"
+"POT-Creation-Date: 2009-04-03 20:42+0000\n"
 "PO-Revision-Date: 2007-08-16 12:44-0300\n"
 "Last-Translator: Francisco Gabriel Malbrán <fgmalbran@except.com.ar>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,28 +18,33 @@ msgstr ""
 "Domain: plonegetpaid\n"
 "X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-es es-sv es-gt es-hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
 
-#: ./interfaces.py:380
+#: ./interfaces.py:393
 msgid "A list of countries"
 msgstr "Una lista de países"
 
-#: ./interfaces.py:384
+#: ./interfaces.py:397
 msgid "A list of states"
 msgstr "Una lista de estados"
 
-#: ./interfaces.py:394
+#: ./interfaces.py:407
 msgid "A list of years"
 msgstr "Una lista de años"
+
+#. Default: "A name you can remember this order template by."
+#: ./browser/templates/checkout-review-pay.pt:63
+msgid "A name you can remember this order template by."
+msgstr ""
 
 #. Default: "A name you remember this address by. Will not appear on shipping label."
 #: ./browser/templates/checkout-address.pt:51
 msgid "A name you remember this address by. Will not appear on shipping label."
 msgstr "Un nombre por el que recuerde esta dirección. No aparecerá en el la etiqueta de envío"
 
-#: ./browser/checkout.py:446
+#: ./browser/checkout.py:465
 msgid "A new address has been saved"
 msgstr "Una nueva dirección ha sido guardada"
 
-#: ./interfaces.py:248
+#: ./interfaces.py:253
 msgid "Accepted Credit Cards"
 msgstr "Tarjetas de crédito aceptadas"
 
@@ -47,17 +52,17 @@ msgstr "Tarjetas de crédito aceptadas"
 msgid "Activate"
 msgstr "Activar"
 
+# ,fuzzy
 #. Default: "Addressbook entry name"
 #: ./browser/templates/checkout-address.pt:50
-#,fuzzy
 msgid "Addressbook entry name"
 msgstr "Nombre en libreta de direcciones"
 
-#: ./interfaces.py:243
+#: ./interfaces.py:248
 msgid "Allow Anonymous Checkout"
 msgstr "Permitir checkout anónimo"
 
-#: ./interfaces.py:101
+#: ./interfaces.py:104
 msgid "Amount"
 msgstr "Cantidad"
 
@@ -65,12 +70,12 @@ msgstr "Cantidad"
 msgid "Apply"
 msgstr "Aplicar"
 
-#: ./browser/checkout.py:568
+#: ./browser/checkout.py:587
 msgid "Back"
 msgstr "Volver"
 
 #. Default: "Billing Address"
-#: ./browser/templates/order-summary.pt:46
+#: ./browser/templates/checkout-review-pay.pt:30
 msgid "Billing Address"
 msgstr "Dirección de facturación"
 
@@ -78,47 +83,55 @@ msgstr "Dirección de facturación"
 msgid "Buyable"
 msgstr "Adquirible"
 
-#: ./interfaces.py:190
+#: ./interfaces.py:194
 msgid "Buyable Content delivered through the web/virtually"
 msgstr "Contenido adquirible a través de la web/virtualmente"
 
-#: ./interfaces.py:187
+#: ./interfaces.py:191
 msgid "Buyable Types"
 msgstr "Tipos Adquiribles"
 
-#: ./browser/checkout.py:448
+#: ./browser/checkout.py:467
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ./browser/cart.py:281
+#: ./browser/admin_order.py:93
+msgid "Card Phone#"
+msgstr ""
+
+#: ./browser/cart.py:306
 msgid "Checkout"
 msgstr "Checkout"
 
-#: ./interfaces.py:143
+#: ./browser/admin.py:314
+msgid "Checkout Options"
+msgstr ""
+
+#: ./interfaces.py:147
 msgid "Contact Address"
 msgstr "Dirección del Contacto"
 
-#: ./interfaces.py:148
+#: ./interfaces.py:152
 msgid "Contact Address2"
 msgstr "Segunda Dirección del Contacto"
 
-#: ./interfaces.py:153
+#: ./interfaces.py:157
 msgid "Contact City"
 msgstr "Ciudad del Contacto"
 
-#: ./interfaces.py:138
+#: ./interfaces.py:142
 msgid "Contact Company"
 msgstr "Compañía del Contacto"
 
-#: ./interfaces.py:158
+#: ./interfaces.py:162
 msgid "Contact Country"
 msgstr "País del Contacto"
 
-#: ./interfaces.py:133
+#: ./interfaces.py:137
 msgid "Contact Email"
 msgstr "Email del Contacto"
 
-#: ./interfaces.py:179
+#: ./interfaces.py:183
 msgid "Contact Fax"
 msgstr "Fax del Contacto"
 
@@ -128,19 +141,19 @@ msgid "Contact Information"
 msgstr "Información del Contacto"
 
 #. Default: "Contact Name"
-#: ./browser/templates/order-summary.pt:35
+#: ./browser/templates/order-summary.pt:42
 msgid "Contact Name"
 msgstr "Nombre del Contacto"
 
-#: ./interfaces.py:173
+#: ./interfaces.py:177
 msgid "Contact Phone"
 msgstr "Teléfono del Contacto"
 
-#: ./interfaces.py:163
+#: ./interfaces.py:167
 msgid "Contact State/Province"
 msgstr "Estado/Provincia del Contacto"
 
-#: ./interfaces.py:168
+#: ./interfaces.py:172
 msgid "Contact Zip/Postal Code"
 msgstr "Código Postal del Contacto"
 
@@ -148,47 +161,47 @@ msgstr "Código Postal del Contacto"
 msgid "Content Types"
 msgstr "Tipos de Contenido"
 
-#: ./interfaces.py:206
+#: ./interfaces.py:210
 msgid "Content Types available for donation"
 msgstr "Tipos de Contenido disponibles para donaciones"
 
-#: ./interfaces.py:198
+#: ./interfaces.py:202
 msgid "Content Types only available to premium memberships"
 msgstr "Tipos de Contenido sólo disponibles para membresías pagas"
 
-#: ./interfaces.py:214
+#: ./interfaces.py:218
 msgid "Content Types that represent goods that can be purchased and shipped"
 msgstr "Tipos de Contenido que representan bienes que pueden ser vendidos y enviados"
 
-#: ./browser/admin_order.py:727
+#: ./browser/admin_order.py:755
 msgid "Contents"
 msgstr ""
 
-#: ./browser/checkout.py:454
+#: ./browser/checkout.py:473
 msgid "Continue"
 msgstr "Continuar"
 
-#: ./browser/cart.py:261
+#: ./browser/cart.py:286
 msgid "Continue Shopping"
 msgstr "Continuar comprando"
 
-#: ./browser/cart.py:330
+#: ./browser/cart.py:368
 msgid "Could not find order"
 msgstr "No se pudo encontrar la orden"
 
-#: ./browser/admin_order.py:93
+#: ./browser/admin_order.py:97
 msgid "Created"
 msgstr "Creado"
 
-#: ./interfaces.py:251
+#: ./interfaces.py:256
 msgid "Credit cards accepted for payment"
 msgstr "Tarjetas de crédito aceptadas para pago"
 
-#: ./interfaces.py:295
+#: ./interfaces.py:300
 msgid "Currency Symbol"
 msgstr "Símbolo de la moneda"
 
-#: ./interfaces.py:343
+#: ./interfaces.py:348
 msgid "Customer Email Notifications"
 msgstr "Alertas al Cliente por Email"
 
@@ -196,15 +209,7 @@ msgstr "Alertas al Cliente por Email"
 msgid "Customer Id"
 msgstr "Id de cliente"
 
-#: ./browser/io.py:18
-msgid "Data File to Import"
-msgstr "Archivo de datos a importar"
-
-#: ./browser/io.py:83
-msgid "Data Imported"
-msgstr "Datos importados"
-
-#: ./interfaces.py:320
+#: ./interfaces.py:325
 msgid "Decimal Symbol"
 msgstr "Símbolo decimal"
 
@@ -212,7 +217,7 @@ msgstr "Símbolo decimal"
 msgid "Delete"
 msgstr "Borrar"
 
-#: ./interfaces.py:310
+#: ./interfaces.py:315
 msgid "Digit Grouping Symbol"
 msgstr "Símbolo Agrupador de Dígitos"
 
@@ -220,6 +225,10 @@ msgstr "Símbolo Agrupador de Dígitos"
 #: ./browser/templates/legal-disclaimers-links.pt:14
 msgid "Disclaimer"
 msgstr "Salvedad"
+
+#: ./interfaces.py:368
+msgid "Display 'Contact me with offers' option on Checkout page"
+msgstr ""
 
 #: ./vocabularies.py:91
 msgid "Do not send customer email notification of a completed transaction"
@@ -229,102 +238,102 @@ msgstr "No enviar al cliente una notificación por mail de que la transacción s
 msgid "Do not send merchant email notification of a completed transaction"
 msgstr "No enviar al vendedor una notificación por mail de que la transacción se ha completado"
 
+# ,fuzzy
 #: ./browser/portlets/donate.py:22
-#,fuzzy
 msgid "Donatable"
 msgstr "Donable"
 
-#: ./interfaces.py:203
+#: ./interfaces.py:207
 msgid "Donatable Content Types"
 msgstr "Tipos de Contenido Donables"
 
-#: ./interfaces.py:100
+#: ./interfaces.py:103
 msgid "Donation Level Name"
 msgstr "Nombre del Nivel de Donación"
 
-#: ./interfaces.py:105
+#: ./interfaces.py:108
 msgid "Donation Levels"
 msgstr "Niveles de Donación"
 
 #. Default: "E-mail"
-#: ./browser/templates/order-summary.pt:37
+#: ./browser/templates/order-summary.pt:44
 msgid "E-mail"
 msgstr "E-mail"
 
-#: ./browser/admin.py:291
+#: ./browser/admin.py:298
 msgid "Email Notifications"
 msgstr "Notificaciones por Email"
 
-#: ./browser/io.py:65
-msgid "Export"
-msgstr "Exportar"
-
-#: ./browser/admin_order.py:162
+#: ./browser/admin_order.py:166
 msgid "Export All"
 msgstr "Exportar todo"
 
-#: ./browser/admin_order.py:129
+#: ./browser/admin_order.py:133
 msgid "Export Search"
 msgstr "Exportar busqueda"
 
-#: ./browser/cart.py:319
+#: ./browser/cart.py:357
 msgid "Fill"
 msgstr "Completar"
 
-#: ./browser/admin_order.py:231
+#: ./browser/admin_order.py:241
 msgid "Filter"
 msgstr "Filtro"
 
-#: ./browser/admin_order.py:91
+#: ./browser/admin_order.py:95
 msgid "Fulfillment"
 msgstr "Despacho"
 
-#: ./browser/io.py:77
-msgid "Import"
-msgstr "Importar"
-
-#: ./browser/admin_order.py:714
+#: ./browser/admin_order.py:742
 msgid "Item Id"
 msgstr "Id del item"
 
-#: ./browser/admin.py:299
+#: ./browser/admin_order.py:90
+msgid "Last4"
+msgstr ""
+
+#: ./browser/admin.py:306
 msgid "Legal Disclaimers"
 msgstr "Cláusulas Legales"
 
 #. Default: "Mailing Address"
-#: ./browser/templates/order-summary.pt:56
+#: ./browser/templates/checkout-review-pay.pt:38
 msgid "Mailing Address"
 msgstr "Dirección de envio"
 
-#: ./browser/checkout.py:572
+#: ./browser/checkout.py:591
 msgid "Make Payment"
 msgstr "Pagar"
 
-#: ./interfaces.py:339
+#: ./interfaces.py:344
 msgid "Merchant Email Notifications"
 msgstr "Alertas al Vendedor por Email"
 
-#: ./browser/admin_order.py:553
+#: ./browser/admin_order.py:581
 msgid "N/A"
 msgstr "No disponible"
 
-#: ./browser/admin_order.py:715
+#: ./browser/admin_order.py:743
 msgid "Name"
 msgstr "Nombre"
 
-#: ./interfaces.py:305
+#: ./browser/admin_order.py:92
+msgid "Name on Card"
+msgstr ""
+
+#: ./interfaces.py:310
 msgid "Negative Currency Format"
 msgstr "Formato de Moneda Negativa"
 
-#: ./interfaces.py:325
+#: ./interfaces.py:330
 msgid "Number of Digits After Decimal"
 msgstr "Número de Dígitos Después de la Coma"
 
-#: ./interfaces.py:315
+#: ./interfaces.py:320
 msgid "Number of Digits in Group"
 msgstr "Número de Dígitos en un Grupo"
 
-#: ./interfaces.py:174
+#: ./interfaces.py:178
 msgid "Only digits allowed"
 msgstr "Sólo se permiten dígitos"
 
@@ -336,13 +345,18 @@ msgstr "Detalles"
 msgid "Order Id"
 msgstr "Id de orden"
 
-#: ./browser/cart.py:294
-#,fuzzy
+# ,fuzzy
+#: ./browser/cart.py:319
 msgid "Order Templates"
 msgstr "Plantillas de orden"
 
+#. Default: "Order template name"
+#: ./browser/templates/checkout-review-pay.pt:62
+msgid "Order template name"
+msgstr ""
+
 #. Default: "Payment Details"
-#: ./browser/templates/checkout-review-pay.pt:51
+#: ./browser/templates/checkout-review-pay.pt:81
 msgid "Payment Details"
 msgstr "Detalles del pago"
 
@@ -350,24 +364,24 @@ msgstr "Detalles del pago"
 msgid "Payment Options"
 msgstr "Opciones de Pago"
 
-#: ./interfaces.py:240
+#: ./interfaces.py:244
 msgid "Payment Processor"
 msgstr "Procesador de Pagos"
 
-#: ./browser/admin.py:220
+#: ./browser/admin.py:227
 msgid "Payment Processor Settings"
 msgstr "Configuración del Procesador de Pagos"
 
 #. Default: "Phone Number"
-#: ./browser/templates/order-summary.pt:39
+#: ./browser/templates/order-summary.pt:46
 msgid "Phone Number"
 msgstr "Número de teléfono"
 
-#: ./browser/admin.py:231
+#: ./browser/admin.py:238
 msgid "Please Select Payment Processor in Payment Options Settings"
 msgstr "Por Favor Elija Un Procesador De Pagos En La Pantalla De Configuración De Pagos"
 
-#: ./interfaces.py:300
+#: ./interfaces.py:305
 msgid "Positive Currency Format"
 msgstr "Formato de Moneda Positiva"
 
@@ -379,7 +393,7 @@ msgstr "Libras"
 msgid "Premium"
 msgstr ""
 
-#: ./interfaces.py:195
+#: ./interfaces.py:199
 msgid "Premium Content Types"
 msgstr "Tipos de Contenido Pagos"
 
@@ -388,11 +402,11 @@ msgstr "Tipos de Contenido Pagos"
 msgid "Premium not implemented yet"
 msgstr "'Premium' no implementado todavía"
 
-#: ./browser/cart.py:342
+#: ./browser/cart.py:384
 msgid "Previous Order Loaded into Cart"
 msgstr "Orden previa cargada en el carrito"
 
-#: ./browser/admin_order.py:92
+#: ./browser/admin_order.py:96
 msgid "Price"
 msgstr "Precio"
 
@@ -401,25 +415,34 @@ msgstr "Precio"
 msgid "Privacy Policy"
 msgstr "Política de Privacidad"
 
-#: ./browser/admin_order.py:713
+#: ./browser/admin_order.py:91
+msgid "Proc Trans Id"
+msgstr ""
+
+#: ./browser/admin_order.py:741
 msgid "Quantity"
 msgstr "Cantidad"
 
-#: ./browser/admin.py:276
+#: ./browser/admin.py:283
 msgid "Sales Tax Configuration"
 msgstr "Configuracíon de impuestos sobre la venta"
 
 #. Default: "Same as billing"
-#: ./browser/templates/order-summary.pt:65
+#: ./browser/templates/order-summary.pt:72
 msgid "Same as billing"
 msgstr "Igual que en facturación"
+
+#. Default: "Save this order as a template"
+#: ./browser/templates/checkout-review-pay.pt:70
+msgid "Save this order as a template"
+msgstr ""
 
 #. Default: "Save to address book"
 #: ./browser/templates/checkout-address.pt:55
 msgid "Save to address book"
 msgstr "Salvar a libro de direcciones"
 
-#: ./browser/cart.py:295
+#: ./browser/cart.py:320
 msgid "Select a previous order to fill your cart."
 msgstr "Selecciones una orden previa para llenar su carrito"
 
@@ -436,7 +459,7 @@ msgstr "Enviar al cliente una notificación por mail de que la transacción se h
 msgid "Send merchant email notification when a transaction happens"
 msgstr "Enviar al vendedor una notificación por mail de que la transacción se ha completado"
 
-#: ./interfaces.py:278
+#: ./interfaces.py:283
 msgid "Session Timeout"
 msgstr "Tiempo Límite para la Sesión"
 
@@ -448,7 +471,7 @@ msgstr "Configuraciones"
 msgid "Shippable"
 msgstr "Enviable"
 
-#: ./interfaces.py:211
+#: ./interfaces.py:215
 msgid "Shippable Product Types"
 msgstr "Tipos de Contenido Enviables"
 
@@ -456,25 +479,25 @@ msgstr "Tipos de Contenido Enviables"
 msgid "Shipping Methods"
 msgstr "Métodos de Envío"
 
-#: ./interfaces.py:230
+#: ./interfaces.py:234
 msgid "Shipping Rate Service"
 msgstr ""
 
-#: ./interfaces.py:225
-#,fuzzy
+# ,fuzzy
+#: ./interfaces.py:229
 msgid "Shipping methods to offer for orders in your store"
 msgstr "Métodos de envío para ofrecer a las ordenes en su tienda"
 
-#: ./interfaces.py:233
+#: ./interfaces.py:237
 msgid "Shipping services to offer for orders in your store"
 msgstr ""
 
 #. Default: "Shopping Cart"
-#: ./browser/templates/checkout-review-pay.pt:44
+#: ./browser/templates/checkout-review-pay.pt:53
 msgid "Shopping Cart"
 msgstr "Carrito de compras"
 
-#: ./interfaces.py:280
+#: ./interfaces.py:285
 msgid "Shopping cart session timeout (in seconds)"
 msgstr "Tiempo límite de la sesión del carrito de compras (en segundos)"
 
@@ -482,31 +505,31 @@ msgstr "Tiempo límite de la sesión del carrito de compras (en segundos)"
 msgid "Site Profile"
 msgstr "Perfil del Sitio"
 
-#: ./browser/admin_order.py:90
+#: ./browser/admin_order.py:94
 msgid "Status"
 msgstr "Estado"
 
-#: ./interfaces.py:123
+#: ./interfaces.py:127
 msgid "Store/Organization Name"
 msgstr "Nombre de la Organización/Tienda"
 
-#: ./interfaces.py:287
+#: ./interfaces.py:292
 msgid "Tax Method"
 msgstr "Método Impositivo"
 
-#: ./browser/admin.py:241
+#: ./browser/admin.py:248
 msgid "The currently configured Payment Processor cannot be found; please check if the corresponding package is installed correctly."
 msgstr "El procesador de pagos configurado actualmente no puede ser encontrado; por favor chequee si el paquete correspondiente está instalado correctamente."
 
-#: ./interfaces.py:390
+#: ./interfaces.py:403
 msgid "The list of months"
 msgstr "El listado de meses"
 
-#: ./browser/admin_order.py:717
+#: ./browser/admin_order.py:745
 msgid "Total"
 msgstr "Total"
 
-#: ./interfaces.py:330
+#: ./interfaces.py:335
 msgid "US Currency Formatting"
 msgstr "Formato de Moneda Estadounidense"
 
@@ -514,12 +537,16 @@ msgstr "Formato de Moneda Estadounidense"
 msgid "US Dollars"
 msgstr "Dólares Estadounidenses"
 
-#: ./browser/cart.py:228
+#: ./browser/cart.py:253
 msgid "Update"
 msgstr "Actualizar"
 
-#: ./interfaces.py:245
+#: ./interfaces.py:250
 msgid "Use SSL for checkout"
+msgstr ""
+
+#: ./browser/portlets/variableamountdonate.py:22
+msgid "Variable Amount Donation"
 msgstr ""
 
 #. Default: "We are sorry but your credit card was declined."
@@ -527,16 +554,16 @@ msgstr ""
 msgid "We are sorry but your credit card was declined."
 msgstr "Lo lamentamos, pero su tarjeta de crédito ha sido rechazada"
 
-#: ./interfaces.py:271
+#: ./interfaces.py:276
 msgid "Weight Units"
 msgstr "Unidades de Peso"
 
 #. Default: "You can check the status of your order ${status_url}"
-#: ./browser/templates/checkout-thank-you.pt:28
+#: ./browser/templates/checkout-thank-you.pt:34
 msgid "box_order_status_url_description"
 msgstr "Puede verificar el estado de tu pedido ${status_url}"
 
-#: ./interfaces.py:379
+#: ./interfaces.py:392
 msgid "countries"
 msgstr "países"
 
@@ -576,7 +603,7 @@ msgid "heading_changed_by"
 msgstr "modificado por"
 
 #. Default: "Checkout"
-#: ./browser/templates/checkout-address.pt:12
+#: ./browser/templates/checkout-review-pay.pt:12
 msgid "heading_checkout"
 msgstr "Checkout"
 
@@ -667,17 +694,17 @@ msgid "heading_your_orders"
 msgstr "Sus Pedidos"
 
 #. Default: "here"
-#: ./browser/templates/checkout-thank-you.pt:29
+#: ./browser/templates/checkout-thank-you.pt:35
 msgid "here"
 msgstr "aquí"
 
 #. Default: "Add to Cart"
-#: ./browser/templates/portlet-content-shippable.pt:40
+#: ./browser/templates/portlet-content-premium.pt:40
 msgid "label_add_to_cart"
 msgstr "Agregar al Carrito"
 
 #. Default: "Donate!"
-#: ./browser/templates/portlet-content-donatable.pt:40
+#: ./browser/templates/portlet-content-variableamountdonatable.pt:72
 msgid "label_donate!"
 msgstr "Donar!"
 
@@ -756,11 +783,11 @@ msgstr "Buscador de Pedidos"
 msgid "legend_summary"
 msgstr "Resúmen"
 
-#: ./interfaces.py:389
+#: ./interfaces.py:402
 msgid "months"
 msgstr "meses"
 
-#: ./interfaces.py:383
+#: ./interfaces.py:396
 msgid "states"
 msgstr "estados"
 
@@ -780,7 +807,7 @@ msgid "text_creation_date"
 msgstr "Fecha de Creación"
 
 #. Default: "Current Status"
-#: ./browser/templates/order-fulfillment.pt:5
+#: ./browser/templates/order-finance.pt:5
 msgid "text_current_status"
 msgstr "Estado Actual"
 
@@ -795,17 +822,17 @@ msgid "text_finance_status"
 msgstr "Estado Financiero"
 
 #. Default: "Shipping Service"
-#: ./browser/templates/order-summary.pt:73
+#: ./browser/templates/order-summary.pt:80
 msgid "text_fulfillment_shipping_method"
 msgstr "Servicio de Envío"
 
 #. Default: "Shipment Tracking Numbers:"
-#: ./browser/templates/order-summary.pt:82
+#: ./browser/templates/order-summary.pt:89
 msgid "text_fulfillment_shipping_track_number"
 msgstr "Números de Seguimiento de Envío"
 
 #. Default: "Shipment Weight"
-#: ./browser/templates/order-summary.pt:77
+#: ./browser/templates/order-summary.pt:84
 msgid "text_fulfillment_shipping_weight"
 msgstr "Peso del Envío"
 
@@ -819,13 +846,14 @@ msgstr "Estado del Despacho"
 msgid "text_order_id"
 msgstr "Número de Pedido"
 
-#. Default: "Price: $ ${value_price}"
-#: ./browser/templates/portlet-content-shippable.pt:33
+#. Default: "<script type=\"text/javascript\"> function submitDonation() { /* This will probably need work for international since I remove ',' and assume '.' seperates the decimal */ var input = jq(\"#donation_amount\")[0].value; input = input.replace(/[^0-9.]+/g, ''); var amount = parseFloat(input); if (amount == NaN) { alert(\"Invalid input:\" + input); } else { var url = window.location.toString(); if (url.charAt(url.length - 1) != '/') { url += '/'; } window.location = url + \"@@getpaid-cart-add?add_item=True&amount=\" + amount; } } </script> <form action=\"javascript:submitDonation();\"> Donation: $ ${value_price} </form>"
+#: ./browser/templates/portlet-content-variableamountdonatable.pt:59
+#, fuzzy
 msgid "text_price"
 msgstr "Precio: $ ${value_price}"
 
 #. Default: "Product Details"
-#: ./browser/templates/portlet-content-shippable.pt:12
+#: ./browser/templates/portlet-content-variableamountdonatable.pt:12
 msgid "text_product_details"
 msgstr "Detalles del Producto"
 
@@ -839,7 +867,7 @@ msgstr "Precio Total"
 msgid "text_your_cart"
 msgstr "Tu Carrito"
 
-#: ./interfaces.py:393
+#: ./interfaces.py:406
 msgid "years"
 msgstr "años"
 
