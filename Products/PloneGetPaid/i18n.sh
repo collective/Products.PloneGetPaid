@@ -5,13 +5,16 @@
 
 i18ndude rebuild-pot --pot i18n/plonegetpaid.pot --create plonegetpaid --merge i18n/manual.pot ./
 
-for file in i18n/plonegetpaid-??.po
+# Update the po files, but make sure you update po files with double
+# names too, like pt-br (Brazilian Portuguese), and not accidentally
+# update the plonegetpaid-plone files as well.
+for file in i18n/plonegetpaid-??.po i18n/plonegetpaid-??-??.po
 do
     echo Syncing $file ...
     i18ndude sync --pot i18n/plonegetpaid.pot $file
 done
 
-for file in i18n/plonegetpaid-plone-??.po
+for file in i18n/plonegetpaid-plone-*.po
 do
     echo Syncing $file ...
     i18ndude sync --pot i18n/plonegetpaid-plone.pot $file

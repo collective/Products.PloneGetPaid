@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1.0\n"
-"POT-Creation-Date: 2007-08-25 15:18+0000\n"
+"POT-Creation-Date: 2006-06-06 13:53+0000\n"
 "PO-Revision-Date: 2007-08-25 17:05-0300\n"
 "Last-Translator: ThreePointsWeb Team <contato@threepointsweb.com>\n"
 "Language-Team: ThreePointsWeb Team <contato@threepointsweb.com>\n"
@@ -17,7 +17,6 @@ msgstr ""
 "Language-Name: Brazilian Portuguese\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plone\n"
-
 
 msgid "Make Buyable"
 msgstr "Tornar Comprável"
@@ -54,5 +53,4 @@ msgstr "Comprável"
 
 msgid "Settings"
 msgstr "Configurações"
-
 
