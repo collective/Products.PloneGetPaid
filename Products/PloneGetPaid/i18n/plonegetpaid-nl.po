@@ -1,15 +1,15 @@
 # Contributors:
 # 
 # Jean-Paul Ladage <j.ladage@zestsoftware.nl>, 2007.
-# Maurits van Rees <m.van.rees@zestsoftware.nl>, 2007.
+# Maurits van Rees <m.van.rees@zestsoftware.nl>, 2007-2009.
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
 "POT-Creation-Date: 2009-04-03 20:42+0000\n"
-"PO-Revision-Date: 2008-04-14 22:09+0200\n"
+"PO-Revision-Date: 2009-04-03 23:16+0200\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: Plone Nederlands <plone-nl@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,16 +35,16 @@ msgstr "Een lijst met jaartallen"
 #. Default: "A name you can remember this order template by."
 #: ./browser/templates/checkout-review-pay.pt:63
 msgid "A name you can remember this order template by."
-msgstr ""
+msgstr "Een naam waaraan u dit bestellingssjabloon kan herkennen."
 
 #. Default: "A name you remember this address by. Will not appear on shipping label."
 #: ./browser/templates/checkout-address.pt:51
 msgid "A name you remember this address by. Will not appear on shipping label."
-msgstr ""
+msgstr "Een naam waaraan u dit adres kan herkennen. Zal niet op het verzendlabel getoond worden."
 
 #: ./browser/checkout.py:465
 msgid "A new address has been saved"
-msgstr ""
+msgstr "Een nieuw adres is opgeslagen."
 
 #: ./interfaces.py:253
 msgid "Accepted Credit Cards"
@@ -57,7 +57,7 @@ msgstr "Activeer"
 #. Default: "Addressbook entry name"
 #: ./browser/templates/checkout-address.pt:50
 msgid "Addressbook entry name"
-msgstr ""
+msgstr "Naan van adres"
 
 #: ./interfaces.py:248
 msgid "Allow Anonymous Checkout"
@@ -106,7 +106,7 @@ msgstr "Afrekenen"
 
 #: ./browser/admin.py:314
 msgid "Checkout Options"
-msgstr ""
+msgstr "Afrekenopties"
 
 #: ./interfaces.py:147
 msgid "Contact Address"
@@ -176,7 +176,7 @@ msgstr "Content types die goederen representeren die gekocht en verzonden kunnen
 
 #: ./browser/admin_order.py:755
 msgid "Contents"
-msgstr ""
+msgstr "Inhoud"
 
 #: ./browser/checkout.py:473
 msgid "Continue"
@@ -188,7 +188,7 @@ msgstr "Ga door met winkelen"
 
 #: ./browser/cart.py:368
 msgid "Could not find order"
-msgstr ""
+msgstr "Kon bestelling niet vinden"
 
 #: ./browser/admin_order.py:97
 msgid "Created"
@@ -229,7 +229,7 @@ msgstr "Disclaimer"
 
 #: ./interfaces.py:368
 msgid "Display 'Contact me with offers' option on Checkout page"
-msgstr ""
+msgstr "Toon 'Neem contact met me op voor aanbiedingen' optie op afrekenpagina."
 
 #: ./vocabularies.py:91
 msgid "Do not send customer email notification of a completed transaction"
@@ -258,7 +258,7 @@ msgstr "Donatieniveau's"
 #. Default: "E-mail"
 #: ./browser/templates/order-summary.pt:44
 msgid "E-mail"
-msgstr ""
+msgstr "E-mail"
 
 #: ./browser/admin.py:298
 msgid "Email Notifications"
@@ -266,7 +266,7 @@ msgstr "E-mail notificatie"
 
 #: ./browser/admin_order.py:166
 msgid "Export All"
-msgstr ""
+msgstr "Exporteer alles"
 
 #: ./browser/admin_order.py:133
 msgid "Export Search"
@@ -274,7 +274,7 @@ msgstr "Exporteren"
 
 #: ./browser/cart.py:357
 msgid "Fill"
-msgstr ""
+msgstr "Laden"
 
 #: ./browser/admin_order.py:241
 msgid "Filter"
@@ -319,7 +319,7 @@ msgstr "Naam"
 
 #: ./browser/admin_order.py:92
 msgid "Name on Card"
-msgstr ""
+msgstr "Naam op kaart"
 
 #: ./interfaces.py:310
 msgid "Negative Currency Format"
@@ -347,12 +347,12 @@ msgstr "Ordernummer"
 
 #: ./browser/cart.py:319
 msgid "Order Templates"
-msgstr ""
+msgstr "Bestellingssjabloon"
 
 #. Default: "Order template name"
 #: ./browser/templates/checkout-review-pay.pt:62
 msgid "Order template name"
-msgstr ""
+msgstr "Naam van bestellingssjabloon"
 
 #. Default: "Payment Details"
 #: ./browser/templates/checkout-review-pay.pt:81
@@ -374,7 +374,7 @@ msgstr "Betaling verwerking instellingen"
 #. Default: "Phone Number"
 #: ./browser/templates/order-summary.pt:46
 msgid "Phone Number"
-msgstr ""
+msgstr "Telefoonnummer"
 
 #: ./browser/admin.py:238
 msgid "Please Select Payment Processor in Payment Options Settings"
@@ -390,7 +390,7 @@ msgstr "Ponden"
 
 #: ./browser/portlets/premium.py:22
 msgid "Premium"
-msgstr ""
+msgstr "Premium"
 
 #: ./interfaces.py:199
 msgid "Premium Content Types"
@@ -403,7 +403,7 @@ msgstr "Premium nog niet beschikbaar"
 
 #: ./browser/cart.py:384
 msgid "Previous Order Loaded into Cart"
-msgstr ""
+msgstr "Vorige bestelling is in winkelwagen geladen."
 
 #: ./browser/admin_order.py:96
 msgid "Price"
@@ -429,21 +429,21 @@ msgstr "BTW configuratie"
 #. Default: "Same as billing"
 #: ./browser/templates/order-summary.pt:72
 msgid "Same as billing"
-msgstr ""
+msgstr "Zelfde als factuur"
 
 #. Default: "Save this order as a template"
 #: ./browser/templates/checkout-review-pay.pt:70
 msgid "Save this order as a template"
-msgstr ""
+msgstr "Bewaar deze bestelling als sjabloon."
 
 #. Default: "Save to address book"
 #: ./browser/templates/checkout-address.pt:55
 msgid "Save to address book"
-msgstr ""
+msgstr "Bewaar in adresboek"
 
 #: ./browser/cart.py:320
 msgid "Select a previous order to fill your cart."
-msgstr ""
+msgstr "Selecteer een vorige bestelling om uw winkelwagen te vullen."
 
 #. Default: "Select a shipping rate:"
 #: ./browser/templates/checkout-shipping-method.pt:19
@@ -476,7 +476,7 @@ msgstr "Verzendbare product types"
 
 #: ./browser/admin.py:182
 msgid "Shipping Methods"
-msgstr ""
+msgstr "Verzendmethodes"
 
 #: ./interfaces.py:234
 msgid "Shipping Rate Service"
@@ -484,7 +484,7 @@ msgstr ""
 
 #: ./interfaces.py:229
 msgid "Shipping methods to offer for orders in your store"
-msgstr ""
+msgstr "Verzendmethodes om aan te bieden voor bestellingen in uw winkel"
 
 #: ./interfaces.py:237
 msgid "Shipping services to offer for orders in your store"
@@ -541,16 +541,16 @@ msgstr "Bijwerken"
 
 #: ./interfaces.py:250
 msgid "Use SSL for checkout"
-msgstr ""
+msgstr "Gebruik SSL voor afrekening"
 
 #: ./browser/portlets/variableamountdonate.py:22
 msgid "Variable Amount Donation"
-msgstr ""
+msgstr "Variabele bijdrage"
 
 #. Default: "We are sorry but your credit card was declined."
 #: ./browser/templates/checkout-cancelled-declined.pt:5
 msgid "We are sorry but your credit card was declined."
-msgstr ""
+msgstr "Het spijt ons, maar uw creditcard wordt niet geaccepteerd."
 
 #: ./interfaces.py:276
 msgid "Weight Units"
@@ -728,7 +728,7 @@ msgstr "Naar GetPaid instellingen"
 #. Default: "Your Address Book entries"
 #: ./browser/templates/addressbook-listing.pt:4
 msgid "legend_addressbook_contents"
-msgstr ""
+msgstr "Adressen uit uw adresboek"
 
 #. Default: "Your Cart Contents"
 #: ./browser/templates/cart-listing.pt:4
@@ -738,7 +738,7 @@ msgstr "Inhoud van uw winkelwagen"
 #. Default: "Export List of Emails and Preferences"
 #: ./browser/templates/orders-emails-export-csv.pt:3
 msgid "legend_csv_email_export"
-msgstr ""
+msgstr "Exporteer lijst van e-mails en voorkeuren"
 
 #. Default: "Export to CSV"
 #: ./browser/templates/orders-export-csv.pt:3
