@@ -1,0 +1,63 @@
+<metal:page use-macro="context/@@manage-getpaid-settings-template/macros/admin">
+  <metal:block fill-slot="admin_content">
+	    <p>
+	      <span i18n:translate="description_getpaid_setup_documentation">Documentation
+	      on GetPaid can be found
+	      at <span i18n:name="label_plone_documentation"><a href="http://plone.org/products/plonegetpaid/documentation">http://plone.org/products/plonegetpaid/documentation</a></span>
+	      .</span>
+
+	      <span i18n:translate="description_getpaid_update">This
+	      update facility allows you to upgrade your site's data to the
+	      latest version of GetPaid. There are two part to any
+	      update. The software update, is performed by an
+	      administrator downloading the latest release and
+	      installing it on the server. The data update
+	      updates any settings and data in the system to work
+	      properly with the latest software update. This admin
+	      screen shows the currently stored data's version number,
+	      and the software's data version, and allows you to
+	      perform a data upgrade if needed from here.
+	      </span>
+	    </p>
+
+    <fieldset tal:define="sver view/softwareVersion;
+                     aver view/databaseVersion;">
+	    <legend> Upgrade </legend>
+        
+        
+        <p> Current Software Generation - <b tal:content="sver">32</b></p>
+        
+        <p> Current Database Generation - <b tal:content="aver">12</b></p>
+            
+        <p tal:condition="python:aver==sver">
+          Your Installation of GetPaid is Current
+        </p>
+
+        <div tal:condition="python:aver!=sver">
+          <span style="color:red">Your Installation Needs Upgrading</span>
+          
+          <fieldset>
+              <legend> Upgrade Changes </legend>
+              
+          <div tal:repeat="upgrade view/listUpgrades">
+              <p> <b tal:content="python:upgrade[0]">10</b>
+                  <span tal:replace="python:upgrade[1]">Info</span>
+                  </p>
+          </div>
+          
+          <form action="" tal:attributes="action request/URL0">
+             <input class="input context" type="submit" name="upgrade" value="Upgrade to Latest">
+          </form>
+
+          </fieldset>
+        </div>
+          
+        <div tal:condition="view/log">
+           <b> Upgrade Log </b>
+           <pre tal:content="view/log">
+           </pre>
+        </div>
+    </fieldset>
+
+  </metal:block>
+</metal:page>

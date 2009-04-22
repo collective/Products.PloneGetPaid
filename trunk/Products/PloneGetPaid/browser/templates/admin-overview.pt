@@ -1,0 +1,48 @@
+<metal:page use-macro="context/@@manage-getpaid-settings-template/macros/admin"
+	    i18n:domain="plonegetpaid">
+  <metal:block fill-slot="up_to_parent"> 	    
+	    <a href=""
+	       class="link-parent"
+	       tal:attributes="href string: $portal_url/plone_control_panel"
+	       i18n:translate="label_up_to_plone_setup"
+	       i18n:domain="plone">
+              Up to Site Setup
+	    </a>
+  </metal:block>
+  <metal:block fill-slot="admin_content">
+
+	    <p>
+	      <span i18n:translate="description_getpaid_setup_documentation">Documentation
+	      on GetPaid can be found
+	      at <span i18n:name="label_plone_documentation"><a href="http://plone.org/products/getpaid/documentation">http://plone.org/products/getpaid/documentation</a></span>
+	      .</span> <span i18n:translate="description_getpaid_setup_orders_link">To view and manage orders in the site, click on the
+	      Orders tab
+	      above.</span> <span i18n:translate="description_getpaid_setup_overview">Use
+	      the links below to configure GetPaid.</span>
+	    </p>
+<div id="getpaid-admin-column-1" style="width:20em; margin:0 .5em; float: left;">
+    <h3 i18n:translate="heading_configure">Configure</h3>
+        <ul>
+            <li tal:repeat="aview
+			    context/@@view_get_menu/getpaid_settings">
+	      <a href="" tal:attributes="href aview/action"
+		         tal:content="aview/title" i18n:translate=""> label </a>
+	    </li>
+	</ul>
+</div>
+
+
+<div id="getpaid-admin-column-2" style="width:20em; margin:0 1em; float: left; border:1px solid #BBB; padding: .5em; background:#EEE;">
+    <h3 i18n:translate="heading_general_information">General Information</h3>
+    <dl>
+        <dt i18n:translate="label_getpaid_version">GetPaid Version: </dt>
+        <dd tal:content="view/getVersion"></dd>
+        <dt i18n:translate="label_organization_name">Store/Organization Name:</dt>
+        <dd tal:content="view/settings/store_name"></dd>
+    </dl>
+</div>
+<div style="clear:both;"></div>  		  
+
+  </metal:block>
+</metal:page>
+

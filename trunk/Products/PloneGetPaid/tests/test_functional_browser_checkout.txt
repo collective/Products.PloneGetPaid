@@ -1,0 +1,264 @@
+==============================================================================
+Doctest generated Mon Oct 15 2007 12:36:37 GMT+0200 (CEST)
+by cjj
+==============================================================================
+
+Create the browser object we'll be using.
+
+    >>> from Products.Five.testbrowser import Browser
+    >>> browser = Browser()
+    >>> browser.handleErrors = False
+    >>> browser.open(portal.absolute_url())
+    >>> 'Welcome to Plone' in browser.contents
+    True
+
+Testing checkout process for authenticated user (in this case, admin)
+
+     >>> membership = self.portal.portal_membership
+     >>> membership.addMember('testmanager', 'secret',
+     ...		     ['Member', 'Manager'], [])
+
+     >>> browser.getLink('Log in').click()
+     >>> browser.getControl('Login Name').value = 'testmanager'
+     >>> browser.getControl('Password').value = 'secret'
+     >>> browser.getControl('Log in').click()
+
+     >>> self.portal.portal_quickinstaller.installProduct('PloneGetPaid')
+     'Installing Dependencies\n'
+     >>> browser.getLink('Home').click()
+     
+Testing the setup aspects of GetPaid. Setting required settings. 
+
+    >>> browser.getLink('Site Setup').click()
+    >>> browser.getLink('GetPaid').click()
+    >>> browser.getLink('Site Profile').click()
+    >>> browser.getControl('Contact Email').value = 'info@plonegetpaid.com'
+    >>> browser.getControl( name="form.store_name").value = 'Test this fake company'
+    >>> browser.getControl('Contact Country').value = ['US']
+    >>> browser.getControl('Apply').click()
+    >>> browser.getLink('GetPaid').click()
+    >>> browser.getLink('Content Types').click()
+    >>> browser.getLink('GetPaid').click()
+    >>> browser.getLink('Payment Options').click()
+    >>> browser.getControl(name = 'form.payment_processor').displayValue = ['Testing Processor']
+    >>> browser.getControl(name = 'form.allow_anonymous_checkout.used').value = 'on'
+    >>> browser.getControl(name = 'form.allow_anonymous_checkout').value = True
+    >>> browser.getControl('Apply').click()
+    >>> browser.getLink('GetPaid').click()
+    >>> browser.getLink('Payment Processor Settings').click()
+    >>> browser.getControl(name="form.allow_authorization").displayValue = ['allow_authorization']
+    >>> browser.getControl(name="form.allow_capture").displayValue = ['allow_capture']
+    >>> browser.getControl(name="form.allow_refunds").displayValue = ['allow_refund']    
+    >>> browser.getControl('Apply').click()
+    >>> browser.getLink('GetPaid').click()
+    >>> browser.getLink('Email Notifications').click()
+    >>> browser.getControl(name='form.merchant_email_notification').displayValue = ['Do not send merchant email notification of a completed transaction']
+    >>> browser.getControl(name='form.customer_email_notification').displayValue = ['Do not send customer email notification of a completed transaction']
+    >>> browser.getControl('Apply').click()
+    >>> browser.getLink('GetPaid').click()
+    >>> browser.getLink('Legal Disclaimers').click()
+    >>> browser.getControl(name='form.disclaimer').value = 'Test disclaimer'
+    >>> browser.getControl(name='form.privacy_policy').value = 'Test privacy policy'
+    >>> browser.getControl('Apply').click()
+    >>> browser.getLink('GetPaid').click() 
+    >>> 'Test this fake company' in browser.contents
+    True
+
+Here we are setting the buyable types for use in the following tests
+  
+    >>> from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
+    >>> options = IGetPaidManagementOptions(self.portal)
+    >>> options.buyable_types = ['Link', 'Event']
+    >>> options.donate_types = ['Document']
+    >>> options.shippable_types = ['Document']
+
+Here we set up the Credit cards accepted for payment:
+
+   >>> options.accepted_credit_cards = ["Visa"]
+
+Check to make sure the settings we put in Site Profile appear on this page. 
+
+     >>> browser.getLink('Home').click()
+
+Setup Donatable
+
+    >>> browser.getLink('Make this a Donation').click()
+    >>> browser.getControl(name='form.donation_text').value = 'Test donation description'
+    >>> browser.getControl(name='form.price').value = '11.00'
+    >>> browser.getControl('Activate').click()
+     
+Test donation checkout, which should go directly to checkout screen from the portlet. 
+
+    >>> browser.getLink('Donate!').click()
+
+This page should have a link to the privacy policy, which shows in a
+popup.  We need to return to the current page after testing, so we
+safe the current url first.
+
+    >>> saved_url = browser.url
+    >>> browser.getLink('Privacy Policy').click()
+    >>> 'Test privacy policy' in browser.contents
+    True
+
+Test popup of disclaimer
+
+    >>> browser.open(saved_url)
+    >>> browser.getLink('Disclaimer').click()
+    >>> 'Test disclaimer' in browser.contents
+    True
+
+Continue where we left of after clicking Donate.
+
+    >>> browser.open(saved_url)
+    >>> browser.getControl('Your Name').value = 'Test'
+    >>> browser.getControl('Phone Number').value = '1234567'
+    >>> browser.getControl('Phone Number').value = '12345678'
+    >>> browser.getControl(name='form.email').value = 'test@test.com'
+    >>> browser.getControl(name='form.bill_name').value = 'Test'
+    >>> browser.getControl(name='form.bill_first_line').value = 'Test'
+    >>> browser.getControl(name='form.bill_city').value = 'Test'
+    >>> browser.getControl(name='form.bill_state').value = ('US-HI',)
+    >>> browser.getControl(name='form.bill_postal_code').value = '12345'
+    >>> browser.getControl(name='form.ship_first_line').value = 'Test'
+    >>> browser.getControl(name='form.ship_city').value = 'Test'
+    >>> browser.getControl(name='form.ship_state').value = ('US-HI',)
+    >>> browser.getControl(name='form.ship_postal_code').value = '12345'
+
+Now go to the next form.
+
+    >>> browser.getControl('Continue').click()
+
+
+Retest privacy and disclaimer for this screen.  But we only check that
+the links are there, not how those pages look.  When we do the same
+trick as above with saving the current url and returning to it after
+checking the popups, we would land on the first form, with states,
+countries, etcetera.
+
+    >>> browser.getLink('Privacy Policy')
+    <Link text='Privacy Policy' url='http://nohost/plone/@@privacy-policy'>
+    >>> browser.getLink('Disclaimer')
+    <Link text='Disclaimer' url='http://nohost/plone/@@disclaimer'>
+
+Continue filling in the current form.
+
+    >>> browser.getControl('Card Holder Name').value = 'Test Cardholder'
+    >>> browser.getControl(name='form.cc_expiration_month').value = ('02',)
+    >>> browser.getControl(name='form.cc_expiration_year').value = ('2009',)
+    >>> browser.getControl(name='form.bill_phone_number').value = '555555555'
+
+Use real test credit card numbers, available from http://developer.authorize.net/faqs/#7429
+
+    >>> browser.getControl('Credit Card Verfication Number').value = '1234'
+    >>> browser.getControl('Credit Card Number').value = '4007000000027'
+    >>> browser.getControl('Credit Card Type').value = ('Visa',)
+    >>> browser.getControl('Make Payment').click()
+
+Donation checkout completed. Now check order
+
+XXX I [lucie] updated the "here" link because it didnt need to be a search on an order
+since we already have the order id
+
+
+    >>> browser.getLink('here').click()
+    >>> browser.url.startswith('http://nohost/plone/@@getpaid-order/')
+    True
+
+Verify order was for what we checked out.
+
+    >>> 'CHARGED' in browser.contents
+    True
+
+This completes test of donation checkout. Verified that item was
+listed on order for user.
+
+Now test add to cart and checkout process. 
+Create the browser object we'll be using.
+
+    >>> browser.open('http://nohost/plone')
+    >>> browser.getLink('Link').click()
+    >>> browser.getControl('Title').value = 'Test Link'
+    >>> browser.getControl('URL').value = 'http://plonegetpaid.com/'
+    >>> browser.getControl('Save').click()
+
+Make it buyable.
+
+    >>> browser.getLink('Make Buyable').click()
+    >>> browser.getControl('Price').value = '12.50'
+    >>> browser.getControl('Activate').click()
+
+Add it to my cart.
+
+    >>> browser.getLink('Add to Cart').click()
+    >>> browser.getControl('Continue Shopping').click()
+    >>> 'Contains <span>1</span> Items' in browser.contents
+    True
+
+Add a buyable event.
+
+    >>> browser.open('http://nohost/plone/createObject?type_name=Event')
+    >>> browser.getControl('Title').value = 'It is payday!'
+    >>> browser.getControl('Save').click()
+    >>> browser.open('http://nohost/plone/it-is-payday/@@activate-buyable')
+    >>> browser.getControl('Product Code').value = 'PAY-ME'
+    >>> browser.getControl('Price').value = '42.17'
+    >>> browser.getControl('Activate').click()
+
+We want it so we buy it.
+
+    >>> browser.open(portal.absolute_url() + '/folder_contents')
+    >>> browser.getLink('It is payday!').click()
+
+XXX FIXME.  Now why does this fail with an InvalidObjectReference????
+The link "Add to Cart" is there when you check browser.contents...
+
+    >>> 'Add to Cart' in browser.contents
+    True
+    >>> browser.getLink('Add to Cart').click()
+    >>> browser.getControl('Checkout').click()
+    >>> browser.getControl('Your Name').value = 'test'
+    >>> browser.getControl('Phone Number').value = '12345678'
+    >>> browser.getControl(name='form.email').value = 'test@test.com'
+    >>> browser.getControl(name='form.bill_first_line').value = 'Test'
+    >>> browser.getControl(name='form.bill_city').value = 'Test'
+    >>> browser.getControl(name='form.bill_state').value = ('US-HI',)
+    >>> browser.getControl(name='form.bill_postal_code').value = '12345'
+
+Note: we are only buying something, not shipping it, so maybe these
+controls are not available here (or they are but they should not be).
+
+    >>> browser.getControl(name='form.ship_first_line').value = 'Test'
+    >>> browser.getControl(name='form.ship_city').value = 'Test'
+    >>> browser.getControl(name='form.ship_state').value = ('US-HI',)
+    >>> browser.getControl(name='form.ship_postal_code').value = '12345'
+    >>> browser.getControl('Continue').click()
+
+We move to the next form and fill in the current form.
+
+    >>> browser.getControl('Card Holder Name').value = 'Test Cardholder'
+    >>> browser.getControl(name='form.cc_expiration_month').value = ('02',)
+    >>> browser.getControl(name='form.cc_expiration_year').value = ('2009',)
+    >>> browser.getControl(name='form.bill_phone_number').value = '555555555'
+
+Use real test credit card numbers, available from http://developer.authorize.net/faqs/#7429
+
+    >>> browser.getControl('Credit Card Verfication Number').value = '1234'
+    >>> browser.getControl('Credit Card Number').value = '4007000000027'
+    >>> browser.getControl('Credit Card Type').value = ('Visa',)
+    >>> browser.getControl('Make Payment').click()
+
+Donation checkout completed. Now check order
+
+
+    >>> browser.getLink('here').click()
+    >>> browser.url.startswith('http://nohost/plone/@@getpaid-order/')
+    True
+
+Verify order was for what we checked out.  Well, that is not listed
+actually.  We may want to follow the link that is displayed.  But for
+me (Maurits) the tests never come this far, so it is hard to say...
+
+    >>> 'CHARGED' in browser.contents
+    True
+
+Finished verification.

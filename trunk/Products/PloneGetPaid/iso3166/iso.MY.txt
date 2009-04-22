@@ -1,0 +1,18 @@
+
+ISO3166-2 regions for MY
+
+   MY-W : Wilayah Persekutuan Kuala Lumpur
+   MY-L : Wilayah Persekutuan Labuan
+   MY-J : Johor
+   MY-K : Kedah
+   MY-D : Kelantan
+   MY-M : Melaka
+   MY-N : Negeri Sembilan
+   MY-C : Pahang
+   MY-A : Perak
+   MY-R : Perlis
+   MY-P : Pulau Pinang
+   MY-SA : Sabah
+   MY-SK : Sarawak
+   MY-B : Selangor
+   MY-T : Terengganu

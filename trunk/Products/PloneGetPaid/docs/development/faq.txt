@@ -1,0 +1,19 @@
+Frequent Asked Questions about development in getpaid.
+-------
+Index
+-------
+1.0 - Why/How do I make my schema float field show two decimal places? 
+
+-------------------------------------------------------------------------------
+1.0
+-------------------------------------------------------------------------------
+(q) Why/How do I make my money related schema float field show two decimal places?
+(a) Since these field's value refers to money we should ALWAYS represent their
+values with two decimal places whether they are one, two or zero decimal
+values.
+In order to do this we will add a custom widget (PriceWidget) to the schema field.
+Here a little snippet of code as an example.
+#We do the import
+from Products.PloneGetPaid.browser import widgets
+#And assign the widget to the custom_widget attr of our chosen field
+form_fields['price_related_field'].custom_widget = widgets.PriceWidget

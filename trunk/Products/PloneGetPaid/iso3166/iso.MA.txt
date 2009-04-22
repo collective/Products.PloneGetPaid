@@ -1,0 +1,54 @@
+
+ISO3166-2 regions for MA
+
+   MA-AGD : Agadir*
+   MA-BAH : Aït Baha
+   MA-MEL : Aït Melloul
+   MA-HAO : Al Haouz
+   MA-HOC : Al Hoceïma
+   MA-ASZ : Assa-Zag
+   MA-AZI : Azilal
+   MA-BEM : Beni Mellal
+   MA-BES : Ben Sllmane
+   MA-BER : Berkane
+   MA-BOD : Boujdour
+   MA-BOM : Boulemane
+   MA-CAS : Casablanca
+   MA-CHE : Chefchaouene
+   MA-CHI : Chichaoua
+   MA-HAJ : El Hajeb
+   MA-JDI : El Jadida
+   MA-ERR : Errachidia
+   MA-ESI : Essaouira
+   MA-ESM : Es Semara
+   MA-FES : Fès*
+   MA-FIG : Figuig
+   MA-GUE : Guelmim
+   MA-IFR : Ifrane
+   MA-IRA : Jrada
+   MA-KES : Kelaat Sraghna
+   MA-KEN : Kénitra
+   MA-KHE : Khemisaet
+   MA-KHN : Khenifra
+   MA-KHO : Khouribga
+   MA-LAA : Laayoune. 
+   MA-LAP : Larache
+   MA-MAR : Marrakech*
+   MA-MEK : Meknès*
+   MA-NAD : Nador
+   MA-OUA : Ouarzazate
+   MA-OUD : Oued ed Dahab 
+   MA-OUJ : Oujda*
+   MA-RBA : Rabat-Salé*
+   MA-SAF : Safi
+   MA-SEF : Sefrou
+   MA-SET : Settat
+   MA-SIK : Sidl Kacem
+   MA-TNG : Tanger
+   MA-TNT : Tan-Tan
+   MA-TAO : Taounate
+   MA-TAR : Taroudannt
+   MA-TAT : Tata
+   MA-TAZ : Taza
+   MA-TET : Tétouan
+   MA-TIZ : Tiznit

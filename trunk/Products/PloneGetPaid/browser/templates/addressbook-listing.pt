@@ -1,0 +1,21 @@
+<fieldset
+	i18n:domain="plonegetpaid">
+
+  <legend i18n:translate="legend_addressbook_contents"> Your Address Book entries </legend>
+
+      <div class="addressbook-listing">
+            <script type="text/javascript" src="++resource++country-states-selection.js"></script>    
+            <script language="javascript" tal:content="view/getEntryScripts">
+            /* Define scripts for this here */
+            </script>
+            
+            <tal:loop repeat="entry python:view.getEntryNames().iteritems()">
+            <a href="#" tal:content="python:entry[0]" tal:attributes="onclick python:'assign_variables(\'%s\',this)' % entry[0]"></a><div class="addressbookEntryData" tal:content="structure python:entry[1]"></div>
+            <hr />
+            </tal:loop>
+    
+        </div>
+
+ <br />
+
+</fieldset>

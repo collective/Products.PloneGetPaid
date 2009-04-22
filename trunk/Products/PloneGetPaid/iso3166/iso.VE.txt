@@ -1,0 +1,27 @@
+
+ISO3166-2 regions for VE
+
+   VE-A : Diatrito Federal
+   VE-B : Anzoátegui
+   VE-C : Apure
+   VE-D : Aragua
+   VE-E : Barinas
+   VE-F : Bolívar
+   VE-G : Carabobo
+   VE-H : Cojedes
+   VE-I : FalcÓn
+   VE-J : Guârico
+   VE-K : Lara
+   VE-L : Mérida
+   VE-M : Miranda
+   VE-N : Monagas
+   VE-O : Nueva Esparta
+   VE-P : Portuguesa
+   VE-R : Sucre
+   VE-S : Tâchira
+   VE-T : Trujillo
+   VE-U : Yaracuy
+   VE-V : Zulia
+   VE-Z : Amazonas
+   VE-Y : Delta Amacuro
+   VE-W : Dependencias Federales
