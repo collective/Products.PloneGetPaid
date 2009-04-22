@@ -97,7 +97,7 @@ We want it so we buy it.
     >>> browser.getLink('Home').click()
     >>> 'Add to Cart' in browser.contents
     True
-    >>> browser.getLink('Add to Cart').click()
+    >>> browser.getControl('Add to Cart').click()
 
 And we do our anonymous checkout
 
@@ -136,7 +136,7 @@ We want it (again) so we buy it.
     >>> browser2.getLink('Home').click()
     >>> 'Add to Cart' in browser2.contents
     True
-    >>> browser2.getLink('Add to Cart').click()
+    >>> browser2.getControl('Add to Cart').click()
 
 And we do our anonymous checkout
 

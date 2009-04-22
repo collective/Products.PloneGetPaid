@@ -85,7 +85,7 @@ Make Buyable
 
 Buy
 
-    >>> browser.getLink('Add to Cart').click()
+    >>> browser.getControl('Add to Cart').click()
     >>> 'SubTotal' in browser.contents
     True
 

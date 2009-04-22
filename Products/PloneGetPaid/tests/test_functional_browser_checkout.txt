@@ -189,7 +189,7 @@ Make it buyable.
 
 Add it to my cart.
 
-    >>> browser.getLink('Add to Cart').click()
+    >>> browser.getControl('Add to Cart').click()
     >>> browser.getControl('Continue Shopping').click()
     >>> 'Contains <span>1</span> Items' in browser.contents
     True
@@ -214,7 +214,7 @@ The link "Add to Cart" is there when you check browser.contents...
 
     >>> 'Add to Cart' in browser.contents
     True
-    >>> browser.getLink('Add to Cart').click()
+    >>> browser.getControl('Add to Cart').click()
     >>> browser.getControl('Checkout').click()
     >>> browser.getControl('Your Name').value = 'test'
     >>> browser.getControl('Phone Number').value = '12345678'
