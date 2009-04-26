@@ -7,7 +7,9 @@ from zope.interface import Interface
 from zope.schema import Iterable
 from zope.app.container.interfaces import IContainer
 from zope.app.container.constraints import contains
-from zope.app.event.interfaces import IObjectEvent
+#from zope.app.event.interfaces import IObjectEvent
+#from zope.lifecycleevent.interfaces import IObjectEvent
+from zope.component.interfaces import IObjectEvent
 
 from getpaid.core.fields import PhoneNumber
 from getpaid.core.payment import CREDIT_CARD_TYPES
