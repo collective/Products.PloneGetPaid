@@ -1,8 +1,0 @@
-
-ISO3166-2 regions for KW
-
-   KW-AH : Al Ahmadî
-   KW-FA : Al Farwanlyah
-   KW-JA : Al Jahrah
-   KW-KU : Al Kuwayt
-   KW-HA : Hawallî

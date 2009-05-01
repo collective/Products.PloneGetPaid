@@ -638,7 +638,7 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
             component.getUtility( interfaces.IShoppingCartUtility ).destroy( self.context )
         else:
             order.finance_workflow.fireTransition('reviewing-declined')
-            self.status = result
+#            self.status = result
             self.form_reset = False
 
         self._next_url = self.getNextURL( order )

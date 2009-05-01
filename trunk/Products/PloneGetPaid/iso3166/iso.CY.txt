@@ -1,9 +1,0 @@
-
-ISO3166-2 regions for CY
-
-   CY-04 : Ammochostos Magusa
-   CY-06 : Keryneia
-   CY-03 : Larnaka
-   CY-01 : Lefkosia
-   CY-02 : Lemesos
-   CY-05 : Pafos

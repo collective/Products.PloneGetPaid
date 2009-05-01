@@ -1,7 +1,0 @@
-<configure xmlns="http://namespaces.zope.org/zope"
-           i18n_domain="Five">
-  <permission
-      id="plonegetpaid.ManageOrders"
-      title="PloneGetPaid: Manage Orders"
-      />
-</configure>
