@@ -4,6 +4,19 @@
 
     <h3 i18n:translate="">We are sorry but your credit card was declined.</h3>
 
+    <!--
+    <div class="portalMessage" tal:content="view/status" tal:condition="view/status"> </div>
+    -->
+
+    <div class="portalMessage" tal:condition="view/queries">
+    <table tal:define="items view/queries"> 
+      <tr tal:repeat="item items">
+        <td tal:content="item/code" tal:condition="not: view/status" />
+        <td tal:content="item/value" />
+      </tr>
+    </table>
+    </div>
+
     <div>
         Please <a href="javascript:history.go(-1)">click here</a> to try your transaction again.
     </div>

@@ -1,11 +1,3 @@
-"""
-
-cart-review checkout
-
-$Id$
-"""
-
-
 import operator
 import cgi
 from cPickle import loads, dumps
@@ -638,7 +630,7 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
             component.getUtility( interfaces.IShoppingCartUtility ).destroy( self.context )
         else:
             order.finance_workflow.fireTransition('reviewing-declined')
-#            self.status = result
+            self.status = result
             self.form_reset = False
 
         self._next_url = self.getNextURL( order )
@@ -667,6 +659,7 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         return order
 
     def getNextURL(self, order):
+#        import pdb; pdb.set_trace()
         state = order.finance_state
         f_states = interfaces.workflow_states.order.finance
         base_url = self.context.absolute_url()
@@ -676,7 +669,13 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         if state in (f_states.CANCELLED,
                      f_states.CANCELLED_BY_PROCESSOR,
                      f_states.PAYMENT_DECLINED):
-            return base_url + '/@@getpaid-cancelled-declined'
+            status = self.status
+            if status is None:
+                return base_url + '/@@getpaid-cancelled-declined'
+            elif (('?' not in status) and ('=' not in status)):
+                return base_url + '/@@getpaid-cancelled-declined?status=%s' %(status)
+            else:
+                return base_url + '/@@getpaid-cancelled-declined%s' %(status)
 
         if state in (f_states.CHARGEABLE,
                      f_states.CHARGING,
@@ -886,3 +885,27 @@ class AddressBookView(BrowserView):
         javaScript += jstemplate % field_assignations
 
         return javaScript
+
+class CancelledDeclinedView(BrowserView):
+
+    template = ZopeTwoPageTemplateFile("templates/checkout-cancelled-declined.pt")
+
+    def __call__(self):
+
+        self.status = self.request.get('status', None)
+        form = self.request.form
+
+        return self.template()
+
+    def queries(self):
+        form = self.request.form
+        if form and form.get('-C') != '':
+#            import pdb; pdb.set_trace()
+            results = []
+            for item in self.request.form.items():
+                results.append(dict(
+                        code = item[0],
+                        value = item[1],
+                        ))
+#            import pdb; pdb.set_trace()
+            return results

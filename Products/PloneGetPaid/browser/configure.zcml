@@ -127,10 +127,20 @@
      name="getpaid-thank-you"
      permission="zope2.View"
      />
-     
+
+<!--
   <browser:page
      for="*"
      template="templates/checkout-cancelled-declined.pt"
+     name="getpaid-cancelled-declined"
+     permission="zope2.View"
+     />
+-->
+
+  <browser:page
+     for="*"
+     template="templates/checkout-cancelled-declined.pt"
+     class=".checkout.CancelledDeclinedView"
      name="getpaid-cancelled-declined"
      permission="zope2.View"
      />
