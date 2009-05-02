@@ -294,8 +294,13 @@ class CheckoutWizard( Wizard ):
                     base_url = self.context.absolute_url()
                     url = base_url + '/@@getpaid-thank-you?order_id=%s' %(order_id)
 
-                    if not 'http://' in url:
-                        url = url.replace("https://", "http://")
+#                    if not 'http://' in url:
+#                        url = url.replace("https://", "http://")
+
+                    portal = getToolByName(self.context, 'portal_url').getPortalObject()
+                    if IGetPaidManagementOptions(portal).use_ssl_for_checkout:
+                        if not 'http://' in url:
+                            url = url.replace("https://", "http://")
 
                     self.request.response.redirect( url )
                     self.data_manager.reset()
@@ -459,7 +464,12 @@ class CheckoutAddress( BaseCheckoutForm ):
     @form.action(_(u"Cancel"), name="cancel", validator=null_condition)
     def handle_cancel( self, action, data):
         url = self.context.portal_url.getPortalObject().absolute_url()
-        url = url.replace("https://", "http://")
+#        url = url.replace("https://", "http://")
+#        return self.request.response.redirect(url)
+
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        if IGetPaidManagementOptions(portal).use_ssl_for_checkout:
+            url = url.replace("https://", "http://")
         return self.request.response.redirect(url)
 
     @form.action(_(u"Continue"), name="continue")
@@ -573,8 +583,14 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
     @form.action(_(u"Cancel"), name="cancel", validator=null_condition )
     def handle_cancel( self, action, data):
         url = self.context.portal_url.getPortalObject().absolute_url()
-        url = url.replace("https://", "http://")
+#        url = url.replace("https://", "http://")
+#        return self.request.response.redirect(url)
+
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        if IGetPaidManagementOptions(portal).use_ssl_for_checkout:
+            url = url.replace("https://", "http://")
         return self.request.response.redirect(url)
+
 
     @form.action(_(u"Back"), name="back", validator=null_condition )
     def handle_back( self, action, data):
@@ -663,8 +679,14 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         state = order.finance_state
         f_states = interfaces.workflow_states.order.finance
         base_url = self.context.absolute_url()
-        if not 'http://' in base_url:
-            base_url = base_url.replace("https://", "http://")
+#        if not 'http://' in base_url:
+#            base_url = base_url.replace("https://", "http://")
+
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        if IGetPaidManagementOptions(portal).use_ssl_for_checkout:
+            if not 'http://' in base_url:
+                base_url = base_url.replace("https://", "http://")
+
 
         if state in (f_states.CANCELLED,
                      f_states.CANCELLED_BY_PROCESSOR,
@@ -741,7 +763,12 @@ class CheckoutSelectShipping( BaseCheckoutForm ):
     @form.action(_(u"Cancel"), name="cancel", validator=null_condition)
     def handle_cancel( self, action, data):
         url = self.context.portal_url.getPortalObject().absolute_url()
-        url = url.replace("https://", "http://")
+#        url = url.replace("https://", "http://")
+#        return self.request.response.redirect(url)
+
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        if IGetPaidManagementOptions(portal).use_ssl_for_checkout:
+            url = url.replace("https://", "http://")
         return self.request.response.redirect(url)
 
     @form.action(_(u"Back"), name="back")
@@ -900,7 +927,6 @@ class CancelledDeclinedView(BrowserView):
     def queries(self):
         form = self.request.form
         if form and form.get('-C') != '':
-#            import pdb; pdb.set_trace()
             results = []
             for item in self.request.form.items():
                 results.append(dict(

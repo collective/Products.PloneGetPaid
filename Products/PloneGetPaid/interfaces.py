@@ -249,8 +249,11 @@ class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
 
     allow_anonymous_checkout = schema.Bool( title=_(u"Allow Anonymous Checkout"), default=False)
 
-    use_ssl_for_checkout = schema.Bool( title=_(u"Use SSL for checkout"), default=False)
-
+    use_ssl_for_checkout = schema.Bool( 
+                                        title=_(u"Use SSL for checkout"), 
+                                        default=False,
+                                        description=_(u"If SSL is turned on by front end server, like apache, leave this option unchecked")
+                                        )
 
     accepted_credit_cards = schema.List( title = _(u"Accepted Credit Cards"),
                                         required = False,
