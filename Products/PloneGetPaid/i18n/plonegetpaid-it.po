@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
-"POT-Creation-Date: 2009-04-03 20:42+0000\n"
+"POT-Creation-Date: 2009-05-04 07:50+0000\n"
 "PO-Revision-Date: 2007-10-13 17:00+0000\n"
 "Last-Translator: Fabio Corneti <info@corneti.com>\n"
 "Language-Team: Italiano <LL@li.org>\n"
@@ -39,7 +39,7 @@ msgstr ""
 msgid "A name you remember this address by. Will not appear on shipping label."
 msgstr "Un nome per ricordare quest'indirizzo. Non comparirà sull'etichetta di vendita."
 
-#: ./browser/checkout.py:465
+#: ./browser/checkout.py:466
 msgid "A new address has been saved"
 msgstr "E' stato salvato un nuovo indirizzo"
 
@@ -69,12 +69,12 @@ msgstr "Quantità"
 msgid "Apply"
 msgstr "Applica"
 
-#: ./browser/checkout.py:587
+#: ./browser/checkout.py:592
 msgid "Back"
 msgstr "Indietro"
 
 #. Default: "Billing Address"
-#: ./browser/templates/checkout-review-pay.pt:30
+#: ./browser/templates/order-summary.pt:53
 msgid "Billing Address"
 msgstr "Indirizzo di fatturazione"
 
@@ -90,15 +90,15 @@ msgstr "Tipi di contenuto acquistabili per il download o la consultazione su web
 msgid "Buyable Types"
 msgstr "Tipi di contenuto acquistabili"
 
-#: ./browser/checkout.py:467
+#: ./browser/checkout.py:468
 msgid "Cancel"
 msgstr "Cancella"
 
-#: ./browser/admin_order.py:93
+#: ./browser/admin_order.py:94
 msgid "Card Phone#"
 msgstr ""
 
-#: ./browser/cart.py:306
+#: ./browser/cart.py:321
 msgid "Checkout"
 msgstr "Acquista"
 
@@ -172,25 +172,30 @@ msgstr "Tipi di contenuto disponibili solo agli utenti paganti"
 msgid "Content Types that represent goods that can be purchased and shipped"
 msgstr "Tipi di contenuto associati a prodotti che possono essere acquistati e spediti"
 
-#: ./browser/admin_order.py:755
+#: ./browser/admin_order.py:756
 msgid "Contents"
 msgstr "Contenuti"
 
-#: ./browser/checkout.py:473
+#: ./browser/checkout.py:474
 msgid "Continue"
 msgstr "Continua"
 
-#: ./browser/cart.py:286
+#: ./browser/cart.py:301
 msgid "Continue Shopping"
 msgstr "Continua lo shopping"
 
-#: ./browser/cart.py:368
+#: ./browser/cart.py:383
 msgid "Could not find order"
 msgstr "Impossibile trovare l'ordine"
 
-#: ./browser/admin_order.py:97
+#: ./browser/admin_order.py:98
 msgid "Created"
 msgstr "Creato"
+
+#. Default: "Credit Card Last 4"
+#: ./browser/templates/order-summary.pt:34
+msgid "Credit Card Last 4"
+msgstr ""
 
 #: ./interfaces.py:256
 msgid "Credit cards accepted for payment"
@@ -204,7 +209,7 @@ msgstr "Valuta"
 msgid "Customer Email Notifications"
 msgstr "Notifiche al cliente via email"
 
-#: ./browser/admin_order.py:89
+#: ./browser/admin_order.py:90
 msgid "Customer Id"
 msgstr "Id Cliente"
 
@@ -263,31 +268,31 @@ msgstr "E-mail"
 msgid "Email Notifications"
 msgstr "Notifiche via email"
 
-#: ./browser/admin_order.py:166
+#: ./browser/admin_order.py:167
 msgid "Export All"
 msgstr "Esporta tutto"
 
-#: ./browser/admin_order.py:133
+#: ./browser/admin_order.py:134
 msgid "Export Search"
 msgstr "Cerca"
 
-#: ./browser/cart.py:357
+#: ./browser/cart.py:372
 msgid "Fill"
 msgstr "Compila"
 
-#: ./browser/admin_order.py:241
+#: ./browser/admin_order.py:242
 msgid "Filter"
 msgstr "Filtra"
 
-#: ./browser/admin_order.py:95
+#: ./browser/admin_order.py:96
 msgid "Fulfillment"
 msgstr "Compilazione"
 
-#: ./browser/admin_order.py:742
+#: ./browser/admin_order.py:743
 msgid "Item Id"
 msgstr "Identificativo del prodotto"
 
-#: ./browser/admin_order.py:90
+#: ./browser/admin_order.py:91
 msgid "Last4"
 msgstr ""
 
@@ -296,11 +301,11 @@ msgid "Legal Disclaimers"
 msgstr "Condizioni di vendita"
 
 #. Default: "Mailing Address"
-#: ./browser/templates/checkout-review-pay.pt:38
+#: ./browser/templates/order-summary.pt:63
 msgid "Mailing Address"
 msgstr "Indirizzo postale"
 
-#: ./browser/checkout.py:591
+#: ./browser/checkout.py:596
 msgid "Make Payment"
 msgstr "Effettua il pagamento"
 
@@ -308,15 +313,15 @@ msgstr "Effettua il pagamento"
 msgid "Merchant Email Notifications"
 msgstr "Notifiche al venditore via email"
 
-#: ./browser/admin_order.py:581
+#: ./browser/admin_order.py:582
 msgid "N/A"
 msgstr "Non disponibile"
 
-#: ./browser/admin_order.py:743
+#: ./browser/admin_order.py:744
 msgid "Name"
 msgstr "Nome"
 
-#: ./browser/admin_order.py:92
+#: ./browser/admin_order.py:93
 msgid "Name on Card"
 msgstr ""
 
@@ -340,11 +345,11 @@ msgstr "Sono permessi solo caratteri numerici"
 msgid "Order Details"
 msgstr "Dettagli dell'ordine"
 
-#: ./browser/admin_order.py:88
+#: ./browser/admin_order.py:89
 msgid "Order Id"
 msgstr "Identificativo ordine"
 
-#: ./browser/cart.py:319
+#: ./browser/cart.py:334
 msgid "Order Templates"
 msgstr "Modello di ordine"
 
@@ -400,11 +405,11 @@ msgstr "Tipi di contenuto a pagamento"
 msgid "Premium not implemented yet"
 msgstr "I contenuti premium non sono stati implementati in questa release."
 
-#: ./browser/cart.py:384
+#: ./browser/cart.py:399
 msgid "Previous Order Loaded into Cart"
 msgstr "Ordini precedenti caricati nel carrello"
 
-#: ./browser/admin_order.py:96
+#: ./browser/admin_order.py:97
 msgid "Price"
 msgstr "Prezzo"
 
@@ -413,11 +418,11 @@ msgstr "Prezzo"
 msgid "Privacy Policy"
 msgstr "Informazioni relative al trattamento dei dati personali"
 
-#: ./browser/admin_order.py:91
+#: ./browser/admin_order.py:92
 msgid "Proc Trans Id"
 msgstr ""
 
-#: ./browser/admin_order.py:741
+#: ./browser/admin_order.py:742
 msgid "Quantity"
 msgstr "Quantità"
 
@@ -440,7 +445,7 @@ msgstr ""
 msgid "Save to address book"
 msgstr "Salva nella rubrica"
 
-#: ./browser/cart.py:320
+#: ./browser/cart.py:335
 msgid "Select a previous order to fill your cart."
 msgstr "Seleziona un ordine esistente da inserire nel carrello"
 
@@ -473,6 +478,10 @@ msgstr "Spedibile"
 msgid "Shippable Product Types"
 msgstr "Tipi di contenuto spedibili"
 
+#: ./browser/cart.py:220
+msgid "Shipping"
+msgstr ""
+
 #: ./browser/admin.py:182
 msgid "Shipping Methods"
 msgstr "Metodi di spedizione"
@@ -502,13 +511,17 @@ msgstr "Tempo massimo di conservazione del carrello in memoria (in secondi)"
 msgid "Site Profile"
 msgstr "Impostazioni iniziali"
 
-#: ./browser/admin_order.py:94
+#: ./browser/admin_order.py:95
 msgid "Status"
 msgstr "Stato"
 
 #: ./interfaces.py:127
 msgid "Store/Organization Name"
 msgstr "Nome della società"
+
+#: ./browser/cart.py:216
+msgid "SubTotal"
+msgstr ""
 
 #: ./interfaces.py:292
 msgid "Tax Method"
@@ -522,9 +535,14 @@ msgstr "Impossibile trovare il gestore dei pagamenti attualmente configurato; pe
 msgid "The list of months"
 msgstr "Lista dei mesi"
 
-#: ./browser/admin_order.py:745
+#: ./browser/admin_order.py:746
 msgid "Total"
 msgstr "Totale"
+
+#. Default: "Transaction ID"
+#: ./browser/templates/order-summary.pt:30
+msgid "Transaction ID"
+msgstr ""
 
 #: ./interfaces.py:335
 msgid "US Currency Formatting"
@@ -534,7 +552,7 @@ msgstr "Formato della valuta in dollari statunitensi"
 msgid "US Dollars"
 msgstr "Dollari"
 
-#: ./browser/cart.py:253
+#: ./browser/cart.py:268
 msgid "Update"
 msgstr "Aggiorna"
 
@@ -554,6 +572,11 @@ msgstr "Siamo spiacenti ma la tua carta di credito è stata rifiutata."
 #: ./interfaces.py:276
 msgid "Weight Units"
 msgstr "Unità di misura del peso"
+
+#. Default: "You must confirm your shopping cart modifications by clicking 'Update' below."
+#: ./browser/templates/cart-listing.pt:5
+msgid "You must confirm your shopping cart modifications by clicking 'Update' below."
+msgstr ""
 
 #. Default: "You can check the status of your order ${status_url}"
 #: ./browser/templates/checkout-thank-you.pt:34
@@ -600,7 +623,7 @@ msgid "heading_changed_by"
 msgstr "modificato da"
 
 #. Default: "Checkout"
-#: ./browser/templates/checkout-review-pay.pt:12
+#: ./browser/templates/checkout-shipping-method.pt:3
 #, fuzzy
 msgid "heading_checkout"
 msgstr "Acquista"
@@ -698,7 +721,7 @@ msgid "here"
 msgstr "tu sei qui"
 
 #. Default: "Add to Cart"
-#: ./browser/templates/portlet-content-premium.pt:40
+#: ./browser/templates/portlet-content-shippable.pt:44
 msgid "label_add_to_cart"
 msgstr "Aggiungi al carrello"
 
@@ -807,7 +830,7 @@ msgid "text_creation_date"
 msgstr "Data di creazione"
 
 #. Default: "Current Status"
-#: ./browser/templates/order-finance.pt:5
+#: ./browser/templates/order-fulfillment.pt:5
 msgid "text_current_status"
 msgstr "Stato attuale"
 

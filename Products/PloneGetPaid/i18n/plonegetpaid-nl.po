@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
-"POT-Creation-Date: 2009-04-03 20:42+0000\n"
+"POT-Creation-Date: 2009-05-04 07:50+0000\n"
 "PO-Revision-Date: 2009-04-03 23:16+0200\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Plone Nederlands <plone-nl@lists.plone.org>\n"
@@ -42,7 +42,7 @@ msgstr "Een naam waaraan u dit bestellingssjabloon kan herkennen."
 msgid "A name you remember this address by. Will not appear on shipping label."
 msgstr "Een naam waaraan u dit adres kan herkennen. Zal niet op het verzendlabel getoond worden."
 
-#: ./browser/checkout.py:465
+#: ./browser/checkout.py:466
 msgid "A new address has been saved"
 msgstr "Een nieuw adres is opgeslagen."
 
@@ -71,12 +71,12 @@ msgstr "Hoeveelheid"
 msgid "Apply"
 msgstr "Opslaan"
 
-#: ./browser/checkout.py:587
+#: ./browser/checkout.py:592
 msgid "Back"
 msgstr "Terug"
 
 #. Default: "Billing Address"
-#: ./browser/templates/checkout-review-pay.pt:30
+#: ./browser/templates/order-summary.pt:53
 msgid "Billing Address"
 msgstr "Factuuradres"
 
@@ -92,15 +92,15 @@ msgstr "Content types die te koop zijn via het web (digitaal)"
 msgid "Buyable Types"
 msgstr "Types die te koop zijn"
 
-#: ./browser/checkout.py:467
+#: ./browser/checkout.py:468
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: ./browser/admin_order.py:93
+#: ./browser/admin_order.py:94
 msgid "Card Phone#"
 msgstr ""
 
-#: ./browser/cart.py:306
+#: ./browser/cart.py:321
 msgid "Checkout"
 msgstr "Afrekenen"
 
@@ -174,25 +174,30 @@ msgstr "Content types die alleen beschikbaar zijn voor premium leden"
 msgid "Content Types that represent goods that can be purchased and shipped"
 msgstr "Content types die goederen representeren die gekocht en verzonden kunnen worden."
 
-#: ./browser/admin_order.py:755
+#: ./browser/admin_order.py:756
 msgid "Contents"
 msgstr "Inhoud"
 
-#: ./browser/checkout.py:473
+#: ./browser/checkout.py:474
 msgid "Continue"
 msgstr "Verder"
 
-#: ./browser/cart.py:286
+#: ./browser/cart.py:301
 msgid "Continue Shopping"
 msgstr "Ga door met winkelen"
 
-#: ./browser/cart.py:368
+#: ./browser/cart.py:383
 msgid "Could not find order"
 msgstr "Kon bestelling niet vinden"
 
-#: ./browser/admin_order.py:97
+#: ./browser/admin_order.py:98
 msgid "Created"
 msgstr "Gemaakt"
+
+#. Default: "Credit Card Last 4"
+#: ./browser/templates/order-summary.pt:34
+msgid "Credit Card Last 4"
+msgstr ""
 
 #: ./interfaces.py:256
 msgid "Credit cards accepted for payment"
@@ -206,7 +211,7 @@ msgstr "Valuta symbool"
 msgid "Customer Email Notifications"
 msgstr "Klant e-mail notificatie"
 
-#: ./browser/admin_order.py:89
+#: ./browser/admin_order.py:90
 msgid "Customer Id"
 msgstr "Klantcode"
 
@@ -264,31 +269,31 @@ msgstr "E-mail"
 msgid "Email Notifications"
 msgstr "E-mail notificatie"
 
-#: ./browser/admin_order.py:166
+#: ./browser/admin_order.py:167
 msgid "Export All"
 msgstr "Exporteer alles"
 
-#: ./browser/admin_order.py:133
+#: ./browser/admin_order.py:134
 msgid "Export Search"
 msgstr "Exporteren"
 
-#: ./browser/cart.py:357
+#: ./browser/cart.py:372
 msgid "Fill"
 msgstr "Laden"
 
-#: ./browser/admin_order.py:241
+#: ./browser/admin_order.py:242
 msgid "Filter"
 msgstr "Filter"
 
-#: ./browser/admin_order.py:95
+#: ./browser/admin_order.py:96
 msgid "Fulfillment"
 msgstr "Order"
 
-#: ./browser/admin_order.py:742
+#: ./browser/admin_order.py:743
 msgid "Item Id"
 msgstr "Artikelnummer"
 
-#: ./browser/admin_order.py:90
+#: ./browser/admin_order.py:91
 msgid "Last4"
 msgstr ""
 
@@ -297,11 +302,11 @@ msgid "Legal Disclaimers"
 msgstr "Disclaimers"
 
 #. Default: "Mailing Address"
-#: ./browser/templates/checkout-review-pay.pt:38
+#: ./browser/templates/order-summary.pt:63
 msgid "Mailing Address"
 msgstr "Afleveradres"
 
-#: ./browser/checkout.py:591
+#: ./browser/checkout.py:596
 msgid "Make Payment"
 msgstr "Afrekenen"
 
@@ -309,15 +314,15 @@ msgstr "Afrekenen"
 msgid "Merchant Email Notifications"
 msgstr "Verkoper e-mail notificatie"
 
-#: ./browser/admin_order.py:581
+#: ./browser/admin_order.py:582
 msgid "N/A"
 msgstr "Niet beschikbaar"
 
-#: ./browser/admin_order.py:743
+#: ./browser/admin_order.py:744
 msgid "Name"
 msgstr "Naam"
 
-#: ./browser/admin_order.py:92
+#: ./browser/admin_order.py:93
 msgid "Name on Card"
 msgstr "Naam op kaart"
 
@@ -341,11 +346,11 @@ msgstr "Alleen cijfers toegestaan"
 msgid "Order Details"
 msgstr "Order details"
 
-#: ./browser/admin_order.py:88
+#: ./browser/admin_order.py:89
 msgid "Order Id"
 msgstr "Ordernummer"
 
-#: ./browser/cart.py:319
+#: ./browser/cart.py:334
 msgid "Order Templates"
 msgstr "Bestellingssjabloon"
 
@@ -401,11 +406,11 @@ msgstr "Premium content types"
 msgid "Premium not implemented yet"
 msgstr "Premium nog niet beschikbaar"
 
-#: ./browser/cart.py:384
+#: ./browser/cart.py:399
 msgid "Previous Order Loaded into Cart"
 msgstr "Vorige bestelling is in winkelwagen geladen."
 
-#: ./browser/admin_order.py:96
+#: ./browser/admin_order.py:97
 msgid "Price"
 msgstr "Prijs"
 
@@ -414,11 +419,11 @@ msgstr "Prijs"
 msgid "Privacy Policy"
 msgstr "Pricacy beleid"
 
-#: ./browser/admin_order.py:91
+#: ./browser/admin_order.py:92
 msgid "Proc Trans Id"
 msgstr ""
 
-#: ./browser/admin_order.py:741
+#: ./browser/admin_order.py:742
 msgid "Quantity"
 msgstr "Aantal"
 
@@ -441,7 +446,7 @@ msgstr "Bewaar deze bestelling als sjabloon."
 msgid "Save to address book"
 msgstr "Bewaar in adresboek"
 
-#: ./browser/cart.py:320
+#: ./browser/cart.py:335
 msgid "Select a previous order to fill your cart."
 msgstr "Selecteer een vorige bestelling om uw winkelwagen te vullen."
 
@@ -474,6 +479,10 @@ msgstr "Verzendbaar"
 msgid "Shippable Product Types"
 msgstr "Verzendbare product types"
 
+#: ./browser/cart.py:220
+msgid "Shipping"
+msgstr ""
+
 #: ./browser/admin.py:182
 msgid "Shipping Methods"
 msgstr "Verzendmethodes"
@@ -503,13 +512,17 @@ msgstr "Winkelwagen sessie timeout (in seconden)"
 msgid "Site Profile"
 msgstr "Site profiel"
 
-#: ./browser/admin_order.py:94
+#: ./browser/admin_order.py:95
 msgid "Status"
 msgstr "Status"
 
 #: ./interfaces.py:127
 msgid "Store/Organization Name"
 msgstr "Winkel/Organisatienaam"
+
+#: ./browser/cart.py:216
+msgid "SubTotal"
+msgstr ""
 
 #: ./interfaces.py:292
 msgid "Tax Method"
@@ -523,9 +536,14 @@ msgstr "De Betalingverwerking kan niet gevonden worden; controleer of de benodig
 msgid "The list of months"
 msgstr "Lijst met maanden"
 
-#: ./browser/admin_order.py:745
+#: ./browser/admin_order.py:746
 msgid "Total"
 msgstr "Totaal"
+
+#. Default: "Transaction ID"
+#: ./browser/templates/order-summary.pt:30
+msgid "Transaction ID"
+msgstr ""
 
 #: ./interfaces.py:335
 msgid "US Currency Formatting"
@@ -535,7 +553,7 @@ msgstr "US valuta formaat"
 msgid "US Dollars"
 msgstr "US Dollars"
 
-#: ./browser/cart.py:253
+#: ./browser/cart.py:268
 msgid "Update"
 msgstr "Bijwerken"
 
@@ -555,6 +573,11 @@ msgstr "Het spijt ons, maar uw creditcard wordt niet geaccepteerd."
 #: ./interfaces.py:276
 msgid "Weight Units"
 msgstr "Gewichtseenheid"
+
+#. Default: "You must confirm your shopping cart modifications by clicking 'Update' below."
+#: ./browser/templates/cart-listing.pt:5
+msgid "You must confirm your shopping cart modifications by clicking 'Update' below."
+msgstr ""
 
 #. Default: "You can check the status of your order ${status_url}"
 #: ./browser/templates/checkout-thank-you.pt:34
@@ -601,7 +624,7 @@ msgid "heading_changed_by"
 msgstr "Gewijzigd door"
 
 #. Default: "Checkout"
-#: ./browser/templates/checkout-review-pay.pt:12
+#: ./browser/templates/checkout-shipping-method.pt:3
 msgid "heading_checkout"
 msgstr "Afrekenen"
 
@@ -696,7 +719,7 @@ msgid "here"
 msgstr "hier"
 
 #. Default: "Add to Cart"
-#: ./browser/templates/portlet-content-premium.pt:40
+#: ./browser/templates/portlet-content-shippable.pt:44
 msgid "label_add_to_cart"
 msgstr "Voeg toe aan winkelwagen"
 
@@ -804,7 +827,7 @@ msgid "text_creation_date"
 msgstr "aanmaakdatum"
 
 #. Default: "Current Status"
-#: ./browser/templates/order-finance.pt:5
+#: ./browser/templates/order-fulfillment.pt:5
 msgid "text_current_status"
 msgstr "Huidige status"
 

@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
-"POT-Creation-Date: 2009-04-03 20:42+0000\n"
+"POT-Creation-Date: 2009-05-04 07:50+0000\n"
 "PO-Revision-Date: 2008-07-09 16:59+0800\n"
 "Last-Translator: adam tang(315ok.org) <yuejun.tang@gmail.com>\n"
 "Language-Team: http://315ok.org/ <admins@315ok.org>\n"
@@ -39,7 +39,7 @@ msgstr ""
 msgid "A name you remember this address by. Will not appear on shipping label."
 msgstr ""
 
-#: ./browser/checkout.py:465
+#: ./browser/checkout.py:466
 msgid "A new address has been saved"
 msgstr "一个新的地址信息已保存。"
 
@@ -69,12 +69,12 @@ msgstr "数量"
 msgid "Apply"
 msgstr "应用"
 
-#: ./browser/checkout.py:587
+#: ./browser/checkout.py:592
 msgid "Back"
 msgstr "后退"
 
 #. Default: "Billing Address"
-#: ./browser/templates/checkout-review-pay.pt:30
+#: ./browser/templates/order-summary.pt:53
 msgid "Billing Address"
 msgstr "发票地址"
 
@@ -90,15 +90,15 @@ msgstr "可发布在网上，供在线销售的商品"
 msgid "Buyable Types"
 msgstr "可卖的商品"
 
-#: ./browser/checkout.py:467
+#: ./browser/checkout.py:468
 msgid "Cancel"
 msgstr "撤销"
 
-#: ./browser/admin_order.py:93
+#: ./browser/admin_order.py:94
 msgid "Card Phone#"
 msgstr ""
 
-#: ./browser/cart.py:306
+#: ./browser/cart.py:321
 msgid "Checkout"
 msgstr "支付"
 
@@ -172,25 +172,30 @@ msgstr "该商品只对会员资格有效"
 msgid "Content Types that represent goods that can be purchased and shipped"
 msgstr "可以销售并送货的商品"
 
-#: ./browser/admin_order.py:755
+#: ./browser/admin_order.py:756
 msgid "Contents"
 msgstr "内容"
 
-#: ./browser/checkout.py:473
+#: ./browser/checkout.py:474
 msgid "Continue"
 msgstr "继续"
 
-#: ./browser/cart.py:286
+#: ./browser/cart.py:301
 msgid "Continue Shopping"
 msgstr "继续挑选商品"
 
-#: ./browser/cart.py:368
+#: ./browser/cart.py:383
 msgid "Could not find order"
 msgstr "找不到订单"
 
-#: ./browser/admin_order.py:97
+#: ./browser/admin_order.py:98
 msgid "Created"
 msgstr "订单已提交"
+
+#. Default: "Credit Card Last 4"
+#: ./browser/templates/order-summary.pt:34
+msgid "Credit Card Last 4"
+msgstr ""
 
 #: ./interfaces.py:256
 msgid "Credit cards accepted for payment"
@@ -204,7 +209,7 @@ msgstr "货币"
 msgid "Customer Email Notifications"
 msgstr "客户邮件通知"
 
-#: ./browser/admin_order.py:89
+#: ./browser/admin_order.py:90
 msgid "Customer Id"
 msgstr "客户ID编号"
 
@@ -262,31 +267,31 @@ msgstr "邮件"
 msgid "Email Notifications"
 msgstr "邮件通知"
 
-#: ./browser/admin_order.py:166
+#: ./browser/admin_order.py:167
 msgid "Export All"
 msgstr "导出所有"
 
-#: ./browser/admin_order.py:133
+#: ./browser/admin_order.py:134
 msgid "Export Search"
 msgstr "导出查询"
 
-#: ./browser/cart.py:357
+#: ./browser/cart.py:372
 msgid "Fill"
 msgstr "填充"
 
-#: ./browser/admin_order.py:241
+#: ./browser/admin_order.py:242
 msgid "Filter"
 msgstr "刷选"
 
-#: ./browser/admin_order.py:95
+#: ./browser/admin_order.py:96
 msgid "Fulfillment"
 msgstr "确认提交"
 
-#: ./browser/admin_order.py:742
+#: ./browser/admin_order.py:743
 msgid "Item Id"
 msgstr "项目ID"
 
-#: ./browser/admin_order.py:90
+#: ./browser/admin_order.py:91
 msgid "Last4"
 msgstr ""
 
@@ -295,11 +300,11 @@ msgid "Legal Disclaimers"
 msgstr "法律申明"
 
 #. Default: "Mailing Address"
-#: ./browser/templates/checkout-review-pay.pt:38
+#: ./browser/templates/order-summary.pt:63
 msgid "Mailing Address"
 msgstr "邮寄地址"
 
-#: ./browser/checkout.py:591
+#: ./browser/checkout.py:596
 msgid "Make Payment"
 msgstr "开始付款"
 
@@ -307,15 +312,15 @@ msgstr "开始付款"
 msgid "Merchant Email Notifications"
 msgstr "商家邮件通知"
 
-#: ./browser/admin_order.py:581
+#: ./browser/admin_order.py:582
 msgid "N/A"
 msgstr "无效"
 
-#: ./browser/admin_order.py:743
+#: ./browser/admin_order.py:744
 msgid "Name"
 msgstr "名称"
 
-#: ./browser/admin_order.py:92
+#: ./browser/admin_order.py:93
 msgid "Name on Card"
 msgstr ""
 
@@ -339,11 +344,11 @@ msgstr "仅仅采用十进制"
 msgid "Order Details"
 msgstr "订单详情"
 
-#: ./browser/admin_order.py:88
+#: ./browser/admin_order.py:89
 msgid "Order Id"
 msgstr "订单编号"
 
-#: ./browser/cart.py:319
+#: ./browser/cart.py:334
 msgid "Order Templates"
 msgstr "订单模板"
 
@@ -399,11 +404,11 @@ msgstr "订单确认"
 msgid "Premium not implemented yet"
 msgstr "暂不收取附加费用"
 
-#: ./browser/cart.py:384
+#: ./browser/cart.py:399
 msgid "Previous Order Loaded into Cart"
 msgstr "先前的订单已调入购物车"
 
-#: ./browser/admin_order.py:96
+#: ./browser/admin_order.py:97
 msgid "Price"
 msgstr "价格"
 
@@ -412,11 +417,11 @@ msgstr "价格"
 msgid "Privacy Policy"
 msgstr "隐私保护"
 
-#: ./browser/admin_order.py:91
+#: ./browser/admin_order.py:92
 msgid "Proc Trans Id"
 msgstr ""
 
-#: ./browser/admin_order.py:741
+#: ./browser/admin_order.py:742
 msgid "Quantity"
 msgstr "数量"
 
@@ -439,7 +444,7 @@ msgstr ""
 msgid "Save to address book"
 msgstr "保存到通讯录"
 
-#: ./browser/cart.py:320
+#: ./browser/cart.py:335
 msgid "Select a previous order to fill your cart."
 msgstr "调入前一订单的商品到购物车。"
 
@@ -472,6 +477,10 @@ msgstr "可送货"
 msgid "Shippable Product Types"
 msgstr "可送货的商品类型"
 
+#: ./browser/cart.py:220
+msgid "Shipping"
+msgstr ""
+
 #: ./browser/admin.py:182
 msgid "Shipping Methods"
 msgstr "送货方式"
@@ -501,13 +510,17 @@ msgstr "购物车连接超时"
 msgid "Site Profile"
 msgstr "站点配置"
 
-#: ./browser/admin_order.py:94
+#: ./browser/admin_order.py:95
 msgid "Status"
 msgstr "省份"
 
 #: ./interfaces.py:127
 msgid "Store/Organization Name"
 msgstr "商家名称"
+
+#: ./browser/cart.py:216
+msgid "SubTotal"
+msgstr ""
 
 #: ./interfaces.py:292
 msgid "Tax Method"
@@ -521,9 +534,14 @@ msgstr "支付处理程序没有找到"
 msgid "The list of months"
 msgstr "月份列表"
 
-#: ./browser/admin_order.py:745
+#: ./browser/admin_order.py:746
 msgid "Total"
 msgstr "总计"
+
+#. Default: "Transaction ID"
+#: ./browser/templates/order-summary.pt:30
+msgid "Transaction ID"
+msgstr ""
 
 #: ./interfaces.py:335
 msgid "US Currency Formatting"
@@ -533,7 +551,7 @@ msgstr "美国货币格式"
 msgid "US Dollars"
 msgstr "美元"
 
-#: ./browser/cart.py:253
+#: ./browser/cart.py:268
 msgid "Update"
 msgstr "更新"
 
@@ -553,6 +571,11 @@ msgstr "对不起，你的信任卡已过期。"
 #: ./interfaces.py:276
 msgid "Weight Units"
 msgstr "重量单位"
+
+#. Default: "You must confirm your shopping cart modifications by clicking 'Update' below."
+#: ./browser/templates/cart-listing.pt:5
+msgid "You must confirm your shopping cart modifications by clicking 'Update' below."
+msgstr ""
 
 #. Default: "You can check the status of your order ${status_url}"
 #: ./browser/templates/checkout-thank-you.pt:34
@@ -599,7 +622,7 @@ msgid "heading_changed_by"
 msgstr "变更由"
 
 #. Default: "Checkout"
-#: ./browser/templates/checkout-review-pay.pt:12
+#: ./browser/templates/checkout-shipping-method.pt:3
 msgid "heading_checkout"
 msgstr "支付"
 
@@ -694,7 +717,7 @@ msgid "here"
 msgstr "这儿"
 
 #. Default: "Add to Cart"
-#: ./browser/templates/portlet-content-premium.pt:40
+#: ./browser/templates/portlet-content-shippable.pt:44
 msgid "label_add_to_cart"
 msgstr "加到购物车"
 
@@ -802,7 +825,7 @@ msgid "text_creation_date"
 msgstr "创建日期"
 
 #. Default: "Current Status"
-#: ./browser/templates/order-finance.pt:5
+#: ./browser/templates/order-fulfillment.pt:5
 msgid "text_current_status"
 msgstr "当前状态"
 

@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
-"POT-Creation-Date: 2009-04-03 20:42+0000\n"
+"POT-Creation-Date: 2009-05-04 07:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Andreas Schmid <a.schmid00@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgstr ""
 msgid "A name you remember this address by. Will not appear on shipping label."
 msgstr ""
 
-#: ./browser/checkout.py:465
+#: ./browser/checkout.py:466
 msgid "A new address has been saved"
 msgstr ""
 
@@ -68,12 +68,12 @@ msgstr ""
 msgid "Apply"
 msgstr "Anwenden"
 
-#: ./browser/checkout.py:587
+#: ./browser/checkout.py:592
 msgid "Back"
 msgstr "Zurück"
 
 #. Default: "Billing Address"
-#: ./browser/templates/checkout-review-pay.pt:30
+#: ./browser/templates/order-summary.pt:53
 msgid "Billing Address"
 msgstr "Rechnungsadresse"
 
@@ -89,15 +89,15 @@ msgstr "Online kaufbare Güter"
 msgid "Buyable Types"
 msgstr "Kaufbares"
 
-#: ./browser/checkout.py:467
+#: ./browser/checkout.py:468
 msgid "Cancel"
 msgstr "Löschen"
 
-#: ./browser/admin_order.py:93
+#: ./browser/admin_order.py:94
 msgid "Card Phone#"
 msgstr ""
 
-#: ./browser/cart.py:306
+#: ./browser/cart.py:321
 msgid "Checkout"
 msgstr "Auschecken"
 
@@ -171,25 +171,30 @@ msgstr "Inhalte die nur premium members zur Verfügung stehen"
 msgid "Content Types that represent goods that can be purchased and shipped"
 msgstr "Inhalte die von kaufbaren und zustellbare Waren räpresentieren"
 
-#: ./browser/admin_order.py:755
+#: ./browser/admin_order.py:756
 msgid "Contents"
 msgstr ""
 
-#: ./browser/checkout.py:473
+#: ./browser/checkout.py:474
 msgid "Continue"
 msgstr "Weiter"
 
-#: ./browser/cart.py:286
+#: ./browser/cart.py:301
 msgid "Continue Shopping"
 msgstr "Weiter einkaufen"
 
-#: ./browser/cart.py:368
+#: ./browser/cart.py:383
 msgid "Could not find order"
 msgstr ""
 
-#: ./browser/admin_order.py:97
+#: ./browser/admin_order.py:98
 msgid "Created"
 msgstr "Erstellt"
+
+#. Default: "Credit Card Last 4"
+#: ./browser/templates/order-summary.pt:34
+msgid "Credit Card Last 4"
+msgstr ""
 
 #: ./interfaces.py:256
 msgid "Credit cards accepted for payment"
@@ -203,7 +208,7 @@ msgstr "Währungssymbol"
 msgid "Customer Email Notifications"
 msgstr "Kunden Email Benachrichtigungen"
 
-#: ./browser/admin_order.py:89
+#: ./browser/admin_order.py:90
 msgid "Customer Id"
 msgstr "Kunden Id"
 
@@ -261,31 +266,31 @@ msgstr ""
 msgid "Email Notifications"
 msgstr "E-Mail Benachrichtigungen"
 
-#: ./browser/admin_order.py:166
+#: ./browser/admin_order.py:167
 msgid "Export All"
 msgstr ""
 
-#: ./browser/admin_order.py:133
+#: ./browser/admin_order.py:134
 msgid "Export Search"
 msgstr ""
 
-#: ./browser/cart.py:357
+#: ./browser/cart.py:372
 msgid "Fill"
 msgstr ""
 
-#: ./browser/admin_order.py:241
+#: ./browser/admin_order.py:242
 msgid "Filter"
 msgstr "Filter"
 
-#: ./browser/admin_order.py:95
+#: ./browser/admin_order.py:96
 msgid "Fulfillment"
 msgstr "Vertragserfüllung"
 
-#: ./browser/admin_order.py:742
+#: ./browser/admin_order.py:743
 msgid "Item Id"
 msgstr "Artikel Id"
 
-#: ./browser/admin_order.py:90
+#: ./browser/admin_order.py:91
 msgid "Last4"
 msgstr ""
 
@@ -294,11 +299,11 @@ msgid "Legal Disclaimers"
 msgstr "Rechtliche Hinweise"
 
 #. Default: "Mailing Address"
-#: ./browser/templates/checkout-review-pay.pt:38
+#: ./browser/templates/order-summary.pt:63
 msgid "Mailing Address"
 msgstr "E-Mail Adresse"
 
-#: ./browser/checkout.py:591
+#: ./browser/checkout.py:596
 msgid "Make Payment"
 msgstr "Zahlen"
 
@@ -306,15 +311,15 @@ msgstr "Zahlen"
 msgid "Merchant Email Notifications"
 msgstr "Händler E-mail Benachrichtigungen"
 
-#: ./browser/admin_order.py:581
+#: ./browser/admin_order.py:582
 msgid "N/A"
 msgstr ""
 
-#: ./browser/admin_order.py:743
+#: ./browser/admin_order.py:744
 msgid "Name"
 msgstr "Name"
 
-#: ./browser/admin_order.py:92
+#: ./browser/admin_order.py:93
 msgid "Name on Card"
 msgstr ""
 
@@ -338,11 +343,11 @@ msgstr "Nur Ziffern erlaubt"
 msgid "Order Details"
 msgstr "Bestellungs Details"
 
-#: ./browser/admin_order.py:88
+#: ./browser/admin_order.py:89
 msgid "Order Id"
 msgstr "Bestellungs Id"
 
-#: ./browser/cart.py:319
+#: ./browser/cart.py:334
 msgid "Order Templates"
 msgstr ""
 
@@ -398,11 +403,11 @@ msgstr "Premium Inhalte"
 msgid "Premium not implemented yet"
 msgstr "Premium noch nicht implementiert"
 
-#: ./browser/cart.py:384
+#: ./browser/cart.py:399
 msgid "Previous Order Loaded into Cart"
 msgstr ""
 
-#: ./browser/admin_order.py:96
+#: ./browser/admin_order.py:97
 msgid "Price"
 msgstr "Preis"
 
@@ -411,11 +416,11 @@ msgstr "Preis"
 msgid "Privacy Policy"
 msgstr "Datenschut"
 
-#: ./browser/admin_order.py:91
+#: ./browser/admin_order.py:92
 msgid "Proc Trans Id"
 msgstr ""
 
-#: ./browser/admin_order.py:741
+#: ./browser/admin_order.py:742
 msgid "Quantity"
 msgstr "Anzahl"
 
@@ -438,7 +443,7 @@ msgstr ""
 msgid "Save to address book"
 msgstr ""
 
-#: ./browser/cart.py:320
+#: ./browser/cart.py:335
 msgid "Select a previous order to fill your cart."
 msgstr ""
 
@@ -471,6 +476,10 @@ msgstr ""
 msgid "Shippable Product Types"
 msgstr "Zustellbare Produkt Typen"
 
+#: ./browser/cart.py:220
+msgid "Shipping"
+msgstr ""
+
 #: ./browser/admin.py:182
 msgid "Shipping Methods"
 msgstr ""
@@ -500,13 +509,17 @@ msgstr "Warenkorb session timeout (in sekunden)"
 msgid "Site Profile"
 msgstr "Site Profil"
 
-#: ./browser/admin_order.py:94
+#: ./browser/admin_order.py:95
 msgid "Status"
 msgstr "Status"
 
 #: ./interfaces.py:127
 msgid "Store/Organization Name"
 msgstr "Verkaufstelle/Organisations Name"
+
+#: ./browser/cart.py:216
+msgid "SubTotal"
+msgstr ""
 
 #: ./interfaces.py:292
 msgid "Tax Method"
@@ -520,9 +533,14 @@ msgstr ""
 msgid "The list of months"
 msgstr "Liste der Monate"
 
-#: ./browser/admin_order.py:745
+#: ./browser/admin_order.py:746
 msgid "Total"
 msgstr "Summe"
+
+#. Default: "Transaction ID"
+#: ./browser/templates/order-summary.pt:30
+msgid "Transaction ID"
+msgstr ""
 
 #: ./interfaces.py:335
 msgid "US Currency Formatting"
@@ -532,7 +550,7 @@ msgstr "US Währungsformatierung"
 msgid "US Dollars"
 msgstr "US Dollar"
 
-#: ./browser/cart.py:253
+#: ./browser/cart.py:268
 msgid "Update"
 msgstr "Update"
 
@@ -552,6 +570,11 @@ msgstr ""
 #: ./interfaces.py:276
 msgid "Weight Units"
 msgstr "Gewichtseinheiten"
+
+#. Default: "You must confirm your shopping cart modifications by clicking 'Update' below."
+#: ./browser/templates/cart-listing.pt:5
+msgid "You must confirm your shopping cart modifications by clicking 'Update' below."
+msgstr ""
 
 #. Default: "You can check the status of your order ${status_url}"
 #: ./browser/templates/checkout-thank-you.pt:34
@@ -598,7 +621,7 @@ msgid "heading_changed_by"
 msgstr ""
 
 #. Default: "Checkout"
-#: ./browser/templates/checkout-review-pay.pt:12
+#: ./browser/templates/checkout-shipping-method.pt:3
 msgid "heading_checkout"
 msgstr ""
 
@@ -693,7 +716,7 @@ msgid "here"
 msgstr ""
 
 #. Default: "Add to Cart"
-#: ./browser/templates/portlet-content-premium.pt:40
+#: ./browser/templates/portlet-content-shippable.pt:44
 msgid "label_add_to_cart"
 msgstr ""
 
@@ -801,7 +824,7 @@ msgid "text_creation_date"
 msgstr ""
 
 #. Default: "Current Status"
-#: ./browser/templates/order-finance.pt:5
+#: ./browser/templates/order-fulfillment.pt:5
 msgid "text_current_status"
 msgstr ""
 
