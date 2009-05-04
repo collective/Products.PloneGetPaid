@@ -104,6 +104,10 @@ class OrderListingComponent( core.EventViewlet ):
         return self.template()
     
     def listing( self ):
+        for column in self.columns:
+            if hasattr(column, 'title'):
+                column.title = getSite().translate(msgid=column.title, domain='plonegetpaid')
+
         columns = self.columns
         values = self.manager.get('orders-search').results
         if not values:
