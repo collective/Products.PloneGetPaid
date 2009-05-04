@@ -16,6 +16,7 @@ from zope.formlib import form
 from zope import schema, interface
 from zope.app.event.objectevent import ObjectCreatedEvent
 from zope.app.renderer.plaintext import PlainTextToHTMLRenderer
+from zope.app.component.hooks import getSite
 
 from zope import component
 
@@ -563,6 +564,10 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         cart = component.getUtility( interfaces.IShoppingCartUtility ).get( self.context )
         if not cart:
             return _(u"N/A")
+
+        for column in self.columns:
+            if hasattr(column, 'title'):
+                column.title = getSite().translate(msgid=column.title, domain='plonegetpaid')
 
         # create an order so that tax/shipping utilities have full order information
         # to determine costs (ie. billing/shipping address ).

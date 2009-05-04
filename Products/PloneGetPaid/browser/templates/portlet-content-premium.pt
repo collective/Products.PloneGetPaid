@@ -38,7 +38,7 @@
               <input type="hidden" name="add_item" value="True" />
               <input type="text" size="1" name="quantity" value="1" />
               <input type="submit" 
-                     i18n:translate="label_add_to_cart" 
+	             i18n:attributes="value label_add_to_cart" 
                      value="Add to Cart" />
             </form>
             <span class="portletBottomLeft"></span>

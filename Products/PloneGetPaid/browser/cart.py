@@ -11,6 +11,8 @@ from zope import component, interface
 from zope.formlib import form
 from zc.table import column, table
 
+from zope.app.component.hooks import getSite
+
 from ore.viewlet.container import ContainerViewlet
 from ore.viewlet.core import FormViewlet
 
@@ -196,6 +198,9 @@ class CartFormatter( table.StandaloneSortFormatter ):
         return interfaces.ILineContainerTotals( self.context )
         
     def renderExtra( self ):
+
+        translate = lambda msg: getSite().translate(msgid=msg, domain='plonegetpaid')
+
         if not len( self.context ):
             return super( CartFormatter, self).renderExtra()
         
@@ -206,16 +211,22 @@ class CartFormatter( table.StandaloneSortFormatter ):
         subtotal_price = totals.getSubTotalPrice()
         total_price = totals.getTotalPrice()
         
-        buffer = [ '<div class="getpaid-totals"><table class="listing">']
-        buffer.append( '<tr><th>SubTotal</th><td style="border-top:1px solid #8CACBB;">%0.2f</td></tr>'%( subtotal_price ) )
+        buffer = [ u'<div class="getpaid-totals"><table class="listing">']
+        buffer.append('<tr><th>')
+        buffer.append( translate(_(u"SubTotal")) )
+        buffer.append( '</th><td style="border-top:1px solid #8CACBB;">%0.2f</td></tr>'%( subtotal_price ) )
 
-        buffer.append( "<tr><th>Shipping</th><td>%0.2f</td></tr>"%( shipping_price ) )
+        buffer.append( "<tr><th>" )
+        buffer.append( translate(_(u"Shipping")) )
+        buffer.append( "</th><td>%0.2f</td></tr>"%( shipping_price ) )
 
         for tax in tax_list:
             buffer.append( "<tr><th>%s</th><td>%0.2f</td></tr>"%( tax['name'], tax['value'] ) )
-        buffer.append( "<tr><th>Total</th><td>%0.2f</td></tr>"%( total_price ) )
+        buffer.append( "<tr><th>" )
+        buffer.append( translate(_(u"Total")) )
+        buffer.append( "</th><td>%0.2f</td></tr>"%( total_price ) )
         buffer.append('</table></div>')
-                       
+        
         return u''.join( buffer) + super( CartFormatter, self).renderExtra()
     
 class ShoppingCartListing( ContainerViewlet ):
@@ -239,6 +250,10 @@ class ShoppingCartListing( ContainerViewlet ):
     
     def __init__( self, *args, **kw):
         super( ShoppingCartListing, self ).__init__( *args, **kw )
+
+        for column in self.columns:
+            if hasattr(column, 'title'):
+                column.title = getSite().translate(msgid=column.title, domain='plonegetpaid')
 
     def getContainerContext( self ):
         return self.__parent__.cart

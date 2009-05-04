@@ -11,6 +11,7 @@ from zope.schema.interfaces import IContextSourceBinder
 from zope.schema import vocabulary
 from zope.viewlet.interfaces import IViewlet
 from zope.formlib import form
+from zope.app.component.hooks import getSite
 
 from zExceptions import Unauthorized
 from zc.table import table, column
@@ -782,6 +783,10 @@ class OrderContentsComponent( core.ComponentViewlet ):
         return selected        
         
     def listing( self ):
+        for column in self.columns:
+            if hasattr(column, 'title'):
+                column.title = getSite().translate(msgid=column.title, domain='plonegetpaid')
+
         columns = self.columns
         formatter = table.StandaloneFullFormatter( self.context,
                                                    self.request,
