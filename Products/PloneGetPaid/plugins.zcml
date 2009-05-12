@@ -33,6 +33,12 @@
 <include zcml:condition="installed getpaid.discount"
 	 package="getpaid.discount" />
 
+<include zcml:condition="installed getpaid.formgen"
+	 package="getpaid.formgen" />
+
+<include zcml:condition="installed getpaid.SalesforcePloneFormGenAdapter"
+	 package="getpaid.SalesforcePloneFormGenAdapter" />
+
 <!-- Optional Shipping Modules -->
 <include zcml:condition="installed getpaid.flatrateshipping"
 	 package="getpaid.flatrateshipping" />

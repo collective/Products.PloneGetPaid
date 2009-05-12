@@ -5,6 +5,11 @@ CHANGES
 0.7.7 (unreleased)
 ------------------
 
+0.7.6-1 (2009-05-12)
+------------------
+
+- Add getpaid.formgen and getpaid.SalesforcePloneFormGenAdapter to plugins [larubbio]
+
 0.7.6 (2009-05-12)
 ------------------
 
