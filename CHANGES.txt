@@ -2,11 +2,15 @@
 CHANGES
 =======
 
-0.7.7 (unreleased)
+0.7.7 (2009-05-15)
 ------------------
 
+- fixed the javascript, this fixes errors that were showing up in IE
+- removed version.txt and replaced it by the metadata.xml,
+- made sure the version is up to date [lucielejard]
+
 0.7.6-1 (2009-05-12)
-------------------
+--------------------
 
 - Add getpaid.formgen and getpaid.SalesforcePloneFormGenAdapter to plugins [larubbio]
 
