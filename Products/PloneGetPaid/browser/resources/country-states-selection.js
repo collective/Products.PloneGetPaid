@@ -27,15 +27,16 @@ function update_sequence(field_id, field_suffix, dep_suffix, response){
     var state_options = "<select name=\"" + dep_field_id + "\" id=\"" + dep_field_id + "\">";
     for (var i = 0; i < response.length; i++){
         //if (dep_value == response[i][0]){
-        if (dep_field.selectedIndex == i){
+        if (dep_field && (dep_field.selectedIndex == i)){
             state_options += "<option value=\"" + response[i][0] + "\" selected>" + response[i][1] + "</option>\n";
         }else{
             state_options += "<option value=\"" + response[i][0] + "\">" + response[i][1] + "</option>\n";
         }
     }
     state_options += "</select>";
-
-    dep_container.innerHTML = state_options;
+    if (dep_container){
+        dep_container.innerHTML = state_options;
+    }
 }
 
 function update_callback(req, field_id, field_suffix, dep_suffix){
