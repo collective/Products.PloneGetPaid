@@ -10,7 +10,7 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.Five.browser import BrowserView
 from Products.Five.formlib import formbase
 from Products.Five.viewlet import manager
-from Products.PloneGetPaid import interfaces, pkg_home
+from Products.PloneGetPaid import interfaces
 
 from zope import component
 from zope.formlib import form
@@ -18,8 +18,10 @@ from zope.viewlet.interfaces import IViewlet
 
 import getpaid.core.interfaces as igetpaid
 
-from Products.PloneGetPaid.interfaces import ISettingsShipmentManager, ISettingsPaymentManager
+from Products.PloneGetPaid.interfaces import ISettingsShipmentManager
 from Products.PloneGetPaid.i18n import _
+
+from Products.CMFCore.utils import getToolByName
 
 from base import BaseView, FormViewlet
 from widgets import SelectWidgetFactory, CountrySelectionWidget, StateSelectionWidget
@@ -33,10 +35,8 @@ class Overview( BrowserView ):
         return super( Overview, self).__call__()
 
     def getVersion( self ):
-        fh = open( os.path.join( pkg_home, 'version.txt') )
-        version_string = fh.read()
-        fh.close()
-        return version_string
+        qi = getToolByName(self.context, 'portal_quickinstaller')
+        return qi.getProductVersion('PloneGetPaid')
 
 class BaseSettingsForm( formbase.EditForm, BaseView ):
 
