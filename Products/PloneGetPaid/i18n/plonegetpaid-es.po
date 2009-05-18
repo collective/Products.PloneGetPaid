@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2009-05-04 07:50+0000\n"
+"POT-Creation-Date: 2009-05-18 12:21+0000\n"
 "PO-Revision-Date: 2007-08-16 12:44-0300\n"
 "Last-Translator: Francisco Gabriel Malbrán <fgmalbran@except.com.ar>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,7 +75,7 @@ msgid "Back"
 msgstr "Volver"
 
 #. Default: "Billing Address"
-#: ./browser/templates/order-summary.pt:53
+#: ./browser/templates/checkout-review-pay.pt:30
 msgid "Billing Address"
 msgstr "Dirección de facturación"
 
@@ -173,7 +173,7 @@ msgstr "Tipos de Contenido sólo disponibles para membresías pagas"
 msgid "Content Types that represent goods that can be purchased and shipped"
 msgstr "Tipos de Contenido que representan bienes que pueden ser vendidos y enviados"
 
-#: ./browser/admin_order.py:756
+#: ./browser/admin_order.py:760
 msgid "Contents"
 msgstr ""
 
@@ -269,11 +269,11 @@ msgstr "E-mail"
 msgid "Email Notifications"
 msgstr "Notificaciones por Email"
 
-#: ./browser/admin_order.py:167
+#: ./browser/admin_order.py:171
 msgid "Export All"
 msgstr "Exportar todo"
 
-#: ./browser/admin_order.py:134
+#: ./browser/admin_order.py:138
 msgid "Export Search"
 msgstr "Exportar busqueda"
 
@@ -281,7 +281,7 @@ msgstr "Exportar busqueda"
 msgid "Fill"
 msgstr "Completar"
 
-#: ./browser/admin_order.py:242
+#: ./browser/admin_order.py:246
 msgid "Filter"
 msgstr "Filtro"
 
@@ -289,7 +289,7 @@ msgstr "Filtro"
 msgid "Fulfillment"
 msgstr "Despacho"
 
-#: ./browser/admin_order.py:743
+#: ./browser/admin_order.py:747
 msgid "Item Id"
 msgstr "Id del item"
 
@@ -302,7 +302,7 @@ msgid "Legal Disclaimers"
 msgstr "Cláusulas Legales"
 
 #. Default: "Mailing Address"
-#: ./browser/templates/order-summary.pt:63
+#: ./browser/templates/checkout-review-pay.pt:38
 msgid "Mailing Address"
 msgstr "Dirección de envio"
 
@@ -314,11 +314,11 @@ msgstr "Pagar"
 msgid "Merchant Email Notifications"
 msgstr "Alertas al Vendedor por Email"
 
-#: ./browser/admin_order.py:582
+#: ./browser/admin_order.py:586
 msgid "N/A"
 msgstr "No disponible"
 
-#: ./browser/admin_order.py:744
+#: ./browser/admin_order.py:748
 msgid "Name"
 msgstr "Nombre"
 
@@ -424,7 +424,7 @@ msgstr "Política de Privacidad"
 msgid "Proc Trans Id"
 msgstr ""
 
-#: ./browser/admin_order.py:742
+#: ./browser/admin_order.py:746
 msgid "Quantity"
 msgstr "Cantidad"
 
@@ -538,7 +538,7 @@ msgstr "El procesador de pagos configurado actualmente no puede ser encontrado; 
 msgid "The list of months"
 msgstr "El listado de meses"
 
-#: ./browser/admin_order.py:746
+#: ./browser/admin_order.py:750
 msgid "Total"
 msgstr "Total"
 
@@ -626,7 +626,7 @@ msgid "heading_changed_by"
 msgstr "modificado por"
 
 #. Default: "Checkout"
-#: ./browser/templates/checkout-shipping-method.pt:3
+#: ./browser/templates/checkout-review-pay.pt:12
 msgid "heading_checkout"
 msgstr "Checkout"
 
@@ -722,7 +722,7 @@ msgid "here"
 msgstr "aquí"
 
 #. Default: "Add to Cart"
-#: ./browser/templates/portlet-content-shippable.pt:44
+#: ./browser/templates/portlet-content-premium.pt:40
 msgid "label_add_to_cart"
 msgstr "Agregar al Carrito"
 
@@ -830,7 +830,7 @@ msgid "text_creation_date"
 msgstr "Fecha de Creación"
 
 #. Default: "Current Status"
-#: ./browser/templates/order-fulfillment.pt:5
+#: ./browser/templates/order-finance.pt:5
 msgid "text_current_status"
 msgstr "Estado Actual"
 
@@ -876,7 +876,7 @@ msgid "text_price"
 msgstr "Precio: $ ${value_price}"
 
 #. Default: "Product Details"
-#: ./browser/templates/portlet-content-variableamountdonatable.pt:12
+#: ./browser/templates/portlet-content-premium.pt:12
 msgid "text_product_details"
 msgstr "Detalles del Producto"
 

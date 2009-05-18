@@ -1,0 +1,52 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PloneGetPaid VERSION\n"
+"POT-Creation-Date: 2006-06-06 13:53+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: Taito Horiuchi <taito.horiuchi@abita.fi>\n"
+"Language-Team: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: ja\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+
+msgid "Make Buyable"
+msgstr "購入可能にする"
+
+msgid "Make Not Buyable"
+msgstr "購入可能でなくする"
+
+msgid "Make Not Premium Members Only"
+msgstr "プレミアムメンバーのみでなくする"
+
+msgid "Make Not Shippable Product"
+msgstr "出荷可能な商品でなくする"
+
+msgid "Make Shippable Product"
+msgstr "出荷可能な商品にする"
+
+msgid "Make this a Donation"
+msgstr "これを寄付にする"
+
+msgid "Make this not a Donation"
+msgstr "これを寄付でなくする"
+
+msgid "Manage Cart"
+msgstr "カートを管理"
+
+msgid "Order History"
+msgstr "オーダー履歴"
+
+msgid "Orders"
+msgstr "オーダー"
+
+msgid "Payable"
+msgstr "支払可"
+
+msgid "Settings"
+msgstr "設定"
+

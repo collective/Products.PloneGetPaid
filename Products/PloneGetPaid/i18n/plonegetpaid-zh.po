@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
-"POT-Creation-Date: 2009-05-04 07:50+0000\n"
+"POT-Creation-Date: 2009-05-18 12:21+0000\n"
 "PO-Revision-Date: 2008-07-09 16:59+0800\n"
 "Last-Translator: adam tang(315ok.org) <yuejun.tang@gmail.com>\n"
 "Language-Team: http://315ok.org/ <admins@315ok.org>\n"
@@ -74,7 +74,7 @@ msgid "Back"
 msgstr "后退"
 
 #. Default: "Billing Address"
-#: ./browser/templates/order-summary.pt:53
+#: ./browser/templates/checkout-review-pay.pt:30
 msgid "Billing Address"
 msgstr "发票地址"
 
@@ -172,7 +172,7 @@ msgstr "该商品只对会员资格有效"
 msgid "Content Types that represent goods that can be purchased and shipped"
 msgstr "可以销售并送货的商品"
 
-#: ./browser/admin_order.py:756
+#: ./browser/admin_order.py:760
 msgid "Contents"
 msgstr "内容"
 
@@ -267,11 +267,11 @@ msgstr "邮件"
 msgid "Email Notifications"
 msgstr "邮件通知"
 
-#: ./browser/admin_order.py:167
+#: ./browser/admin_order.py:171
 msgid "Export All"
 msgstr "导出所有"
 
-#: ./browser/admin_order.py:134
+#: ./browser/admin_order.py:138
 msgid "Export Search"
 msgstr "导出查询"
 
@@ -279,7 +279,7 @@ msgstr "导出查询"
 msgid "Fill"
 msgstr "填充"
 
-#: ./browser/admin_order.py:242
+#: ./browser/admin_order.py:246
 msgid "Filter"
 msgstr "刷选"
 
@@ -287,7 +287,7 @@ msgstr "刷选"
 msgid "Fulfillment"
 msgstr "确认提交"
 
-#: ./browser/admin_order.py:743
+#: ./browser/admin_order.py:747
 msgid "Item Id"
 msgstr "项目ID"
 
@@ -300,7 +300,7 @@ msgid "Legal Disclaimers"
 msgstr "法律申明"
 
 #. Default: "Mailing Address"
-#: ./browser/templates/order-summary.pt:63
+#: ./browser/templates/checkout-review-pay.pt:38
 msgid "Mailing Address"
 msgstr "邮寄地址"
 
@@ -312,11 +312,11 @@ msgstr "开始付款"
 msgid "Merchant Email Notifications"
 msgstr "商家邮件通知"
 
-#: ./browser/admin_order.py:582
+#: ./browser/admin_order.py:586
 msgid "N/A"
 msgstr "无效"
 
-#: ./browser/admin_order.py:744
+#: ./browser/admin_order.py:748
 msgid "Name"
 msgstr "名称"
 
@@ -421,7 +421,7 @@ msgstr "隐私保护"
 msgid "Proc Trans Id"
 msgstr ""
 
-#: ./browser/admin_order.py:742
+#: ./browser/admin_order.py:746
 msgid "Quantity"
 msgstr "数量"
 
@@ -534,7 +534,7 @@ msgstr "支付处理程序没有找到"
 msgid "The list of months"
 msgstr "月份列表"
 
-#: ./browser/admin_order.py:746
+#: ./browser/admin_order.py:750
 msgid "Total"
 msgstr "总计"
 
@@ -622,7 +622,7 @@ msgid "heading_changed_by"
 msgstr "变更由"
 
 #. Default: "Checkout"
-#: ./browser/templates/checkout-shipping-method.pt:3
+#: ./browser/templates/checkout-review-pay.pt:12
 msgid "heading_checkout"
 msgstr "支付"
 
@@ -717,7 +717,7 @@ msgid "here"
 msgstr "这儿"
 
 #. Default: "Add to Cart"
-#: ./browser/templates/portlet-content-shippable.pt:44
+#: ./browser/templates/portlet-content-premium.pt:40
 msgid "label_add_to_cart"
 msgstr "加到购物车"
 
@@ -825,7 +825,7 @@ msgid "text_creation_date"
 msgstr "创建日期"
 
 #. Default: "Current Status"
-#: ./browser/templates/order-fulfillment.pt:5
+#: ./browser/templates/order-finance.pt:5
 msgid "text_current_status"
 msgstr "当前状态"
 
@@ -871,7 +871,7 @@ msgid "text_price"
 msgstr "价格"
 
 #. Default: "Product Details"
-#: ./browser/templates/portlet-content-variableamountdonatable.pt:12
+#: ./browser/templates/portlet-content-premium.pt:12
 msgid "text_product_details"
 msgstr "商品详细情况"
 

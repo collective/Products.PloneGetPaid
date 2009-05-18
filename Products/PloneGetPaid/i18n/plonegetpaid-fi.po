@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2009-05-04 07:50+0000\n"
+"POT-Creation-Date: 2009-05-18 12:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,7 +71,7 @@ msgid "Back"
 msgstr "Paluu"
 
 #. Default: "Billing Address"
-#: ./browser/templates/order-summary.pt:53
+#: ./browser/templates/checkout-review-pay.pt:30
 msgid "Billing Address"
 msgstr "Laskutusosoite"
 
@@ -169,7 +169,7 @@ msgstr ""
 msgid "Content Types that represent goods that can be purchased and shipped"
 msgstr "Ostettavissa ja lähetettävissä olevien tuotteiden sisältötyypit"
 
-#: ./browser/admin_order.py:756
+#: ./browser/admin_order.py:760
 msgid "Contents"
 msgstr "Sisältö"
 
@@ -264,11 +264,11 @@ msgstr "Sähköposti"
 msgid "Email Notifications"
 msgstr "Sähköpostimuistutukset"
 
-#: ./browser/admin_order.py:167
+#: ./browser/admin_order.py:171
 msgid "Export All"
 msgstr "Vie kaikki"
 
-#: ./browser/admin_order.py:134
+#: ./browser/admin_order.py:138
 msgid "Export Search"
 msgstr "Vie haku"
 
@@ -276,7 +276,7 @@ msgstr "Vie haku"
 msgid "Fill"
 msgstr "Täytä"
 
-#: ./browser/admin_order.py:242
+#: ./browser/admin_order.py:246
 msgid "Filter"
 msgstr "Suodata"
 
@@ -284,7 +284,7 @@ msgstr "Suodata"
 msgid "Fulfillment"
 msgstr "Toteutus"
 
-#: ./browser/admin_order.py:743
+#: ./browser/admin_order.py:747
 msgid "Item Id"
 msgstr "Artikkelitunnus"
 
@@ -297,7 +297,7 @@ msgid "Legal Disclaimers"
 msgstr "Vastuuvapauslausekkeet"
 
 #. Default: "Mailing Address"
-#: ./browser/templates/order-summary.pt:63
+#: ./browser/templates/checkout-review-pay.pt:38
 msgid "Mailing Address"
 msgstr "Postiosoite"
 
@@ -309,11 +309,11 @@ msgstr "Suorita maksu"
 msgid "Merchant Email Notifications"
 msgstr "Kauppiaan sähköpostimuistutukset"
 
-#: ./browser/admin_order.py:582
+#: ./browser/admin_order.py:586
 msgid "N/A"
 msgstr "Ei ole"
 
-#: ./browser/admin_order.py:744
+#: ./browser/admin_order.py:748
 msgid "Name"
 msgstr "Nimi"
 
@@ -418,7 +418,7 @@ msgstr "Yksityisyys"
 msgid "Proc Trans Id"
 msgstr ""
 
-#: ./browser/admin_order.py:742
+#: ./browser/admin_order.py:746
 msgid "Quantity"
 msgstr "Määrä"
 
@@ -531,7 +531,7 @@ msgstr "Valittua maksun käsittelijää ei löydy. Ole hyvä ja tarkista, että 
 msgid "The list of months"
 msgstr "Kuukausilista"
 
-#: ./browser/admin_order.py:746
+#: ./browser/admin_order.py:750
 msgid "Total"
 msgstr "Yhteensä"
 
@@ -619,7 +619,7 @@ msgid "heading_changed_by"
 msgstr "muuttanut"
 
 #. Default: "Checkout"
-#: ./browser/templates/checkout-shipping-method.pt:3
+#: ./browser/templates/checkout-review-pay.pt:12
 msgid "heading_checkout"
 msgstr "Kassa"
 
@@ -714,7 +714,7 @@ msgid "here"
 msgstr ""
 
 #. Default: "Add to Cart"
-#: ./browser/templates/portlet-content-shippable.pt:44
+#: ./browser/templates/portlet-content-premium.pt:40
 msgid "label_add_to_cart"
 msgstr "Lisää ostoskoriin"
 
@@ -822,7 +822,7 @@ msgid "text_creation_date"
 msgstr "Luontipäivämäärä"
 
 #. Default: "Current Status"
-#: ./browser/templates/order-fulfillment.pt:5
+#: ./browser/templates/order-finance.pt:5
 msgid "text_current_status"
 msgstr "Tilanne"
 
@@ -867,7 +867,7 @@ msgid "text_price"
 msgstr "Hinta: ${value_price}"
 
 #. Default: "Product Details"
-#: ./browser/templates/portlet-content-variableamountdonatable.pt:12
+#: ./browser/templates/portlet-content-premium.pt:12
 msgid "text_product_details"
 msgstr "Tuotetiedot"
 

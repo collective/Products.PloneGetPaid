@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
-"POT-Creation-Date: 2009-05-04 07:50+0000\n"
+"POT-Creation-Date: 2009-05-18 12:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Lucie Lejard <lucie@sixfeetup.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,7 +73,7 @@ msgid "Back"
 msgstr "Retour"
 
 #. Default: "Billing Address"
-#: ./browser/templates/order-summary.pt:53
+#: ./browser/templates/checkout-review-pay.pt:30
 msgid "Billing Address"
 msgstr "Adresse de facturation"
 
@@ -171,7 +171,7 @@ msgstr "Types de contenu disponibles pour l'adhésion premium"
 msgid "Content Types that represent goods that can be purchased and shipped"
 msgstr "Types de contenu qui représentent des biens qui peuvent être achetés et expédiés"
 
-#: ./browser/admin_order.py:756
+#: ./browser/admin_order.py:760
 msgid "Contents"
 msgstr "Contenu"
 
@@ -266,11 +266,11 @@ msgstr "Courrier électronique"
 msgid "Email Notifications"
 msgstr "Notifications par courrier électronique"
 
-#: ./browser/admin_order.py:167
+#: ./browser/admin_order.py:171
 msgid "Export All"
 msgstr "Exporter tout"
 
-#: ./browser/admin_order.py:134
+#: ./browser/admin_order.py:138
 msgid "Export Search"
 msgstr "Exporter la recherche"
 
@@ -278,7 +278,7 @@ msgstr "Exporter la recherche"
 msgid "Fill"
 msgstr "Remplir"
 
-#: ./browser/admin_order.py:242
+#: ./browser/admin_order.py:246
 msgid "Filter"
 msgstr "Filtrer"
 
@@ -286,7 +286,7 @@ msgstr "Filtrer"
 msgid "Fulfillment"
 msgstr "Avancement"
 
-#: ./browser/admin_order.py:743
+#: ./browser/admin_order.py:747
 msgid "Item Id"
 msgstr "Identifiant de l'article"
 
@@ -299,7 +299,7 @@ msgid "Legal Disclaimers"
 msgstr "Informations légales"
 
 #. Default: "Mailing Address"
-#: ./browser/templates/order-summary.pt:63
+#: ./browser/templates/checkout-review-pay.pt:38
 msgid "Mailing Address"
 msgstr "Adresse de livraison"
 
@@ -311,11 +311,11 @@ msgstr "Payer"
 msgid "Merchant Email Notifications"
 msgstr "Notification par courrier électronique pour le commerçant"
 
-#: ./browser/admin_order.py:582
+#: ./browser/admin_order.py:586
 msgid "N/A"
 msgstr "N/D"
 
-#: ./browser/admin_order.py:744
+#: ./browser/admin_order.py:748
 msgid "Name"
 msgstr "Nom"
 
@@ -420,7 +420,7 @@ msgstr "Politique de confidentialité"
 msgid "Proc Trans Id"
 msgstr ""
 
-#: ./browser/admin_order.py:742
+#: ./browser/admin_order.py:746
 msgid "Quantity"
 msgstr "Quantité"
 
@@ -533,7 +533,7 @@ msgstr "Le Traitement du Paiement actuellement paramétré n'a pas été trouvé
 msgid "The list of months"
 msgstr "La liste des mois"
 
-#: ./browser/admin_order.py:746
+#: ./browser/admin_order.py:750
 msgid "Total"
 msgstr "Total"
 
@@ -621,7 +621,7 @@ msgid "heading_changed_by"
 msgstr "changé par"
 
 #. Default: "Checkout"
-#: ./browser/templates/checkout-shipping-method.pt:3
+#: ./browser/templates/checkout-review-pay.pt:12
 msgid "heading_checkout"
 msgstr "Passer la commande"
 
@@ -716,7 +716,7 @@ msgid "here"
 msgstr "ici"
 
 #. Default: "Add to Cart"
-#: ./browser/templates/portlet-content-shippable.pt:44
+#: ./browser/templates/portlet-content-premium.pt:40
 msgid "label_add_to_cart"
 msgstr "Ajouter au Panier"
 
@@ -824,7 +824,7 @@ msgid "text_creation_date"
 msgstr "Date de création"
 
 #. Default: "Current Status"
-#: ./browser/templates/order-fulfillment.pt:5
+#: ./browser/templates/order-finance.pt:5
 msgid "text_current_status"
 msgstr "Status actuel"
 
@@ -870,7 +870,7 @@ msgid "text_price"
 msgstr "Prix: $ ${value_price}"
 
 #. Default: "Product Details"
-#: ./browser/templates/portlet-content-variableamountdonatable.pt:12
+#: ./browser/templates/portlet-content-premium.pt:12
 msgid "text_product_details"
 msgstr "Détails du produit"
 

@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
-"POT-Creation-Date: 2009-05-04 07:50+0000\n"
+"POT-Creation-Date: 2009-05-18 12:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Fabio Corneti <info@corneti.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,7 +73,7 @@ msgid "Back"
 msgstr ""
 
 #. Default: "Billing Address"
-#: ./browser/templates/order-summary.pt:53
+#: ./browser/templates/checkout-review-pay.pt:30
 msgid "Billing Address"
 msgstr ""
 
@@ -171,7 +171,7 @@ msgstr ""
 msgid "Content Types that represent goods that can be purchased and shipped"
 msgstr ""
 
-#: ./browser/admin_order.py:756
+#: ./browser/admin_order.py:760
 msgid "Contents"
 msgstr ""
 
@@ -266,11 +266,11 @@ msgstr ""
 msgid "Email Notifications"
 msgstr ""
 
-#: ./browser/admin_order.py:167
+#: ./browser/admin_order.py:171
 msgid "Export All"
 msgstr ""
 
-#: ./browser/admin_order.py:134
+#: ./browser/admin_order.py:138
 msgid "Export Search"
 msgstr ""
 
@@ -278,7 +278,7 @@ msgstr ""
 msgid "Fill"
 msgstr ""
 
-#: ./browser/admin_order.py:242
+#: ./browser/admin_order.py:246
 msgid "Filter"
 msgstr ""
 
@@ -286,7 +286,7 @@ msgstr ""
 msgid "Fulfillment"
 msgstr ""
 
-#: ./browser/admin_order.py:743
+#: ./browser/admin_order.py:747
 msgid "Item Id"
 msgstr ""
 
@@ -299,7 +299,7 @@ msgid "Legal Disclaimers"
 msgstr ""
 
 #. Default: "Mailing Address"
-#: ./browser/templates/order-summary.pt:63
+#: ./browser/templates/checkout-review-pay.pt:38
 msgid "Mailing Address"
 msgstr ""
 
@@ -311,11 +311,11 @@ msgstr ""
 msgid "Merchant Email Notifications"
 msgstr ""
 
-#: ./browser/admin_order.py:582
+#: ./browser/admin_order.py:586
 msgid "N/A"
 msgstr ""
 
-#: ./browser/admin_order.py:744
+#: ./browser/admin_order.py:748
 msgid "Name"
 msgstr ""
 
@@ -420,7 +420,7 @@ msgstr ""
 msgid "Proc Trans Id"
 msgstr ""
 
-#: ./browser/admin_order.py:742
+#: ./browser/admin_order.py:746
 msgid "Quantity"
 msgstr ""
 
@@ -533,7 +533,7 @@ msgstr ""
 msgid "The list of months"
 msgstr ""
 
-#: ./browser/admin_order.py:746
+#: ./browser/admin_order.py:750
 msgid "Total"
 msgstr ""
 
@@ -621,7 +621,7 @@ msgid "heading_changed_by"
 msgstr ""
 
 #. Default: "Checkout"
-#: ./browser/templates/checkout-shipping-method.pt:3
+#: ./browser/templates/checkout-review-pay.pt:12
 msgid "heading_checkout"
 msgstr ""
 
@@ -716,7 +716,7 @@ msgid "here"
 msgstr ""
 
 #. Default: "Add to Cart"
-#: ./browser/templates/portlet-content-shippable.pt:44
+#: ./browser/templates/portlet-content-premium.pt:40
 msgid "label_add_to_cart"
 msgstr ""
 
@@ -824,7 +824,7 @@ msgid "text_creation_date"
 msgstr ""
 
 #. Default: "Current Status"
-#: ./browser/templates/order-fulfillment.pt:5
+#: ./browser/templates/order-finance.pt:5
 msgid "text_current_status"
 msgstr ""
 
@@ -869,7 +869,7 @@ msgid "text_price"
 msgstr ""
 
 #. Default: "Product Details"
-#: ./browser/templates/portlet-content-variableamountdonatable.pt:12
+#: ./browser/templates/portlet-content-premium.pt:12
 msgid "text_product_details"
 msgstr ""
 
