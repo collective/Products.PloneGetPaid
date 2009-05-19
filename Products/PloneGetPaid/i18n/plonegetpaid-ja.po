@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
-"POT-Creation-Date: 2009-05-18 12:21+0000\n"
+"POT-Creation-Date: 2009-05-19 07:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Taito Horiuchi <taito.horiuchi@abita.fi>\n"
 "Language-Team: Japanese\n"
@@ -71,7 +71,7 @@ msgid "Back"
 msgstr "戻る"
 
 #. Default: "Billing Address"
-#: ./browser/templates/checkout-review-pay.pt:30
+#: ./browser/templates/order-summary.pt:53
 msgid "Billing Address"
 msgstr "請求先アドレス"
 
@@ -297,7 +297,7 @@ msgid "Legal Disclaimers"
 msgstr "法的規約"
 
 #. Default: "Mailing Address"
-#: ./browser/templates/checkout-review-pay.pt:38
+#: ./browser/templates/order-summary.pt:63
 msgid "Mailing Address"
 msgstr "出荷先アドレス"
 
@@ -308,6 +308,10 @@ msgstr "支払う"
 #: ./interfaces.py:344
 msgid "Merchant Email Notifications"
 msgstr "販売者メール告知"
+
+#: ./browser/checkout.py:721
+msgid "Misconfigured Store - No Shipping Method Activated"
+msgstr ""
 
 #: ./browser/admin_order.py:586
 msgid "N/A"
@@ -323,6 +327,10 @@ msgstr "カード記載の氏名"
 
 #: ./interfaces.py:310
 msgid "Negative Currency Format"
+msgstr ""
+
+#: ./browser/admin_order.py:114
+msgid "No orders found for your filter."
 msgstr ""
 
 #: ./interfaces.py:330
@@ -552,9 +560,33 @@ msgstr "アメリカドル"
 msgid "Update"
 msgstr "更新"
 
+#. Default: "Upgrade"
+#: ./browser/templates/upgrade.pt:25
+msgid "Upgrade"
+msgstr ""
+
+#. Default: "Upgrade Changes"
+#: ./browser/templates/upgrade.pt:40
+msgid "Upgrade Changes"
+msgstr ""
+
+#. Default: "Upgrade Log"
+#: ./browser/templates/upgrade.pt:56
+msgid "Upgrade Log"
+msgstr ""
+
+#. Default: "Upgrade to Latest"
+#: ./browser/templates/upgrade.pt:49
+msgid "Upgrade to Latest"
+msgstr ""
+
 #: ./interfaces.py:250
 msgid "Use SSL for checkout"
 msgstr "購入時にSSL接続を利用する。"
+
+#: ./browser/admin_order.py:230
+msgid "User Id"
+msgstr ""
 
 #: ./browser/portlets/variableamountdonate.py:22
 msgid "Variable Amount Donation"
@@ -574,6 +606,16 @@ msgstr "重量単位"
 msgid "You must confirm your shopping cart modifications by clicking 'Update' below."
 msgstr "更新をクリックしてショッピングカート内の変更を反映させてください。"
 
+#. Default: "Your Installation Needs Upgrading"
+#: ./browser/templates/upgrade.pt:37
+msgid "Your Installation Needs Upgrading"
+msgstr ""
+
+#. Default: "Your Installation of GetPaid is Current"
+#: ./browser/templates/upgrade.pt:32
+msgid "Your Installation of GetPaid is Current"
+msgstr ""
+
 #. Default: "You can check the status of your order ${status_url}"
 #: ./browser/templates/checkout-thank-you.pt:34
 msgid "box_order_status_url_description"
@@ -582,6 +624,16 @@ msgstr "オーダーの状態を${status_url}から確認できます。"
 #: ./interfaces.py:392
 msgid "countries"
 msgstr "国"
+
+#. Default: "Current Database Generation - ${aver}"
+#: ./browser/templates/upgrade.pt:30
+msgid "current_database_generation"
+msgstr ""
+
+#. Default: "Current Software Generation - ${sver}"
+#: ./browser/templates/upgrade.pt:28
+msgid "current_software_generation"
+msgstr ""
 
 #. Default: "Documentation on GetPaid can be found at ${label_plone_documentation} ."
 #: ./browser/templates/admin-overview.pt:17
@@ -597,6 +649,11 @@ msgstr "オーダーの管理・確認は上のオーダータブをクリック
 #: ./browser/templates/admin-overview.pt:20
 msgid "description_getpaid_setup_overview"
 msgstr "GetPaidを設定するには下記のリンクをクリックしてください。"
+
+#. Default: "This update facility allows you to upgrade your site's data to the latest version of GetPaid. There are two part to any update. The software update, is performed by an administrator downloading the latest release and installing it on the server. The data update updates any settings and data in the system to work properly with the latest software update. This admin screen shows the currently stored data's version number, and the software's data version, and allows you to perform a data upgrade if needed from here."
+#: ./browser/templates/upgrade.pt:9
+msgid "description_getpaid_update"
+msgstr ""
 
 #. Default: "Your Cart is Empty"
 #: ./browser/templates/cart-empty.pt:5
@@ -619,7 +676,7 @@ msgid "heading_changed_by"
 msgstr "変更者"
 
 #. Default: "Checkout"
-#: ./browser/templates/checkout-review-pay.pt:12
+#: ./browser/templates/checkout-shipping-method.pt:3
 msgid "heading_checkout"
 msgstr "購入"
 
@@ -664,7 +721,7 @@ msgid "heading_fulfillment_state"
 msgstr ""
 
 #. Default: "General Information"
-#: ./browser/templates/admin-overview.pt:36
+#: ./browser/templates/admin-overview.pt:34
 msgid "heading_general_information"
 msgstr "概要"
 
@@ -714,7 +771,7 @@ msgid "here"
 msgstr "ここ"
 
 #. Default: "Add to Cart"
-#: ./browser/templates/portlet-content-premium.pt:40
+#: ./browser/templates/portlet-content-shippable.pt:44
 msgid "label_add_to_cart"
 msgstr "カートに追加"
 
@@ -724,7 +781,7 @@ msgid "label_donate!"
 msgstr "寄付！"
 
 #. Default: "GetPaid Version:"
-#: ./browser/templates/admin-overview.pt:38
+#: ./browser/templates/admin-overview.pt:36
 msgid "label_getpaid_version"
 msgstr "GetPaidバージョン"
 
@@ -734,7 +791,7 @@ msgid "label_manage_cart"
 msgstr "カートを管理"
 
 #. Default: "Store/Organization Name:"
-#: ./browser/templates/admin-overview.pt:40
+#: ./browser/templates/admin-overview.pt:38
 msgid "label_organization_name"
 msgstr "ショップ・組織名"
 
@@ -822,7 +879,7 @@ msgid "text_creation_date"
 msgstr "作成日"
 
 #. Default: "Current Status"
-#: ./browser/templates/order-finance.pt:5
+#: ./browser/templates/order-fulfillment.pt:5
 msgid "text_current_status"
 msgstr "現在の状態"
 
@@ -867,7 +924,7 @@ msgid "text_price"
 msgstr ""
 
 #. Default: "Product Details"
-#: ./browser/templates/portlet-content-premium.pt:12
+#: ./browser/templates/portlet-content-variableamountdonatable.pt:12
 msgid "text_product_details"
 msgstr "商品詳細"
 

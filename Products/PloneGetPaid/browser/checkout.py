@@ -718,7 +718,7 @@ class CheckoutSelectShipping( BaseCheckoutForm ):
         ship_service_names = IGetPaidManagementOptions(siteroot).shipping_services
 
         if not ship_service_names:
-            self.status =  "Misconfigured Store - No Shipping Method Activated"
+            self.status = _("Misconfigured Store - No Shipping Method Activated")
             return
 
         order = self.createTransientOrder()

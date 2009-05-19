@@ -54,3 +54,6 @@ msgstr "Comprável"
 msgid "Settings"
 msgstr "Configurações"
 
+msgid "Upgrade"
+msgstr ""
+

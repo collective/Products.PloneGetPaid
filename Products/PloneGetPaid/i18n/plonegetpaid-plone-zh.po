@@ -55,3 +55,6 @@ msgstr "支付"
 msgid "Settings"
 msgstr "设置"
 
+msgid "Upgrade"
+msgstr ""
+

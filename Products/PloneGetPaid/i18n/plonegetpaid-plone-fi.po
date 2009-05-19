@@ -50,3 +50,6 @@ msgstr "Maksettavissa oleva"
 msgid "Settings"
 msgstr "Asetukset"
 
+msgid "Upgrade"
+msgstr "Versiopäivitys"
+

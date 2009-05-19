@@ -55,3 +55,6 @@ msgstr "Pagable"
 msgid "Settings"
 msgstr "Configuraciones"
 
+msgid "Upgrade"
+msgstr ""
+

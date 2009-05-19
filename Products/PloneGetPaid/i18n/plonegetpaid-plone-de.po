@@ -54,3 +54,6 @@ msgstr "Zahlbar"
 msgid "Settings"
 msgstr "Einstellungen"
 
+msgid "Upgrade"
+msgstr ""
+

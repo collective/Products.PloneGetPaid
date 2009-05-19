@@ -111,7 +111,7 @@ class OrderListingComponent( core.EventViewlet ):
         columns = self.columns
         values = self.manager.get('orders-search').results
         if not values:
-            message = u'No orders found for your filter.'
+            message = _(u'No orders found for your filter.')
             return self.context.utranslate(msgid=message, default=message, domain='plonegetpaid')
         
         formatter = BatchingFormatter( self.context,
@@ -227,7 +227,7 @@ class OrderSearchComponent( core.ComponentViewlet ):
                                  default="last 7 days") ),
         schema.Choice( **define( title=u"Status", __name__=u"finance_state", values= _finance_values ) ),
         schema.Choice( **define( title=u"Fulfillment", __name__=u"fulfillment_state", values= _fulfillment_values ) ),
-        schema.TextLine( **define( title=u"User Id", __name__=u"user_id") ),
+        schema.TextLine( **define( title=_(u"User Id"), __name__=u"user_id") ),
         )
 
     def setUpWidgets(self, ignore_request=False):

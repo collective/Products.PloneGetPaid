@@ -53,3 +53,6 @@ msgstr "e-commerce"
 msgid "Settings"
 msgstr "Impostazioni"
 
+msgid "Upgrade"
+msgstr ""
+

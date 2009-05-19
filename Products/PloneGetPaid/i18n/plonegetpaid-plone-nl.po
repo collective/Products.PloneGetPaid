@@ -57,3 +57,6 @@ msgstr "Betaalbaar"
 msgid "Settings"
 msgstr "Instellingen"
 
+msgid "Upgrade"
+msgstr ""
+

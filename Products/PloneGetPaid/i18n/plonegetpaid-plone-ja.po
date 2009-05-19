@@ -50,3 +50,6 @@ msgstr "支払可"
 msgid "Settings"
 msgstr "設定"
 
+msgid "Upgrade"
+msgstr ""
+

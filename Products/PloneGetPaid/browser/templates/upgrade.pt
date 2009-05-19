@@ -1,4 +1,4 @@
-<metal:page use-macro="context/@@manage-getpaid-settings-template/macros/admin">
+<metal:page use-macro="context/@@manage-getpaid-settings-template/macros/admin" i18n:domain="plonegetpaid">
   <metal:block fill-slot="admin_content">
 	    <p>
 	      <span i18n:translate="description_getpaid_setup_documentation">Documentation
@@ -22,22 +22,22 @@
 
     <fieldset tal:define="sver view/softwareVersion;
                      aver view/databaseVersion;">
-	    <legend> Upgrade </legend>
+	    <legend i18n:translate=""> Upgrade </legend>
         
         
-        <p> Current Software Generation - <b tal:content="sver">32</b></p>
+        <p i18n:translate="current_software_generation"> Current Software Generation - <b tal:content="sver" i18n:name="sver">32</b></p>
         
-        <p> Current Database Generation - <b tal:content="aver">12</b></p>
+        <p i18n:translate="current_database_generation"> Current Database Generation - <b tal:content="aver" i18n:name="aver">12</b></p>
             
-        <p tal:condition="python:aver==sver">
+        <p tal:condition="python:aver==sver" i18n:translate="">
           Your Installation of GetPaid is Current
         </p>
 
         <div tal:condition="python:aver!=sver">
-          <span style="color:red">Your Installation Needs Upgrading</span>
+          <span style="color:red" i18n:translate="">Your Installation Needs Upgrading</span>
           
           <fieldset>
-              <legend> Upgrade Changes </legend>
+              <legend i18n:translate=""> Upgrade Changes </legend>
               
           <div tal:repeat="upgrade view/listUpgrades">
               <p> <b tal:content="python:upgrade[0]">10</b>
@@ -46,14 +46,14 @@
           </div>
           
           <form action="" tal:attributes="action request/URL0">
-             <input class="input context" type="submit" name="upgrade" value="Upgrade to Latest">
+             <input class="input context" type="submit" name="upgrade" i18n:attributes="value" value="Upgrade to Latest">
           </form>
 
           </fieldset>
         </div>
           
         <div tal:condition="view/log">
-           <b> Upgrade Log </b>
+           <b i18n:translate=""> Upgrade Log </b>
            <pre tal:content="view/log">
            </pre>
         </div>
