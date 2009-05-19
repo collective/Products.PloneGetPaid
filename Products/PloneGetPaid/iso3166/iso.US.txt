@@ -56,5 +56,5 @@ ISO3166-2 regions for US
    US-GU : Guam
    US-MP : Northern Mariana Islands
    US-PR : Puerto Rico
-   US-UM : United States Minor Outlying Islands
+   US-UM : U.S. Minor Outlying Islands
    US-VI : Virgin Islands, U.S.
