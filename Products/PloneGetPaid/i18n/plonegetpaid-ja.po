@@ -343,7 +343,7 @@ msgstr ""
 
 #: ./interfaces.py:178
 msgid "Only digits allowed"
-msgstr "数字のみ許可"
+msgstr "「333-444-5555」ではなく「3334445555」のように連続した半角数字で入力してください。"
 
 #: ./browser/order.py:123
 msgid "Order Details"
@@ -484,7 +484,7 @@ msgstr "出荷可能"
 
 #: ./browser/cart.py:220
 msgid "Shipping"
-msgstr "出荷"
+msgstr "送料"
 
 #: ./browser/admin.py:182
 msgid "Shipping Methods"
@@ -808,7 +808,7 @@ msgstr "アドレスブックへ"
 #. Default: "Your Cart Contents"
 #: ./browser/templates/cart-listing.pt:4
 msgid "legend_cart_contents"
-msgstr "カートへ"
+msgstr "カート"
 
 #. Default: "Export List of Emails and Preferences"
 #: ./browser/templates/orders-emails-export-csv.pt:3

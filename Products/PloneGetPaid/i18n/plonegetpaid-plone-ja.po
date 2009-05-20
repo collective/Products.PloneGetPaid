@@ -36,13 +36,13 @@ msgid "Make this not a Donation"
 msgstr "これを寄付でなくする"
 
 msgid "Manage Cart"
-msgstr "カートを管理"
+msgstr "カート"
 
 msgid "Order History"
 msgstr "オーダー履歴"
 
 msgid "Orders"
-msgstr "オーダー"
+msgstr "オーダー管理"
 
 msgid "Payable"
 msgstr "支払可"
@@ -51,5 +51,5 @@ msgid "Settings"
 msgstr "設定"
 
 msgid "Upgrade"
-msgstr ""
+msgstr "アップグレード"
 
