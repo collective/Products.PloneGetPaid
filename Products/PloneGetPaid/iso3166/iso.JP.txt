@@ -1,25 +1,26 @@
 
 ISO3166-2 regions for JP
 
-   JP-23 : Aiti
+   JP-23 : Aichi
    JP-05 : Akita
    JP-02 : Aomori
+   JP-12 : Chiba
    JP-38 : Ehime
-   JP-21 : Gihu
+   JP-18 : Fukui
+   JP-40 : Fukuoka
+   JP-07 : Fukushima
+   JP-21 : Gifu
    JP-10 : Gunma
-   JP-34 : Hirosima
+   JP-34 : Hiroshima
    JP-01 : Hokkaidô
-   JP-18 : Hukui
-   JP-40 : Hukuoka
-   JP-07 : Hukusima
    JP-28 : Hyôgo
    JP-08 : Ibaraki
-   JP-17 : Isikawa
+   JP-17 : Ishikawa
    JP-03 : Iwate
    JP-37 : Kagawa
-   JP-46 : Kagosima
+   JP-46 : Kagoshima
    JP-14 : Kanagawa
-   JP-39 : Kôti
+   JP-39 : Kôchi
    JP-43 : Kumamoto
    JP-26 : Kyôto
    JP-24 : Mie
@@ -35,16 +36,15 @@ ISO3166-2 regions for JP
    JP-27 : Ôsaka
    JP-41 : Saga
    JP-11 : Saitama
-   JP-25 : Siga
-   JP-32 : Simane
-   JP-22 : Sizuoka
-   JP-12 : Tiba
-   JP-09 : Totigi
-   JP-36 : Tokusim.
+   JP-25 : Shiga
+   JP-32 : Shimane
+   JP-22 : Shizuoka
+   JP-09 : Tochigi
+   JP-36 : Tokushima
    JP-13 : Tôkyô
    JP-31 : Tottori
    JP-16 : Toyama
    JP-30 : Wakayama
    JP-06 : Yamagata
-   JP-35 : Yamaguti
-   JP-19 : Yamanani
+   JP-35 : Yamaguchi
+   JP-19 : Yamanashi
