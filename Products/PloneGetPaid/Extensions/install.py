@@ -16,7 +16,8 @@ from Products.PloneGetPaid import generations, preferences, addressbook, namedor
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IAddressBookUtility, INamedOrderUtility
 from Products.PloneGetPaid.config import PLONE3
 from Products.PloneGetPaid.cart import ShoppingCartUtility
-from five.intid.site import add_intids
+import zope.component
+import five.intid.site
 from getpaid.core.interfaces import IOrderManager, IStore, IShoppingCartUtility, StoreInstalled, StoreUninstalled
 from getpaid.core.order import OrderManager
 from getpaid.core.payment import CREDIT_CARD_TYPES
@@ -61,8 +62,11 @@ def setup_order_manager( self ):
             sm.registerUtility(interface=IOrderManager, utility=manager)
 
 def setup_intid( self ):
-    portal = getToolByName( self, 'portal_url').getPortalObject()
-    add_intids( portal ) 
+    portal = getToolByName(self, 'portal_url').getPortalObject()
+    try:
+        five.intid.site.get_intids(portal)
+    except zope.component.ComponentLookupError, e:
+        five.intid.site.add_intids(portal) 
 
 def install_dependencies( self ):
     quickinstaller = self.portal_quickinstaller
@@ -227,7 +231,8 @@ def install( self ):
     setup_tool = getToolByName(self, 'portal_setup')
     if shasattr(setup_tool, 'runAllImportStepsFromProfile'):
         # Plone 3
-        setup_tool.runAllImportStepsFromProfile('profile-Products.PloneGetPaid:default')
+        setup_tool.runAllImportStepsFromProfile('profile-Products.PloneGetPaid:default',
+                purge_old=False)
     else:
         # Plone 2.5.  Would work on 3.0 too, but then it gives tons of
         # DeprecationWarnings when running the tests, causing failures
@@ -238,6 +243,13 @@ def install( self ):
         setup_tool.setImportContext(old_context)
     
     return out.getvalue()
+
+def beforeUninstall(self, reinstall=False, product=None, cascade=[]):
+    try:
+        cascade.remove('utilities')
+    except ValueError, e:
+        pass
+    return True, cascade
 
 def uninstall( self ):
     out = StringIO()
