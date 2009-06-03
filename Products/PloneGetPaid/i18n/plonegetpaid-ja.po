@@ -73,7 +73,7 @@ msgstr "戻る"
 #. Default: "Billing Address"
 #: ./browser/templates/order-summary.pt:53
 msgid "Billing Address"
-msgstr "請求先アドレス"
+msgstr "請求先"
 
 #: ./browser/portlets/buy.py:22
 msgid "Buyable"
@@ -299,7 +299,7 @@ msgstr "法的規約"
 #. Default: "Mailing Address"
 #: ./browser/templates/order-summary.pt:63
 msgid "Mailing Address"
-msgstr "出荷先アドレス"
+msgstr "出荷先"
 
 #: ./browser/checkout.py:596
 msgid "Make Payment"
@@ -788,7 +788,7 @@ msgstr "GetPaidバージョン"
 #. Default: "Manage Cart"
 #: ./browser/templates/portlet-cart.pt:23
 msgid "label_manage_cart"
-msgstr "カートを管理"
+msgstr "カート"
 
 #. Default: "Store/Organization Name:"
 #: ./browser/templates/admin-overview.pt:38
