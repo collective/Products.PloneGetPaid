@@ -395,19 +395,19 @@ class IGetPaidManagementEmailOptions( igetpaid.IPersistentOptions ):
     #
     # Refund Emails
     #
-    merchant_refund_email_notification_template = schema.Text( title = _(u"Merchant Refune Email Template"),
-                                                               description = _(u"Email sent to the merchant following the refund of an order."),
-                                                               required = False, )
+#     merchant_refund_email_notification_template = schema.Text( title = _(u"Merchant Refune Email Template"),
+#                                                                description = _(u"Email sent to the merchant following the refund of an order."),
+#                                                                required = False, )
 
-    send_merchant_refund_notification = schema.Bool( title = _(u"Send Merchant Refund Email?"),
-                                                     default = False)
+#     send_merchant_refund_notification = schema.Bool( title = _(u"Send Merchant Refund Email?"),
+#                                                      default = False)
     
-    customer_refund_email_notification_template = schema.Text( title = _(u"Customer Refund Email Template"),
-                                                               description = _(u"Email sent to the customer following the refund of an order."),
-                                                               required = False, )
+#     customer_refund_email_notification_template = schema.Text( title = _(u"Customer Refund Email Template"),
+#                                                                description = _(u"Email sent to the customer following the refund of an order."),
+#                                                                required = False, )
 
-    send_customer_refund_notification = schema.Bool( title = _(u"Send Customer Refund Email?"),
-                                                           default = False)
+#     send_customer_refund_notification = schema.Bool( title = _(u"Send Customer Refund Email?"),
+#                                                            default = False)
 
 
 

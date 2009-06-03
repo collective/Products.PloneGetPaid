@@ -14,9 +14,6 @@ from DocumentTemplate.DT_HTML import HTML
 from interfaces import _
 from zope.i18n import translate
 
-#
-# Auth Emails
-#
 class MerchantOrderNotificationMessage( object ):
 
     interface.implements(interfaces.INotificationMailMessage)
@@ -96,13 +93,6 @@ def sendNotification( order, event ):
     portal = getPortal()
     mailer = getToolByName(portal, 'MailHost')
     
-    if event.destination != workflow_states.order.finance.CHARGEABLE:
-        return
-    
-    if not event.source in ( workflow_states.order.finance.REVIEWING,
-                             workflow_states.order.finance.PAYMENT_DECLINED ):
-        return 
-    
     settings = interfaces.IGetPaidManagementOptions( portal )
     store_url = portal.absolute_url()
     order_contents = u'\n'.join([u' '.join((str(cart_item.quantity),
@@ -111,11 +101,98 @@ def sendNotification( order, event ):
                                   'total: US$%0.2f' % (cart_item.cost*cart_item.quantity,),
                                 )) for cart_item in order.shopping_cart.values()])
 
-    if settings.send_merchant_auth_notification and settings.contact_email:
+    # Auth
+    if event.destination == workflow_states.order.finance.CHARGEABLE and \
+            event.source in ( workflow_states.order.finance.REVIEWING,
+                              workflow_states.order.finance.PAYMENT_DECLINED ):
 
-        template = component.getAdapter(order, interfaces.INotificationMailMessage, "merchant-new-order")
-        message = template(settings, store_url, order_contents,
-                           settings.merchant_auth_email_notification_template)
+        if settings.send_merchant_auth_notification and \
+                settings.contact_email:
+            sendMerchantEmail("merchant-new-order",
+                              settings.merchant_auth_email_notification_template,
+                              settings,
+                              order,
+                              store_url,
+                              order_contents)
+
+        if settings.send_customer_auth_notification:
+            sendCustomerEmail("customer-new-order",
+                              settings.customer_auth_email_notification_template,
+                              settings,
+                              order,
+                              store_url,
+                              order_contents)
+    # Charged
+    if event.destination == workflow_states.order.finance.CHARGED and \
+            event.source == workflow_states.order.finance.CHARGING:
+
+        if settings.send_merchant_charge_notification and \
+                settings.contact_email:
+            sendMerchantEmail("merchant-charge-order",
+                              settings.merchant_charge_email_notification_template,
+                              settings,
+                              order,
+                              store_url,
+                              order_contents)
+
+        if settings.send_customer_charge_notification:
+            sendCustomerEmail("customer-charge-order",
+                              settings.customer_charge_email_notification_template,
+                              settings,
+                              order,
+                              store_url,
+                              order_contents)
+
+    # Decline
+    if event.destination == workflow_states.order.finance.PAYMENT_DECLINED and \
+            event.source in ( workflow_states.order.finance.CHARGING,
+                              workflow_states.order.finance.REVIEWING ):
+
+        if settings.send_merchant_decline_notification and \
+                settings.contact_email:
+            sendMerchantEmail("merchant-decline-order",
+                              settings.merchant_decline_email_notification_template,
+                              settings,
+                              order,
+                              store_url,
+                              order_contents)
+
+        if settings.send_customer_decline_notification:
+            sendCustomerEmail("customer-decline-order",
+                              settings.customer_decline_email_notification_template,
+                              settings,
+                              order,
+                              store_url,
+                              order_contents)
+
+def sendMerchantEmail(adapterName, template, settings, order, 
+                      store_url, order_contents):
+
+    adapter = component.getAdapter(order, 
+                                   interfaces.INotificationMailMessage, 
+                                   adapterName)
+    message = adapter(settings, store_url, order_contents, template)
+
+    try:
+        mailer.send(str(message))
+    except:
+        # Something happened and most probably we weren't able to send the
+        # message. That's bad, but we got the money already and really
+        # should do the shipment
+        # XXX: somebody should be notified about that
+        pass
+
+
+def sendCustomerEmail(adapterName, template, settings, order, 
+                      store_url, order_contents):
+
+    email = order.contact_information.email
+    if email:
+        adapter = component.getAdapter( order, 
+                                        interfaces.INotificationMailMessage, 
+                                        adapterName)
+
+        message = adapter(settings, store_url, order_contents, template)
         try:
             mailer.send(str(message))
         except:
@@ -124,24 +201,6 @@ def sendNotification( order, event ):
             # should do the shipment
             # XXX: somebody should be notified about that
             pass
-
-
-    if settings.send_customer_auth_notification:
-        email = order.contact_information.email
-        if email:
-            template = component.getAdapter( order, 
-                                             interfaces.INotificationMailMessage, 
-                                             "customer-new-order")
-            message = template(settings, store_url, order_contents,
-                               settings.customer_auth_email_notification_template)
-            try:
-                mailer.send(str(message))
-            except:
-                # Something happened and most probably we weren't able to send the
-                # message. That's bad, but we got the money already and really
-                # should do the shipment
-                # XXX: somebody should be notified about that
-                pass
 
     
 

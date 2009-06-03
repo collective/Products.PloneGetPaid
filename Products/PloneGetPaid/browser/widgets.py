@@ -187,7 +187,6 @@ class PriceWidget(FloatWidget):
         if value == self.context.missing_value:
             return self._missing
         else:
-            #import pdb; pdb.set_trace()
             return '%.2f' % value
 
 
