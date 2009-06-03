@@ -341,13 +341,75 @@ class IGetPaidManagementCurrencyOptions( igetpaid.IPersistentOptions ):
 class IGetPaidManagementEmailOptions( igetpaid.IPersistentOptions ):
     """ Email Notification Options
     """
-    merchant_email_notification = schema.Choice( title = _(u"Merchant Email Notifications"),
-                                                 default = u'notification',
-                                                 source = "getpaid.merchant_notification_choices" )
+    #
+    # Auth Emails
+    #
+    merchant_auth_email_notification_template = schema.Text( title = _(u"Merchant Authorization Email Template"),
+                                                             description = _(u"Email sent to the merchant following the authorization of a new order (prior to the charge being completed)."),
+                                                             required = False )
 
-    customer_email_notification = schema.Choice( title = _(u"Customer Email Notifications"),
-                                                 default = u'notification',
-                                                 source = "getpaid.customer_notification_choices" )
+    send_merchant_auth_notification = schema.Bool( title = _(u"Send Merchant Authorization Email?"),
+                                                   default = False)
+
+    customer_auth_email_notification_template = schema.Text( title = _(u"Customer Authorization Email Template"),
+                                                             description = _(u"Email sent to the customer following the authorization of a new order (prior to the charge being completed)."),
+                                                             required = False )
+
+    send_customer_auth_notification = schema.Bool( title = _(u"Send Customer Authorization Email?"),
+                                                         default = False)
+
+    #
+    # Charge Emails
+    #
+    merchant_charge_email_notification_template = schema.Text( title = _(u"Merchant Charge Email Template"),
+                                                                description = _(u"Email sent to the merchant following the successful charge of a new order."),
+                                                             required = False, )
+
+    send_merchant_charge_notification = schema.Bool( title = _(u"Send Merchant Charge Email?"),
+                                                     default = False)
+
+    customer_charge_email_notification_template = schema.Text( title = _(u"Customer Charge Email Template"),
+                                                               description = _(u"Email sent to the customer following the successful charge of a new order."),
+                                                               required = False, )
+
+    send_customer_charge_notification = schema.Bool( title = _(u"Send Customer Charge Email?"),
+                                                           default = False)
+
+    #
+    # Decline Emails
+    #
+    merchant_decline_email_notification_template = schema.Text( title = _(u"Merchant Decline Email Template"),
+                                                                description = _(u"Email sent to the merchant following the decline of a new order."),
+                                                             required = False, )
+
+    send_merchant_decline_notification = schema.Bool( title = _(u"Send Merchant Decline Email?"),
+                                                      default = False)
+    
+    customer_decline_email_notification_template = schema.Text( title = _(u"Customer Decline Email Template"),
+                                                                description = _(u"Email sent to the customer following the decline of a new order."),
+                                                                required = False, )
+
+    send_customer_decline_notification = schema.Bool( title = _(u"Send Customer Decline Email?"),
+                                                            default = False)
+
+    #
+    # Refund Emails
+    #
+    merchant_refund_email_notification_template = schema.Text( title = _(u"Merchant Refune Email Template"),
+                                                               description = _(u"Email sent to the merchant following the refund of an order."),
+                                                               required = False, )
+
+    send_merchant_refund_notification = schema.Bool( title = _(u"Send Merchant Refund Email?"),
+                                                     default = False)
+    
+    customer_refund_email_notification_template = schema.Text( title = _(u"Customer Refund Email Template"),
+                                                               description = _(u"Email sent to the customer following the refund of an order."),
+                                                               required = False, )
+
+    send_customer_refund_notification = schema.Bool( title = _(u"Send Customer Refund Email?"),
+                                                           default = False)
+
+
 
 # Customize Header/Footer
 class IGetPaidManagementLegalDisclaimerOptions( igetpaid.IPersistentOptions ):

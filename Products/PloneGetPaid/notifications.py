@@ -14,47 +14,34 @@ from DocumentTemplate.DT_HTML import HTML
 from interfaces import _
 from zope.i18n import translate
 
-customer_new_order_template = '''\
-To: ${to_email}
-From: "${from_name}" <${from_email}>
-Subject: New Order Notification
-
-Thank you for you order.
-
-Total Amount to be Charged : ${total_price}
-
-You can view the status of your order here
-
-${store_url}/@@getpaid-order/${order_id}
-
-Order Contents
-
-${order_contents}
-
-'''
-
-anonymous_customer_new_order_template = '''\
-To: ${to_email}
-From: "${from_name}" <${from_email}>
-Subject: New Order Notification
-
-Thank you for you order.
-
-Total Amount to be Charged : ${total_price}
-
-Order Contents
-
-${order_contents}
-
-'''
-
 class CustomerOrderNotificationMessage(object):
 
     interface.implements(interfaces.INotificationMailMessage)
 
-    __call__ = customer_new_order_template
+#    __call__ = settings.customer_email_auth_notification_template
 
     def __call__(self, settings, store_url, order_contents):
+
+        portal = getPortal()
+        pm = getToolByName(portal, 'portal_membership')
+        user = pm.getAuthenticatedMember()
+        if 'Anonymous' not in user.getRoles():
+            view_order = '''\
+You can view the status of your order here
+
+${store_url}/@@getpaid-order/${order_id}
+'''
+
+            kwargs = {
+                     'view_order_information': view_order
+                     }
+            temp = _(settings.customer_email_auth_notification_template, 
+                     mapping=kwargs)
+            template = translate(temp)
+        else:
+            template = settings.customer_email_auth_notification_template
+
+
         kwargs = {'to_email': self.order.contact_information.email,
                   'from_name': settings.store_name,
                   'from_email': settings.contact_email,
@@ -62,43 +49,21 @@ class CustomerOrderNotificationMessage(object):
                   'store_url': store_url,
                   'order_id': self.order.order_id,
                   'order_contents': order_contents,
+                  'view_order_information': ''
                  }
-        portal = getPortal()
-        pm = getToolByName(portal, 'portal_membership')
-        user = pm.getAuthenticatedMember()
-        if 'Anonymous' in user.getRoles():
-            msg = _(anonymous_customer_new_order_template, mapping=kwargs)
-        else:
-            msg = _(customer_new_order_template, mapping=kwargs)
+
+        msg = _(template, mapping=kwargs)
+
         return translate(msg)
 
     def __init__( self, order ):
         self.order = order
 
-merchant_new_order_template = '''\
-To: ${to_email}
-From: "${from_name}" <${from_email}>
-Subject: New Order Notification
-
-A New Order has been created
-
-Total Cost: ${total_price}
-
-To continue processing the order follow this link:
-${store_url}/@@admin-manage-order/${order_id}/@@admin
-
-Order Contents
-
-${order_contents}
-
-'''
-
-
 class MerchantOrderNotificationMessage( object ):
 
     interface.implements(interfaces.INotificationMailMessage)
 
-    __call__ = merchant_new_order_template
+#    __call__ = settings.merchant_auth_email_notification_template
     
     def __call__(self, settings, store_url, order_contents):
         kwargs = {'to_email': settings.contact_email,
@@ -109,7 +74,7 @@ class MerchantOrderNotificationMessage( object ):
                   'order_id': self.order.order_id,
                   'order_contents': order_contents,
                  }
-        msg = _(merchant_new_order_template, mapping=kwargs)
+        msg = _(settings.merchant_auth_email_notification_template, mapping=kwargs)
         return translate(msg)
     
     def __init__( self, order ):
@@ -128,8 +93,7 @@ def getPortal( ):
 def sendNotification( order, event ):
     """ sends out email notifications to merchants and clients based on settings.
 
-    For now we only send out notifications when an order initially becomes
-    chargeable. We may not raise or pass exceptions: the payment has already
+    We may not raise or pass exceptions: the payment has already
     happened and everything else is our, not the customer's fault.
     """
     portal = getPortal()
@@ -149,8 +113,9 @@ def sendNotification( order, event ):
                                   u"@%0.2f" % (cart_item.cost,),
                                   'total: US$%0.2f' % (cart_item.cost*cart_item.quantity,),
                                 )) for cart_item in order.shopping_cart.values()])
-    if settings.merchant_email_notification == 'notification' \
-       and settings.contact_email:
+
+    import pdb; pdb.set_trace()
+    if settings.send_merchant_auth_notification and settings.contact_email:
 
         template = component.getAdapter(order, interfaces.INotificationMailMessage, "merchant-new-order")
         message = template(settings, store_url, order_contents)
@@ -164,7 +129,7 @@ def sendNotification( order, event ):
             pass
 
 
-    if settings.customer_email_notification == 'notification':
+    if settings.send_customer_auth_notification:
         email = order.contact_information.email
         if email:
             template = component.getAdapter( order, interfaces.INotificationMailMessage, "customer-new-order")
