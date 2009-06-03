@@ -58,7 +58,6 @@ class TestNotification(PloneGetPaidTestCase):
         >>> settings.send_customer_charge_notification = True
         >>> settings.send_customer_decline_notification = True
         >>> settings.contact_email = 'merchant@foo.bar'
-        >>> settings.contact_email = 'rob@larubbio.org'
 
         >>> from zope import interface
         >>> class Mock(object):
@@ -108,7 +107,6 @@ class TestNotification(PloneGetPaidTestCase):
         >>> order.user_id = 'testmanager'
         >>> order.contact_information = ContactInfo()
         >>> order.contact_information.email = "example@example.com"
-        >>> order.contact_information.email = "rob@larubbio.org"
         >>> sendNotification( order, eventAuth1)
         >>> sendNotification( order, eventAuth2)
         >>> sendNotification( order, eventCharged)
