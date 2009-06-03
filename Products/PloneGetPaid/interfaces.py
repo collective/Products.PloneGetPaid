@@ -86,7 +86,7 @@ class IStoreMember( Interface ):
 
 class INotificationMailMessage( Interface ):
 
-    def __call__(settings, store_url, order_contents):
+    def __call__(settings, store_url, order_contents, template=None):
         """
         return a message suitable for passing to a mailhost.send
         """

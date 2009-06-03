@@ -14,13 +14,34 @@ from DocumentTemplate.DT_HTML import HTML
 from interfaces import _
 from zope.i18n import translate
 
+#
+# Auth Emails
+#
+class MerchantOrderNotificationMessage( object ):
+
+    interface.implements(interfaces.INotificationMailMessage)
+
+    def __call__(self, settings, store_url, order_contents, template):
+        kwargs = {'to_email': settings.contact_email,
+                  'from_name': settings.store_name,
+                  'from_email': settings.contact_email,
+                  'total_price': u"%0.2f" % self.order.getTotalPrice(),
+                  'store_url': store_url,
+                  'order_id': self.order.order_id,
+                  'order_contents': order_contents,
+                 }
+        msg = _(template, mapping=kwargs)
+
+        return translate(msg)
+    
+    def __init__( self, order ):
+        self.order = order
+
 class CustomerOrderNotificationMessage(object):
 
     interface.implements(interfaces.INotificationMailMessage)
 
-#    __call__ = settings.customer_email_auth_notification_template
-
-    def __call__(self, settings, store_url, order_contents):
+    def __call__(self, settings, store_url, order_contents, template):
 
         portal = getPortal()
         pm = getToolByName(portal, 'portal_membership')
@@ -35,11 +56,9 @@ ${store_url}/@@getpaid-order/${order_id}
             kwargs = {
                      'view_order_information': view_order
                      }
-            temp = _(settings.customer_email_auth_notification_template, 
+            temp = _(template, 
                      mapping=kwargs)
             template = translate(temp)
-        else:
-            template = settings.customer_email_auth_notification_template
 
 
         kwargs = {'to_email': self.order.contact_information.email,
@@ -58,28 +77,6 @@ ${store_url}/@@getpaid-order/${order_id}
 
     def __init__( self, order ):
         self.order = order
-
-class MerchantOrderNotificationMessage( object ):
-
-    interface.implements(interfaces.INotificationMailMessage)
-
-#    __call__ = settings.merchant_auth_email_notification_template
-    
-    def __call__(self, settings, store_url, order_contents):
-        kwargs = {'to_email': settings.contact_email,
-                  'from_name': settings.store_name,
-                  'from_email': settings.contact_email,
-                  'total_price': u"%0.2f" % self.order.getTotalPrice(),
-                  'store_url': store_url,
-                  'order_id': self.order.order_id,
-                  'order_contents': order_contents,
-                 }
-        msg = _(settings.merchant_auth_email_notification_template, mapping=kwargs)
-        return translate(msg)
-    
-    def __init__( self, order ):
-        self.order = order
-
 
 def getPortal( ):
     site = component.getSiteManager()
@@ -114,11 +111,11 @@ def sendNotification( order, event ):
                                   'total: US$%0.2f' % (cart_item.cost*cart_item.quantity,),
                                 )) for cart_item in order.shopping_cart.values()])
 
-    import pdb; pdb.set_trace()
     if settings.send_merchant_auth_notification and settings.contact_email:
 
         template = component.getAdapter(order, interfaces.INotificationMailMessage, "merchant-new-order")
-        message = template(settings, store_url, order_contents)
+        message = template(settings, store_url, order_contents,
+                           settings.merchant_auth_email_notification_template)
         try:
             mailer.send(str(message))
         except:
@@ -132,8 +129,11 @@ def sendNotification( order, event ):
     if settings.send_customer_auth_notification:
         email = order.contact_information.email
         if email:
-            template = component.getAdapter( order, interfaces.INotificationMailMessage, "customer-new-order")
-            message = template(settings, store_url, order_contents)
+            template = component.getAdapter( order, 
+                                             interfaces.INotificationMailMessage, 
+                                             "customer-new-order")
+            message = template(settings, store_url, order_contents,
+                               settings.customer_auth_email_notification_template)
             try:
                 mailer.send(str(message))
             except:
