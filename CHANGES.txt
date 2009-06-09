@@ -4,6 +4,8 @@ CHANGES
 
 0.8 (unreleased)
 ----------------
+- Allow the user to make changes to the emails that are sent out [larubbbio]
+- Allow sending of emails on auth, charge and decline (I didn't see an event for refund) [larubbio]
 
 0.7.9 (2009-05-19)
 ------------------

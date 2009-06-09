@@ -190,6 +190,30 @@
    factory=".notifications.CustomerOrderNotificationMessage"
    />
 
+<adapter
+   for="getpaid.core.interfaces.IOrder"
+   name="merchant-charge-order"
+   factory=".notifications.MerchantOrderNotificationMessage"
+   />
+
+<adapter
+   for="getpaid.core.interfaces.IOrder"
+   name="customer-charge-order"
+   factory=".notifications.CustomerOrderNotificationMessage"
+   />
+
+<adapter
+   for="getpaid.core.interfaces.IOrder"
+   name="merchant-decline-order"
+   factory=".notifications.MerchantOrderNotificationMessage"
+   />
+
+<adapter
+   for="getpaid.core.interfaces.IOrder"
+   name="customer-decline-order"
+   factory=".notifications.CustomerOrderNotificationMessage"
+   />
+
 <!-- Payment -->
 <adapter
    for="*"

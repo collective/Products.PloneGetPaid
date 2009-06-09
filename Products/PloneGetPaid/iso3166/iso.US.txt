@@ -54,7 +54,7 @@ ISO3166-2 regions for US
    US-DC : District of Columbia
    US-AS : American Samoa
    US-GU : Guam
-   US-MP : Northern Mariana Islands
+   US-MP : Northern Mariana Iss
    US-PR : Puerto Rico
-   US-UM : U.S. Minor Outlying Islands
+   US-UM : U.S. Minor Outlying Iss
    US-VI : Virgin Islands, U.S.

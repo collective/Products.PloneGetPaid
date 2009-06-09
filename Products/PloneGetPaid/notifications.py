@@ -14,93 +14,11 @@ from DocumentTemplate.DT_HTML import HTML
 from interfaces import _
 from zope.i18n import translate
 
-customer_new_order_template = '''\
-To: ${to_email}
-From: "${from_name}" <${from_email}>
-Subject: New Order Notification
-
-Thank you for you order.
-
-Total Amount to be Charged : ${total_price}
-
-You can view the status of your order here
-
-${store_url}/@@getpaid-order/${order_id}
-
-Order Contents
-
-${order_contents}
-
-'''
-
-anonymous_customer_new_order_template = '''\
-To: ${to_email}
-From: "${from_name}" <${from_email}>
-Subject: New Order Notification
-
-Thank you for you order.
-
-Total Amount to be Charged : ${total_price}
-
-Order Contents
-
-${order_contents}
-
-'''
-
-class CustomerOrderNotificationMessage(object):
-
-    interface.implements(interfaces.INotificationMailMessage)
-
-    __call__ = customer_new_order_template
-
-    def __call__(self, settings, store_url, order_contents):
-        kwargs = {'to_email': self.order.contact_information.email,
-                  'from_name': settings.store_name,
-                  'from_email': settings.contact_email,
-                  'total_price': u"%0.2f" % self.order.getTotalPrice(),
-                  'store_url': store_url,
-                  'order_id': self.order.order_id,
-                  'order_contents': order_contents,
-                 }
-        portal = getPortal()
-        pm = getToolByName(portal, 'portal_membership')
-        user = pm.getAuthenticatedMember()
-        if 'Anonymous' in user.getRoles():
-            msg = _(anonymous_customer_new_order_template, mapping=kwargs)
-        else:
-            msg = _(customer_new_order_template, mapping=kwargs)
-        return translate(msg)
-
-    def __init__( self, order ):
-        self.order = order
-
-merchant_new_order_template = '''\
-To: ${to_email}
-From: "${from_name}" <${from_email}>
-Subject: New Order Notification
-
-A New Order has been created
-
-Total Cost: ${total_price}
-
-To continue processing the order follow this link:
-${store_url}/@@admin-manage-order/${order_id}/@@admin
-
-Order Contents
-
-${order_contents}
-
-'''
-
-
 class MerchantOrderNotificationMessage( object ):
 
     interface.implements(interfaces.INotificationMailMessage)
 
-    __call__ = merchant_new_order_template
-    
-    def __call__(self, settings, store_url, order_contents):
+    def __call__(self, settings, store_url, order_contents, template):
         kwargs = {'to_email': settings.contact_email,
                   'from_name': settings.store_name,
                   'from_email': settings.contact_email,
@@ -109,12 +27,53 @@ class MerchantOrderNotificationMessage( object ):
                   'order_id': self.order.order_id,
                   'order_contents': order_contents,
                  }
-        msg = _(merchant_new_order_template, mapping=kwargs)
+        msg = _(template, mapping=kwargs)
+
         return translate(msg)
     
     def __init__( self, order ):
         self.order = order
 
+class CustomerOrderNotificationMessage(object):
+
+    interface.implements(interfaces.INotificationMailMessage)
+
+    def __call__(self, settings, store_url, order_contents, template):
+
+        portal = getPortal()
+        pm = getToolByName(portal, 'portal_membership')
+        user = pm.getAuthenticatedMember()
+        if 'Anonymous' not in user.getRoles():
+            view_order = '''\
+You can view the status of your order here
+
+${store_url}/@@getpaid-order/${order_id}
+'''
+
+            kwargs = {
+                     'view_order_information': view_order
+                     }
+            temp = _(template, 
+                     mapping=kwargs)
+            template = translate(temp)
+
+
+        kwargs = {'to_email': self.order.contact_information.email,
+                  'from_name': settings.store_name,
+                  'from_email': settings.contact_email,
+                  'total_price': u"%0.2f" % self.order.getTotalPrice(),
+                  'store_url': store_url,
+                  'order_id': self.order.order_id,
+                  'order_contents': order_contents,
+                  'view_order_information': ''
+                 }
+
+        msg = _(template, mapping=kwargs)
+
+        return translate(msg)
+
+    def __init__( self, order ):
+        self.order = order
 
 def getPortal( ):
     site = component.getSiteManager()
@@ -128,19 +87,11 @@ def getPortal( ):
 def sendNotification( order, event ):
     """ sends out email notifications to merchants and clients based on settings.
 
-    For now we only send out notifications when an order initially becomes
-    chargeable. We may not raise or pass exceptions: the payment has already
+    We may not raise or pass exceptions: the payment has already
     happened and everything else is our, not the customer's fault.
     """
     portal = getPortal()
     mailer = getToolByName(portal, 'MailHost')
-    
-    if event.destination != workflow_states.order.finance.CHARGEABLE:
-        return
-    
-    if not event.source in ( workflow_states.order.finance.REVIEWING,
-                             workflow_states.order.finance.PAYMENT_DECLINED ):
-        return 
     
     settings = interfaces.IGetPaidManagementOptions( portal )
     store_url = portal.absolute_url()
@@ -149,11 +100,99 @@ def sendNotification( order, event ):
                                   u"@%0.2f" % (cart_item.cost,),
                                   'total: US$%0.2f' % (cart_item.cost*cart_item.quantity,),
                                 )) for cart_item in order.shopping_cart.values()])
-    if settings.merchant_email_notification == 'notification' \
-       and settings.contact_email:
 
-        template = component.getAdapter(order, interfaces.INotificationMailMessage, "merchant-new-order")
-        message = template(settings, store_url, order_contents)
+    # Auth
+    if event.destination == workflow_states.order.finance.CHARGEABLE and \
+            event.source in ( workflow_states.order.finance.REVIEWING,
+                              workflow_states.order.finance.PAYMENT_DECLINED ):
+
+        if settings.send_merchant_auth_notification and \
+                settings.contact_email:
+            sendMerchantEmail("merchant-new-order",
+                              settings.merchant_auth_email_notification_template,
+                              settings,
+                              order,
+                              store_url,
+                              order_contents)
+
+        if settings.send_customer_auth_notification:
+            sendCustomerEmail("customer-new-order",
+                              settings.customer_auth_email_notification_template,
+                              settings,
+                              order,
+                              store_url,
+                              order_contents)
+    # Charged
+    if event.destination == workflow_states.order.finance.CHARGED and \
+            event.source == workflow_states.order.finance.CHARGING:
+
+        if settings.send_merchant_charge_notification and \
+                settings.contact_email:
+            sendMerchantEmail("merchant-charge-order",
+                              settings.merchant_charge_email_notification_template,
+                              settings,
+                              order,
+                              store_url,
+                              order_contents)
+
+        if settings.send_customer_charge_notification:
+            sendCustomerEmail("customer-charge-order",
+                              settings.customer_charge_email_notification_template,
+                              settings,
+                              order,
+                              store_url,
+                              order_contents)
+
+    # Decline
+    if event.destination == workflow_states.order.finance.PAYMENT_DECLINED and \
+            event.source in ( workflow_states.order.finance.CHARGING,
+                              workflow_states.order.finance.REVIEWING ):
+
+        if settings.send_merchant_decline_notification and \
+                settings.contact_email:
+            sendMerchantEmail("merchant-decline-order",
+                              settings.merchant_decline_email_notification_template,
+                              settings,
+                              order,
+                              store_url,
+                              order_contents)
+
+        if settings.send_customer_decline_notification:
+            sendCustomerEmail("customer-decline-order",
+                              settings.customer_decline_email_notification_template,
+                              settings,
+                              order,
+                              store_url,
+                              order_contents)
+
+def sendMerchantEmail(adapterName, template, settings, order, 
+                      store_url, order_contents):
+
+    adapter = component.getAdapter(order, 
+                                   interfaces.INotificationMailMessage, 
+                                   adapterName)
+    message = adapter(settings, store_url, order_contents, template)
+
+    try:
+        mailer.send(str(message))
+    except:
+        # Something happened and most probably we weren't able to send the
+        # message. That's bad, but we got the money already and really
+        # should do the shipment
+        # XXX: somebody should be notified about that
+        pass
+
+
+def sendCustomerEmail(adapterName, template, settings, order, 
+                      store_url, order_contents):
+
+    email = order.contact_information.email
+    if email:
+        adapter = component.getAdapter( order, 
+                                        interfaces.INotificationMailMessage, 
+                                        adapterName)
+
+        message = adapter(settings, store_url, order_contents, template)
         try:
             mailer.send(str(message))
         except:
@@ -162,21 +201,6 @@ def sendNotification( order, event ):
             # should do the shipment
             # XXX: somebody should be notified about that
             pass
-
-
-    if settings.customer_email_notification == 'notification':
-        email = order.contact_information.email
-        if email:
-            template = component.getAdapter( order, interfaces.INotificationMailMessage, "customer-new-order")
-            message = template(settings, store_url, order_contents)
-            try:
-                mailer.send(str(message))
-            except:
-                # Something happened and most probably we weren't able to send the
-                # message. That's bad, but we got the money already and really
-                # should do the shipment
-                # XXX: somebody should be notified about that
-                pass
 
     
 

@@ -24,7 +24,7 @@ from Products.PloneGetPaid.i18n import _
 from Products.CMFCore.utils import getToolByName
 
 from base import BaseView, FormViewlet
-from widgets import SelectWidgetFactory, CountrySelectionWidget, StateSelectionWidget
+from widgets import SelectWidgetFactory, CountrySelectionWidget, StateSelectionWidget, SendDontSendWidget
 
 
 class Overview( BrowserView ):
@@ -290,11 +290,144 @@ class Currency( BaseSettingsForm ):
     form_fields = form.Fields(interfaces.IGetPaidManagementCurrencyOptions)
 
 #Emails
+
+CUSTOMER_AUTH_NOTIFICATION_TEMPLATE = u'''\
+To: ${to_email}
+From: "${from_name}" <${from_email}>
+Subject: New Order Notification
+
+Thank you for you order.
+
+Total Amount to be Charged : ${total_price}
+
+${view_order_information}
+
+Order Contents
+
+${order_contents}
+
+'''
+
+MERCHANT_AUTH_NOTIFICATION_TEMPLATE = u'''\
+To: ${to_email}
+From: "${from_name}" <${from_email}>
+Subject: New Order Notification
+
+A New Order has been created
+
+Total Cost: ${total_price}
+
+To continue processing the order follow this link:
+${store_url}/@@admin-manage-order/${order_id}/@@admin
+
+Order Contents
+
+${order_contents}
+
+'''
+
+CUSTOMER_CHARGE_NOTIFICATION_TEMPLATE = u'''\
+To: ${to_email}
+From: "${from_name}" <${from_email}>
+Subject: New Order Notification
+
+Thank you for you order.
+
+Total Amount Charged : ${total_price}
+
+${view_order_information}
+
+Order Contents
+
+${order_contents}
+
+'''
+
+MERCHANT_CHARGE_NOTIFICATION_TEMPLATE = u'''\
+To: ${to_email}
+From: "${from_name}" <${from_email}>
+Subject: New Order Notification
+
+A New Order has been charged
+
+Total Cost: ${total_price}
+
+To continue processing the order follow this link:
+${store_url}/@@admin-manage-order/${order_id}/@@admin
+
+Order Contents
+
+${order_contents}
+
+'''
+
+
+CUSTOMER_DECLINE_NOTIFICATION_TEMPLATE = u'''\
+To: ${to_email}
+From: "${from_name}" <${from_email}>
+Subject: Order Declined Notification
+
+We're sorry but we were unable to charge your credit card.
+'''
+
+MERCHANT_DECLINE_NOTIFICATION_TEMPLATE = u'''\
+To: ${to_email}
+From: "${from_name}" <${from_email}>
+Subject: Order Declined Notification
+
+A Order was declined
+
+Total Cost: ${total_price}
+
+To view this order follow this link:
+${store_url}/@@admin-manage-order/${order_id}/@@admin
+
+Order Contents
+
+${order_contents}
+
+'''
+
+
 class Email( BaseSettingsForm ):
     """
     get paid management interface
     """
     form_fields = form.Fields(interfaces.IGetPaidManagementEmailOptions)
+
+    #
+    # Auth Emails
+    #
+    form_fields['merchant_auth_email_notification_template'].field.default = MERCHANT_AUTH_NOTIFICATION_TEMPLATE
+    form_fields['send_merchant_auth_notification'].custom_widget = SendDontSendWidget
+    form_fields['customer_auth_email_notification_template'].field.default = CUSTOMER_AUTH_NOTIFICATION_TEMPLATE
+    form_fields['send_customer_auth_notification'].custom_widget = SendDontSendWidget
+
+    #
+    # Charge Emails
+    #
+    form_fields['merchant_charge_email_notification_template'].field.default = MERCHANT_CHARGE_NOTIFICATION_TEMPLATE
+    form_fields['send_merchant_charge_notification'].custom_widget = SendDontSendWidget
+    form_fields['customer_charge_email_notification_template'].field.default = CUSTOMER_CHARGE_NOTIFICATION_TEMPLATE
+    form_fields['send_customer_charge_notification'].custom_widget = SendDontSendWidget
+
+    #
+    # Decline Emails
+    #
+    form_fields['merchant_decline_email_notification_template'].field.default = MERCHANT_DECLINE_NOTIFICATION_TEMPLATE
+    form_fields['send_merchant_decline_notification'].custom_widget = SendDontSendWidget
+    form_fields['customer_decline_email_notification_template'].field.default = CUSTOMER_DECLINE_NOTIFICATION_TEMPLATE
+    form_fields['send_customer_decline_notification'].custom_widget = SendDontSendWidget
+
+    #
+    # Refund Emails
+    #
+#     form_fields['merchant_refund_email_notification_template'].field.default = u"Foo"
+#     form_fields['send_merchant_refund_notification'].custom_widget = SendDontSendWidget
+#     form_fields['customer_refund_email_notification_template'].field.default = u"Foo"
+#     form_fields['send_customer_refund_notification'].custom_widget = SendDontSendWidget
+
+
     form_name = _(u'Email Notifications')
 
 #Customize Header/Footer
@@ -312,7 +445,4 @@ class CheckoutOptions( BaseSettingsForm ):
     """
     form_fields = form.Fields(interfaces.IGetPaidManagementCheckoutOptions)
     form_name = _(u'Checkout Options')
-
-
-
 

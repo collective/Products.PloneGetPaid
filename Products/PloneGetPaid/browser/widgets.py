@@ -1,4 +1,5 @@
 from zope.app import zapi
+from zope.app.form.browser import RadioWidget
 from zope.app.form.browser import FloatWidget
 from zope.app.form.browser.widget import SimpleInputWidget, renderElement
 from zope.app.form.browser.itemswidgets import DropdownWidget
@@ -7,7 +8,13 @@ from zope.app.form.browser.objectwidget import ObjectWidget as ObjectWidgetBase
 from zope.app.form.browser.textwidgets import DateWidget
 from zope.app.form.browser.itemswidgets import OrderedMultiSelectWidget as BaseSelection
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+
+from zope.schema import vocabulary
+
 from zope.i18n.interfaces import IUserPreferredCharsets
+
+from Products.PloneGetPaid.i18n import _
+
 from Products.PloneGetPaid.config import PLONE3
 from Products.PloneGetPaid.interfaces import IMonthsAndYears
 from Products.PloneGetPaid.interfaces import ICountriesStates
@@ -180,7 +187,6 @@ class PriceWidget(FloatWidget):
         if value == self.context.missing_value:
             return self._missing
         else:
-            #import pdb; pdb.set_trace()
             return '%.2f' % value
 
 
@@ -206,3 +212,8 @@ class OrderedMultiSelectionWidget(BaseSelection):
                  for value in values if value in self.vocabulary ]
         return [{'text': self.textForValue(term), 'value': term.token}
                 for term in terms]
+
+def SendDontSendWidget(field, request, true=_('Send'), false=_('Do Not Send')):
+    vocab = vocabulary.SimpleVocabulary.fromItems(((true, True),
+                                                   (false, False)))
+    return RadioWidget(field, vocab, request)
