@@ -17,6 +17,7 @@ from zope.formlib import form
 from zope.viewlet.interfaces import IViewlet
 
 import getpaid.core.interfaces as igetpaid
+from getpaid.paymentprocessors.registry import paymentProcessorRegistry
 
 from Products.PloneGetPaid.interfaces import ISettingsShipmentManager
 from Products.PloneGetPaid.i18n import _
@@ -216,6 +217,60 @@ class PaymentOptions( BaseSettingsForm ):
         "
         self.
     """
+    
+class PaymentProcessors(BrowserView):
+    """ The user goes to payment processor settings in GetPaid setup.
+
+    Print available payment processors and see if they are enabled. Allow users
+    to choose which processors to enable. Print links to individual processor setting
+    pages.
+
+    Payment processors are stored in portal_properties.payment_processor_properties.
+
+    TODO: This form is not protected against XSS attacks.
+    """
+    
+    template = ZopeTwoPageTemplateFile('templates/settings-payment-processors.pt')
+    
+    def getCheckedForProcessor(self, processor):
+        """
+
+        @param processsor: Processor class instance
+        """
+
+        # See profiles/default/propertiestool.xml
+        if processor.name in self.context.portal_properties.payment_processor_properties.enabled_processors:
+            return "CHECKED"
+        else:
+            return None
+
+    def getProcessors(self):
+        """ Called from the template.
+
+        @return: Iterable of Processor objects
+        """
+        return paymentProcessorRegistry.getProcessors()
+
+    def processForm(self):
+        """ Manage HTTP post """
+        actived = self.request["active-payment-processors"]
+
+        # Add some level of safety
+        for a in actived:
+            if not a in paymentProcessorRegistry.getNames():
+                raise RuntimeError("Tried to enable unsupported processor %s" % a)
+
+        self.context.portal_properties.payment_processor_properties.enabled_processors = actived
+
+    def __call__(self):
+
+        if self.request["REQUEST_METHOD"] == "GET":
+            return self.template() # render page
+        else:
+            # Assume POST, user is changing active payment methods
+            self.processForm()
+            return self.template() # render page
+    
 
 class PaymentProcessor( BaseSettingsForm ):
     """

@@ -28,6 +28,9 @@ from getpaid.wizard import Wizard, ListViewController, interfaces as wizard_inte
 from getpaid.core import interfaces, options, cart
 from getpaid.core.order import Order
 
+from getpaid.paymentprocessors.registry import paymentProcessorRegistry
+from Products.PloneGetPaid.payment import getActivePaymentProcessors
+
 import Acquisition
 from AccessControl import getSecurityManager
 from ZTUtils import make_query as mq
@@ -86,6 +89,35 @@ def make_hidden_input(*args, **kwargs):
                     % (hq(k), m, hq(v)))
 
     return '\n'.join(qlist)
+
+
+class BasePaymentMethodButton(BrowserView):
+    """ Render payment method button on payment method checkout screen.
+    
+    Subclass this to add your on payment method selection HTML on payment selection
+    checkout screen.
+    """
+    
+    def update(self, processor, paymentMethodsView):
+        """ Called by CheckoutPaymentMethodSelection to tell 
+        
+        @param processor: getpaid.paymentprocessor.registry.Entry instance
+        @param paymentMethodView: CheckoutPaymentMethodSelection instance
+        """
+        self.processor = processor
+        self.paymentMethodsView = paymentMethodsView
+    
+    def getProcessor(self):
+        """
+        """
+        return self.processor # Set externally by CheckoutPaymentMethodSelection
+        
+    def isChecked(self):        
+        if self.processor.name in self.paymentMethodsView.getActiveProcessorName():
+            return "CHECKED"
+        else:
+            return None         
+    
 
 class BaseCheckoutForm( BaseFormView ):
 
@@ -356,7 +388,7 @@ class CheckoutWizard( Wizard ):
 class CheckoutController( ListViewController ):
 
     conditions = {'checkout-select-shipping' : 'checkShippableCart'}
-    steps = ['checkout-address-info', 'checkout-select-shipping', 'checkout-review-pay']
+    steps = ['checkout-address-info', 'checkout-select-shipping', 'checkout-payment-method', 'checkout-review-pay']
 
     def getStep( self, step_name ):
         step = component.getMultiAdapter(
@@ -507,6 +539,43 @@ def sanitize_custom_widgets( fields ):
         fields.__FormFields_byname__[ field.__name__] = field
 
     return fields
+
+class CheckoutPaymentMethodSelection( BaseCheckoutForm ):
+    """
+    browser view for collecting credit card information and submitting it to
+    a processor.
+    """
+
+    template = ZopeTwoPageTemplateFile("templates/checkout-payment-method.pt")
+    
+    def getProcessors(self):
+        """ Get active payment processors. """        
+        processors = getActivePaymentProcessors(self.context)
+        return processors
+
+    def update( self ):
+        formbase.processInputs( self.request )
+        self.adapters = self.wizard.data_manager.adapters
+        super( CheckoutPaymentMethodSelection, self).update()
+
+    def renderProcessor(self, processor):
+        """ Create selection button renderer view and call it.
+
+        @param processor: registry.Entry instance
+        """
+        view = processor.getButtonView(self.context, self.request)
+        return view()
+
+    @form.action(_(u"Cancel"), name="cancel", validator=null_condition)
+    def handle_cancel( self, action, data):
+        url = self.context.portal_url.getPortalObject().absolute_url()
+        url = url.replace("https://", "http://")
+        return self.request.response.redirect(url)
+
+    @form.action(_(u"Continue"), name="continue")
+    def handle_continue( self, action, data ):           
+        self.next_step_name = wizard_interfaces.WIZARD_NEXT_STEP
+
 
 class CheckoutReviewAndPay( BaseCheckoutForm ):
 

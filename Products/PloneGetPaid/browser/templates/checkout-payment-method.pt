@@ -1,0 +1,45 @@
+<html metal:use-macro="here/main_template/macros/master" i18n:domain="plonegetpaid" >
+  <body>
+    <div metal:fill-slot="main" class="payment-selection" >
+
+		<h1 i18n:translate="choose_payment_method" />
+
+		<tal:payment-methods define="processors view/getProcessors">
+
+			<p tal:condition="python:len(processors) == 0">
+				No payment processors enabled. Please use &lt;paymentprocessors:registerProcessor&gt; ZCML
+				directive to register your payment processors to payment method multiplexer. Also, make sure
+				that those payment processors are enabled in GetPaid portal setup.
+			</p>
+
+			<form action="." method="POST" class="payment-method">
+				<table>
+					<tbody>
+						<tal:processor repeat="processor processors">
+							<tr replace="structure python:view.renderProcessor(processor)" />
+						</tal:processor>	
+					</tbody>
+				</table>
+
+		        <div id="actionsView">
+		          <span class="actionButtons"
+		                  tal:define="actions view/availableActions"
+		                  tal:condition="actions">
+		              <tal:loop repeat="action actions">
+		                <input type="submit" class="button context"
+		                       tal:define="name action/__name__"
+		                       tal:attributes="id name;
+		                                       name name;
+		                                       value python:str(action.label);"
+		                       i18n:attributes="value" />
+		              </tal:loop>
+		            </span>
+		          </div>
+
+			</form>
+
+		</tal:payment-methods>
+
+    </div>
+  </body>
+</html>
