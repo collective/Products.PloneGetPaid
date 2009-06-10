@@ -6,7 +6,7 @@
 
 		<tal:core tal:define="portal_state context/@@plone_portal_state" i18n:domain="getpaid.paymentprocessors">
 
-			<form method="POST" tal:attributes="action string:${portal_state/portal_url}/@@manage-getpaid-payment-options">
+			<form method="POST" tal:attributes="action string:${portal_state/portal_url}/@@manage-getpaid-payment-processor">
 				<table>
 					<thead>
 						<tr>
@@ -18,7 +18,7 @@
 						<tal:payment-methods define="processors view/getProcessors">
 							<tr tal:repeat="processor processors">
 								<td>
-									<input type="checkbox" name="active-payment-processors" value="processor/name" tal:attributes="CHECKED python:view.getCheckedForProcessor(processor) or None"/>
+									<input type="checkbox" name="active-payment-processors:list" tal:attributes="value processor/name; CHECKED python:view.getCheckedForProcessor(processor) or None"/>
 								<td class="payment-processor-link">
 									<span tal:content="processor/name" />
 									[ <a tal:attributes="href string:${portal_state/portal_url}/@@${processor/settings_view}" i18n:translate="edit_settings">edit_settings</a> ]

@@ -34,12 +34,19 @@ configure_zcml = '''
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="foo">
 
+    <adapter
+     for="getpaid.core.interfaces.IStore"
+     provides="getpaid.core.interfaces.IPaymentProcessor"
+     factory="Products.PloneGetPaid.tests.dummy_processors.DummyProcessor"
+     name="Dummy Processor"
+     />
+
     <paymentprocessors:registerProcessor
-       name="dummy"
-       processor="Products.PloneGetPaid.tests.dummy_processors.DummyProcessor"
+       name="Dummy Processor"
        selection_view="dummy_payment_processor_button"
        thank_you_view="dummy_payment_processor_thank_you_page"
        settings_view="dummy_payment_processor_settings"
+       pay_view="dummy_payment_processor_pay"
        />
 
     <browser:page
@@ -65,6 +72,13 @@ configure_zcml = '''
          permission="cmf.ManagePortal"
          />
 
+    <browser:page
+         for="getpaid.core.interfaces.IStore"
+         name="dummy_payment_processor_pay"
+         template="templates/pay.pt"
+         permission="zope2.View"
+         />
+
 </configure>'''
 
 # Enable two dummy payment processors
@@ -77,9 +91,9 @@ configure_zcml_2 = '''
 
     <paymentprocessors:registerProcessor
        name="dummy2"
-       processor="Products.PloneGetPaid.tests.dummy_processors.DummyProcessor"
        selection_view="dummy_payment_processor_button"
        thank_you_view="dummy_payment_processor_thank_you_page"
+       pay_view="dummy_payment_processor_pay"
        />
 
 </configure>'''

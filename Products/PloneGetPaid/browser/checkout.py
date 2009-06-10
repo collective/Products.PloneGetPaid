@@ -28,7 +28,10 @@ from getpaid.wizard import Wizard, ListViewController, interfaces as wizard_inte
 from getpaid.core import interfaces, options, cart
 from getpaid.core.order import Order
 
+
 from getpaid.paymentprocessors.registry import paymentProcessorRegistry
+from getpaid.paymentprocessors.interfaces import IPaymentMethodInformation
+
 from Products.PloneGetPaid.payment import getActivePaymentProcessors
 
 import Acquisition
@@ -93,31 +96,31 @@ def make_hidden_input(*args, **kwargs):
 
 class BasePaymentMethodButton(BrowserView):
     """ Render payment method button on payment method checkout screen.
-    
+
     Subclass this to add your on payment method selection HTML on payment selection
     checkout screen.
     """
-    
+
     def update(self, processor, paymentMethodsView):
-        """ Called by CheckoutPaymentMethodSelection to tell 
-        
+        """ Called by CheckoutPaymentMethodSelection to tell
+
         @param processor: getpaid.paymentprocessor.registry.Entry instance
         @param paymentMethodView: CheckoutPaymentMethodSelection instance
         """
         self.processor = processor
         self.paymentMethodsView = paymentMethodsView
-    
+
     def getProcessor(self):
         """
         """
         return self.processor # Set externally by CheckoutPaymentMethodSelection
-        
-    def isChecked(self):        
+
+    def isChecked(self):
         if self.processor.name in self.paymentMethodsView.getActiveProcessorName():
             return "CHECKED"
         else:
-            return None         
-    
+            return None
+
 
 class BaseCheckoutForm( BaseFormView ):
 
@@ -173,7 +176,17 @@ class BaseCheckoutForm( BaseFormView ):
             interface = formSchemas.getInterface(section)
             adapter = component.queryAdapter(user,interface)
             if adapter is None:
-                adapter = formSchemas.getBagClass(section)()
+
+                # PLEASE PLEASE PLEASE document your code.. it's not *that* hard
+                # I have no idea wtf is going on here
+                # section "contact_info" returns class Products.PloneGetPaid.member.ContactInfo
+                # section "payment" returns getpaid.core.options.transientbag
+                # and they take different constructors...
+                # just my nightly curses -mikko
+
+                cls = formSchemas.getBagClass(section)
+                adapter = cls()
+
             adapters[interface]=adapter
         return adapters
 
@@ -213,7 +226,7 @@ class BaseCheckoutForm( BaseFormView ):
 
         order.shopping_cart = loads( dumps( shopping_cart ) )
 
-        for section in ('contact_information','billing_address','shipping_address'):
+        for section in ('contact_information','billing_address','shipping_address','payment_method'):
             interface = formSchemas.getInterface(section)
             bag = formSchemas.getBagClass(section).frominstance(adapters[interface])
             setattr(order,section,bag)
@@ -256,6 +269,21 @@ class BillingInfo( options.PropertyBag ):
         raise RuntimeError("Storage Not Allowed")
 
 BillingInfo = BillingInfo.makeclass( interfaces.IUserPaymentInformation )
+
+class PaymentMethodInfo(options.PropertyBag):
+    """ Store checkout session information about chosen payment method.
+
+    This is a transiet storage which checkout wizard part
+    can access through getSchemaAdapters().
+    """
+
+    title = "Payment Method Information"
+
+    def __getstate__( self ):
+        # don't store persistently
+        raise RuntimeError("Storage Not Allowed")
+
+PaymentMethodInfo = PaymentMethodInfo.makeclass(IPaymentMethodInformation)
 
 class ImmutableBag( object ):
 
@@ -544,16 +572,20 @@ class CheckoutPaymentMethodSelection( BaseCheckoutForm ):
     """
     browser view for collecting credit card information and submitting it to
     a processor.
+
     """
 
     template = ZopeTwoPageTemplateFile("templates/checkout-payment-method.pt")
-    
+
+    sections = ("payment_method",)
+
     def getProcessors(self):
-        """ Get active payment processors. """        
+        """ Get active payment processors. """
         processors = getActivePaymentProcessors(self.context)
         return processors
 
     def update( self ):
+        """ Process form inputs """
         formbase.processInputs( self.request )
         self.adapters = self.wizard.data_manager.adapters
         super( CheckoutPaymentMethodSelection, self).update()
@@ -562,8 +594,12 @@ class CheckoutPaymentMethodSelection( BaseCheckoutForm ):
         """ Create selection button renderer view and call it.
 
         @param processor: registry.Entry instance
+        @return: HTML code as a string
         """
         view = processor.getButtonView(self.context, self.request)
+
+        # View is BasePaymentMethodButton instance
+        view.update(processor, self)
         return view()
 
     @form.action(_(u"Cancel"), name="cancel", validator=null_condition)
@@ -572,10 +608,13 @@ class CheckoutPaymentMethodSelection( BaseCheckoutForm ):
         url = url.replace("https://", "http://")
         return self.request.response.redirect(url)
 
-    @form.action(_(u"Continue"), name="continue")
-    def handle_continue( self, action, data ):           
-        self.next_step_name = wizard_interfaces.WIZARD_NEXT_STEP
+    @form.action(_(u"Back"), name="back")
+    def handle_back( self, action, data, validator=null_condition):
+        self.next_step_name = wizard_interfaces.WIZARD_PREVIOUS_STEP
 
+    @form.action(_(u"Continue"), name="continue")
+    def handle_continue( self, action, data ):
+        self.next_step_name = wizard_interfaces.WIZARD_NEXT_STEP
 
 class CheckoutReviewAndPay( BaseCheckoutForm ):
 
@@ -744,6 +783,7 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         state = order.finance_state
         f_states = interfaces.workflow_states.order.finance
         base_url = self.context.absolute_url()
+
         if not 'http://' in base_url:
             base_url = base_url.replace("https://", "http://")
 
@@ -757,12 +797,11 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
                      f_states.REVIEWING,
                      f_states.CHARGED):
             return base_url + '/@@getpaid-thank-you?order_id=%s&finance_state=%s' %(order.order_id, state)
-            
+
     def isPlone3(self):
         """test if it is a plone3 site
         """
         return config.PLONE3
-            
 
 class ShippingRate( options.PropertyBag ):
     title = "Shipping Rate"

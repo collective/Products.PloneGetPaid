@@ -58,7 +58,7 @@ class BaseSettingsForm( formbase.EditForm, BaseView ):
         if interface is not None:
             self.adapters = { interface : interfaces.IGetPaidManagementOptions( self.context ) }
         super( BaseSettingsForm, self).update()
-        
+
 class Identification( BaseSettingsForm ):
     """
     get paid management interface
@@ -217,7 +217,7 @@ class PaymentOptions( BaseSettingsForm ):
         "
         self.
     """
-    
+
 class PaymentProcessors(BrowserView):
     """ The user goes to payment processor settings in GetPaid setup.
 
@@ -229,9 +229,9 @@ class PaymentProcessors(BrowserView):
 
     TODO: This form is not protected against XSS attacks.
     """
-    
+
     template = ZopeTwoPageTemplateFile('templates/settings-payment-processors.pt')
-    
+
     def getCheckedForProcessor(self, processor):
         """
 
@@ -270,7 +270,7 @@ class PaymentProcessors(BrowserView):
             # Assume POST, user is changing active payment methods
             self.processForm()
             return self.template() # render page
-    
+
 
 class PaymentProcessor( BaseSettingsForm ):
     """

@@ -1,8 +1,8 @@
-<html metal:use-macro="here/main_template/macros/master" i18n:domain="plonegetpaid" >
-  <body>
-    <div metal:fill-slot="main" class="payment-selection" >
+<metal:page use-macro="context/@@getpaid-content-template/macros/content_space"
+	i18n:domain="plonegetpaid">
+  <metal:block fill-slot="getpaid_content">
 
-		<h1 i18n:translate="choose_payment_method" />
+		<h3 i18n:translate="choose_payment_method">choose_payment_method</h3>
 
 		<tal:payment-methods define="processors view/getProcessors">
 
@@ -12,12 +12,18 @@
 				that those payment processors are enabled in GetPaid portal setup.
 			</p>
 
-			<form action="." method="POST" class="payment-method">
+			<form action="." method="POST" class="payment-methods" tal:attributes="action request/URL">
+
+			    <div class="hidden_fields"
+				 tal:content="structure view/hidden_inputs"> </div>
+
+			    <div class="portalMessage" tal:content="view/status" tal:condition="view/status"> </div>
+
 				<table>
 					<tbody>
 						<tal:processor repeat="processor processors">
-							<tr replace="structure python:view.renderProcessor(processor)" />
-						</tal:processor>	
+							<tr tal:replace="structure python:view.renderProcessor(processor)" />
+						</tal:processor>
 					</tbody>
 				</table>
 
@@ -39,7 +45,5 @@
 			</form>
 
 		</tal:payment-methods>
-
-    </div>
-  </body>
-</html>
+  </metal:block>
+</metal:page>
