@@ -6,6 +6,7 @@ CHANGES
 ----------------
 - Allow the user to make changes to the emails that are sent out [larubbbio]
 - Allow sending of emails on auth, charge and decline (I didn't see an event for refund) [larubbio]
+- Manage Cart link in personal_bar changed from $object_url/@@getpaid-cart to $portal_url/@@getpaid-cart like in cart portlet [taito.horiuchi]
 
 0.7.9 (2009-05-19)
 ------------------

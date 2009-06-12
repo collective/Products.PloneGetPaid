@@ -76,7 +76,7 @@
                 action_id="getpaid_manage_cart" 
                 category="user" 
                 condition_expr="python:path('object/@@getpaid_control').showManageCart()" 
-                url_expr="string:$object_url/@@getpaid-cart" 
+                url_expr="string:$portal_url/@@getpaid-cart" 
                 visible="True">
             <permission>View</permission>
         </action>
