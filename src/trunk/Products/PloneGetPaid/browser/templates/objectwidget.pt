@@ -1,0 +1,28 @@
+<fieldset>
+  <div class="row" tal:repeat="widget python: context.subwidgets()">
+    <div class="field"
+         tal:define="description python:widget.hint;
+                     error python:widget.error()"
+         tal:attributes="class python:'field'+(error and ' error' or '')">
+          <label tal:attributes="for python:widget.name">
+            <span i18n:translate=""
+                  tal:content="python:widget.label">label</span>
+          </label>
+          <span class="fieldRequired" title="Required" tal:condition="widget/required">
+            (Required)
+          </span>
+          
+          <div class="formHelp"
+               i18n:translate=""
+               tal:content="description"
+               tal:condition="description"
+               >field description</div>
+          <div tal:condition="error" tal:content="error">
+            The Error
+          </div>
+          <div class="widget" tal:content="structure widget">
+            <input type="text" />
+	      </div>
+    </div>    
+  </div>      
+</fieldset>

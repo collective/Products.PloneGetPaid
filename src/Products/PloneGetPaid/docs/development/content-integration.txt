@@ -1,0 +1,74 @@
+----------------------------
+Get Paid Content Integration
+----------------------------
+
+
+Goals
+-----
+
+ - Allow any content to be labeled as purchasable, or premium
+   content.
+
+ - Work with out of the box content types
+
+ - Simple integration for custom content types
+
+
+How
+---
+
+ We utilize the zope 3 component architecture to enable using the
+ getpaid infrastructure across content in a portal.
+
+Components
+----------
+
+  we'll have a number of actions that can be displayed conditionally
+  on content. the actions are all items that will display from the
+  object action drop down menu (joining cut,paste,etc). the condition
+  for these actions will be the settings in the getpaid plone control
+  panel.
+
+  a zope 3 ui-less View - @@getpaid-control, will be used in the tales
+  condition for the action to determine if a given action is viable,
+  it will check the control panel settings for the context's content 
+  type on whether to display.
+
+  on activating the action for a content type, the appropriate marker
+  interface is applied to the content (premium content, shippable,
+  buyable, etc). there are additional views registered for these
+  marker interfaces.
+
+  each of the marker interface views has been configured as a browser
+  menu item as well in zcml, so that we get content tabs for the 
+  additional views. 
+
+  these views can then display any nesc. ui for configuring the
+  content for getpaid.
+
+  the shopping cart itself also uses this conditional display in
+  the shopping cart portlet on the basis of whether the given context
+  has the a ipayable interface applied and can be added to the cart.
+  there are likely additional ui elements to the cart though that
+  should be displayed regardless of the context's current
+  purchasability if a cart exists.
+
+  applying certain marker interfaces might also requiring changing the
+  default view of the content to enable certain use cases. say for
+  example on premium content, we no longer want to display the default
+  view of the content, we instead want to display a teaser view of
+  the content. 
+
+
+Risks
+-----
+
+ We might need to apply one of the patches from plone4artists audio
+ to enable the whole sale replacement of the default view of an object
+ with an adapted view.
+
+
+
+
+
+ 

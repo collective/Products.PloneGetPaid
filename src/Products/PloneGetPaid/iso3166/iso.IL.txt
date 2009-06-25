@@ -1,0 +1,9 @@
+
+ISO3166-2 regions for IL
+
+   IL-D : HaDarom
+   IL-M : HaMerkaz
+   IL-Z : HaZafon
+   IL-HA : Hefa
+   IL-TA : Tel-Aviv
+   IL-JM : Yerushalayim

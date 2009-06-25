@@ -1,0 +1,9 @@
+
+ISO3166-2 regions for BZ
+
+   BZ-BZ : Belize .
+   BZ-CY : Cayo
+   BZ-CZL : Corozal
+   BZ-OW : Orange Walk
+   BZ-SC : Stann Creek
+   BZ-TOL : Toledo

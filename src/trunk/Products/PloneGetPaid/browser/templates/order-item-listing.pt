@@ -1,0 +1,22 @@
+<fieldset i18n:domain="plonegetpaid">
+  <legend tal:content="view/collection_name">Contents</legend>
+
+  <form action="."
+        tal:attributes="action request/URL" method="post"
+        class="edit-form" enctype="multipart/form-data"
+        id="getpaid.cart.actions">
+
+
+   <div tal:replace="structure view/listing"> 
+   </div>
+
+    <div class="form-controls" tal:condition="view/availableActions">
+      <input tal:repeat="action view/actions"
+             tal:replace="structure action/render"
+             />
+    </div>
+
+  </form>
+
+   <br />
+</fieldset>

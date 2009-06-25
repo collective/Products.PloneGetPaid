@@ -1,0 +1,8 @@
+
+ISO3166-2 regions for TM
+
+   TM-A : Ahal
+   TM-B : Balkan
+   TM-D : Da'howuz
+   TM-L : Lebap
+   TM-M : Mary

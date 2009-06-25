@@ -1,0 +1,21 @@
+
+ISO3166-2 regions for PY
+
+   PY-ASU : Asunción
+   PY-16 : Alto Paraguay
+   PY-10 : Alto Paraná
+   PY-13 : Amambay
+   PY-19 : Boquerón
+   PY-5 : Caeguazú
+   PY-6 : Caazapl
+   PY-14 : Canindeyú
+   PY-11 : Central
+   PY-1 : Concepción
+   PY-3 : Cordillera
+   PY-4 : Guairá
+   PY-7 : Itapua
+   PY-8 : Miaiones
+   PY-12 : Ñeembucu
+   PY-9 : Paraguarí
+   PY-15 : Presidente Hayes
+   PY-2 : San Pedro

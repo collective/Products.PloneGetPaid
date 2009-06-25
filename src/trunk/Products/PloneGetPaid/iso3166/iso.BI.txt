@@ -1,0 +1,18 @@
+
+ISO3166-2 regions for BI
+
+   BI-BB : Bubanza
+   BI-BJ : Bujumbura
+   BI-BR : Bururi
+   BI-CA : Cankuzo
+   BI-CI : Cibitoke
+   BI-GI : Gitega
+   BI-KR : Karuzi
+   BI-KY : Kayanza
+   BI-KI : Kirundo
+   BI-MA : Makamba
+   BI-MU : Muramvya
+   BI-MY : Muyinga
+   BI-NG : Ngozi
+   BI-RT : Rutana
+   BI-RY : Ruyigi

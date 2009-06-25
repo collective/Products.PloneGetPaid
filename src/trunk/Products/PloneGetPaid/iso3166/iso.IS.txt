@@ -1,0 +1,12 @@
+
+ISO3166-2 regions for IS
+
+   IS-7 : Austurland
+   IS-1 : Höfuoborgarsvæöi utan Reykjavíkur
+   IS-6 : Noröurland eystra
+   IS-5 : Noröurland vestra
+   IS-0 : Reykjavík
+   IS-8 : Suöurland
+   IS-2 : Suöurnes
+   IS-4 : Vestfirölr
+   IS-3 : Vesturland

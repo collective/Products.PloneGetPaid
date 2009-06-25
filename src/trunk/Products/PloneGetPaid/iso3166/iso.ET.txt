@@ -1,0 +1,13 @@
+
+ISO3166-2 regions for ET
+
+   ET-AA : Addis Ababa
+   ET-AF : Afar
+   ET-AM : Amara
+   ET-BE : Benshangul-Gumaz
+   ET-GA : Gambela Peoples
+   ET-HA : Harari People
+   ET-OR : Oromia
+   ET-SO : Somali
+   ET-SN : Southern Nations
+   ET-TI : Tigrai

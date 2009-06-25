@@ -1,0 +1,21 @@
+
+ISO3166-2 regions for AO
+
+   AO-BGO : Bengo
+   AO-BGU : Benguela
+   AO-BIE : Bié
+   AO-CAB : Cabinda
+   AO-CCU : Cuando-Cubango
+   AO-CNO : Cuanza Norte
+   AO-CUS : Cuanza Sul
+   AO-CNN : Cunene
+   AO-HUA : Huambo
+   AO-HUI : Huíla
+   AO-LUA : Luanda
+   AO-LNO : Lunda Norte
+   AO-LSU : Lunda Sul
+   AO-MAL : Malange
+   AO-MOX : Moxico
+   AO-NAM : Namibe
+   AO-UIG : Uíge
+   AO-ZAI : Zaire

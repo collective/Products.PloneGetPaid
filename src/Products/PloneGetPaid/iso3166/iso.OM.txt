@@ -1,0 +1,11 @@
+
+ISO3166-2 regions for OM
+
+   OM-DA : Ad Dakhillyah
+   OM-BA : Al Batinah
+   OM-JA : Al Jan‹blyah
+   OM-WU : Al Wust·
+   OM-SH : Ash Sharqlyah
+   OM-ZA : Az Zahirah
+   OM-MA : Masqat
+   OM-MU : Musandam

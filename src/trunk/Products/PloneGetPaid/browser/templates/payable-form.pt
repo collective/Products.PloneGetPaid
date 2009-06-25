@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plonegetpaid">
+<body>
+
+<metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
+
+        <div metal:use-macro="here/document_actions/macros/document_actions">
+            Document actions (print, sendto etc)
+        </div>
+
+        <h1 tal:content="object_title" class="documentFirstHeading" i18n:translate="">
+          Title or id
+        </h1>
+    
+        <div metal:use-macro="here/document_byline/macros/byline">
+          Get the byline - contains details about author and modification date.
+        </div>
+
+	<tal:block tal:define="allowed view/allowed">
+
+	 <div tal:condition="python:not allowed">
+	   <b i18n:translate="text_context_does_not_support_operation"> The Context <em i18n:name="portal" tal:content="context/portal_type" i18n:translate="">Portal </em>
+	     Does Not Support this Operation. </b>
+	 </div>
+
+	 <div tal:condition="allowed">
+  	  <metal:block use-macro="context/@@getpaid-form/form">
+ 	  </metal:block>
+	 </div>
+    
+	</tal:block>
+    </tal:main-macro>
+</metal:main>
+
+</body>
+</html>

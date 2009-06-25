@@ -1,0 +1,59 @@
+# Contributors:
+# 
+# Jean-Paul Ladage <j.ladage@zestsoftware.nl>, 2007.
+# Maurits van Rees <m.van.rees@zestsoftware.nl>, 2007.
+# 
+# never generate this file with i18ndude, it is managed manual
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2006-06-06 13:53+0000\n"
+"PO-Revision-Date: 2007-10-24 16:45+0000\n"
+"Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: nl\n"
+"Language-Name: Nederlands\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+"X-Is-Fallback-For: nl-be\n"
+
+msgid "Make Buyable"
+msgstr "Zet te koop"
+
+msgid "Make Not Buyable"
+msgstr "Zet niet te koop (als fysiek product)"
+
+msgid "Make Not Premium Members Only"
+msgstr "Niet Premium maken"
+
+msgid "Make Not Shippable Product"
+msgstr "Zet niet te koop"
+
+msgid "Make Shippable Product"
+msgstr "Zet te koop (als fysiek product)"
+
+msgid "Make this a Donation"
+msgstr "Doneren toestaan"
+
+msgid "Make this not a Donation"
+msgstr "Doneren niet toestaan"
+
+msgid "Manage Cart"
+msgstr "Winkelwagen beheren"
+
+msgid "Order History"
+msgstr "Order geschiedenis"
+
+msgid "Orders"
+msgstr "Orders"
+
+msgid "Payable"
+msgstr "Betaalbaar"
+
+msgid "Settings"
+msgstr "Instellingen"
+

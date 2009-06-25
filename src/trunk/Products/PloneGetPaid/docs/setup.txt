@@ -1,0 +1,132 @@
+**Setting up GetPaid**
+
+A guide to setting up GetPaid can be found at the following URL,
+which includes screenshots and additional information:
+
+http://plone.org/products/getpaid/documentation/tutorial/setting-up-getpaid/tutorial-all-pages
+
+The following information assumes you have successfully installed
+GetPaid. If you haven't done this yet, please read installation.txt
+
+To set up GetPaid, you will need an existing Plone site.
+If you do not have one, please create one now but do *not* use the
+PloneGetPaid extension profile.
+
+Once you have a Plone site, go to the Zope Management Interface for
+the portal_quickinstaller, check the box next to PloneGetPaid and
+click the "Install" button.
+
+Now, view your Plone site and go to the "site setup". Under Add-on
+Product Configuration, you should see GetPaid. Click on it to begin
+setting it up.
+
+You now need to go through each of the sections and fill in the
+appropriate fields. While not all fields and sections are mandatory,
+it is recommended that you fill out information in all the sections
+applicable to your store to provide the best user experience.
+
+- Site Profile
+
+  Here you need to enter contact details for the organisation from
+  which sales will be made. Note that email is necessary for notifications from the store; address is necessary if you are using shipping functionalities. 
+
+- Content Types
+
+  This is where you configure the types of content that will be
+  buyable, donatable or shippable. 
+  Please see creating-buyable-content.txt
+
+- Shipping Methods
+
+  To have available options here, you need to have the UPS feature enabled in your buildout (or included in your product you installed). 
+
+  However, you will also need to fill in the zip code field of the
+  Site Profile section if you wish to have shipping enabled
+
+- Payment Options
+
+  Here you should select the payment options for you GetPaid site, including the process (you must save this page for the processor to be selected), SSL, anonymous checkout, and the credit cards to be accepted. 
+
+  - Payment Processor
+
+    Here you must select payment processor you'd like to use.
+    All of the installed payment processors should be listed. Once you
+    have selected one, you must click the "apply" button for
+    appropriate configuration to be performed.
+
+    The following payment processors are available but will need to be
+    seperately installed:
+
+    - Authorize.net (getpaid.authorizedotnet)
+
+      This requires you to have a US-based merchant account
+
+    - Ogone (getpaid.ogone)
+
+      This allows European-based merchant accounts
+
+    - Paymentech (getpaid.paymentech)
+
+    - GoogleCheckout (getpaid.googlecheckout)
+
+    If you don't know which payment processor you wish to use, select
+    the Testing Processor. This will allow you to experience the
+    features of GetPaid before setting up a real payment processor.
+
+  - Allow Anonymous Checkout
+
+    If checked, anonymous users will be allowed to use the shopping
+    cart, check out and place orders. However, they won't be able to
+    access the review of their order.
+
+    If not checked, only users who are logged in will be able to use
+    the checkout and place orders. Because they are identified, they
+    will be able to access the review of their order.
+
+  - Use SSL for Checkout
+
+    If checked, the browser will be redirected to use https when
+    clicking on the checkout button and will stay in https until the
+    thankyou page, which will then redirect back to http.
+
+    It should be noted that this isn't usually necessary as the
+    payment processor will secure any communications with the end user
+    as necessary.
+
+  - Accepted Credit Cards
+
+    Here you can limit the types of credit card that will be
+    accepted. By default, all types are accepted and so are included
+    on the list on the right. If you do not wish all types to be
+    accepted, use the arrows to move those you do not wish to be
+    accepted to the left column.
+    
+- Payment Processor Settings
+
+  Here you will find specific settings for the payment processor you
+  have selected. Please consult the documentation provided with the
+  payment processor for more information.
+
+- Sales Tax Configuration
+
+  Here you can configure methods of applying sales tax.
+  This area is currently under development and might be best avoided.
+
+- Email Notifications
+
+  Here you can configure what emails are send as part of the shopping
+  process. If you do not have a mailhost set on your server, you will
+  need to disable the email notifications here. 
+
+  Also, if you want to receive email notifications, be
+  sure to enter an email address in the "Site Profile" part in the
+  GetPaid Setup; 
+
+- Legal Disclaimers
+
+  Here you may enter any legal disclaimers or privacy policies that
+  need to be supplied as part of the shopping process.
+
+- Upgrade
+
+  Here you can update the data stored in an existing GetPaid site.

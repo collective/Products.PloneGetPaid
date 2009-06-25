@@ -1,0 +1,19 @@
+
+ISO3166-2 regions for KR
+
+   KR-11 : Seoul Teugbyeolsi
+   KR-26 : Busan Gwang'yeogsi
+   KR-27 : Daegu Gwang'yeogsi
+   KR-30 : Daejeon Gwang'yeogsi
+   KR-29 : Gwangju Gwang'yeogsi
+   KR-28 : Incheon Gwang'yeogsi
+   KR-31 : Ulsan Gwanq'yeogsi
+   KR-43 : Chungcheongbugdo
+   KR-44 : Chungcheongnamdo
+   KR-42 : Gang 'weondo
+   KR-41 : GyeonggLdo
+   KR-47 : Gyeongsangbugdo
+   KR-48 : Gyeongsangnamdo
+   KR-49 : Jejudo
+   KR-45 : Jeonrabugdo
+   KR-46 : Jeonranamdo

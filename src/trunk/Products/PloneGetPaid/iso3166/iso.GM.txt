@@ -1,0 +1,9 @@
+
+ISO3166-2 regions for GM
+
+   GM-B : Banjul
+   GM-L : Lower River
+   GM-M : MacCarthy Island
+   GM-N : North Bank
+   GM-U : Upper River
+   GM-W : Western

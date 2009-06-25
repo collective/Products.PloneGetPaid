@@ -1,0 +1,237 @@
+
+ISO3166-2 regions for GB
+
+   GB-ABE : Aberdeen City
+   GB-ABD : Aberdeenshire
+   GB-ANS : Angus
+   GB-ANT : Antrim
+   GB-ARD : Ards
+   GB-AGB : Argyll and Bute
+   GB-ARM : Armagh
+   GB-BLA : Ballymena
+   GB-BLY : Ballymoney
+   GB-BNB : Banbridge
+   GB-BDG : Barking and Dagenham
+   GB-BNE : Barnet
+   GB-BNS : Barnsley
+   GB-BAS : Bath and North East Somerset
+   GB-BDF : Bedfordshire
+   GB-BFS : Belfast 
+   GB-BEX : Bexley
+   GB-BIR : Birmingham 
+   GB-BBD : Blackburn with Darwen
+   GB-BPL : Blackpool
+   GB-BGW : Blaenau Gwent
+   GB-BOL : Bolton
+   GB-BMH : Bournemouth
+   GB-BRC : Bracknell Forest
+   GB-BRD : Bradford 
+   GB-BEN : Brent
+   GB-BGE : Bridgend
+   GB-BNH : Brighton and Hove
+   GB-BST : Bristol,
+   GB-BRY : Bromley
+   GB-BKM : Buckinghamshire
+   GB-BUR : Bury
+   GB-CAY : Caerphilly
+   GB-CLD : Calderdale
+   GB-CAM : Cambridgeshire
+   GB-CMD : Camden
+   GB-CRF : Cardiff 
+   GB-CMN : Carmarthenshire
+   GB-GFY : Sir Gaerfyrddin
+   GB-CKF : Carrickfergus
+   GB-CSR : Castlereagh
+   GB-CGN : Ceredigion
+   GB-CHS : Cheshire
+   GB-CLK : Clackmannanshire
+   GB-CLR : Coleraine
+   GB-CWY : Conwy
+   GB-CKT : Cookstown
+   GB-CON : Cornwall
+   GB-COV : Coventry 
+   GB-CGV : Cralgavon
+   GB-CRY : Croydon
+   GB-CMA : Cumbria
+   GB-DAL : Darlington
+   GB-DEN : Denbighshire
+   GB-DER : Derby 
+   GB-DBY : Derbyshire
+   GB-DRY : Derry 
+   GB-DEV : Devon
+   GB-DNC : Doncaster
+   GB-DOR : Dorset
+   GB-DOW : Down
+   GB-DUD : Dudley
+   GB-DGY : Dumfries and Galloway
+   GB-DND : Dundee City
+   GB-DGN : Dungannon
+   GB-DUR : Durham
+   GB-EAL : Ealing
+   GB-EAY : East Ayrshire
+   GB-EDU : East Dunbartonshire
+   GB-ELN : East Lothian
+   GB-ERW : East Renfrewshire
+   GB-ERY : East Riding of YorkshLre
+   GB-ESX : East Sussex
+   GB-EDH : Edinburgh,
+   GB-ELS : Eilean Siar
+   GB-ENF : Enfield
+   GB-ESS : Essex
+   GB-FAL : Falkirk
+   GB-FER : Fermanagh
+   GB-FIF : Fife
+   GB-FLN : Flintshire
+   GB-GAT : Gateshead
+   GB-GLG : Glasgow City
+   GB-GLS : Gloucestershire
+   GB-GRE : Greenwich
+   GB-GSY : Guernsey
+   GB-GWN : Gwynedd
+   GB-HCK : Hackney
+   GB-HAL : Halton
+   GB-HMF : Hammersmith and Fulham
+   GB-HAM : Hampshire
+   GB-HRY : Haringey
+   GB-HRW : Harrow
+   GB-HPL : Hartlepool
+   GB-HAV : Havering
+   GB-HEF : Herefordshire,
+   GB-HRT : Hertfordshire
+   GB-HED : Highland
+   GB-HIL : Hillingdon
+   GB-HNS : Hounslow
+   GB-IVC : Inverclyde
+   GB-AGY : Isle of Anglesey
+   GB-IOW : Isle of Wight
+   GB-IOS : Isles of Scilly
+   GB-ISL : Islington
+   GB-JSY : Jersey
+   GB-KEC : Kensington and Chelsea
+   GB-KEN : Kent
+   GB-KHL : Kingston upon Hull,
+   GB-KTT : Kingston upon Thames
+   GB-KIR : Kirklees
+   GB-KWL : Knowsley
+   GB-LBH : Lambeth
+   GB-LAN : Lancashire
+   GB-LRN : Larne
+   GB-LDS : Leeds 
+   GB-LCE : Leicester 
+   GB-LEC : Leicestershire
+   GB-LEW : Lewisham
+   GB-LMV : Limavady
+   GB-LIN : Lincolnshire
+   GB-LSB : Lisburn
+   GB-LIV : Liverpool
+   GB-LND : London, 
+   GB-LUT : Luton
+   GB-MFT : Magherafelt
+   GB-MAN : Manchester 
+   GB-MDW : Medway
+   GB-MTY : Merthyr Tydfil
+   GB-MRT : Merton
+   GB-MDB : Middlesbrough
+   GB-MLN : Midlothian
+   GB-MIK : Milton Keynes
+   GB-MON : Monmouthshire
+   GB-MRY : Moray
+   GB-MYL : Moyle
+   GB-NTL : Neath Port Talbot
+   GB-NET : Newcastle upon Tyne 
+   GB-NWM : Newham
+   GB-NWP : Newport
+   GB-NYM : Newry and Mourne
+   GB-NTA : Newtownabbey
+   GB-NFK : Norfolk
+   GB-NAY : North Ayrahire
+   GB-NDN : North Down
+   GB-NEL : North East Lincolnshire
+   GB-NLK : North Lanarkshire
+   GB-NLN : North Lincolnshire
+   GB-NSM : North Somerset
+   GB-NTY : North Tyneside
+   GB-NYK : North Yorkshire
+   GB-NTH : Northamptonshire
+   GB-NBL : Northumbarland
+   GB-NGM : Nottingham 
+   GB-NTT : Nottinghamshire
+   GB-OLD : Oldham
+   GB-OMH : Omagh
+   GB-ORR : Orkney Islands
+   GB-OXF : Oxfordshire
+   GB-PEM : Pembrokeshire
+   GB-PKN : Perth and Kinross
+   GB-PTE : Peterborough
+   GB-PLY : Plymouth 
+   GB-POL : Poole
+   GB-POR : Portsmouth 
+   GB-POW : Powys
+   GB-RDG : Reading
+   GB-RDB : Redbridge
+   GB-RCC : Redcar and Cleveland
+   GB-RFW : Renfrewshlre
+   GB-RCT : Rhondda, Cynon, Taff
+   GB-RIC : Richmond upon Thames
+   GB-RCH : Rochdale
+   GB-ROT : Rotherham
+   GB-RUT : Rutland
+   GB-SHN : St. Helens
+   GB-SLF : Salford 
+   GB-SAW : Sandwell
+   GB-SCB : Scottish Borders, The
+   GB-SFT : Sefton
+   GB-SHF : Sheffield 
+   GB-ZET : Shetland Islands
+   GB-SHR : Shropshire
+   GB-SLG : Slough
+   GB-SOL : Solihull
+   GB-SOM : Somerset
+   GB-SAY : South Ayrshire
+   GB-SGC : South Gloucestershire
+   GB-SLK : South Lanarkshire
+   GB-STY : South Tyneside
+   GB-STH : Southampton 
+   GB-SOS : Southend-on-Sea
+   GB-SWK : Southwark
+   GB-STS : Staffordshire
+   GB-STG : Stirling
+   GB-SKP : Stockport
+   GB-STT : Stockton-on-Tees
+   GB-STE : Stoke-on-Trent 
+   GB-STB : Strabane
+   GB-SFK : Suffolk
+   GB-SND : Sunderland 
+   GB-SRY : Surrey
+   GB-STN : Sutton
+   GB-SWA : Swansea 
+   GB-SWD : Swindon
+   GB-TAM : Tameside
+   GB-TFW : Telford and Wrekin
+   GB-THR : Thurrock
+   GB-TOB : Torbay
+   GB-TOF : Torfasn
+   GB-TWH : Tower Hamlets
+   GB-TRF : Trafford
+   GB-VGL : Vale of Glamorgan, The
+   GB-BMG : Bro Morgannwg GB-BMG
+   GB-WKF : Wakefield 
+   GB-WLL : Walsall
+   GB-WFT : Waltham Forest
+   GB-WND : Wandsworth
+   GB-WRT : Warrington
+   GB-WAR : Warwickshire
+   GB-WBX : West Berkshire
+   GB-WDU : West Dunbartonshire
+   GB-WLN : West Lothian
+   GB-WSX : West Sussex
+   GB-WSM : Westminster
+   GB-WGN : Wigan
+   GB-WIL : Wiltshire
+   GB-WNM : Windsor and Maidenhead
+   GB-WRL : Wirral
+   GB-WOK : Wokingham
+   GB-WLV : Wolverhampton
+   GB-WOR : Worcestershire
+   GB-WRX : Wrexham
+   GB-YOR : York 

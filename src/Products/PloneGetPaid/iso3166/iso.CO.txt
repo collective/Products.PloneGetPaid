@@ -1,0 +1,36 @@
+
+ISO3166-2 regions for CO
+
+   CO-DC : Distrito Capltal de Santa Fe de Bogotã
+   CO-AMA : Amazonea
+   CO-ANT : Antioquia
+   CO-ARA : Arauca
+   CO-ATL : Atlántico
+   CO-BOL : Bolívar
+   CO-BOY : Boyacá
+   CO-CAL : Caldea
+   CO-CAQ : Caquetá
+   CO-CAS : Casanare
+   CO-CAU : Cauca
+   CO-CES : Cesar
+   CO-COR : Córdoba
+   CO-CUN : Cundinamarca
+   CO-CHO : Chocó
+   CO-GUA : Guainía
+   CO-GUV : Guaviare
+   CO-HUI : Huila
+   CO-LAG : La Guajira
+   CO-MAG : Magdalena
+   CO-MET : Meta
+   CO-NAR : Nariño
+   CO-NSA : Norte de Santander
+   CO-PUT : Putumayo
+   CO-QUI : Quindío
+   CO-RIS : Risaralda
+   CO-SAP : San Andrés, Providencia y Santa Catalina
+   CO-SAN : Santander
+   CO-SUC : Sucre
+   CO-TOL : Tolima
+   CO-VAC : Valle del Cauca
+   CO-VAU : Vaupés
+   CO-VID : Vichada

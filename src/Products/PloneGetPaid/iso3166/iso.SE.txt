@@ -1,0 +1,24 @@
+
+ISO3166-2 regions for SE
+
+   SE-K : Blekinge län
+   SE-W : Dalarnas län
+   SE-I : Gotlands län
+   SE-X : Gävleborge län
+   SE-N : Hallands län
+   SE-Z : Jamtlande län
+   SE-F : Jonkopings län
+   SE-H : Kalmar län
+   SE-G : Kronoberge län
+   SE-BD : Norrbottena län
+   SE-M : Skåne län
+   SE-AB : Stockholms län
+   SE-D : Södermanlands län
+   SE-C : Uppsala län
+   SE-S : Värmlanda län
+   SE-AC : Västerbottens län
+   SE-Y : Västernorrlands län
+   SE-U : Västmanlanda län
+   SE-Q : Västra Gotalands län
+   SE-T : Örebro län
+   SE-E : Östergotlands län

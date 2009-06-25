@@ -1,0 +1,19 @@
+<fieldset i18n:domain="plonegetpaid">
+
+  <legend i18n:translate="legend_csv_email_export"> Export List of Emails and Preferences</legend>
+
+  <form action="."
+        tal:attributes="action request/URL" method="post"
+        class="edit-form" enctype="multipart/form-data"
+        id="getpaid.order.emails.csv">
+
+  <div class="form-controls" tal:condition="view/availableActions">
+    <input tal:repeat="action view/actions"
+           tal:replace="structure action/render"
+           />
+  </div>
+
+  </form>
+
+
+</fieldset>

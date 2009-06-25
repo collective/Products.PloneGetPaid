@@ -1,0 +1,232 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+	   xmlns:zcml="http://namespaces.zope.org/zcml"
+	   xmlns:five="http://namespaces.zope.org/five">
+
+<!-- Including profiles.zcml (for registration of an extension profile) -->
+<include file="profiles.zcml" />
+
+<!-- Dependencies -->
+<include package="getpaid.core" />
+<!--<include package="getpaid.io" />-->
+
+<!-- zope.annotation is used in Zope 2.10 -->
+<include
+    zcml:condition="installed zope.annotation"
+    package="zope.annotation" />
+<!-- zope.app.annotation is used in Zope 2.9
+     We know that zope.app.annotation.tests is only installed there. -->
+<include
+    zcml:condition="installed zope.app.annotation.tests"
+    package="zope.app.annotation" />
+
+<!-- using five.intid ... by default this
+     introduces subscribers for all persistent 
+     objects. -->
+<include package="five.intid" file="base.zcml"/>
+<include file="intid.zcml" />
+
+<!-- permissions -->
+<include file="permissions.zcml" />
+
+<!-- Commenting on Orders 
+<include package="zc.comment" />
+-->
+
+
+<!-- Inject Plone with the nesc interfaces / local site -->
+
+<five:localsite
+   class="Products.CMFPlone.Portal.PloneSite"
+   />
+
+<!-- Zope 2.9 -->
+<five:implements
+    zcml:condition="installed zope.app.annotation.tests"
+    class="Products.CMFPlone.Portal.PloneSite"
+    interface="zope.app.annotation.interfaces.IAttributeAnnotatable" />
+
+<five:implements
+    zcml:condition="installed zope.app.annotation.tests"
+    class="Products.Archetypes.public.BaseContent"
+    interface="zope.app.annotation.interfaces.IAttributeAnnotatable" />
+
+<!-- Zope 2.10 -->
+<five:implements
+    zcml:condition="installed zope.annotation"
+    class="Products.CMFPlone.Portal.PloneSite"
+    interface="zope.annotation.interfaces.IAttributeAnnotatable" />
+
+<five:implements
+    zcml:condition="installed zope.annotation"
+    class="Products.Archetypes.public.BaseContent"
+    interface="zope.annotation.interfaces.IAttributeAnnotatable" />
+
+<!-- UI -->
+<include package=".browser" />
+
+<!-- Load Up Plugins -->
+<include file="plugins.zcml" />
+
+<!-- Vocabularies -->
+<include file="vocabularies.zcml" />
+
+<!-- Content to Payable Adapters -->
+<adapter
+   for="Products.PloneGetPaid.interfaces.IBuyableMarker"
+   provides="getpaid.core.interfaces.IBuyableContent"
+   factory=".content.BuyableContentAdapter"
+   />
+
+<adapter
+   for="Products.PloneGetPaid.interfaces.IShippableMarker"
+   provides="getpaid.core.interfaces.IShippableContent"
+   factory=".content.ShippableContentAdapter"
+   />
+
+<adapter
+   for="Products.PloneGetPaid.interfaces.IPremiumMarker"
+   provides="getpaid.core.interfaces.IPremiumContent"
+   factory=".content.PremiumContentAdapter"
+   />
+
+<adapter
+   for="Products.PloneGetPaid.interfaces.IDonatableMarker"
+   provides="getpaid.core.interfaces.IDonationContent"
+   factory=".content.DonatableContentAdapter"
+  />
+
+<adapter
+   for="Products.PloneGetPaid.interfaces.IVariableAmountDonatableMarker"
+   provides="getpaid.core.interfaces.IVariableAmountDonationContent"
+   factory=".content.VariableAmountDonatableContentAdapter"
+  />
+
+<!-- Content to Line Item Adapter -->
+<adapter
+   for="getpaid.core.interfaces.IShoppingCart
+        .interfaces.IPayableMarker"
+   provides="getpaid.core.interfaces.ILineItemFactory"
+   factory=".content.LineItemFactory"
+   />
+
+<adapter
+   for="getpaid.core.interfaces.IShoppingCart
+        .interfaces.IShippableMarker"
+   provides="getpaid.core.interfaces.ILineItemFactory"
+   factory=".content.ShippableItemFactory"
+   />
+
+<adapter
+   for="getpaid.core.interfaces.IShoppingCart
+        .interfaces.IVariableAmountDonatableMarker"
+   provides="getpaid.core.interfaces.ILineItemFactory"
+   factory=".content.VariableAmountLineItemFactory"
+   />
+
+<!-- Property Storage for Configuration Options -->
+<adapter
+   for="getpaid.core.interfaces.IStore"
+   provides=".interfaces.IGetPaidManagementOptions"
+   factory=".preferences.ConfigurationPreferences"
+   />
+
+<!-- Contact Information from Members -->
+<five:implements
+	class="Products.PluggableAuthService.PropertiedUser.PropertiedUser"
+	interface=".interfaces.IStoreMember"
+	/>
+	
+<adapter
+	for=".interfaces.IStoreMember"
+	provides="getpaid.core.interfaces.IUserContactInformation"
+	factory=".member.memberContactInformation"
+    />
+
+<!-- Billing Address Info for Members -->
+<adapter
+	for=".interfaces.IStoreMember"
+	provides="getpaid.core.interfaces.IBillingAddress"
+	factory=".member.memberBillAddressInfo"
+    />
+
+<!-- Shipping Address Info for Members -->
+<adapter
+	for=".interfaces.IStoreMember"
+	provides="getpaid.core.interfaces.IShippingAddress"
+	factory=".member.memberShipAddressInfo"
+    />
+
+
+<!-- Utilities -->
+<utility
+    provides=".interfaces.ICountriesStates"
+    factory=".vocabularies.CountriesStatesFromFile"/>
+
+<utility
+    provides=".interfaces.IMonthsAndYears"
+    factory=".vocabularies.MonthsAndYears"/>
+
+<utility
+    provides="getpaid.core.interfaces.IFormSchemas"
+    factory=".preferences.DefaultFormSchemas"/>
+
+<!-- Notifications -->
+<subscriber
+   for="getpaid.core.interfaces.IOrder
+	hurry.workflow.interfaces.IWorkflowTransitionEvent"
+   handler=".notifications.sendNotification"
+   />
+
+<!-- Email Notification Templates -->
+<adapter
+   for="getpaid.core.interfaces.IOrder"
+   name="merchant-new-order"
+   factory=".notifications.MerchantOrderNotificationMessage"
+   />
+
+<adapter
+   for="getpaid.core.interfaces.IOrder"
+   name="customer-new-order"
+   factory=".notifications.CustomerOrderNotificationMessage"
+   />
+
+<adapter
+   for="getpaid.core.interfaces.IOrder"
+   name="merchant-charge-order"
+   factory=".notifications.MerchantOrderNotificationMessage"
+   />
+
+<adapter
+   for="getpaid.core.interfaces.IOrder"
+   name="customer-charge-order"
+   factory=".notifications.CustomerOrderNotificationMessage"
+   />
+
+<adapter
+   for="getpaid.core.interfaces.IOrder"
+   name="merchant-decline-order"
+   factory=".notifications.MerchantOrderNotificationMessage"
+   />
+
+<adapter
+   for="getpaid.core.interfaces.IOrder"
+   name="customer-decline-order"
+   factory=".notifications.CustomerOrderNotificationMessage"
+   />
+
+<!-- Payment -->
+<adapter
+   for="*"
+   provides="getpaid.core.interfaces.ICreditCardTypeEnumerator"
+   factory=".payment.CreditCardTypeEnumerator"
+   />
+
+
+
+<subscriber
+    for="*
+         getpaid.core.interfaces.IPayableCreationEvent"
+    handler=".events.payable_created"
+    />
+ 
+</configure>

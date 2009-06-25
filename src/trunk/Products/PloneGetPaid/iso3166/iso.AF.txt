@@ -1,0 +1,33 @@
+
+ISO3166-2 regions for AF
+
+   AF-BDS : Badakhshan
+   AF-BDG : Badghis
+   AF-BGL : Baghlan
+   AF-BAL : Balkh
+   AF-BAM : Bamian
+   AF-FRA : Farah
+   AF-FYB : Faryab
+   AF-GHA : Ghazni
+   AF-GHO : Ghowr
+   AF-HEL : Helmand
+   AF-HER : Herat
+   AF-JOW : Jowzjan
+   AF-KAB : Kabul
+   AF-KAN : Kandahar
+   AF-KAP : Kapisa
+   AF-KNR : Konar
+   AF-KDZ : Kondoz
+   AF-LAG : Laghman
+   AF-LOW : Lowgar
+   AF-NAN : Nangrahar
+   AF-NIM : Nimruz
+   AF-ORU : Oruzgan
+   AF-PIA : Paktia
+   AF-PKA : Paktika
+   AF-PAR : Parwan
+   AF-SAM : Samangan
+   AF-SAR : Sar-e Pol
+   AF-TAK : Takhar
+   AF-WAR : Wardak
+   AF-ZAB : Zabol
