@@ -1,0 +1,111 @@
+**Handling the Finance side of Orders with GetPaid**
+
+This document is targeted at people who are responsible for the
+financial side of running an online service based on GetPaid.
+
+This document assumes a GetPaid site has been set up and ther are orders
+to process. If this isn't the case, please have a web developer start
+with installation.txt and work through the documentation from there.
+
+Each order in GetPaid has a workflow associated with it's financial
+status. This workflow is usually managed by the payment processor you
+have selected. However, it may help to understand the states and
+transitions used and so they are documented here.
+
+If you have customised the finance workflow or have installed a
+payment processor that uses a different workflow, the following
+information may not apply.
+
+Each section below documents a particular finance workflow state with
+an explanation of what it's used for and what possible transitions
+there are for it. 
+
+Probably the most important information needed is that an order is
+only safe to process if it is in the CHARGED state. Any other state
+means that payment may not be made.
+
+REVIEWING
+
+  This is the initial state of the finance workflow and indicates that
+  the payment processor is still reviewing the payment. The order is
+  created and put in this state as part of the checkout process.
+
+  From here, the following may happen:
+
+  reviewing-declined
+
+    The payment processor has declined the payment request and the
+    finance state will become PAYMENT_DECLINED.
+
+  authorize
+
+    The payment processor has authorized the payment request and the
+    order becomes CHARGEABLE.
+
+  processor-cancelled
+
+    This indicates that the processor has not authorized the payment
+    request and has cancelled the order on behalf of the customer.
+    The order state becomes CANCELLED_BY_PROCESSOR.
+    
+    xxx why not just used CANCELLED? The transition history will show
+    where it came from.
+
+CHARGEABLE
+
+  It is unlikely that an order will be found in this state since
+  orders automatically transition from this state as follows:
+
+  charge-chargeable
+
+    This is an automatic transition that changes the finance state to
+    CHARGING.
+
+  cancel-chargeable
+
+    Should an order be found in the CHARGEABLE state, this action be
+    used to manually reject the order and make its finance state
+    PAYMENT_DECLINED. 
+
+CHARGING
+
+  This means the payment processor has accepted the request for
+  payment but has not yet approved it. No user interaction is required
+  to move orders from this state as this will be done by the payment
+  processor:
+
+  decline-charging
+
+    The payment processor has declined the the payment requested and
+    the order's finance state becomes PAYMENT_DECLINED.
+
+  charge-chargine
+
+    The payment processor has approved the payment requested, the
+    money will be transferred to the appropriate merchant account and
+    the order's finance state will become CHARGED.
+
+CHARGED
+
+  This means that payment has been made. It is now safe to despatch
+  the order.
+
+PAYMENT_DECLINED
+
+  This means that payment has not successfully been made for the order
+  and it should not be despatched. Currently, the only thing that can
+  be done with orders in this state is to cancel them:
+
+  cancel-declined
+
+    This cancels the order for which payment has been declined and
+    moves the financial state to CANCELLED
+
+CANCELLED
+
+  This indicates that the order has been cancelled.
+
+CANCELLED_BY_PROCESSOR
+
+  Same as cancelled, except actually moved to this state by the
+  payment processor.

@@ -1,0 +1,9 @@
+
+ISO3166-2 regions for FI
+
+   FI-AL : Ahvenanmasn l‰‰ni
+   FI-ES : Etel‰-Suomen l‰‰ni
+   FI-IS : It‰-Suomen l‰sni
+   FI-LL : Lapin l‰‰ni
+   FI-LS : L‰nsi-Suomen l‰‰ni
+   FI-OL : Oulun l‰sni

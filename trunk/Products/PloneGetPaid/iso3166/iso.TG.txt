@@ -1,0 +1,8 @@
+
+ISO3166-2 regions for TG
+
+   TG-C : Centre
+   TG-K : Kara
+   TG-M : Maritime
+   TG-P : Plateaux
+   TG-S : Savannes

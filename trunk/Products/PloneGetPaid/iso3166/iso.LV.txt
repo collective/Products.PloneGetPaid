@@ -1,0 +1,36 @@
+
+ISO3166-2 regions for LV
+
+   LV-AI : Aizkraukles Apripkis
+   LV-AL : Al‹kanes Apripkis
+   LV-BL : Balvu Apripkis
+   LV-BU : Bauskas Apripkis
+   LV-CE : CÍsu Aprikis
+   LV-DA : Daugavpile Apripkis
+   LV-DO : Dobeles Apripkis
+   LV-GU : Gulbenes Aprlpkis
+   LV-JL : Jelgavas Apripkis
+   LV-JK : JÈkabpils Apripkis
+   LV-KR : Kr‰slavas Apripkis
+   LV-KU : Kuldlgas Apripkis
+   LV-LM : Limbazu Apripkis
+   LV-LE : Liep‡jas Apripkis
+   LV-LU : Ludzas Apripkis
+   LV-MA : Madonas Apripkis
+   LV-OG : Ogres Apripkis
+   LV-PR : Preilu Apripkis
+   LV-RE : RËzaknes Apripkis
+   LV-RI : RÓgas Apripkis
+   LV-SA : Saldus Apripkis
+   LV-TA : Talsu Apripkis
+   LV-TU : Tukuma Apriplcis
+   LV-VK : Valkas Apripkis
+   LV-VM : Valmieras Apripkis
+   LV-VE : Ventspils Apripkis
+   LV-DGV : Daugavpils
+   LV-JEL : Jelgava
+   LV-JUR : Jurmala
+   LV-LPX : Liep‰ja
+   LV-REZ : RÍzekne
+   LV-RIX : Rlga
+   LV-VEN : Ventspils

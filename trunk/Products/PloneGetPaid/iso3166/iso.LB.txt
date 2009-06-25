@@ -1,0 +1,9 @@
+
+ISO3166-2 regions for LB
+
+   LB-BA : Beirout
+   LB-BI : El Bégsa
+   LB-JL : Jabal Loubnâne
+   LB-AS : Loubnane ech Chemàli
+   LB-JA : Loubnâne ej Jnoûbi
+   LB-NA : Nabatîyé

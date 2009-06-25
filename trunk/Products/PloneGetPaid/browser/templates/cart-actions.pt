@@ -1,0 +1,30 @@
+<fieldset i18n:domain="plonegetpaid">
+
+  <legend i18n:translate="legend_next_steps"> Next Steps </legend>
+
+  <form action="."
+        tal:attributes="action request/URL" method="post"
+        class="edit-form" enctype="multipart/form-data"
+        id="getpaid.cart.actions">
+
+    <div class="form-controls" tal:condition="view/availableActions">
+    
+    <input type="hidden" name="came_from" tal:attributes="value request/came_from|nothing" />
+  <!-- action/render doesn't handle i18n translations (fix)
+    <input tal:repeat="action view/actions"
+           tal:replace="structure action/render"
+           />
+  -->
+      <tal:loop tal:repeat="action view/availableActions">
+		<input type="submit" class="button context"
+			   id="" name="" value=""
+			   tal:attributes="id action/__name__;
+			   				   name action/__name__;
+			   				   value python:str(action.label);"
+			   i18n:attributes="value" />
+	  </tal:loop>
+    </div>
+  </form>
+
+</fieldset>
+

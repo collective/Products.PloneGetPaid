@@ -1,0 +1,17 @@
+
+ISO3166-2 regions for CV
+
+   CV-BV : Boa Vista
+   CV-BR : Brava
+   CV-FO : Fogo
+   CV-MA : Maio
+   CV-PA : Paul
+   CV-PN : Porto Novo
+   CV-PR : Praia
+   CV-RG : Ribeira Grande
+   CV-SL : Sal
+   CV-CA : Santa Catarina
+   CV-CR : Santa Cruz
+   CV-SN : Sao Nicolau
+   CV-SV : Sao Vicente
+   CV-TA : Tarrafal

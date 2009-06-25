@@ -1,0 +1,11 @@
+
+ISO3166-2 regions for AU
+
+   AU-NS : New South Wales
+   AU-QL : Queensland
+   AU-SA : South Australia
+   AU-TS : Tasmania
+   AU-VI : Victoria
+   AU-WA : Western Australia
+   AU-CT : Australian Capital Territory
+   AU-NT : Northern Territory

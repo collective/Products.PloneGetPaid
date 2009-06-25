@@ -1,0 +1,56 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# never generate this file with i18ndude, it is managed manual
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2006-06-06 13:53+0000\n"
+"PO-Revision-Date: 2007-08-15 01:07-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: de\n"
+"Language-Name: Deutsch\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+
+msgid "Make Buyable"
+msgstr "Kaufbar machen"
+
+msgid "Make Not Buyable"
+msgstr "Nicht Kaufbar machen"
+
+msgid "Make Not Premium Members Only"
+msgstr "Nur nicht Premium Member erstellen"
+
+msgid "Make Not Shippable Product"
+msgstr "Nicht zustellbares Produkt erstellen"
+
+msgid "Make Shippable Product"
+msgstr "Zustellbares Produkt erstellen"
+
+msgid "Make this a Donation"
+msgstr "Spenden"
+
+msgid "Make this not a Donation"
+msgstr "Spende zurückziehen"
+
+msgid "Manage Cart"
+msgstr "Warenkorb verarbeiten"
+
+msgid "Order History"
+msgstr "Frühere Bestellungen"
+
+msgid "Orders"
+msgstr "Bestellungen"
+
+msgid "Payable"
+msgstr "Zahlbar"
+
+msgid "Settings"
+msgstr "Einstellungen"
+

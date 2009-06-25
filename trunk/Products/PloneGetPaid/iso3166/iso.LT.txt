@@ -1,0 +1,13 @@
+
+ISO3166-2 regions for LT
+
+   LT-AL : Alytaus Apskritis
+   LT-KU : Kauno Apskritis
+   LT-KL : Klaipedos Apskritis
+   LT-MR : Marijampoles Apskritis
+   LT-PN : Panevezio Apskritis
+   LT-SA : Sisuliu Apskritis
+   LT-TA : Taurages Apskritis
+   LT-TE : Telsiu Apskritis
+   LT-UT : Utenos Apskritis
+   LT-VL : Vilniaus Apskritis

@@ -1,0 +1,19 @@
+
+ISO3166-2 regions for DK
+
+   DK-147 : Frederikaberg
+   DK-101 : Xíbenhavn
+   DK-040 : Bornholm
+   DK-020 : Frederiksborg
+   DK-042 : Fyn
+   DK-015 : Kíbenhavn
+   DK-080 : Nordjylland
+   DK-055 : Ribe
+   DK-065 : Ringkøbing
+   DK-025 : Roskilde
+   DK-035 : Storstrøm
+   DK-050 : Sínderjylland
+   DK-060 : Vejle
+   DK-030 : Vestajælland
+   DK-076 : Viborg
+   DK-070 : Århus

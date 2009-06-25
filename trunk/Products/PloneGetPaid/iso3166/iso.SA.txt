@@ -1,0 +1,16 @@
+
+ISO3166-2 regions for SA
+
+   SA-11 : Al Batah
+   SA-08 : Al H,udÜd ash Shamallyah
+   SA-12 : Al Jawf
+   SA-03 : Al Madlnah
+   SA-05 : Al Qasim
+   SA-01 : Ar Riyad
+   SA-04 : Ash Sharqlyah
+   SA-14 : Asîr
+   SA-06 : Hã'il
+   SA-09 : Jlzãn
+   SA-02 : Makkah
+   SA-10 : Najran
+   SA-07 : Tabûk
