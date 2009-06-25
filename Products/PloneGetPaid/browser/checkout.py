@@ -121,6 +121,22 @@ class BasePaymentMethodButton(BrowserView):
         else:
             return None
 
+class PaymentReviewAndPayOverlay(object):
+    """ On review-and-pay page use the page provided by a payment processor.
+    
+    
+    """
+    
+    interface.implements(wizard_interfaces.IWizardStepOverlay)
+    
+    def getStep(self, name, request, context, wizard):
+        """ """
+        
+        if wizard.data.foo:
+            return CheckoutReviewAndPay(context, request)
+        
+        return None
+    
 
 class BaseCheckoutForm( BaseFormView ):
 
@@ -414,8 +430,13 @@ class CheckoutWizard( Wizard ):
 
 
 class CheckoutController( ListViewController ):
+    """ Control which checkout wizard steps are executed and in which order """
 
+    
+    # Built-in precondition methods for entering into a step
     conditions = {'checkout-select-shipping' : 'checkShippableCart'}
+    
+    # List of available steps
     steps = ['checkout-address-info', 'checkout-select-shipping', 'checkout-payment-method', 'checkout-review-pay']
 
     def getStep( self, step_name ):

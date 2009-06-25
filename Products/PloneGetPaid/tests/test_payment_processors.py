@@ -118,6 +118,7 @@ class TestPaymentMethods(PloneGetPaidTestCase):
 
             <paymentprocessors:registerProcessor
                name="Dummy Processor"
+               pay_view="dummy_payment_processor_thank_you_page"
                selection_view="BAD_ENTRY_HERE"
                thank_you_view="dummy_payment_processor_thank_you_page"
                />
