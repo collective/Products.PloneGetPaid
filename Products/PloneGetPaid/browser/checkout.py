@@ -425,7 +425,7 @@ class CheckoutWizard( Wizard ):
         else:
             return None
     
-    def getActivePaymentMethod(self, chooser=None):
+    def getActivePaymentProcessor(self, chooser=None):
         """ Return the payment method the user is using.
         
         A shortcut function to return chosen payment processor in sane way.
@@ -526,12 +526,12 @@ class CheckoutController( ListViewController ):
             # - getTraverseFormSteps() calls getStep()
             # - here we are again
             #            
-            payment_processor_name = self.wizard.getActivePaymentMethod(self._getChosenPaymentMethodDirect)
+            payment_processor_name = self.wizard.getActivePaymentProcessor(self._getChosenPaymentMethodDirect)
             
             # There might be situation where CheckoutReviewAndPay page
             # is accessed (not rendered) before the user lands on the actual page.
             # Thus we might have a situation where the payment processor is not yet 
-            # selected and self.wizard.getActivePaymentMethod() returns None.
+            # selected and self.wizard.getActivePaymentProcessor() returns None.
             # In that case, fallback to the default CheckoutReviewAndPay instance
             if payment_processor_name != None:
                             
@@ -929,9 +929,11 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
     def makePayment( self, action, data ):
         """ create an order, and submit to the processor
         """
+        
         siteroot = getToolByName(self.context, "portal_url").getPortalObject()
         manage_options = IGetPaidManagementOptions(siteroot)
-        processor_name = manage_options.payment_processor
+        
+        processor_name = self.wizard.getActivePaymentProcessor()
 
         if not processor_name:
             raise RuntimeError( "No Payment Processor Specified" )

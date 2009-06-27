@@ -5,6 +5,7 @@
 """
 import os, sys
 import unittest
+import datetime
 
 from zope import component
 from zope.configuration.exceptions import ConfigurationError
@@ -13,10 +14,12 @@ from Products.Five import zcml
 from base import PloneGetPaidTestCase
 from getpaid.paymentprocessors.registry import BadViewConfigurationException, paymentProcessorRegistry
 from getpaid.core.interfaces import IStore
+from getpaid.core.order import Order
+import getpaid.core.interfaces
 import dummy_processors
 
 from getpaid.paymentprocessors.interfaces import IPaymentMethodInformation
-
+from zope.app.intid.interfaces import IIntIds
 
 class TestPaymentMethods(PloneGetPaidTestCase):
     """ Test ZCML directives """
@@ -24,6 +27,10 @@ class TestPaymentMethods(PloneGetPaidTestCase):
     def afterSetUp(self):
         PloneGetPaidTestCase.afterSetUp(self)
         paymentProcessorRegistry.clear()
+            
+        from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
+        options = IGetPaidManagementOptions(self.portal)
+        options.accepted_credit_cards = [ "visa" ]
     
 
     def loadDummyZCML(self, string):
@@ -101,7 +108,29 @@ class TestPaymentMethods(PloneGetPaidTestCase):
         
         from getpaid.wizard import Wizard
         return Wizard.__call__(wizard)
-
+    
+    def create_cart(self):
+        """ Create a dummy shopping cart object filled with one item """
+        from getpaid.core.item import PayableLineItem
+        item = PayableLineItem()
+  
+        item.item_id = "event-devtalk-2007-1" 
+        item.name = "Event Registration"
+        item.cost = 25.00
+        item.quantity = 5
+        item.description = "Development Talk"
+                
+        # need this reference ... needed by hacks in workflows
+        
+        iids = component.getUtility( IIntIds )
+        
+        iids.register(self.portal)
+        item.uid = iids.getId(self.portal)
+  
+        cart = component.getUtility(getpaid.core.interfaces.IShoppingCartUtility).get(self.portal, create=True)
+        cart[ item.item_id ] = item
+        
+        return cart
 
     def test_selection_screen_no_processor(self):
         """ See that the payment method selection screen fails if there is no payment methods available """
@@ -241,11 +270,8 @@ class TestPaymentMethods(PloneGetPaidTestCase):
         # Raises ComponentLookUpError if fails
         step = component.getMultiAdapter((wizard.context, wizard.request), name="dummy_payment_processor_review_pay")
         
-    def test_payment(self):
-        """ Walk through payment processor.
-
-        Open wizard payment method selection page and simulate payment method selection.
-        """
+    def choose_payment(self):
+        """ Use wizard to choose and store active payment method """
         self.enable_multiple_processors()
 
         wizard, view = self.get_payment_method_selection_screen()
@@ -256,7 +282,7 @@ class TestPaymentMethods(PloneGetPaidTestCase):
         
         # Payment method should be None until it is set for the first time
         # - we are arriving for the page so currently it should be unset
-        entry = wizard.getActivePaymentMethod()
+        entry = wizard.getActivePaymentProcessor()
         self.assertEqual(entry, None)
 
         # Now simulate POST
@@ -272,6 +298,16 @@ class TestPaymentMethods(PloneGetPaidTestCase):
         for error in view.errors:
             raise AssertionError("Form submit had error:" + str(error))
         
+        return wizard
+    
+    def test_choose_payment_method(self):
+        """ Walk through payment processor.
+
+        Open wizard payment method selection page and simulate payment method selection.
+        """
+        
+        wizard = self.choose_payment()
+        
         # Check that transient bag got updated
         storage = wizard.data_manager.adapters[IPaymentMethodInformation]
         entry = storage.payment_method
@@ -284,7 +320,7 @@ class TestPaymentMethods(PloneGetPaidTestCase):
         html = self.render_wizard_current_page(wizard) # Simulate the form POST
         
         # Check that we have payment method as a stored value
-        entry = wizard.getActivePaymentMethod()
+        entry = wizard.getActivePaymentProcessor()
         self.assertEqual(entry, u"Dummy processor")
         
         # Check that we are rendering paymeny processor specific review and pay View
@@ -296,6 +332,57 @@ class TestPaymentMethods(PloneGetPaidTestCase):
         
         # See that we have rendered the dummy payment processor view
         self.assertTrue("This is a dummy payment method, can't pay anything here" in html) # Check that payment processor button is rendered there
+        
+        
+    def test_make_payment(self):
+        """ """
+
+        wizard = self.choose_payment()
+
+        # Now we should contain the payment data in the wizard
+        step = "checkout-review-pay"
+        self.portal.REQUEST["cur_step"] = step # See _wizard.pt
+        wizard = self.portal.restrictedTraverse("@@getpaid-checkout-wizard")        
+                
+        request = self.portal.REQUEST
+        
+        request["REQUEST_METHOD"] = "POST"
+        
+        # Hidden inputs
+        request.form["form.payment_method"] = 'Dummy Processor' 
+        
+        # Active inputs - see getpaid.core.interfaces.IUserPaymentInformation
+        request.form["form.name_on_card"] = "Foo" # The user wants to proceed
+        request.form["form.credit_card"] = "4024007132557926" # spoofed
+        request.form["form.credit_card_type"] = "visa" # The user wants to proceed
+        request.form["form.cc_expiration"] = datetime.datetime.now()
+        request.form["form.cc_cvc"] = "123"
+
+        # Actions        
+        request.form["form.actions.make-payment"] = "Make Payment"
+            
+        # TODO: Not sure which order/cart initialization steps are necessary
+        # Create fake order
+        order_manager = component.getUtility(getpaid.core.interfaces.IOrderManager)
+        order = Order()
+        order.order_id = order_manager.newOrderId()
+        
+        # 
+        self.create_cart()
+        
+        #order_manager.store( order )
+        request.form["order_id"] = order.order_id
+                                
+        # Simulate POST
+        # This should trigger makePayment()
+        html = self.render_wizard_current_page(wizard) # Simulate the form POST
+
+        view = wizard.controller.getCurrentStep()
+        for error in view.errors: 
+            # Check that form validation did not fail
+            raise AssertionError("Form submit had error:" + str(error))
+        
+        self.assertEqual(dummy_processors.DummyProcessor.authorized, 1) # One makePayment completed
         
 def test_suite():
     from unittest import TestSuite, makeSuite

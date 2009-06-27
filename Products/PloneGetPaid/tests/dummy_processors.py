@@ -28,8 +28,22 @@ class DummyThankYou(BrowserView):
 
 class DummyProcessor:
     zope.interface.implements(getpaid.core.interfaces.IPaymentProcessor)
+    
+    authorized = 0
 
+    def __init__( self, context ):
+        self.context = context
 
+    def authorize( self, order, payment ):
+        self.__class__.authorized += 1
+        return getpaid.core.interfaces.keys.results_success
+
+    def capture( self, order, amount ):
+        return getpaid.core.interfaces.keys.results_success
+    
+    def refund( self, order, amount ):
+        return getpaid.core.interfaces.keys.results_success
+                
 # Enable one dummy payment processor
 configure_zcml = '''
 <configure
@@ -43,7 +57,7 @@ configure_zcml = '''
      for="getpaid.core.interfaces.IStore"
      provides="getpaid.core.interfaces.IPaymentProcessor"
      factory="Products.PloneGetPaid.tests.dummy_processors.DummyProcessor"
-     name="Dummy Processor"
+     name="Dummy processor"
      />
 
     <paymentprocessors:registerProcessor
