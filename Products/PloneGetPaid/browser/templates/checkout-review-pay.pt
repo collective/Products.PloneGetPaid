@@ -47,33 +47,33 @@
 
       <div class="visualClear"><!-- --></div>
 
-
+      
       <div class="cart-listing">
 	     <fieldset>
  	         <legend i18n:translate=""> Shopping Cart </legend>
 	         <div tal:replace="structure view/renderCart">cart</div>
-
+             
               <tal:cond condition="view/isPlone3">
                 <div tal:replace="structure provider:getpaid.belowcartresume" />
               </tal:cond>
-
-
+      
+             
             <div id="save_order_template_entry" style="display: none">
                 <label for="order_template_entry_name" id="order_template_entry_name_label" i18n:translate="">Order template name</label>
                 <div class="formHelp"
                 i18n:translate="" id="order_template_entry_name_help_text">A name you can remember this order template by.</div>
                 <input type="text" id="order_template_entry_name" name="order_template_entry_name" >
             </div>
+            
+            
 
-
-
-            <input type="button" id="save_order_template" class="standalone" name="save_order_template" value="Save this order as a template" onclick="swapVisibility('save_order_template','save_order_template_entry')" i18n:attributes="value" />
+            <input type="button" id="save_order_template" class="standalone" name="save_order_template" value="Save this order as a template" onclick="swapVisibility('save_order_template','save_order_template_entry')" i18n:attributes="value" /> 
 
 
 	    </fieldset>
-
-
-
+        
+        
+        
       </div>
 
       <div>
@@ -96,10 +96,8 @@
 	  </tal:loop>
 	</span>
       </div>
+
   </form>
-
-  <div tal:replace="structure view/renderPayment" />
-
   <metal:legal use-macro="context/@@legal-disclaimers-links/links" />
 
   </metal:block>

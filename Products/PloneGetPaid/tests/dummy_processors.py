@@ -8,14 +8,19 @@ import zope.interface
 
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 
 import getpaid.core.interfaces
 
-from Products.PloneGetPaid.browser.checkout import BasePaymentMethodButton
+from Products.PloneGetPaid.browser import checkout as base
 
-class DummyButton(BasePaymentMethodButton):
+class DummyButton(base.BasePaymentMethodButton):
     """ This piece of HTML is rendered on the payment method selection page """
-
+    
+    
+class DummyReviewAndPay(base.CheckoutReviewAndPay):
+    template = ZopeTwoPageTemplateFile("templates/pay.pt")
+    
 
 class DummyThankYou(BrowserView):
     """ This piece of HTML is rendered when the payment has been completed """
@@ -43,10 +48,11 @@ configure_zcml = '''
 
     <paymentprocessors:registerProcessor
        name="Dummy Processor"
+       i18n_name="Dummy processor"
        selection_view="dummy_payment_processor_button"
+       review_pay_view="dummy_payment_processor_review_pay"
        thank_you_view="dummy_payment_processor_thank_you_page"
        settings_view="dummy_payment_processor_settings"
-       pay_view="dummy_payment_processor_pay"
        />
 
     <browser:page
@@ -71,13 +77,14 @@ configure_zcml = '''
          class="Products.PloneGetPaid.browser.admin.PaymentProcessor"
          permission="cmf.ManagePortal"
          />
-
+         
     <browser:page
          for="getpaid.core.interfaces.IStore"
-         name="dummy_payment_processor_pay"
-         template="templates/pay.pt"
+         name="dummy_payment_processor_review_pay"
+         class="Products.PloneGetPaid.tests.dummy_processors.DummyReviewAndPay"
          permission="zope2.View"
-         />
+         template="templates/pay.pt"
+         />             
 
 </configure>'''
 
@@ -91,9 +98,10 @@ configure_zcml_2 = '''
 
     <paymentprocessors:registerProcessor
        name="dummy2"
+       i18n_name="Foobar"
        selection_view="dummy_payment_processor_button"
        thank_you_view="dummy_payment_processor_thank_you_page"
-       pay_view="dummy_payment_processor_pay"
+       review_pay_view="dummy_payment_processor_pay"
        />
 
 </configure>'''
