@@ -3,6 +3,13 @@
     Multiple payment processors test cases.
 
 """
+
+__author__ = "Mikko Ohtamaa <mikko.ohtamaa@twinapex.com> http://www.twinapex.com"
+__docformat__ = "epytext"
+__license__ = "ZPL"
+__copyright__ = "2009 Twinapex Research"
+
+
 import os, sys
 import unittest
 import datetime
