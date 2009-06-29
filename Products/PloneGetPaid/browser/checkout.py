@@ -31,6 +31,7 @@ from getpaid.core.order import Order
 
 from getpaid.paymentprocessors.registry import paymentProcessorRegistry
 from getpaid.paymentprocessors.interfaces import IPaymentMethodInformation
+from getpaid.paymentprocessors.paymentinfo import PaymentMethodInformation
 
 from Products.PloneGetPaid.payment import getActivePaymentProcessors
 
@@ -101,6 +102,12 @@ class BasePaymentMethodButton(BrowserView):
     checkout screen.
     """
 
+
+    def site_url(self):
+        """ Return web site base URL for templates """
+        url = self.context.portal_url.getPortalObject().absolute_url()
+        return url
+
     def update(self, processor, paymentMethodsView):
         """ Called by CheckoutPaymentMethodSelection to tell
 
@@ -122,18 +129,28 @@ class BasePaymentMethodButton(BrowserView):
             return None
 
 class BaseCheckoutForm( BaseFormView ):
-    """ 
+    """ A checkout wizard step which asks form input.
 
-    
+    Every step can present N section forms.
+
+    Section form fields are described by zope.schemas which are mapped in Products.PloneGetPaid.preferences.
+
     """
     template = None # must be overridden
 
+    # Name of the form sections available on this wizard step
     sections = ()
 
+    # <input type="hidden"> fields which contain data from prior wizard steps user has taken
     hidden_form_vars = None
+
+    # Adapters for storing/retrieving data, one per section
     adapters = None
+
     next_step_name = None # next step in wizard
     _next_url = None # redirect url
+
+    # CheckoutWizard instance
     wizard = None  # wizard
 
     interface.implements( wizard_interfaces.IWizardFormStep )
@@ -147,33 +164,33 @@ class BaseCheckoutForm( BaseFormView ):
     @property
     def form_fields(self):
         """ Get zope.formlib field declarations for fields on every wizard form page.
-        
+
         """
-        
+
         # Cache computed composition locally in the object
         fields = getattr(self,'__form_fields',None)
         if fields:
             return fields
-        
+
         args = []
         formSchemas = component.getUtility(interfaces.IFormSchemas)
-        
+
         for section in self.sections:
             # Go through all declared wizard form sections
             # and get the interface declaring fields in them
             schema = formSchemas.getInterface(section)
             args.append(schema)
-        
+
         # Construct zope.formlib objects based on zope.schema definitions
         fields = form.Fields(*args)
-        
+
         # Apply widget customization layer and chhange
         # default field widgets to checkout specific when needed
         # The subclass must define function customize_widgets()
         customise_widgets = getattr(self,'customise_widgets',None)
         if customise_widgets is not None:
             customise_widgets(fields)
-            
+
         # Store cached compision in the object
         self.__form_fields = fields
         return fields
@@ -189,16 +206,28 @@ class BaseCheckoutForm( BaseFormView ):
         self.hidden_form_vars = mapping
 
     def getSchemaAdapters( self ):
+        """ Resolve used schemas so that form elements can be constructed.
+
+        All wizard sections map to certain schemas.
+        The chosen schema can depend on who is the active user.
+
+        The mapping is done in Products.PloneGetPaid.preferences.
+
+        """
         adapters = {}
         user = getSecurityManager().getUser()
         formSchemas = component.getUtility(interfaces.IFormSchemas)
-        
+
         for section in self.sections:
             interface = formSchemas.getInterface(section)
             adapter = component.queryAdapter(user,interface)
-            if adapter is None:            
+            if adapter is None:
                 cls = formSchemas.getBagClass(section)
-                adapter = cls()
+                try:
+                    adapter = cls()
+                except:
+                    # Provide meaningful feedback for third party developers
+                    raise RuntimeError("Bad schema definition for section:" + str(section))
 
             adapters[interface]=adapter
         return adapters
@@ -240,7 +269,7 @@ class BaseCheckoutForm( BaseFormView ):
         order.shopping_cart = loads( dumps( shopping_cart ) )
 
         for section in ('contact_information','billing_address','shipping_address','payment_method'):
-            interface = formSchemas.getInterface(section)            
+            interface = formSchemas.getInterface(section)
             bag = formSchemas.getBagClass(section).frominstance(adapters[interface])
             setattr(order,section,bag)
 
@@ -283,20 +312,8 @@ class BillingInfo( options.PropertyBag ):
 
 BillingInfo = BillingInfo.makeclass( interfaces.IUserPaymentInformation )
 
-class PaymentMethodInfo(options.PropertyBag):
-    """ Store checkout session information about chosen payment method.
 
-    This is a transiet storage which checkout wizard part
-    can access through getSchemaAdapters().
-    """
-
-    title = "Payment Method Information"
-    
-    def __getstate__( self ):
-        # don't store persistently
-        raise RuntimeError("Only transient storage is allowed")
-
-PaymentMethodInfo = PaymentMethodInfo.makeclass(IPaymentMethodInformation)
+#class PaymentMethodInfo(options.PropertyBag):
 
 class ImmutableBag( object ):
 
@@ -325,8 +342,8 @@ class CheckoutWizard( Wizard ):
 
     steps can't override call methods, as such logic won't be processed, since we call
     update / render methods directly.
-    
-    See Products.GetPaid.tests.test_payment_methods.test_payment how to test and 
+
+    See Products.GetPaid.tests.test_payment_methods.test_payment how to test and
     poke the wizard.
     """
 
@@ -405,57 +422,57 @@ class CheckoutWizard( Wizard ):
                 url = url.replace("http://", "https://")
                 self.request.response.redirect('%s?%s' % (url, mq(self.request.form)))
         return True
-    
+
     def getChosenPaymentMethod(self):
         """ The user chosen payment method
-        
+
         This method is available only if the user has passed
         "Choose payment method" wizard page.
-        
+
         @return: Name of the payment processor the user has picked or None
         """
         # Check that transient bag got updated
-        
+
         data_adapters = self.data_manager.adapters # Might trigger recursion, see getStep()
-                            
+
         if IPaymentMethodInformation in data_adapters:
             storage = data_adapters[IPaymentMethodInformation]
-            entry = storage.payment_method
-            return entry                    
+            entry = storage.payment_processor
+            return entry
         else:
             return None
-    
+
     def getActivePaymentProcessor(self, chooser=None):
-        """ Return the payment method the user is using.
-        
+        """ Return the payment method used for the ordering.
+
         A shortcut function to return chosen payment processor in sane way.
-        
+
         1) If the site has only one payment method return it
-        
+
         2) If the site has multiple payments
-        
+
             a) If the user has chosen the payment return it
-            
+
             b) If the user has not chosen the payment method return None
-            
+
         @raise RuntimeError: If there is no active payment processors, raise an exception
-        
-        @param chooser: Function to get the user chosen payment method if 
+
+        @param chooser: Function to get the user chosen payment method if
             there are multiple choices. This defaults to wizard.getChosenPaymentMethod()
-        
+
         @return: Payment processor name
         """
         processors = getActivePaymentProcessors(self.context)
-        
+
         if chooser is None:
             chooser = self.getChosenPaymentMethod
-        
+
         if len(processors) <= 0:
             raise RuntimeError("The site has zero payment processors configured")
-        
+
         if len(processors) == 1:
             return processors[0].name
-        else:        
+        else:
             return chooser()
 
     def __call__( self ):
@@ -484,61 +501,61 @@ class CheckoutWizard( Wizard ):
 class CheckoutController( ListViewController ):
     """ Control which checkout wizard steps are executed and in which order """
 
-    
+
     # Built-in precondition methods for entering into a step
     # if condition method returns false, the wizard skips the step
     conditions = {'checkout-select-shipping' : 'checkShippableCart',
                   'checkout-payment-method' : 'checkMultiplePaymentProcessors'
                   }
-    
+
     # List of available steps
     steps = ['checkout-address-info', 'checkout-select-shipping', 'checkout-payment-method', 'checkout-review-pay']
-    
+
     def _getChosenPaymentMethodDirect(self):
         """ Abstraction layers piercing payment method data extractor.
-        
+
         Emulate getpaid.wizard.DataManager._extractRequestVariables() behavior.
         This is needed to be emulated, because DataManager itself calls getStep()
         """
         request = self.wizard.request
-        return request.form["form.payment_method"]
-        
+        return request.form["form.payment_processor"]
+
     def getStep( self, step_name):
         """ Get the BrowserView object rendering the wizard step output and/or managing the form processing.
-        
-        Note that data_manager is not available in this point, because Wizard._extractDataManager() calls 
-        this function itself. Thus, all step specific context resolving must be done by poking form 
+
+        Note that data_manager is not available in this point, because Wizard._extractDataManager() calls
+        this function itself. Thus, all step specific context resolving must be done by poking form
         variables directly.
-        
+
         @return: IWizardStep instance
         """
-                
+
         assert step_name != None
-        
-                        
+
+
         # We have a special override for review and pay screen which is payment processor specific
         if step_name == "checkout-review-pay":
-            
-            # 
+
+            #
             # Here we need to break the recursion loop:
             # - to resolve active payment method needs wizard._extractDataManagers() to know what wizard data we have available
             # - to extract data, wizard needs prior steps to the current step
             # - getTraverseFormSteps() calls getStep()
             # - here we are again
-            #            
+            #
             payment_processor_name = self.wizard.getActivePaymentProcessor(self._getChosenPaymentMethodDirect)
-            
+
             # There might be situation where CheckoutReviewAndPay page
             # is accessed (not rendered) before the user lands on the actual page.
-            # Thus we might have a situation where the payment processor is not yet 
+            # Thus we might have a situation where the payment processor is not yet
             # selected and self.wizard.getActivePaymentProcessor() returns None.
             # In that case, fallback to the default CheckoutReviewAndPay instance
             if payment_processor_name != None:
-                            
+
                 # Entry defines views for payment processor
                 try:
                     entry = paymentProcessorRegistry.get(payment_processor_name)
-                    # Redefine review and pay step from payment processor                                            
+                    # Redefine review and pay step from payment processor
                     step_name = entry.review_pay_view
 
                 except KeyError:
@@ -550,36 +567,36 @@ class CheckoutController( ListViewController ):
             step = component.getMultiAdapter((self.wizard.context, self.wizard.request), name=step_name)
         except component.ComponentLookupError:
             raise RuntimeError("Unknown checkout wizard step:" + str(step_name))
-            
-            
+
+
         return step.__of__( Acquisition.aq_inner( self.wizard.context ) )
 
     def checkShippableCart( self ):
         cart_utility = component.getUtility( interfaces.IShoppingCartUtility )
         cart = cart_utility.get( self.wizard.context )
-        
+
         if cart == None:
             # Cart might not exist if we are poking there from unit tests directly
             return False
-        
+
         return bool( filter(  interfaces.IShippableLineItem.providedBy, cart.values() ) )
-    
+
     def checkMultiplePaymentProcessors( self ):
         """ Check whether to show payment processor selection screen.
-                
+
         """
-        processors = getActivePaymentProcessors(self.wizard.context)        
+        processors = getActivePaymentProcessors(self.wizard.context)
         return len(processors) >= 2
-        
+
 
     def checkStep( self, step_name ):
         """ Check whether a checkout wizard should be taken or skipped """
-        
+
         condition_method = self.conditions.get(step_name)
-        
+
         if not condition_method:
             return step_name
-        
+
         condition = getattr(self, condition_method)
         if condition():
             return True
@@ -591,47 +608,6 @@ class CheckoutController( ListViewController ):
         if self.checkStep( step_name ):
             return step_name
         return self.getNextStepName( step_name )
-
-
-    def xxx_getNextStepName( self, step_name ):
-        
-        # See:
-        # xxx_test_skip_choose_payment_method_if_one_processor
-        # xxx_test_show_payment_methods_if_multiple_processors
-        #
-                        
-        print "getNextStepName:" + step_name
-        step_name = super( CheckoutController, self).getNextStepName( step_name )
-        print "getNextStepName 2:" + step_name
-        
-        # True, False or step_name
-        check = self.checkStep( step_name )
-        print "Got check:" + str(check)
-        if check is True:
-            return step_name
-        elif check is False:
-            
-            #
-            # TODO: HACK: Because getNextStepName() can be called only for *current step* 
-            # (see getpaid.wizard.ListViewController and we might skip two steps
-            # in a row we have somethign failing here
-            #
-            # Otherwise me might get inifinite recursion here 
-            #
-            # Run Products.PloneGetPaid.tests.test_payment_processors.TestPaymentMethod
-            # (other solution might be fix tests somehow)
-            #
-            
-            if step_name == "checkout-payment-method":
-                return "checkout-review-pay"
-            if step_name == "checkout-select-shipping":
-                return "checkout-payment-method"
-            
-            return self.getNextStepName( step_name )
-        else:
-            # Had no gatekeeper function
-            return self.getNextStepName( step_name )
-
 
 
 class CheckoutAddress( BaseCheckoutForm ):
@@ -713,7 +689,7 @@ class CheckoutAddress( BaseCheckoutForm ):
 
 def copy_field( field ):
     # copies a field dropping custom widgets
-    
+
     return field.__class__(
         field = field.field,
         name = field.__name__,
@@ -746,20 +722,20 @@ def sanitize_custom_widgets( fields ):
 
 class CheckoutPaymentMethodSelection( BaseCheckoutForm ):
     """ Allow user to pick the payment method on checkout wizard page.
-    
-    1) Radio button selection is rendered 
-    
-    2) Each active payment method will provide its own view to display the payment method selection button and 
+
+    1) Radio button selection is rendered
+
+    2) Each active payment method will provide its own view to display the payment method selection button and
        related info (name, description, logo)
-       
-    3) The chosen payment method is stored in wizard's data adapters using IPaymentMethodInformation 
+
+    3) The chosen payment method is stored in wizard's data adapters using IPaymentMethodInformation
        storage slot. This storage slot is PaymentMethodInfo instance which supports getpaid.options.PropertyBag storage.
        This is handled by getpaid.wizard which automatically extracts and serializes data to request form variables.
-       
+
     Payment method selection is restricted to choices in getpaid.paymentprocessors.vocabulary.
-    
+
     This wizard page can be subclassed to:
-    
+
         - Allow more complex payment method selection with additional fields
     """
 
@@ -774,20 +750,20 @@ class CheckoutPaymentMethodSelection( BaseCheckoutForm ):
 
     def update(self):
         """ Process form inputs.
-        
+
         Decode selected payment method choice from HTTP POST.
         """
         formbase.processInputs( self.request )
-        
-        # self.adapters will where to store data - they are 
+
+        # self.adapters will where to store data - they are
         # adapters for storing
         self.adapters = self.wizard.data_manager.adapters
-        
+
         # The following call will set self.form_result and call self.actions (handle_continue) if the request was HTTP POST
         # otherwise self.errors is set
         super(CheckoutPaymentMethodSelection, self).update()
-        
-        
+
+
     def renderProcessor(self, processor):
         """ Create selection button renderer view and call it.
 
@@ -799,15 +775,15 @@ class CheckoutPaymentMethodSelection( BaseCheckoutForm ):
         # View is BasePaymentMethodButton instance
         view.update(processor, self)
         return view()
-    
+
     def customise_widgets(self,fields):
         """ Use RadioButton widget for the payment method selection.
-        
+
         (the actual widget output is rendered manually)
-                
+
         """
-        
-        
+
+
         # zope.formlib shortcoming, custom widget does not pass vocab parameter
         # this little nify detail took 6 hours to figure out
         # otherwise vocabulary defaults to None
@@ -816,16 +792,16 @@ class CheckoutPaymentMethodSelection( BaseCheckoutForm ):
         def create_radio_button_selector(field, request):
             assert field.vocabulary != None
             return RadioWidget(field, field.vocabulary, request)
-        
-        fields['payment_method'].custom_widget = create_radio_button_selector
-        
+
+        fields['payment_processor'].custom_widget = create_radio_button_selector
+
 
     def setUpWidgets(self, ignore_request=False):
         """ Override payment method specific widget setup """
         # Dummy debugging hook - no function
-        super(CheckoutPaymentMethodSelection, self).setUpWidgets(ignore_request)        
-        widget = self.widgets["payment_method"]
-    
+        super(CheckoutPaymentMethodSelection, self).setUpWidgets(ignore_request)
+        widget = self.widgets["payment_processor"]
+
     @form.action(_(u"Cancel"), name="cancel", validator=null_condition)
     def handle_cancel( self, action, data):
         url = self.context.portal_url.getPortalObject().absolute_url()
@@ -925,14 +901,15 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
     def handle_back( self, action, data):
         self.next_step_name = wizard_interfaces.WIZARD_PREVIOUS_STEP
 
+
     @form.action(_(u"Make Payment"), name="make-payment", condition=form.haveInputWidgets )
     def makePayment( self, action, data ):
         """ create an order, and submit to the processor
         """
-        
+
         siteroot = getToolByName(self.context, "portal_url").getPortalObject()
         manage_options = IGetPaidManagementOptions(siteroot)
-        
+
         processor_name = self.wizard.getActivePaymentProcessor()
 
         if not processor_name:
@@ -953,19 +930,25 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         order.user_payment_info_last4 = adapters[formSchemas.getInterface('payment')].credit_card[-4:]
         order.name_on_card = adapters[formSchemas.getInterface('payment')].name_on_card
         order.bill_phone_number = adapters[formSchemas.getInterface('payment')].bill_phone_number
+
+        # Call payment processor to do the remote call to accept the credit card
         result = processor.authorize( order, adapters[formSchemas.getInterface('payment')] )
+
         if result is interfaces.keys.results_async:
             # shouldn't ever happen, on async processors we're already directed to the third party
             # site on the final checkout step, all interaction with an async processor are based on processor
             # adapter specific callback views.
             pass
         elif result is interfaces.keys.results_success:
+
             order_manager = component.getUtility( interfaces.IOrderManager )
             order_manager.store( order )
             order.finance_workflow.fireTransition("authorize")
             template_key = 'order_template_entry_name'
+
             order_template_entry = self.wizard.data_manager.get(template_key)
             del self.wizard.data_manager[template_key]
+
             # if the user submits a name, it means he wants this order named
             if order_template_entry:
                 uid = getSecurityManager().getUser().getId()

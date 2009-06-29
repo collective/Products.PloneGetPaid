@@ -5,12 +5,12 @@ Annotation Property Storage and Site Configuration Settings
 $Id$
 """
 
-from browser.checkout import BillingInfo, PaymentMethodInfo
+from browser.checkout import BillingInfo
 from getpaid.core import interfaces as core_interfaces
 from getpaid.core.options import PersistentOptions, PersistentBag,FormSchemas
 
 from getpaid.paymentprocessors import interfaces as payment_interfaces
-
+from getpaid.paymentprocessors.paymentinfo import PaymentMethodInformation
 from member import ShipAddressInfo, BillAddressInfo, ContactInfo
 from zope import component
 import interfaces
@@ -61,6 +61,6 @@ class DefaultFormSchemas(FormSchemas):
         'shipping_address':ShipAddressInfo,
         'contact_information':ContactInfo,
         'payment':BillingInfo,
-        'payment_method':PaymentMethodInfo,
+        'payment_method':PaymentMethodInformation,
         }
 

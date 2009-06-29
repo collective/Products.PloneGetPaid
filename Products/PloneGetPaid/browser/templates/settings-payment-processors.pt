@@ -1,6 +1,5 @@
-<html metal:use-macro="here/main_template/macros/master" i18n:domain="getpaid.paymentprocessors" >
-  <body>
-    <div metal:fill-slot="main" class="payment-selection" >
+<metal:page use-macro="context/@@manage-getpaid-settings-template/macros/admin">
+  <metal:block fill-slot="admin_content">
 
 		<h1 i18n:translate="choose_payment_method">choose_payment_method</h1>
 
@@ -31,6 +30,5 @@
 				<input type="submit" i18n:attributes="value" name="submit" value="set_enabled_processors" />
 			</form>
 		</tal:core>
-    </div>
-  </body>
-</html>
+  </metal:block>
+</metal:page>

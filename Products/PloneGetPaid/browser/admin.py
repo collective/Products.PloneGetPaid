@@ -227,7 +227,8 @@ class PaymentProcessors(BrowserView):
 
     Payment processors are stored in portal_properties.payment_processor_properties.
 
-    TODO: This form is not protected against XSS attacks.
+    TODO: This form is not protected against XSS attacks and takes some shortcuts
+    to bypass zope.formlib. I am not experienced enough zope.formlib user.
     """
 
     template = ZopeTwoPageTemplateFile('templates/settings-payment-processors.pt')
@@ -262,6 +263,11 @@ class PaymentProcessors(BrowserView):
 
         self.context.portal_properties.payment_processor_properties.enabled_processors = actived
 
+        from Products.statusmessages.interfaces import IStatusMessage
+        statusmessages = IStatusMessage(self.request)
+        statusmessages.addStatusMessage(u"Active payment processors updated", "info")
+
+
     def __call__(self):
 
         if self.request["REQUEST_METHOD"] == "GET":
@@ -285,10 +291,24 @@ class PaymentProcessor( BaseSettingsForm ):
         self.setupProcessorOptions()
         return super( PaymentProcessor, self).__call__()
 
-    def setupProcessorOptions( self ):
+
+    def getPaymentProcessorName(self):
+        """ Processor specific setting screen
+
+        @return: String, getpaid.core.interfaces.IPaymentProcessor name
+        """
+
+        # BBB
+        # This returns the active payment processor from old style getpaid
         manage_options = interfaces.IGetPaidManagementOptions( self.context )
 
         processor_name = manage_options.payment_processor
+        return processor_name
+
+    def setupProcessorOptions( self ):
+
+        processor_name = self.getPaymentProcessorName()
+
         if not processor_name:
             self.status = _(u"Please Select Payment Processor in Payment Options Settings")
             return
