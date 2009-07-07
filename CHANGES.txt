@@ -2,11 +2,16 @@
 CHANGES
 =======
 
-0.8 (unreleased)
+0.9 (unreleased)
+----------------
+
+0.8 (2009-07-07)
 ----------------
 - Allow the user to make changes to the emails that are sent out [larubbbio]
 - Allow sending of emails on auth, charge and decline (I didn't see an event for refund) [larubbio]
 - Manage Cart link in personal_bar changed from $object_url/@@getpaid-cart to $portal_url/@@getpaid-cart like in cart portlet [taito.horiuchi]
+- Change the order of checkout buttons so the default is to continue through the pipeline [larubbio]
+- Add a hacked 'fix' for $0 shipping bug when user moves backwards through the checkout pipeline [larubbio]
 
 0.7.9 (2009-05-19)
 ------------------
