@@ -23,6 +23,7 @@ class MerchantOrderNotificationMessage( object ):
                   'from_name': settings.store_name,
                   'from_email': settings.contact_email,
                   'total_price': u"%0.2f" % self.order.getTotalPrice(),
+                  'shipping_cost': u"%0.2f" % self.order.getShippingCost(),
                   'store_url': store_url,
                   'order_id': self.order.order_id,
                   'order_contents': order_contents,
@@ -62,6 +63,7 @@ ${store_url}/@@getpaid-order/${order_id}
                   'from_name': settings.store_name,
                   'from_email': settings.contact_email,
                   'total_price': u"%0.2f" % self.order.getTotalPrice(),
+                  'shipping_cost': u"%0.2f" % self.order.getShippingCost(),
                   'store_url': store_url,
                   'order_id': self.order.order_id,
                   'order_contents': order_contents,
@@ -113,7 +115,8 @@ def sendNotification( order, event ):
                               settings,
                               order,
                               store_url,
-                              order_contents)
+                              order_contents,
+                              mailer)
 
         if settings.send_customer_auth_notification:
             sendCustomerEmail("customer-new-order",
@@ -121,7 +124,8 @@ def sendNotification( order, event ):
                               settings,
                               order,
                               store_url,
-                              order_contents)
+                              order_contents,
+                              mailer)
     # Charged
     if event.destination == workflow_states.order.finance.CHARGED and \
             event.source == workflow_states.order.finance.CHARGING:
@@ -133,7 +137,8 @@ def sendNotification( order, event ):
                               settings,
                               order,
                               store_url,
-                              order_contents)
+                              order_contents,
+                              mailer)
 
         if settings.send_customer_charge_notification:
             sendCustomerEmail("customer-charge-order",
@@ -141,7 +146,8 @@ def sendNotification( order, event ):
                               settings,
                               order,
                               store_url,
-                              order_contents)
+                              order_contents,
+                              mailer)
 
     # Decline
     if event.destination == workflow_states.order.finance.PAYMENT_DECLINED and \
@@ -155,7 +161,8 @@ def sendNotification( order, event ):
                               settings,
                               order,
                               store_url,
-                              order_contents)
+                              order_contents,
+                              mailer)
 
         if settings.send_customer_decline_notification:
             sendCustomerEmail("customer-decline-order",
@@ -163,10 +170,11 @@ def sendNotification( order, event ):
                               settings,
                               order,
                               store_url,
-                              order_contents)
+                              order_contents,
+                              mailer)
 
 def sendMerchantEmail(adapterName, template, settings, order, 
-                      store_url, order_contents):
+                      store_url, order_contents, mailer):
 
     adapter = component.getAdapter(order, 
                                    interfaces.INotificationMailMessage, 
@@ -184,7 +192,7 @@ def sendMerchantEmail(adapterName, template, settings, order,
 
 
 def sendCustomerEmail(adapterName, template, settings, order, 
-                      store_url, order_contents):
+                      store_url, order_contents, mailer):
 
     email = order.contact_information.email
     if email:

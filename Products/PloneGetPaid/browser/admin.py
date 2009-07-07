@@ -306,6 +306,8 @@ Order Contents
 
 ${order_contents}
 
+Shipping Cost: ${shipping_cost}
+
 '''
 
 MERCHANT_AUTH_NOTIFICATION_TEMPLATE = u'''\
@@ -324,6 +326,8 @@ Order Contents
 
 ${order_contents}
 
+Shipping Cost: ${shipping_cost}
+
 '''
 
 CUSTOMER_CHARGE_NOTIFICATION_TEMPLATE = u'''\
@@ -340,6 +344,8 @@ ${view_order_information}
 Order Contents
 
 ${order_contents}
+
+Shipping Cost: ${shipping_cost}
 
 '''
 
@@ -358,6 +364,8 @@ ${store_url}/@@admin-manage-order/${order_id}/@@admin
 Order Contents
 
 ${order_contents}
+
+Shipping Cost: ${shipping_cost}
 
 '''
 
