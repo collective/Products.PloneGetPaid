@@ -1,9 +1,13 @@
 =======
 CHANGES
 =======
+0.8.2 (unreleased)
+------------------
 
-0.9 (unreleased)
-----------------
+0.8.1 (2009-07-07)
+------------------
+- Add shipping cost to the new emails [larubbio]
+- Fix an uninitialized mailer [larubbio]
 
 0.8 (2009-07-07)
 ----------------
