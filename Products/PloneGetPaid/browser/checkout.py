@@ -68,6 +68,15 @@ def make_hidden_input(*args, **kwargs):
     complex_marshal().
     '''
 
+    # There has to be a better way, but I haven't found it.  Essentially
+    # Allowing this to be a hidden variable results in an array coming
+    # back in the request when the user starts to move through the process
+    # again.  Somewere that populated array is replaced with an empty array
+    # setting the shipping cost to 0.  This only happens if the site has
+    # shipping set up and the user hits 'Back' from the review and pay step
+    if kwargs.has_key('form.shipping_method_code'):
+        del kwargs['form.shipping_method_code']
+
     d = {}
     for arg in args:
         d.update(arg)
@@ -465,16 +474,16 @@ class CheckoutAddress( BaseCheckoutForm ):
         book[entry] = ship_address_info
         self.context.plone_utils.addPortalMessage(_(u'A new address has been saved'))
 
+    @form.action(_(u"Continue"), name="continue")
+    def handle_continue( self, action, data ):
+        self.save_address(data)
+        self.next_step_name = wizard_interfaces.WIZARD_NEXT_STEP
+
     @form.action(_(u"Cancel"), name="cancel", validator=null_condition)
     def handle_cancel( self, action, data):
         url = self.context.portal_url.getPortalObject().absolute_url()
         url = url.replace("https://", "http://")
         return self.request.response.redirect(url)
-
-    @form.action(_(u"Continue"), name="continue")
-    def handle_continue( self, action, data ):
-        self.save_address(data)
-        self.next_step_name = wizard_interfaces.WIZARD_NEXT_STEP
 
 def copy_field( field ):
     # copies a field dropping custom widgets
@@ -583,16 +592,6 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         formatter.cssClasses['table'] = 'listing'
         return formatter()
 
-    @form.action(_(u"Cancel"), name="cancel", validator=null_condition )
-    def handle_cancel( self, action, data):
-        url = self.context.portal_url.getPortalObject().absolute_url()
-        url = url.replace("https://", "http://")
-        return self.request.response.redirect(url)
-
-    @form.action(_(u"Back"), name="back", validator=null_condition )
-    def handle_back( self, action, data):
-        self.next_step_name = wizard_interfaces.WIZARD_PREVIOUS_STEP
-
     @form.action(_(u"Make Payment"), name="make-payment", condition=form.haveInputWidgets )
     def makePayment( self, action, data ):
         """ create an order, and submit to the processor
@@ -648,12 +647,23 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
 
         self._next_url = self.getNextURL( order )
 
+    @form.action(_(u"Cancel"), name="cancel", validator=null_condition )
+    def handle_cancel( self, action, data):
+        url = self.context.portal_url.getPortalObject().absolute_url()
+        url = url.replace("https://", "http://")
+        return self.request.response.redirect(url)
+
+    @form.action(_(u"Back"), name="back", validator=null_condition )
+    def handle_back( self, action, data):
+        self.next_step_name = wizard_interfaces.WIZARD_PREVIOUS_STEP
+
+
     def createOrder( self ):
         order_manager = component.getUtility( interfaces.IOrderManager )
 
         order = self.createTransientOrder()
 
-        shipping_code = self.wizard.data_manager.get('shipping_method_code')
+        shipping_code = self.wizard.data_manager.get('form.shipping_method_code')
         if shipping_code is not None:
             # get the names of the selected shipping service
             shipping_service, shipping_method = decodeShipping( shipping_code )
@@ -743,6 +753,9 @@ class CheckoutSelectShipping( BaseCheckoutForm ):
         self.setupShippingOptions()
         super( CheckoutSelectShipping, self).update()
 
+    @form.action(_(u"Continue"), name="continue")
+    def handle_continue( self, action, data ):
+        self.next_step_name = wizard_interfaces.WIZARD_NEXT_STEP
 
     @form.action(_(u"Cancel"), name="cancel", validator=null_condition)
     def handle_cancel( self, action, data):
@@ -750,13 +763,9 @@ class CheckoutSelectShipping( BaseCheckoutForm ):
         url = url.replace("https://", "http://")
         return self.request.response.redirect(url)
 
-    @form.action(_(u"Back"), name="back")
-    def handle_back( self, action, data, validator=null_condition):
+    @form.action(_(u"Back"), name="back", validator=null_condition)
+    def handle_back( self, action, data):
         self.next_step_name = wizard_interfaces.WIZARD_PREVIOUS_STEP
-
-    @form.action(_(u"Continue"), name="continue")
-    def handle_continue( self, action, data ):
-        self.next_step_name = wizard_interfaces.WIZARD_NEXT_STEP
 
 class OrderFormatter( cart_core.CartFormatter ):
 
@@ -773,7 +782,7 @@ class OrderTotals( cart.CartItemTotals ):
         self.request = request
 
     def getShippingCost( self ):
-        service_code = self.request.get('shipping_method_code')
+        service_code = self.request.form.get('form.shipping_method_code')
         method = getShippingMethod( self.context, service_code )
         if method is None:
             return 0
