@@ -1,7 +1,7 @@
 =======
 CHANGES
 =======
-0.8.2 (unreleased)
+0.8.2 (2009-07-10)
 ------------------
 - Rollback the 'fix' for $0 shipping since it causes the shipping cost to be displayed to the user, but not charged.
 
