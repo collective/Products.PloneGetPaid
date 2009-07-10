@@ -74,8 +74,9 @@ def make_hidden_input(*args, **kwargs):
     # again.  Somewere that populated array is replaced with an empty array
     # setting the shipping cost to 0.  This only happens if the site has
     # shipping set up and the user hits 'Back' from the review and pay step
-    if kwargs.has_key('form.shipping_method_code'):
-        del kwargs['form.shipping_method_code']
+# This 'fix' actually results in shipping always being 0. 
+#    if kwargs.has_key('form.shipping_method_code'):
+#        del kwargs['form.shipping_method_code']
 
     d = {}
     for arg in args:
