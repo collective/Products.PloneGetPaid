@@ -1,14 +1,14 @@
 # --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
-# SOME DESCRIPTIVE TITLE.
+# Simples Consultoria <contato@simplesconsultoria.com.br>, 2009
 # ThreePointsWeb Team <contato@threepointsweb.com>, 2007.
 # never generate this file with i18ndude, it is managed manual
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1.0\n"
 "POT-Creation-Date: 2006-06-06 13:53+0000\n"
-"PO-Revision-Date: 2007-08-25 17:05-0300\n"
-"Last-Translator: ThreePointsWeb Team <contato@threepointsweb.com>\n"
-"Language-Team: ThreePointsWeb Team <contato@threepointsweb.com>\n"
+"PO-Revision-Date: 2009-07-16 00:05-0300\n"
+"Last-Translator: Erico Andrei <erico@simplesconsultoria.com.br> \n"
+"Language-Team: Simples Consultoria <contato@simplesconsultoria.com.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,41 +19,41 @@ msgstr ""
 "Domain: plone\n"
 
 msgid "Make Buyable"
-msgstr "Tornar Comprável"
+msgstr "Permitir comercialização"
 
 msgid "Make Not Buyable"
-msgstr "Tornar Não Comprável"
+msgstr "Não permitir comercialização"
 
 msgid "Make Not Premium Members Only"
-msgstr "Desativar Apenas Para Membros Premium"
+msgstr "Desativar (apenas para membros premium)"
 
 msgid "Make Not Shippable Product"
-msgstr "Tornar Produto Não Enviável"
+msgstr "Desabilitar envio deste produto"
 
 msgid "Make Shippable Product"
-msgstr "Tornar Produto Enviável"
+msgstr "Permitir envio deste produto"
 
 msgid "Make this a Donation"
-msgstr "Tornar Uma Doação"
+msgstr "Permitir doação"
 
 msgid "Make this not a Donation"
-msgstr "Desactivar Doação"
+msgstr "Desabilitar doação"
 
 msgid "Manage Cart"
-msgstr "Modificar Carrinho"
+msgstr "Modificar carrinho"
 
 msgid "Order History"
-msgstr "Histórico de Pedidos"
+msgstr "Histórico de pedidos"
 
 msgid "Orders"
 msgstr "Pedidos"
 
 msgid "Payable"
-msgstr "Comprável"
+msgstr "Comercializável"
 
 msgid "Settings"
 msgstr "Configurações"
 
 msgid "Upgrade"
-msgstr ""
+msgstr "Atualizar"
 
