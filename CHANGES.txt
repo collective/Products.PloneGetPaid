@@ -3,6 +3,7 @@ CHANGES
 =======
 0.8.3 (unreleased)
 ------------------
+- Add a new 'multishot' cart.  Currently used with getpaid.formgen so sibling adapters can access the cart used for single page checkouts. [larubbio]
 
 0.8.2 (2009-07-10)
 ------------------
