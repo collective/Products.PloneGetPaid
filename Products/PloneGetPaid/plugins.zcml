@@ -39,6 +39,9 @@
 <include zcml:condition="installed getpaid.SalesforcePloneFormGenAdapter"
 	 package="getpaid.SalesforcePloneFormGenAdapter" />
 
+<include zcml:condition="installed getpaid.SalesforceOrderRecorder"
+	 package="getpaid.SalesforceOrderRecorder" />
+
 <!-- Optional Shipping Modules -->
 <include zcml:condition="installed getpaid.flatrateshipping"
 	 package="getpaid.flatrateshipping" />
