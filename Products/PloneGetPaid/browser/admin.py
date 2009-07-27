@@ -254,7 +254,7 @@ class PaymentProcessors(BrowserView):
 
     def processForm(self):
         """ Manage HTTP post """
-        actived = self.request["active-payment-processors"]
+        actived = self.request.get("active-payment-processors", [])
 
         # Add some level of safety
         for a in actived:
