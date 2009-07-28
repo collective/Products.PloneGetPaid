@@ -429,6 +429,8 @@ class IGetPaidManagementCheckoutOptions( igetpaid.IPersistentOptions ):
     """
     use_contact_me_with_offers = schema.Bool( title=_(u"Display 'Contact me with offers' option on Checkout page"), default=True)
 
+    alternate_opt_in_text = schema.TextLine( title=_(u"Text to use for opt in checkbox"), required=False)
+
 
 class IGetPaidManagementOptions( IGetPaidManagementIdentificationOptions,
                                  IGetPaidManagementContentTypes,

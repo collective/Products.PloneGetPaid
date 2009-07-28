@@ -51,11 +51,6 @@ Testing the setup aspects of GetPaid. Setting required settings.
     >>> browser.getControl(name="form.allow_refunds").displayValue = ['allow_refund']    
     >>> browser.getControl('Apply').click()
     >>> browser.getLink('GetPaid').click()
-    >>> browser.getLink('Email Notifications').click()
-    >>> browser.getControl(name='form.merchant_email_notification').displayValue = ['Do not send merchant email notification of a completed transaction']
-    >>> browser.getControl(name='form.customer_email_notification').displayValue = ['Do not send customer email notification of a completed transaction']
-    >>> browser.getControl('Apply').click()
-    >>> browser.getLink('GetPaid').click()
     >>> browser.getLink('Legal Disclaimers').click()
     >>> browser.getControl(name='form.disclaimer').value = 'Test disclaimer'
     >>> browser.getControl(name='form.privacy_policy').value = 'Test privacy policy'
@@ -189,7 +184,7 @@ Make it buyable.
 
 Add it to my cart.
 
-    >>> browser.getLink('Add to Cart').click()
+    >>> browser.getControl('Add to Cart').click()
     >>> browser.getControl('Continue Shopping').click()
     >>> 'Contains <span>1</span> Items' in browser.contents
     True
@@ -214,7 +209,7 @@ The link "Add to Cart" is there when you check browser.contents...
 
     >>> 'Add to Cart' in browser.contents
     True
-    >>> browser.getLink('Add to Cart').click()
+    >>> browser.getControl('Add to Cart').click()
     >>> browser.getControl('Checkout').click()
     >>> browser.getControl('Your Name').value = 'test'
     >>> browser.getControl('Phone Number').value = '12345678'

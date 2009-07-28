@@ -52,11 +52,6 @@ unambiguous value::
     >>> browser.getControl(name="form.allow_refunds").displayValue = ['allow_refund']    
     >>> browser.getControl('Apply').click()
     >>> browser.getLink('GetPaid').click()
-    >>> browser.getLink('Email Notifications').click()
-    >>> browser.getControl(name='form.merchant_email_notification').displayValue = ['Do not send merchant email notification of a completed transaction']
-    >>> browser.getControl(name='form.customer_email_notification').displayValue = ['Do not send customer email notification of a completed transaction']
-    >>> browser.getControl('Apply').click()
-    >>> browser.getLink('GetPaid').click()
     >>> browser.getLink('Legal Disclaimers').click()
     >>> browser.getControl(name='form.disclaimer').value = 'Test disclaimer'
     >>> browser.getControl(name='form.privacy_policy').value = 'Test privacy policy'

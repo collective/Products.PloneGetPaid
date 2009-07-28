@@ -430,6 +430,22 @@ class CheckoutAddress( BaseCheckoutForm ):
         self.adapters = self.wizard.data_manager.adapters
         super( CheckoutAddress, self).update()
 
+        # If the user has set up alternate opt-in language, use it instead
+        opt_in_text = None
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        try:
+            opt_in_text = IGetPaidManagementOptions(portal).alternate_opt_in_text
+        except AttributeError:
+            opt_in_text = None
+
+        if opt_in_text and len(opt_in_text):
+            formSchemas = component.getUtility(interfaces.IFormSchemas)
+            widgets = self._getWidgetsByInterface(formSchemas.getInterface('contact_information'))
+
+            for w in widgets:
+                if w.name == 'form.marketing_preference':
+                    w.context.title = opt_in_text
+
     def hasAddressBookEntries(self):
         """
         Do we have any entry?

@@ -11,11 +11,23 @@ def createOrders( self ):
     # make sure we don't accidentally create notifications for sample orders
 
     settings = IGetPaidManagementOptions( self )
-    m_value = settings.merchant_email_notification
-    c_value = settings.customer_email_notification
+    m_a_value = settings.send_merchant_auth_notification
+    c_a_value = settings.send_customer_auth_notification
 
-    settings.merchant_email_notification = u'no_notification'
-    settings.customer_email_notification = u'no_notification'
+    m_c_value = settings.send_merchant_charge_notification
+    c_c_value = settings.send_customer_charge_notification
+
+    m_d_value = settings.send_merchant_decline_notification
+    c_d_value = settings.send_customer_decline_notification
+
+    settings.send_merchant_auth_notification = False
+    settings.send_customer_auth_notification = False
+
+    settings.send_merchant_charge_notification = False
+    settings.send_customer_charge_notification = False
+
+    settings.send_merchant_decline_notification = False
+    settings.send_customer_decline_notification = False
 
     for i in range(40, 60):
         o = order.Order()
@@ -39,8 +51,14 @@ def createOrders( self ):
 
         manager.store( o )
 
-    settings.merchant_email_notification = m_value
-    settings.customer_email_notification = c_value
+    settings.send_merchant_auth_notification = m_a_value
+    settings.send_customer_auth_notification = c_a_value
+
+    settings.send_merchant_charge_notification = m_c_value
+    settings.send_customer_charge_notification = c_c_value
+
+    settings.send_merchant_decline_notification = m_d_value
+    settings.send_customer_decline_notification = c_d_value
 
     return "Created 20 Orders"
 
