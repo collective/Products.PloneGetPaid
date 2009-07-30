@@ -2,6 +2,10 @@
 CHANGES
 =======
 
+For Multipayment
+----------------
+- Hide Payment Processor from Payment Option page.
+
 0.8 (unreleased)
 ----------------
 
