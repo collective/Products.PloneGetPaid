@@ -909,7 +909,6 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
 
         siteroot = getToolByName(self.context, "portal_url").getPortalObject()
         manage_options = IGetPaidManagementOptions(siteroot)
-
         processor_name = self.wizard.getActivePaymentProcessor()
 
         if not processor_name:

@@ -1,34 +1,37 @@
+<!-- settings-payment-processors.pt -->
 <metal:page use-macro="context/@@manage-getpaid-settings-template/macros/admin">
   <metal:block fill-slot="admin_content">
-
-		<h1 i18n:translate="choose_payment_method">choose_payment_method</h1>
-
-		<tal:core tal:define="portal_state context/@@plone_portal_state" i18n:domain="getpaid.paymentprocessors">
-
-			<form method="POST" tal:attributes="action string:${portal_state/portal_url}/@@manage-getpaid-payment-processor">
-				<table>
-					<thead>
-						<tr>
-							<th i18n:translate="enabled">enabled</th>
-							<th i18n:translate="payment_processor">payment_processor</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tal:payment-methods define="processors view/getProcessors">
-							<tr tal:repeat="processor processors">
-								<td>
-									<input type="checkbox" name="active-payment-processors:list" tal:attributes="value processor/name; CHECKED python:view.getCheckedForProcessor(processor) or None"/>
-								<td class="payment-processor-link">
-									<span tal:content="processor/name" />
-									[ <a tal:attributes="href string:${portal_state/portal_url}/@@${processor/settings_view}" i18n:translate="edit_settings">edit_settings</a> ]
-								</td>
-							</tr>
-						</tal:payment-methods>
-					</tbody>
-				</table>
-
-				<input type="submit" i18n:attributes="value" name="submit" value="set_enabled_processors" />
-			</form>
-		</tal:core>
+    <h1 i18n:translate="choose_payment_method">choose_payment_method</h1>
+    <tal:core tal:define="portal_state context/@@plone_portal_state"
+              i18n:domain="getpaid.paymentprocessors">
+      <form method="POST"
+            tal:attributes="action string:${portal_state/portal_url}/@@manage-getpaid-payment-processor">
+        <table>
+          <thead>
+            <tr>
+              <th i18n:translate="enabled">enabled</th>
+              <th i18n:translate="payment_processor">payment_processor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tal:payment-methods define="processors view/getProcessors">
+              <tr tal:repeat="processor processors">
+                <td>
+                  <input type="checkbox"
+                         name="active-payment-processors:list"
+                         tal:attributes="value processor/name; CHECKED python:view.getCheckedForProcessor(processor) or None"
+                         />
+                </td>
+                <td class="payment-processor-link">
+                  <span tal:content="processor/name" />
+                    [ <a tal:attributes="href string:${portal_state/portal_url}/@@${processor/settings_view}" i18n:translate="edit_settings">edit_settings</a> ]
+                </td>
+              </tr>
+            </tal:payment-methods>
+          </tbody>
+        </table>
+        <input type="submit" i18n:attributes="value" name="submit" value="set_enabled_processors" />
+      </form>
+    </tal:core>
   </metal:block>
 </metal:page>
