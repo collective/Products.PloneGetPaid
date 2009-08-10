@@ -30,7 +30,7 @@ from getpaid.core.order import Order
 
 import Acquisition
 from AccessControl import getSecurityManager
-from ZTUtils import make_query as mq
+from ZTUtils import make_query
 from ZTUtils.Zope import complex_marshal
 
 from Products.Five.formlib import formbase
@@ -337,7 +337,7 @@ class CheckoutWizard( Wizard ):
             url = self.request.getURL()
             if not 'https://' in url:
                 url = url.replace("http://", "https://")
-                self.request.response.redirect('%s?%s' % (url, mq(self.request.form)))
+                self.request.response.redirect('%s?%s' % (url, make_query(self.request.form)))
         return True
 
     def __call__( self ):
