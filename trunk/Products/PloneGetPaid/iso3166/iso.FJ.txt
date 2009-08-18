@@ -1,8 +1,0 @@
-
-ISO3166-2 regions for FJ
-
-   FJ-C : Central
-   FJ-E : Eastern
-   FJ-N : Northern
-   FJ-W : Western
-   FJ-R : Rotuma
