@@ -1,8 +1,0 @@
-<fieldset i18n:domain="plonegetpaid">
-  <legend i18n:translate="legend_orders"> Orders </legend>
-
-   <div tal:replace="structure view/listing"> 
-   </div>
-
-   <br />
-</fieldset>
