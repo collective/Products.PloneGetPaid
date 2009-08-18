@@ -298,6 +298,34 @@ class ShoppingCartActions( FormViewlet ):
     def isAnonymous( self, *args ):
         return getSecurityManager().getUser().getId() is None
 
+    def actionsOtherThanCheckout(self):
+        return [action for action in self.availableActions()
+                if action.label != 'Checkout']
+
+    def checkout_button(self):
+
+        # Get the active Payment Processor.  The following code is
+        # copied from PloneGetPaid.browser.checkout, and needs to be
+        # refactored into a single function that is used everywhere for
+        # uniformly discovering which payment processor is currently
+        # active for a site.
+
+        siteroot = getToolByName(self.context, "portal_url").getPortalObject()
+        manage_options = IGetPaidManagementOptions(siteroot)
+        processor_name = manage_options.payment_processor
+
+        if not processor_name:
+            raise RuntimeError( "No Payment Processor Specified" )
+
+        processor = component.getAdapter( siteroot,
+                                          interfaces.IPaymentProcessor,
+                                          processor_name )
+
+        # Ask the Payment Processor what HTML it would like placed
+        # wherever a "Checkout" button belongs.
+
+        return processor.checkout_link()
+
     @form.action(_("Continue Shopping"), name='continue-shopping')
     def handle_continue_shopping( self, action, data ):
         # redirect the user to the last thing they were viewing if there is not

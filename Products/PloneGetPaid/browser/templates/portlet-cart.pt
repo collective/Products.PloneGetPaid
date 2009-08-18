@@ -4,7 +4,7 @@
 
 <body>
 <div metal:define-macro="portlet"
-     tal:define="view context/@@getpaid-shopping-cart">
+     tal:define="renderer view; view context/@@getpaid-shopping-cart">
 
     <dl class="portlet" id="portlet-cart"
 	tal:condition="python: (view.cart or view.isContextAddable()) and view.size()!=0">
@@ -26,10 +26,7 @@
             </a>
         </dd>
         <dd class="portletFooter">
-            <a href="" tal:attributes="href string:${context/portal_url}/@@getpaid-checkout-wizard"
-               i18n:translate="heading_checkout">
-              Checkout
-            </a>
+            <a tal:replace="structure renderer/checkout_link">Checkout</a>
             <span class="portletBottomLeft"></span>
             <span class="portletBottomRight"></span>
         </dd>
