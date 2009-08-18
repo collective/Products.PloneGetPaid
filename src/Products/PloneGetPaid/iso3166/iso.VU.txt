@@ -1,9 +1,0 @@
-
-ISO3166-2 regions for VU
-
-   VU-MAP : Malampa
-   VU-PAM : Pénama
-   VU-SAM : Sanma
-   VU-SEE : Shéfa
-   VU-TAE : Taféa
-   VU-TOB : Torba

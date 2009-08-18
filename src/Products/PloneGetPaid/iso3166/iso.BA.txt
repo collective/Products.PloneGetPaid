@@ -1,5 +1,0 @@
-
-ISO3166-2 regions for BA
-
-   BA-BIH : Federacija Bosna i Hercegovina
-   BA-SRP : Republika Srpska

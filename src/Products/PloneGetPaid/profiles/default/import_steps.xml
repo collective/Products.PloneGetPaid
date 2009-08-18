@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<import-steps>
- <import-step id="PloneGetPaid.setupVarious" version="20071013-01"
-              handler="Products.PloneGetPaid.setuphandlers.setupVarious"
-              title="PloneGetPaid setupVarious">
-  Setup various things that are not handled by GS import/export handlers
- </import-step>
-</import-steps>
-

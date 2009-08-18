@@ -1,6 +1,0 @@
-
-ISO3166-2 regions for KM
-
-   KM-A : Anjouan Ndzouani
-   KM-G : Grande Comore Ngazidja
-   KM-M : Mohéli Moili
