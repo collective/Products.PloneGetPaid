@@ -20,11 +20,19 @@ from Products.CMFCore.utils import getToolByName
 
 from Products.PloneGetPaid.i18n import _
 
-def PaymentMethods( context ):
+def CheckoutWizards(context):
     # context is the portal config options, whose context is the portal
-    adapters = component.getAdapters( (context.context,), interfaces.IPaymentProcessor )
-    payment_names = set( map(unicode, [ n for n,a in adapters]) )
-    return vocabulary.SimpleVocabulary.fromValues( payment_names )
+    adapters = component.getAdapters((context.context,),
+                                     interfaces.ICheckoutWizard)
+    wizard_names = set([ unicode(n) for n,a in adapters])
+    return vocabulary.SimpleVocabulary.fromValues(wizard_names)
+
+def PaymentMethods(context):
+    # context is the portal config options, whose context is the portal
+    adapters = component.getAdapters((context.context,),
+                                     interfaces.IPaymentProcessor)
+    payment_names = set([ unicode(n) for n,a in adapters])
+    return vocabulary.SimpleVocabulary.fromValues(payment_names)
 
 def ContentTypes( context ):
     # context is actually a preferences object, dig another level to get to the adapted context

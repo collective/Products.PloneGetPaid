@@ -9,6 +9,12 @@
       factory=".vocabularies.ContentTypes"
       />
 
+  <!-- Checkout Wizards -->
+  <vocabulary
+      name="getpaid.checkout_wizards"
+      factory=".vocabularies.CheckoutWizards"
+      />
+
   <!-- Payment Methods -->
   <vocabulary
       name="getpaid.payment_methods"

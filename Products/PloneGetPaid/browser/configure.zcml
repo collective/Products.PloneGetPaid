@@ -76,6 +76,12 @@
   <include file="cart.zcml" />
 
   <!-- Checkout UI -->
+  <adapter
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     provides="getpaid.core.interfaces.ICheckoutWizard"
+     name="On-site Checkout Wizard"
+     factory=".checkout.CheckoutWizardButton" />
+
   <browser:page
      for="*"
      name="getpaid-checkout-wizard"

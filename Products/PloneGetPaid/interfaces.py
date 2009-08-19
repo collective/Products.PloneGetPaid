@@ -241,7 +241,12 @@ class IGetPaidManagementShippingMethods( igetpaid.IPersistentOptions ):
 class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
     """
     """
-    payment_processor = schema.Choice( title = _(u"Payment Processor"),
+    checkout_wizard = schema.Choice(
+        title = _(u"Checkout Wizard"),
+        source = "getpaid.checkout_wizards",
+        default = 'On-site Checkout Wizard' )
+
+    payment_processor = schema.Choice( title = _(u"On-site Payment Processor"),
                                        source = "getpaid.payment_methods",
                                        default = 'Testing Processor' )
 
