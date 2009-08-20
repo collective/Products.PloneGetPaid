@@ -37,6 +37,6 @@ class CheckoutButton(BrowserView):
         wizard = component.getAdapter(siteroot, ICheckoutWizard, wizard_name)
 
         view_name = wizard.checkout_button_view_name
-        view = component.getMultiAdapter((self.context, self.request),
-                                         name=view_name)
+        view = self.context.restrictedTraverse(
+            '@@' + view_name).__of__(self.context)
         return view()

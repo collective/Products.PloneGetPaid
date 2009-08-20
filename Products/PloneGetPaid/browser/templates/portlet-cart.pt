@@ -26,7 +26,8 @@
             </a>
         </dd>
         <dd class="portletFooter">
-            <a tal:replace="context/@@getpaid-checkout-button">Checkout</a>
+            <a tal:replace="structure context/@@getpaid-checkout-button"
+               >Checkout</a>
             <span class="portletBottomLeft"></span>
             <span class="portletBottomRight"></span>
         </dd>
