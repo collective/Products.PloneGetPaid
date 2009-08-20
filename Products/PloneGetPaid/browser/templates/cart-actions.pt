@@ -27,6 +27,7 @@
 	  </tal:loop>
     </div>
   </form>
-  <a tal:replace="structure context/@@getpaid-checkout-button">Checkout</a>
+  <a tal:condition="view/doesCartContainItems"
+     tal:replace="structure context/@@getpaid-checkout-button">Checkout</a>
 </fieldset>
 

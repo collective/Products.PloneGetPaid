@@ -37,3 +37,6 @@ class Renderer(base.Renderer):
         view that is called.
         """
         return True
+
+    def doesCartContainItems( self, *args ):
+        return bool(  len( self.__parent__.cart ) )
