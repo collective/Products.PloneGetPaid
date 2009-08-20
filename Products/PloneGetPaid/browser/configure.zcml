@@ -84,6 +84,20 @@
 
   <browser:page
      for="*"
+     name="getpaid-checkout-button"
+     class=".checkout_button.CheckoutButton"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     for="*"
+     template="templates/checkout-button.pt"
+     name="getpaid-onsite-checkout-button"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     for="*"
      name="getpaid-checkout-wizard"
      class=".checkout.CheckoutWizard"
      permission="zope2.View"

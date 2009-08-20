@@ -27,8 +27,6 @@
 	  </tal:loop>
     </div>
   </form>
-  <form tal:replace="structure view/checkout_button">
-    Check out
-  </form>
+  <a tal:replace="context/@@getpaid-checkout-button">Checkout</a>
 </fieldset>
 

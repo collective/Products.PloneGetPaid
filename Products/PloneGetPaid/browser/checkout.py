@@ -261,10 +261,14 @@ class CheckoutWizardButton(object):
     things evolve as wizards and processors are fully separated.
 
     """
+    checkout_button_view_name = 'getpaid-onsite-checkout-button'
     def __init__(self, context):
-        # We fail to be returned by getAdapters() if we cannot actually
-        # adapt anything by taking it as a lone argument.
-        self.context = context
+        """Init function.
+
+        We fail to be returned by getAdapters() if we cannot actually
+        adapt anything by taking it as a lone argument.  So, this
+        little init function exists.
+        """
 
 class CheckoutWizard( Wizard ):
     """
