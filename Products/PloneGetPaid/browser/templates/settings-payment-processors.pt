@@ -1,9 +1,9 @@
 <!-- settings-payment-processors.pt -->
 <metal:page use-macro="context/@@manage-getpaid-settings-template/macros/admin">
   <metal:block fill-slot="admin_content">
-    <h1 i18n:translate="choose_payment_method">choose_payment_method</h1>
     <tal:core tal:define="portal_state context/@@plone_portal_state"
               i18n:domain="getpaid.paymentprocessors">
+      <h1 i18n:translate="choose_payment_method">choose_payment_method</h1>
       <form method="POST"
             tal:attributes="action string:${portal_state/portal_url}/@@manage-getpaid-payment-processor">
         <table>
