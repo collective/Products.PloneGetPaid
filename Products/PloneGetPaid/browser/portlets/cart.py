@@ -1,3 +1,4 @@
+from zope import component
 from zope.interface import implements
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
@@ -5,6 +6,7 @@ from plone.portlets.interfaces import IPortletDataProvider
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.PloneGetPaid.i18n import _
 
+from getpaid.core import interfaces
 
 class ICartPortlet(IPortletDataProvider):
     pass
@@ -39,4 +41,6 @@ class Renderer(base.Renderer):
         return True
 
     def doesCartContainItems( self, *args ):
-        return bool(  len( self.__parent__.cart ) )
+        cart_manager = component.getUtility( interfaces.IShoppingCartUtility )
+        cart = cart_manager.get( self.context, create=True )
+        return bool(  len( cart ) )
