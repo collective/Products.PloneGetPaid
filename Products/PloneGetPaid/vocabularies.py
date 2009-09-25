@@ -20,12 +20,11 @@ from Products.CMFCore.utils import getToolByName
 
 from Products.PloneGetPaid.i18n import _
 
-def CheckoutWizards(context):
-    # context is the portal config options, whose context is the portal
-    adapters = component.getAdapters((context.context,),
-                                     interfaces.ICheckoutWizard)
-    wizard_names = set([ unicode(n) for n,a in adapters])
-    return vocabulary.SimpleVocabulary.fromValues(wizard_names)
+def OffsitePaymentProcessors(context):
+    result = component.getUtilitiesFor(interfaces.IOffsitePaymentProcessor)
+    processors = [ processor for name, processor in result ]
+    names = set([ processor.title for processor in processors ])
+    return vocabulary.SimpleVocabulary.fromValues(names)
 
 def PaymentMethods(context):
     # context is the portal config options, whose context is the portal

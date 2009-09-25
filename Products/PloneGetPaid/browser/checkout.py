@@ -242,34 +242,6 @@ class ImmutableBag( object ):
             setattr( self, field_name, field.get( other ) )
         return self
 
-class CheckoutWizardButton(object):
-    """Dummy checkout wizard that provides the default button view.
-
-    Checkout wizards are being expanded so that they can offer a view
-    that renders the "Checkout" button or form that directs users to
-    their front page.  But the `CheckoutWizard` class below does not
-    seem quite suitable for this, since its __init__ requires several
-    arguments, causing the vocabulary-building code function in
-    `Products.PloneGetPaid.vocabularies` to return an error.  So, until
-    we figure out what the exact relationship should be between the
-    service that provides the "Checkout" button and the on-site wizard
-    code itself, this little class will provide the button.
-
-    This difficultly begins to make me [Brandon] suspect that, indeed,
-    payment processors and checkout wizards should probably *not* be
-    adapters of the ISiteRoot but Utilities instead.  But we'll see how
-    things evolve as wizards and processors are fully separated.
-
-    """
-    checkout_button_view_name = 'getpaid-onsite-checkout-button'
-    def __init__(self, context):
-        """Init function.
-
-        We fail to be returned by getAdapters() if we cannot actually
-        adapt anything by taking it as a lone argument.  So, this
-        little init function exists.
-        """
-
 class CheckoutWizard( Wizard ):
     """
     a bidirectional checkout wizard, using getpaid.wizard. See the CheckoutController

@@ -9,10 +9,10 @@
       factory=".vocabularies.ContentTypes"
       />
 
-  <!-- Checkout Wizards -->
+  <!-- Off-site Payment Processors -->
   <vocabulary
-      name="getpaid.checkout_wizards"
-      factory=".vocabularies.CheckoutWizards"
+      name="getpaid.offsite_payment_processors"
+      factory=".vocabularies.OffsitePaymentProcessors"
       />
 
   <!-- Payment Methods -->

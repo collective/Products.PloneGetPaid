@@ -241,10 +241,23 @@ class IGetPaidManagementShippingMethods( igetpaid.IPersistentOptions ):
 class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
     """
     """
-    checkout_wizard = schema.Choice(
-        title = _(u"Checkout Wizard"),
-        source = "getpaid.checkout_wizards",
-        default = 'On-site Checkout Wizard' )
+    offsite_payment_processors = schema.List(
+        title = _(u"Off-site Payment Processors"),
+        required = False,
+        default = [],
+        description = _(u"These payment processors ask for the user's credit"
+                        u" card information on their own web site; activate"
+                        u" several, and the user will be allowed to choose."),
+        value_type = schema.Choice(
+            title = _(u"Off-site Payment Processors"),
+            source = "getpaid.offsite_payment_processors",
+            ))
+
+    allow_onsite_payment = schema.Bool(
+        title =_(u"Activate On-site Payment"),
+        description = _(u"Allow users to type their credit-card information"
+                        u" directly into Plone"),
+        default = False)
 
     payment_processor = schema.Choice( title = _(u"On-site Payment Processor"),
                                        source = "getpaid.payment_methods",
