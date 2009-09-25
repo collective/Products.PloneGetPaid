@@ -1,7 +1,7 @@
 from zope import component
 from zope.app.component.hooks import getSite
 
-from getpaid.core.interfaces import ICheckoutWizard
+#from getpaid.core.interfaces import ICheckoutWizard
 
 from Products.Five.browser import BrowserView
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
