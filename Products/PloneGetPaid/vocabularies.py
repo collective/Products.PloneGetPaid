@@ -11,7 +11,7 @@ from os import path
 import datetime
 
 from zope.schema import vocabulary
-from getpaid.core import interfaces
+from getpaid.core import interfaces, processors
 
 from iso3166 import CountriesStatesParser
 from Products.PloneGetPaid.interfaces import ICountriesStates, IMonthsAndYears
@@ -20,11 +20,15 @@ from Products.CMFCore.utils import getToolByName
 
 from Products.PloneGetPaid.i18n import _
 
+sample_payment_situation = processors.PaymentSituation(None, None)
+
 def OffsitePaymentProcessors(context):
-    result = component.getUtilitiesFor(interfaces.IOffsitePaymentProcessor)
-    processors = [ processor for name, processor in result ]
-    names = set([ processor.title for processor in processors ])
-    return vocabulary.SimpleVocabulary.fromValues(names)
+    """Return a list of all offsite payment processors registered."""
+    results = component.getAdapters((sample_payment_situation,),
+                                    interfaces.IOffsitePaymentProcessor)
+    names_and_titles = set([ (processor.title, name)
+                             for (name, processor) in results ])
+    return vocabulary.SimpleVocabulary.fromItems(names_and_titles)
 
 def PaymentMethods(context):
     # context is the portal config options, whose context is the portal
