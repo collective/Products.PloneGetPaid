@@ -28,6 +28,6 @@
     </div>
   </form>
   <a tal:condition="view/doesCartContainItems"
-     tal:replace="structure context/@@getpaid-checkout-button">Checkout</a>
+     tal:replace="structure context/@@getpaid-checkout-buttons">Checkout</a>
 </fieldset>
 

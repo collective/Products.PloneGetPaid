@@ -78,8 +78,9 @@
   <!-- Checkout UI -->
   <browser:page
      for="*"
-     name="getpaid-checkout-button"
-     class=".checkout_button.CheckoutButton"
+     template="templates/checkout-buttons.pt"
+     name="getpaid-checkout-buttons"
+     class=".checkout_buttons.CheckoutButtons"
      permission="zope2.View"
      />
 
