@@ -10,7 +10,10 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.Five.browser import BrowserView
 from Products.Five.formlib import formbase
 from Products.Five.viewlet import manager
-from Products.PloneGetPaid import interfaces
+from Products.PloneGetPaid import interfaces, discover
+
+from plone.fieldsets.fieldsets import FormFieldsets
+from plone.fieldsets.form import FieldsetsEditForm
 
 from zope import component
 from zope.formlib import form
@@ -50,12 +53,22 @@ class BaseSettingsForm( formbase.EditForm, BaseView ):
         self.setupEnvironment( request )
 
     def update( self ):
-        try:
-            interface = iter( self.form_fields ).next().field.interface
-        except StopIteration:
-            interface = None
-        if interface is not None:
-            self.adapters = { interface : interfaces.IGetPaidManagementOptions( self.context ) }
+        """Save form data the admin submits.
+
+        The `adapters` map created here directs that each payment
+        processor setting, whatever its source interface (since some
+        settings will come from GetPaid core components, while others
+        come from the options interfaces of currently selected payment
+        processors), gets stored in the same annotation as the normal
+        GetPaid management options.  Hopefully payment processor authors
+        will choose attribute names that do not conflict.
+
+        """
+        self.adapters = {}
+        getpaid_options = interfaces.IGetPaidManagementOptions(self.context)
+        for f in self.form_fields:
+            self.adapters[f.field.interface] = getpaid_options
+
         super( BaseSettingsForm, self).update()
         
 class Identification( BaseSettingsForm ):
@@ -217,12 +230,19 @@ class PaymentOptions( BaseSettingsForm ):
         self.
     """
 
-class PaymentProcessor( BaseSettingsForm ):
+class FakeFieldsetView(object):
+    """An object to hold attributes for the "form.pt" view."""
+    def __init__(self, **kw):
+        for k, v in kw.iteritems():
+            setattr(self, k, v)
+
+class PaymentProcessor( FieldsetsEditForm, BaseSettingsForm ):
     """
     get paid management interface, slightly different because our form fields
     are dynamically set based on the store's setting for a payment processor.
     """
 
+    template = ZopeTwoPageTemplateFile("templates/admin-processors.pt")
     form_fields = form.Fields()
     form_name = _(u'Payment Processor Settings')
 
@@ -248,7 +268,50 @@ class PaymentProcessor( BaseSettingsForm ):
             self.status = _(u"The currently configured Payment Processor cannot be found; please check if the corresponding package is installed correctly.")
             return
 
-        self.form_fields = form.Fields( processor.options_interface )
+        onsite_set = FormFieldsets(processor.options_interface)
+        onsite_set.label = _(u'On-site payment processor options')
+
+        fieldset_list = [ onsite_set ]
+
+        for opp in discover.selectedOffsitePaymentProcessors(manage_options):
+            opp_set = FormFieldsets(opp.options_interface)
+            opp_set.label = _(u'%s Options') % opp.title
+            fieldset_list.append(opp_set)
+
+        self.form_fields = FormFieldsets(*fieldset_list)
+
+    def setUpWidgets(self, ignore_request=False):
+        """After the usual setUpWidgets(), get fieldsets ready for display.
+
+        All of the forms in this part of GetPaid get rendered by the
+        'templates/form.pt' file in this directory.  The problem is that
+        the form only wants to draw one form with a box around it, while
+        we want to have several boxes with a fieldset inside of each
+        (and the whole thing, then, is a single form).
+
+        Fortunately, the 'form.pt' template is so thick with concentric
+        macros that it is easy, via the template attached to this view,
+        to re-use it but call its inner section in a loop for each of
+        our fieldsets.  The problem?  Its inner loop only knows about
+        the 'view' that it is rendering, and asks for a collection of
+        items on the view that don't normally exist on fieldsets:
+
+        view/form_description view/form_name view/request view/widgets
+
+        To make it possible to re-use the inside of 'form.pt', then, we
+        create a list of fake objects that look like views from the
+        template's point of view, but are really bare little objects
+        with four attributes stuck on them.
+
+        """
+        r = super(PaymentProcessor, self).setUpWidgets()
+        self.fieldset_views = [
+            FakeFieldsetView(form_description=None, form_name=fs.label,
+                             request=self.request, widgets=fs.widgets)
+            for fs in self.form_fields.fieldsets
+            ]
+        return r
+
 
 # Order Management
 class CustomerInformation( BaseSettingsForm ):

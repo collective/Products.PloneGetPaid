@@ -1,12 +1,8 @@
 from zope import component
 from zope.app.component.hooks import getSite
 
-#from getpaid.core.interfaces import ICheckoutWizard
-
 from Products.Five.browser import BrowserView
-from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
-from getpaid.core.interfaces import IOffsitePaymentProcessor
-from getpaid.core.processors import PaymentSituation
+from Products.PloneGetPaid import interfaces, discover
 
 class CheckoutButtons(BrowserView):
     """View which renders one or more Checkout buttons.
@@ -43,7 +39,7 @@ class CheckoutButtons(BrowserView):
         self.offsite_buttons = []
 
         siteroot = getSite()
-        manage_options = IGetPaidManagementOptions(siteroot)
+        manage_options = interfaces.IGetPaidManagementOptions(siteroot)
         if manage_options.allow_onsite_payment:
             self.show_onsite_button = True
 
@@ -51,17 +47,14 @@ class CheckoutButtons(BrowserView):
         # shopping cart, so that processors can vary their answers about
         # whether they offer a checkout button
 
-        situation = PaymentSituation(None, None)
-        for name in sorted(manage_options.offsite_payment_processors):
-            pp = component.getAdapter(situation, IOffsitePaymentProcessor,
-                                      name=name)
-            checkout_button = pp.checkout_button
+        for opp in discover.selectedOffsitePaymentProcessors(manage_options):
+            checkout_button = opp.checkout_button
             if checkout_button is not None:
-                view = component.getMultiAdapter((pp, self.request),
+                view = component.getMultiAdapter((opp, self.request),
                                                  name=checkout_button)
                 view = view.__of__(self.context) # magic that makes it work
                 self.offsite_buttons.append(view)
-            elif pp.payment_form:
+            elif opp.payment_form:
                 self.show_onsite_button = True
 
         # Render our template.

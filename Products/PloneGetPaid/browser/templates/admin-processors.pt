@@ -1,0 +1,25 @@
+<metal:page use-macro="context/@@manage-getpaid-settings-template/macros/admin">
+  <metal:block fill-slot="admin_content">
+    <p>
+      <span i18n:translate="description_getpaid_setup_documentation">
+        Documentation on GetPaid can be found at
+        <span i18n:name="label_plone_documentation">
+          <a href="http://plone.org/products/getpaid/documentation"
+             >http://plone.org/products/getpaid/documentation</a></span>.
+      </span>
+    </p>
+    <metal:block use-macro="context/@@getpaid-form/form">
+      <!-- Instead of letting form.pt fill its form-inner slot with a
+           single form body - which includes an attractive box around
+           the fields inside of it - we provide it with one body for
+           each payment processor's set of options. -->
+      <metal:block fill-slot="form-inner">
+        <tal:loop tal:repeat="view view/fieldset_views">
+          <metal:block use-macro="context/@@getpaid-form/form-body">
+          </metal:block>
+        </tal:loop>
+      </metal:block>
+    </metal:block>
+  </metal:block>
+</metal:page>
+
