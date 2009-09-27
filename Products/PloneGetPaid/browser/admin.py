@@ -12,10 +12,7 @@ from Products.Five.formlib import formbase
 from Products.Five.viewlet import manager
 from Products.PloneGetPaid import interfaces, discover
 
-from plone.fieldsets.fieldsets import FormFieldsets
-from plone.fieldsets.form import FieldsetsEditForm
-
-from zope import component
+from zope import component, schema
 from zope.formlib import form
 from zope.viewlet.interfaces import IViewlet
 
@@ -236,7 +233,7 @@ class FakeFieldsetView(object):
         for k, v in kw.iteritems():
             setattr(self, k, v)
 
-class PaymentProcessor( FieldsetsEditForm, BaseSettingsForm ):
+class PaymentProcessor( BaseSettingsForm ):
     """
     get paid management interface, slightly different because our form fields
     are dynamically set based on the store's setting for a payment processor.
@@ -268,17 +265,20 @@ class PaymentProcessor( FieldsetsEditForm, BaseSettingsForm ):
             self.status = _(u"The currently configured Payment Processor cannot be found; please check if the corresponding package is installed correctly.")
             return
 
-        onsite_set = FormFieldsets(processor.options_interface)
-        onsite_set.label = _(u'On-site payment processor options')
+        field_lists = [ form.Fields(processor.options_interface,
+                                    prefix='onsite') ]
+        self.fieldsets = [
+            (_(u'On-site payment processor options'), 'onsite'),
+            ]
 
-        fieldset_list = [ onsite_set ]
+        for processor in discover.selectedOffsitePaymentProcessors():
+            fields = form.fields(processor.options_interface,
+                                 prefix=processor.name)
+            field_lists.append(fields)
+            self.fieldsets.append((_(u'%s Options') % processor.title,
+                                   processor.name))
 
-        for opp in discover.selectedOffsitePaymentProcessors():
-            opp_set = FormFieldsets(opp.options_interface)
-            opp_set.label = _(u'%s Options') % opp.title
-            fieldset_list.append(opp_set)
-
-        self.form_fields = FormFieldsets(*fieldset_list)
+        self.form_fields = form.Fields(*field_lists)
 
     def setUpWidgets(self, ignore_request=False):
         """After the usual setUpWidgets(), get fieldsets ready for display.
@@ -301,15 +301,25 @@ class PaymentProcessor( FieldsetsEditForm, BaseSettingsForm ):
         To make it possible to re-use the inside of 'form.pt', then, we
         create a list of fake objects that look like views from the
         template's point of view, but are really bare little objects
-        with four attributes stuck on them.
+        with four attributes stuck on them.  The HTML inside our little
+        page template then passes each of these objects into the inner
+        logic of 'form.pt' under the name 'view'.
 
         """
         r = super(PaymentProcessor, self).setUpWidgets()
-        self.fieldset_views = [
-            FakeFieldsetView(form_description=None, form_name=fs.label,
-                             request=self.request, widgets=fs.widgets)
-            for fs in self.form_fields.fieldsets
-            ]
+        print self.widgets
+        for x in self.widgets:
+            print 'x', x.name
+
+        self.fieldset_views = []
+
+        for title, name in self.fieldsets:
+            widgets = [ widget for widget in self.widgets
+                        if widget.name.startswith('form.%s.' % name) ]
+            view = FakeFieldsetView(form_description=None, form_name=title,
+                                    request=self.request, widgets=widgets)
+            self.fieldset_views.append(view)
+
         return r
 
 
