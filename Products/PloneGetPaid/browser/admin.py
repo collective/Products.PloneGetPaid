@@ -273,7 +273,7 @@ class PaymentProcessor( FieldsetsEditForm, BaseSettingsForm ):
 
         fieldset_list = [ onsite_set ]
 
-        for opp in discover.selectedOffsitePaymentProcessors(manage_options):
+        for opp in discover.selectedOffsitePaymentProcessors():
             opp_set = FormFieldsets(opp.options_interface)
             opp_set.label = _(u'%s Options') % opp.title
             fieldset_list.append(opp_set)
