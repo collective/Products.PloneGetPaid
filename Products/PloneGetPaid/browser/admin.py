@@ -307,9 +307,6 @@ class PaymentProcessor( BaseSettingsForm ):
 
         """
         r = super(PaymentProcessor, self).setUpWidgets()
-        print self.widgets
-        for x in self.widgets:
-            print 'x', x.name
 
         self.fieldset_views = []
 
