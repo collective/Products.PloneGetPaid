@@ -5,8 +5,23 @@ from zope.app.component.hooks import getSite
 
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
 
-from getpaid.core.interfaces import IOffsitePaymentProcessor
+from getpaid.core.interfaces import IPaymentProcessor, IOffsitePaymentProcessor
 from getpaid.core.processors import PaymentSituation
+
+def selectedOnsitePaymentProcessor():
+    """Return the currently selected on-site payment processor, or None."""
+    site = getSite()
+    manage_options = IGetPaidManagementOptions(site)
+    if not manage_options.allow_onsite_payment:
+        return
+    name = manage_options.payment_processor
+    if not name:
+        return
+    processor = component.queryAdapter(site, IPaymentProcessor, name)
+    if processor is None:
+        return
+    processor.name = name  # until old-timey processors start providing this
+    return processor
 
 def selectedOffsitePaymentProcessors():
     """Return the list of the active offsite payment processors.

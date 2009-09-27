@@ -43,7 +43,7 @@ from Products.PloneGetPaid.interfaces import INamedOrderUtility
 
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IAddressBookUtility
 from Products.PloneGetPaid.i18n import _
-from Products.PloneGetPaid import config
+from Products.PloneGetPaid import config, discover
 
 from base import BaseFormView
 import cart as cart_core
@@ -613,21 +613,14 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
     def makePayment( self, action, data ):
         """ create an order, and submit to the processor
         """
-        siteroot = getToolByName(self.context, "portal_url").getPortalObject()
-        manage_options = IGetPaidManagementOptions(siteroot)
-        processor_name = manage_options.payment_processor
-
-        if not processor_name:
+        processor = discover.selectedOnsitePaymentProcessor()
+        if not processor:
             raise RuntimeError( "No Payment Processor Specified" )
-
-        processor = component.getAdapter( siteroot,
-                                          interfaces.IPaymentProcessor,
-                                          processor_name )
 
         adapters = self.wizard.data_manager.adapters
 
         order = self.createOrder()
-        order.processor_id = processor_name
+        order.processor_id = processor.name
         order.finance_workflow.fireTransition( "create" )
         # extract data to our adapters
 

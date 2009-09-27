@@ -248,28 +248,20 @@ class PaymentProcessor( BaseSettingsForm ):
         return super( PaymentProcessor, self).__call__()
 
     def setupProcessorOptions( self ):
-        manage_options = interfaces.IGetPaidManagementOptions( self.context )
+        field_lists = []
+        self.fieldsets = []
 
-        processor_name = manage_options.payment_processor
-        if not processor_name:
-            self.status = _(u"Please Select Payment Processor in Payment Options Settings")
-            return
+        # Find the current on-site payment processor, if any.
 
-        #NOTE: if a processor name is saved in the configuration but the corresponding payment method package
-        # doesn't exist anymore, a corresponding adapter will not be found.
-        try:
-            processor = component.getAdapter( self.context,
-                                              igetpaid.IPaymentProcessor,
-                                              processor_name )
-        except:
-            self.status = _(u"The currently configured Payment Processor cannot be found; please check if the corresponding package is installed correctly.")
-            return
+        processor = discover.selectedOnsitePaymentProcessor()
+        if processor:
+            field_lists.append(form.Fields(processor.options_interface,
+                                           prefix='onsite'))
+            self.fieldsets.append(
+                (_(u'On-site payment processor options'), 'onsite')
+                )
 
-        field_lists = [ form.Fields(processor.options_interface,
-                                    prefix='onsite') ]
-        self.fieldsets = [
-            (_(u'On-site payment processor options'), 'onsite'),
-            ]
+        # Add a block of fields for any off-site processors.
 
         for processor in discover.selectedOffsitePaymentProcessors():
             fields = form.fields(processor.options_interface,
@@ -279,6 +271,12 @@ class PaymentProcessor( BaseSettingsForm ):
                                    processor.name))
 
         self.form_fields = form.Fields(*field_lists)
+
+        # If we have nothing to display, let the store owner know why.
+
+        if not field_lists:
+            self.status = _(u'Neither on-site nor off-site payment processing'
+                            u' is currently enabled.')
 
     def setUpWidgets(self, ignore_request=False):
         """After the usual setUpWidgets(), get fieldsets ready for display.
