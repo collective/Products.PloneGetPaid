@@ -24,21 +24,32 @@ def selectedOnsitePaymentProcessor():
     return processor
 
 def selectedOffsitePaymentProcessors():
-    """Return the list of the active offsite payment processors.
+    """Return the list of the active offsite payment processors."""
 
-    As a shortcut, if the caller already has hold of the global GetPaid
-    options, they can pass it to prevent its being re-discovered.
-
-    """
     site = getSite()
     manage_options = IGetPaidManagementOptions(site)
     processors = []
     for name in sorted(manage_options.offsite_payment_processors):
         situation = PaymentSituation(None, None)
-        processor = component.getAdapter(
+        processor = component.queryAdapter(
             situation, IOffsitePaymentProcessor, name=name)
+
+        # If the processor was not found, ignore silently; this just
+        # means that the site owner has un-installed a payment processor
+        # module while its name is still hanging around in our settings.
+        # The value will get removed the next time the store owner
+        # submits the "Payment Options" page.
+
+        if processor is None:
+            continue
+
+        # Not finding the options for a processor that is indeed
+        # installed, however, ranks as an error, so we let getAdapter()
+        # raise its exception in that case.
+
         processor.options = component.getAdapter(
             site, processor.options_interface)
         processor.store_url = site.absolute_url()
         processors.append(processor)
+
     return processors
