@@ -5,7 +5,9 @@ from zope.app.component.hooks import getSite
 
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
 
-from getpaid.core.interfaces import IPaymentProcessor, IOffsitePaymentProcessor
+from getpaid.core.interfaces import (
+    IPaymentProcessor, IOffsitePaymentProcessor, IShoppingCartUtility,
+    )
 from getpaid.core.processors import PaymentSituation
 
 def selectedOnsitePaymentProcessor():
@@ -30,6 +32,9 @@ def selectedOffsitePaymentProcessors():
     manage_options = IGetPaidManagementOptions(site)
     processors = []
     for name in sorted(manage_options.offsite_payment_processors):
+        cart_util = component.getUtility(IShoppingCartUtility)
+        cart = cart_util.get(site, create=True)
+
         situation = PaymentSituation(None, None)
         processor = component.queryAdapter(
             situation, IOffsitePaymentProcessor, name=name)
@@ -47,6 +52,7 @@ def selectedOffsitePaymentProcessors():
         # installed, however, ranks as an error, so we let getAdapter()
         # raise its exception in that case.
 
+        processor.cart = cart
         processor.options = component.getAdapter(
             site, processor.options_interface)
         processor.store_url = site.absolute_url()
