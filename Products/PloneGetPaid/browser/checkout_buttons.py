@@ -47,14 +47,14 @@ class CheckoutButtons(BrowserView):
         # shopping cart, so that processors can vary their answers about
         # whether they offer a checkout button
 
-        for opp in discover.selectedOffsitePaymentProcessors():
-            checkout_button = opp.checkout_button
+        for processor in discover.selectedOffsitePaymentProcessors():
+            checkout_button = processor.checkout_button
             if checkout_button is not None:
-                view = component.getMultiAdapter((opp, self.request),
+                view = component.getMultiAdapter((processor, self.request),
                                                  name=checkout_button)
                 view = view.__of__(self.context) # magic that makes it work
                 self.offsite_buttons.append(view)
-            elif opp.payment_form:
+            elif processor.payment_form:
                 self.show_onsite_button = True
 
         # Render our template.
