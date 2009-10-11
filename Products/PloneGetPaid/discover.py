@@ -56,6 +56,7 @@ def selectedOffsitePaymentProcessors():
         processor.options = component.getAdapter(
             site, processor.options_interface)
         processor.store_url = site.absolute_url()
+        processor.store_name = IGetPaidManagementOptions(site).store_name
         processors.append(processor)
 
     return processors
