@@ -8,7 +8,6 @@ from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
 from getpaid.core.interfaces import (
     IPaymentProcessor, IOffsitePaymentProcessor, IShoppingCartUtility,
     )
-from getpaid.core.processors import PaymentSituation
 
 def selectedOnsitePaymentProcessor():
     """Return the currently selected on-site payment processor, or None."""
@@ -35,9 +34,8 @@ def selectedOffsitePaymentProcessors():
         cart_util = component.getUtility(IShoppingCartUtility)
         cart = cart_util.get(site, create=True)
 
-        situation = PaymentSituation(None, None)
         processor = component.queryAdapter(
-            situation, IOffsitePaymentProcessor, name=name)
+            cart, IOffsitePaymentProcessor, name=name)
 
         # If the processor was not found, ignore silently; this just
         # means that the site owner has un-installed a payment processor
@@ -52,7 +50,6 @@ def selectedOffsitePaymentProcessors():
         # installed, however, ranks as an error, so we let getAdapter()
         # raise its exception in that case.
 
-        processor.cart = cart
         processor.options = component.getAdapter(
             site, processor.options_interface)
         processor.store_url = site.absolute_url()
