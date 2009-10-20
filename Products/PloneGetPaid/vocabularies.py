@@ -27,7 +27,7 @@ cart = EmptyCart()
 
 def OffsitePaymentProcessors(context):
     """Return a list of all offsite payment processors registered."""
-    results = component.getAdapters(cart, interfaces.IOffsitePaymentProcessor)
+    results = component.getAdapters([cart], interfaces.IOffsitePaymentProcessor)
     names_and_titles = set([ (processor.title, name)
                              for (name, processor) in results ])
     return vocabulary.SimpleVocabulary.fromItems(names_and_titles)
