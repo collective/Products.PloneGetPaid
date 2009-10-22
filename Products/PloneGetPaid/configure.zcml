@@ -215,12 +215,13 @@
    />
 
 <!-- Payment -->
+<!--
 <adapter
    for="*"
    provides="getpaid.core.interfaces.ICreditCardTypeEnumerator"
    factory=".payment.CreditCardTypeEnumerator"
    />
-
+-->
 
 
 <subscriber
