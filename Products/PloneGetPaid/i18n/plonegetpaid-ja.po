@@ -171,7 +171,7 @@ msgstr "購入および出荷可能な商品を対象とするコンテンツタ
 
 #: ./browser/admin_order.py:760
 msgid "Contents"
-msgstr "連絡先"
+msgstr "内容"
 
 #: ./browser/checkout.py:474
 msgid "Continue"
