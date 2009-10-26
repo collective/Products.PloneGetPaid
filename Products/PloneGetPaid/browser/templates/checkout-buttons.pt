@@ -3,7 +3,7 @@
       tal:attributes="action string:${context/portal_url}/@@getpaid-checkout-wizard">
   <input type="submit" class="button context"
          id="form.actions.checkout"
-         value="Check out" />
+         value="Checkout" />
 </form>
 <tal:loop tal:repeat="offsite_button view/offsite_buttons">
   <tal:span tal:replace="structure offsite_button" />

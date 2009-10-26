@@ -46,9 +46,9 @@ Testing the setup aspects of GetPaid. Setting required settings.
     >>> browser.getControl('Apply').click()
     >>> browser.getLink('GetPaid').click()
     >>> browser.getLink('Payment Processor Settings').click()
-    >>> browser.getControl(name="form.allow_authorization").displayValue = ['allow_authorization']
-    >>> browser.getControl(name="form.allow_capture").displayValue = ['allow_capture']
-    >>> browser.getControl(name="form.allow_refunds").displayValue = ['allow_refund']    
+    >>> browser.getControl(name="form.onsite.allow_authorization").displayValue = ['allow_authorization']
+    >>> browser.getControl(name="form.onsite.allow_capture").displayValue = ['allow_capture']
+    >>> browser.getControl(name="form.onsite.allow_refunds").displayValue = ['allow_refund']    
     >>> browser.getControl('Apply').click()
     >>> browser.getLink('GetPaid').click()
     >>> browser.getLink('Legal Disclaimers').click()

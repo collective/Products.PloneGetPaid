@@ -257,7 +257,7 @@ class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
         title =_(u"Activate On-site Payment"),
         description = _(u"Allow users to type their credit-card information"
                         u" directly into Plone"),
-        default = False)
+        default = True)
 
     payment_processor = schema.Choice( title = _(u"On-site Payment Processor"),
                                        source = "getpaid.payment_methods",
