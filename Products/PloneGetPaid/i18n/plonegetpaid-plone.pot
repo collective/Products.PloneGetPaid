@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2006-06-06 13:53+0000\n"
+"POT-Creation-Date: 2009-10-27 02:33+0000\n"
 "PO-Revision-Date: 2007-08-15 01:07-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,22 +18,31 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plone\n"
 
+# zope.formlib
+# Apply button
+msgid "Apply"
+msgstr ""
+
+# Delete button
+msgid "Delete"
+msgstr ""
+
 msgid "Make Buyable"
+msgstr ""
+
+msgid "Make Not Buyable"
+msgstr ""
+
+msgid "Make Not Premium Members Only"
+msgstr ""
+
+msgid "Make Not Shippable Product"
 msgstr ""
 
 msgid "Make Shippable Product"
 msgstr ""
 
 msgid "Make this a Donation"
-msgstr ""
-
-msgid "Make Not Buyable"
-msgstr ""
-
-msgid "Make Not Shippable Product"
-msgstr ""
-
-msgid "Make Not Premium Members Only"
 msgstr ""
 
 msgid "Make this not a Donation"
@@ -45,14 +54,15 @@ msgstr ""
 msgid "Order History"
 msgstr ""
 
-msgid "Settings"
-msgstr ""
-
 msgid "Orders"
 msgstr ""
 
 msgid "Payable"
 msgstr ""
 
+msgid "Settings"
+msgstr ""
+
 msgid "Upgrade"
 msgstr ""
+
