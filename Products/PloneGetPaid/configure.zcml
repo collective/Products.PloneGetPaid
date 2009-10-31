@@ -228,5 +228,9 @@
          getpaid.core.interfaces.IPayableCreationEvent"
     handler=".events.payable_created"
     />
+
+<!-- Catalog adapters -->
+<adapter zcml:condition="installed plone.indexer" name="price" factory=".catalog.get_price" />
+
  
 </configure>
