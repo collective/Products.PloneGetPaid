@@ -4,70 +4,82 @@
   <!-- Vocabularies -->
 
   <!-- Content Type Vocabulary -->
-  <vocabulary
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
       name="plone.content_types"
-      factory=".vocabularies.ContentTypes"
+      component=".vocabularies.ContentTypes"
       />
 
   <!-- Payment Methods -->
-  <vocabulary
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
       name="getpaid.payment_methods"
-      factory=".vocabularies.PaymentMethods"
+      component=".vocabularies.PaymentMethods"
       />
 
   <!-- Shipping Methods -->
-  <vocabulary
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
       name="getpaid.shipping_methods"
-      factory=".vocabularies.ShippingMethods"
+      component=".vocabularies.ShippingMethods"
       />
   <!-- Shipping Services -->
-  <vocabulary
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
       name="getpaid.shipping_services"
-      factory=".vocabularies.ShippingServices"
+      component=".vocabularies.ShippingServices"
       />
 
   <!-- Tax Schemes -->
-  <vocabulary
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
       name="getpaid.tax_methods"
-      factory=".vocabularies.TaxMethods" 
+      component=".vocabularies.TaxMethods" 
       />
 
   <!-- Currencies -->
-  <vocabulary
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
       name="getpaid.currencies"
-      factory=".vocabularies.Currencies"
+      component=".vocabularies.Currencies"
       />
   
   <!-- Credit Cards -->
-  <!--vocabulary
+  <!--utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
       name="getpaid.credit_cards"
-      factory=".vocabularies.CreditCards"
+      component=".vocabularies.CreditCards"
       /-->   
   
   <!-- Payment Methods -->
-  <vocabulary
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
       name="getpaid.weight_units"
-      factory=".vocabularies.WeightUnits"
+      component=".vocabularies.WeightUnits"
       />   
   
-  <vocabulary
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
       name="getpaid.merchant_notification_choices"
-      factory=".vocabularies.MerchantNotificationChoices"
+      component=".vocabularies.MerchantNotificationChoices"
       />   
   
-  <vocabulary
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
       name="getpaid.customer_notification_choices"
-      factory=".vocabularies.CustomerNotificationChoices"
+      component=".vocabularies.CustomerNotificationChoices"
       />  
 
-  <vocabulary
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
       name="getpaid.countries"
-      factory=".vocabularies.Countries"
+      component=".vocabularies.Countries"
       />
 
-  <vocabulary
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
       name="getpaid.states"
-      factory=".vocabularies.States"
+      component=".vocabularies.States"
       />
 
 </configure>
