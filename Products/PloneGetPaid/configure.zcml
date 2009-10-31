@@ -170,6 +170,10 @@
     provides="getpaid.core.interfaces.IFormSchemas"
     factory=".preferences.DefaultFormSchemas"/>
 
+<utility
+    provides="Products.PloneGetPaid.interfaces.ICurrencyFormatter"
+    factory=".currencyformatter.CurrencyFormatter"/>
+
 <!-- Notifications -->
 <subscriber
    for="getpaid.core.interfaces.IOrder

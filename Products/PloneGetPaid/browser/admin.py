@@ -216,6 +216,11 @@ class PaymentOptions( BaseSettingsForm ):
         "
         self.
     """
+    
+class CurrencyOptions( BaseSettingsForm ):
+    """Currecy symbol for the shop
+    """
+    form_fields = form.Fields(interfaces.IGetPaidManagementCurrencyOptions)
 
 class PaymentProcessor( BaseSettingsForm ):
     """

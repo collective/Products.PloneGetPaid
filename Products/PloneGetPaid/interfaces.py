@@ -512,3 +512,5 @@ class INamedOrderList(IContainer):
     contains(INamedOrder)
 
 
+class ICurrencyFormatter(Interface):
+    """ """
