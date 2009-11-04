@@ -329,7 +329,7 @@ class IGetPaidManagementCurrencyOptions( igetpaid.IPersistentOptions ):
 
     digits_after_decimal = schema.TextLine( title = _(u"Number of Digits After Decimal"),
                                    required = False,
-                                   default = u""
+                                   default = u"2"
                                  )
 
     us_currency_formatting = schema.TextLine( title = _(u"US Currency Formatting"),
