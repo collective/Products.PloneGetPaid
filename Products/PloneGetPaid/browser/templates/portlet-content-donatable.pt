@@ -27,10 +27,8 @@
                <i tal:content="field" />
             </p>
 
-            <p tal:define="field python: '%.2f' % (getattr(view.payable,'price',0) or 0)"
-               tal:condition="field"
-	       i18n:translate="text_price">
-                 Price: $ <span tal:content="field" i18n:name="value_price" />
+            <p i18n:translate="text_price">
+                 Price: <span tal:content="view/price" />
             </p>
 
           </div>

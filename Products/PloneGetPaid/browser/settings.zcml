@@ -103,6 +103,18 @@
      title="Sales Tax Configuration"
      />
      
+  <!-- Currency -->
+  
+  <!-- Management Currency Options Editing -->
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-currency"
+     class=".admin.Currency"     
+     permission="cmf.ManagePortal"
+     menu="getpaid_settings"
+     title="Currency Configuration"
+     />
+     
   <!-- Emails -->
 
   <!-- Management Email Options -->
@@ -176,17 +188,7 @@
      class=".admin.SessionTimeout"
      permission="cmf.ManagePortal"
      />  
-  -->
-
-  <!-- Currency -->
-  
-  <!-- Management Currency Options Editing -->
-  <browser:page
-     for="getpaid.core.interfaces.IStore"
-     name="manage-getpaid-currency"
-     class=".admin.Currency"     
-     permission="cmf.ManagePortal"
-     />     
+  -->     
 
 
 

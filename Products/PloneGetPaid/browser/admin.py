@@ -216,11 +216,6 @@ class PaymentOptions( BaseSettingsForm ):
         "
         self.
     """
-    
-class CurrencyOptions( BaseSettingsForm ):
-    """Currecy symbol for the shop
-    """
-    form_fields = form.Fields(interfaces.IGetPaidManagementCurrencyOptions)
 
 class PaymentProcessor( BaseSettingsForm ):
     """
@@ -293,6 +288,7 @@ class Currency( BaseSettingsForm ):
     get paid management interface
     """
     form_fields = form.Fields(interfaces.IGetPaidManagementCurrencyOptions)
+    form_name = _(u'Currency Configuration')
 
 #Emails
 

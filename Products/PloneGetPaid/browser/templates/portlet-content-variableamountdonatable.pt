@@ -56,7 +56,7 @@
             </script>
 
                  <form action="javascript:submitDonation();">
-                 Donation: $ <input id="donation_amount"
+                 Donation: <input id="donation_amount"
                                     type="text" 
                                     name="donation_amount"
                                     tal:attributes="value field" 

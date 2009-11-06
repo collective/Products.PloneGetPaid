@@ -5,7 +5,7 @@ from plone.portlets.interfaces import IPortletDataProvider
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.PloneGetPaid.browser.portlets.base import GetPaidRenderer
 from Products.PloneGetPaid.i18n import _
-from Products.PloneGetPaid.interfaces import IPremiumMarker
+from Products.PloneGetPaid.interfaces import IPremiumMarker, ICurrencyFormatter
 
 
 class IPremiumPortlet(IPortletDataProvider):
@@ -31,3 +31,9 @@ class AddForm(base.NullAddForm):
 class Renderer(GetPaidRenderer):
     marker = IPremiumMarker
     render = ViewPageTemplateFile('../templates/portlet-content-premium.pt')
+    
+    def price(self):
+        context = self.context.aq_inner
+        formatter = getUtility(ICurrencyFormatter)
+        price = getattr(self.payable, "price", 0.0)
+        return formatter.format(context, price)
