@@ -1,4 +1,5 @@
 from zope.interface import implements
+from zope.component import getUtility
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
 
