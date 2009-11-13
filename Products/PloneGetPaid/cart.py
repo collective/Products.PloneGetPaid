@@ -12,6 +12,7 @@ from Products.CMFCore.utils import getToolByName
 from persistent import Persistent
 from BTrees.OOBTree import OOBTree
 from AccessControl import getSecurityManager
+from cPickle import loads, dumps
 
 class ShoppingCartUtility(Persistent):
 
@@ -57,7 +58,8 @@ class ShoppingCartUtility(Persistent):
                 session_cart = self._getCartForSession(context, False)
                 if session_cart:
                     session_cart.member_id = uid
-                    self._sessions[uid] = session_cart
+                    persistant_safe_cart = loads(dumps(session_cart))
+                    self._sessions[uid] = persistant_safe_cart
                     self._destroyCartForSession(context)
                 return self._getCartForUser(context, uid, create)
             else:
