@@ -20,7 +20,7 @@
     package="zope.app.annotation" />
 
 <!-- using five.intid ... by default this
-     introduces subscribers for all persistent 
+     introduces subscribers for all persistent
      objects. -->
 <include package="five.intid" file="base.zcml"/>
 <include file="intid.zcml" />
@@ -28,7 +28,7 @@
 <!-- permissions -->
 <include file="permissions.zcml" />
 
-<!-- Commenting on Orders 
+<!-- Commenting on Orders
 <include package="zc.comment" />
 -->
 
@@ -130,12 +130,19 @@
    factory=".preferences.ConfigurationPreferences"
    />
 
+<!-- Property Storage for Configuration Options -->
+<adapter
+   for="getpaid.core.interfaces.IStore"
+   provides="getpaid.core.interfaces.IPriceValueAdjuster"
+   factory=".price.manufacture_price_adjuster"
+   />
+
 <!-- Contact Information from Members -->
 <five:implements
 	class="Products.PluggableAuthService.PropertiedUser.PropertiedUser"
 	interface=".interfaces.IStoreMember"
 	/>
-	
+
 <adapter
 	for=".interfaces.IStoreMember"
 	provides="getpaid.core.interfaces.IUserContactInformation"
@@ -229,5 +236,5 @@
          getpaid.core.interfaces.IPayableCreationEvent"
     handler=".events.payable_created"
     />
- 
+
 </configure>

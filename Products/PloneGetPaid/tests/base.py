@@ -34,14 +34,14 @@ def baseAfterSetUp( self ):
     ZopeTestCase.installProduct('Five')
 
     # XXX monkey patch everytime (until we figure out the problem where
-    #   monkeypatch gets overwritten somewhere) 
+    #   monkeypatch gets overwritten somewhere)
     try:
         from Products.Five import pythonproducts
         pythonproducts.setupPythonProducts(None)
     except ImportError:
         # Not needed in Plone 3
         pass
-        
+
     # Set up sessioning objects
     ZopeTestCase.utils.setupCoreSessions(self.app)
 
@@ -56,14 +56,14 @@ class PloneGetPaidTestCase(PloneTestCase):
         # I moved here so that doctests work ok without needing to add PloneGetPaid
         #   and so we don't need to add this line to all our unit tests
         self.portal.portal_quickinstaller.installProduct('PloneGetPaid')
-        
-        
+
+
 class PloneGetPaidFunctionalTestCase(FunctionalTestCase):
-    """Base class for functional integration tests for the 'PloneGetPaid' product. 
-    This may provide specific set-up and tear-down operations, or provide 
+    """Base class for functional integration tests for the 'PloneGetPaid' product.
+    This may provide specific set-up and tear-down operations, or provide
     convenience methods.
     """
-    
+
     def afterSetUp( self ):
         baseAfterSetUp(self)
 
@@ -74,3 +74,49 @@ class PloneGetPaidFunctionalTestCase(FunctionalTestCase):
     def _setup(self):
         FunctionalTestCase._setup(self)
         self.app.REQUEST['SESSION'] = self.Session()
+
+class ErrorAwarePloneGetPaidFunctionalTestCase(PloneGetPaidFunctionalTestCase):
+    """
+    Functional test case base class with advanced error tracing features.
+
+    1. Login as admin by default
+
+    2. Print error tracebacks to console when occur
+
+    https://svn.plone.org/svn/collective/collective.developermanual/trunk/source/testing_and_debugging/functional_testing.txt
+    """
+
+    def loginBrowserAsAdmin(self):
+        from Products.Five.testbrowser import Browser
+
+        self.browser = Browser()
+
+        self.browser.open(self.portal.absolute_url())
+
+        from Products.PloneTestCase.setup import portal_owner, default_password
+
+         # Go admin
+        browser.open(self.portal.absolute_url() + "/login_form")
+        browser.getControl(name='__ac_name').value = portal_owner
+        browser.getControl(name='__ac_password').value = default_password
+        browser.getControl(name='submit').click()
+
+
+    def afterSetUp(self):
+
+        PloneGetPaidFunctionalTestCase.afterSetUp(self)
+
+        self.browser.handleErrors = False
+        self.portal.error_log._ignored_exceptions = ()
+
+        def raising(self, info):
+            import traceback
+            traceback.print_tb(info[2])
+            print info[1]
+
+        from Products.SiteErrorLog.SiteErrorLog import SiteErrorLog
+        SiteErrorLog.raising = raising
+
+        self.loginBrowserAsAdmin()
+
+

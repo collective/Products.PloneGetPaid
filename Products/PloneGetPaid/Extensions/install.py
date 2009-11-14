@@ -16,15 +16,16 @@ from Products.PloneGetPaid import generations, preferences, addressbook, namedor
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IAddressBookUtility, INamedOrderUtility
 from Products.PloneGetPaid.config import PLONE3
 from Products.PloneGetPaid.cart import ShoppingCartUtility
+from Products.PloneGetPaid.price import PriceValueAdjuster
 import zope.component
 import five.intid.site
-from getpaid.core.interfaces import IOrderManager, IStore, IShoppingCartUtility, StoreInstalled, StoreUninstalled
+from getpaid.core.interfaces import IOrderManager, IStore, IShoppingCartUtility, StoreInstalled, StoreUninstalled, IPriceValueAdjuster
 from getpaid.core.order import OrderManager
 from getpaid.core.payment import CREDIT_CARD_TYPES
 
 def setup_site( self ):
-    portal = getToolByName( self, 'portal_url').getPortalObject()    
-    
+    portal = getToolByName( self, 'portal_url').getPortalObject()
+
     if ISite.providedBy( portal ):
         setSite( portal )
         return
@@ -38,7 +39,7 @@ def setup_software_generation( self ):
 def setup_store( self ):
     portal = getToolByName( self, 'portal_url').getPortalObject()
     alsoProvides(portal, IStore)
-    
+
 def notify_install( self ):
     notify( StoreInstalled( self ) )
 
@@ -66,12 +67,12 @@ def setup_intid( self ):
     try:
         five.intid.site.get_intids(portal)
     except zope.component.ComponentLookupError, e:
-        five.intid.site.add_intids(portal) 
+        five.intid.site.add_intids(portal)
 
 def install_dependencies( self ):
     quickinstaller = self.portal_quickinstaller
     for dependency in _GETPAID_DEPENDENCIES_:
-        quickinstaller.installProduct( dependency )    
+        quickinstaller.installProduct( dependency )
 
 def install_cart_portlet( self, uninstall=False ):
     slot = 'here/@@portlet-shopping-cart/index/macros/portlet'
@@ -90,7 +91,7 @@ def install_cart_portlet( self, uninstall=False ):
     else:
         if slot not in right_slots:
             right_slots.append( slot )
-    portal._updateProperty( 'right_slots', '\n'.join( right_slots ) )    
+    portal._updateProperty( 'right_slots', '\n'.join( right_slots ) )
 
 def install_contentwidget_portlet( self, uninstall=False ):
     slot = 'here/@@portlet-contentwidget'
@@ -108,14 +109,14 @@ def install_contentwidget_portlet( self, uninstall=False ):
     else:
         if slot not in right_slots:
             right_slots.append( slot )
-    portal._updateProperty( 'right_slots', '\n'.join( right_slots ) )    
+    portal._updateProperty( 'right_slots', '\n'.join( right_slots ) )
 
 def uninstall_cart_portlet( self ):
     install_cart_portlet( self, True )
 
 def uninstall_contentwidget_portlet( self ):
     install_contentwidget_portlet (self, True )
-    
+
 def install_plone3_portlets(self):
     """Add all portlets to the right column in the portal root.
 
@@ -207,7 +208,9 @@ def setup_named_orders(self):
         if PLONE3:
             sm.registerUtility( namedorder.NamedOrderUtility(), INamedOrderUtility)
         else:
-            sm.registerUtility( INamedOrderUtility, namedorder.NamedOrderUtility() )   
+            sm.registerUtility( INamedOrderUtility, namedorder.NamedOrderUtility() )
+
+
 
 def register_shopping_cart_utility(self):
     """ Register a local utility to make carts persists
@@ -241,7 +244,7 @@ def install( self ):
         setup_tool.setImportContext('profile-Products.PloneGetPaid:default')
         setup_tool.runAllImportSteps()
         setup_tool.setImportContext(old_context)
-    
+
     return out.getvalue()
 
 def beforeUninstall(self, reinstall=False, product=None, cascade=[]):
@@ -263,7 +266,7 @@ def uninstall( self ):
     print >> out, "Uninstalling Cart Portlets"
     uninstall_cart_portlet( self )
 
-    print >> out, "Uninstalling Content Portlets"    
+    print >> out, "Uninstalling Content Portlets"
     uninstall_contentwidget_portlet( self )
 
     teardown_store( self )

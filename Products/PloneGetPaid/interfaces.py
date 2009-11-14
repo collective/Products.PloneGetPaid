@@ -305,11 +305,18 @@ class IGetPaidManagementSessionTimeout( igetpaid.IPersistentOptions ):
                                    )
 
 class IGetPaidManagementSalesTaxOptions( igetpaid.IPersistentOptions ):
-    """
+    """ Sales tax options. Also known as VAT or Value Added tax.
+
     """
     tax_method = schema.Choice( title = _(u"Tax Method"),
                                 required = True,
                                 source = "getpaid.tax_methods" )
+
+    tax_in_set_prices = schema.Bool(default=False, title = _(u"Entered price data includes taxes"),  description = _(u"Is tax included in the prices set by store owner. Not that changing this setting won't migrate prices to the new format, so after opening the shop do not touch this."))
+
+    tax_included_in_prices = schema.Bool(default=False, title = _(u"Show tax in prices"), description= _(u"Include VAT in prices shown to the user. This is a habit of some regions in Europe."))
+
+    tax_percent = schema.Float(default=0.0, title= _(u"How many percent is the sales tax"))
 
 # Currency
 class IGetPaidManagementCurrencyOptions( igetpaid.IPersistentOptions ):
@@ -402,7 +409,7 @@ class IGetPaidManagementEmailOptions( igetpaid.IPersistentOptions ):
 
     send_merchant_decline_notification = schema.Bool( title = _(u"Send Merchant Decline Email?"),
                                                       default = False)
-    
+
     customer_decline_email_notification_template = schema.Text( title = _(u"Customer Decline Email Template"),
                                                                 description = _(u"Email sent to the customer following the decline of a new order."),
                                                                 required = False, )
@@ -419,7 +426,7 @@ class IGetPaidManagementEmailOptions( igetpaid.IPersistentOptions ):
 
 #     send_merchant_refund_notification = schema.Bool( title = _(u"Send Merchant Refund Email?"),
 #                                                      default = False)
-    
+
 #     customer_refund_email_notification_template = schema.Text( title = _(u"Customer Refund Email Template"),
 #                                                                description = _(u"Email sent to the customer following the refund of an order."),
 #                                                                required = False, )
