@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
 "POT-Creation-Date: 2009-05-19 07:24+0000\n"
-"PO-Revision-Date: 2009-11-13 18:22+0800\n"
+"PO-Revision-Date: 2009-11-15 06:56+0800\n"
 "Last-Translator: adam tang <yuejun.tang@gmail.com>\n"
 "Language-Team: http://315ok.org/ <admins@315ok.org>\n"
 "MIME-Version: 1.0\n"
@@ -96,7 +96,7 @@ msgstr "撤销"
 
 #: ./browser/admin_order.py:94
 msgid "Card Phone#"
-msgstr ""
+msgstr "信任卡电话"
 
 #: ./browser/cart.py:321
 msgid "Checkout"
@@ -293,7 +293,7 @@ msgstr "项目ID"
 
 #: ./browser/admin_order.py:91
 msgid "Last4"
-msgstr ""
+msgstr "后四位"
 
 #: ./browser/admin.py:306
 msgid "Legal Disclaimers"
@@ -427,7 +427,7 @@ msgstr "隐私保护"
 
 #: ./browser/admin_order.py:92
 msgid "Proc Trans Id"
-msgstr ""
+msgstr "进程事务id"
 
 #: ./browser/admin_order.py:746
 msgid "Quantity"
@@ -459,7 +459,7 @@ msgstr "调入前一订单的商品到购物车。"
 #. Default: "Select a shipping rate:"
 #: ./browser/templates/checkout-shipping-method.pt:19
 msgid "Select a shipping rate:"
-msgstr ""
+msgstr "选择一个送货服务"
 
 #: ./vocabularies.py:92
 msgid "Send customer email notification of a completed transaction"
@@ -495,7 +495,7 @@ msgstr "送货方式"
 
 #: ./interfaces.py:234
 msgid "Shipping Rate Service"
-msgstr ""
+msgstr "送货服务"
 
 #: ./interfaces.py:229
 msgid "Shipping methods to offer for orders in your store"
@@ -593,7 +593,7 @@ msgstr "用户id"
 
 #: ./browser/portlets/variableamountdonate.py:22
 msgid "Variable Amount Donation"
-msgstr ""
+msgstr "随意捐赠"
 
 #. Default: "We are sorry but your credit card was declined."
 #: ./browser/templates/checkout-cancelled-declined.pt:5
@@ -656,7 +656,7 @@ msgstr "点击下面连接配置GetPaid"
 #. Default: "This update facility allows you to upgrade your site's data to the latest version of GetPaid. There are two part to any update. The software update, is performed by an administrator downloading the latest release and installing it on the server. The data update updates any settings and data in the system to work properly with the latest software update. This admin screen shows the currently stored data's version number, and the software's data version, and allows you to perform a data upgrade if needed from here."
 #: ./browser/templates/upgrade.pt:9
 msgid "description_getpaid_update"
-msgstr ""
+msgstr "getpaid 产品更新"
 
 #. Default: "Your Cart is Empty"
 #: ./browser/templates/cart-empty.pt:5
@@ -921,13 +921,12 @@ msgstr "实施状态"
 msgid "text_order_id"
 msgstr "订单编号"
 
-#. Default: "<script type=\"text/javascript\"> function submitDonation() { /* This will probably need work for international since I remove ',' and assume '.' seperates the decimal */ var input = jq(\"#donation_amount\")[0].value; input = input.replace(/[^0-9.]+/g, ''); var amount = parseFloat(input); if (amount == NaN) { alert(\"Invalid input:\" + input); } else { var url = window.location.toString(); if (url.charAt(url.length - 1) != '/') { url += '/'; } window.location = url + \"@@getpaid-cart-add?add_item=True&amount=\" + amount; } } </script> <form action=\"javascript:submitDonation();\"> Donation: $ ${value_price} </form>"
-#: ./browser/templates/portlet-content-variableamountdonatable.pt:59
-
 msgid "text_price"
-msgstr "价格"
+msgstr "价格：￥${value_price}"
 
+#. Default: "<script type=\"text/javascript\"> function submitDonation() { /* This will probably need work for international since I remove ',' and assume '.' seperates the decimal */ var input = jq(\"#donation_amount\")[0].value; input = input.replace(/[^0-9.]+/g, ''); var amount = parseFloat(input); if (amount == NaN) { alert(\"Invalid input:\" + input); } else { var url = window.location.toString(); if (url.charAt(url.length - 1) != '/') { url += '/'; } window.location = url + \"@@getpaid-cart-add?add_item=True&amount=\" + amount; } } </script> <form action=\"javascript:submitDonation();\"> Donation: $ ${value_price} </form>"
 #. Default: "Product Details"
+#: ./browser/templates/portlet-content-variableamountdonatable.pt:59
 #: ./browser/templates/portlet-content-variableamountdonatable.pt:12
 msgid "text_product_details"
 msgstr "商品详细情况"
