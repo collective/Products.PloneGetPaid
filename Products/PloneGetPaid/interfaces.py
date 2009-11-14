@@ -314,7 +314,7 @@ class IGetPaidManagementSalesTaxOptions( igetpaid.IPersistentOptions ):
 
     tax_in_set_prices = schema.Bool(default=False, title = _(u"Entered price data includes taxes"),  description = _(u"Is tax included in the prices set by store owner. Not that changing this setting won't migrate prices to the new format, so after opening the shop do not touch this."))
 
-    tax_included_in_prices = schema.Bool(default=False, title = _(u"Show tax in prices"), description= _(u"Include VAT in prices shown to the user. This is a habit of some regions in Europe."))
+    tax_visible_in_prices = schema.Bool(default=False, title = _(u"Show tax in prices"), description= _(u"Include VAT in prices shown to the user. This is a habit of some regions in Europe."))
 
     tax_percent = schema.Float(default=0.0, title= _(u"How many percent is the sales tax"))
 

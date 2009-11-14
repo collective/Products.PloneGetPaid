@@ -7,6 +7,8 @@ __author__ = "Mikko Ohtamaa <mikko.ohtamaa@twinapex.com> http://www.twinapex.com
 __docformat__ = "epytext"
 __copyright__ = "2009 Twinapex Research"
 
+from decimal import Decimal, ROUND_HALF_UP
+
 from getpaid.core.interfaces import IPriceValueAdjuster
 
 from Products.PloneGetPaid.interfaces import IGetPaidManagementSalesTaxOptions, IGetPaidManagementOptions
@@ -23,6 +25,9 @@ class PriceValueAdjuster(object):
         # You need to have a handle to site root
 
         price_value_adjuster = getUtility(IPriceValueAdjuster, context=site)
+
+    This default implementation ignores item hint: it
+    assumes all items have the same sales tax.
 
     """
 
@@ -44,32 +49,42 @@ class PriceValueAdjuster(object):
 
         @return: Rounded value
         """
-        pass
+        return round(value, 2)
 
-    def calculateTaxAmount(self, value):
+
+    def calculateTaxAmount(self, value, item):
         """
         """
-        tax = self.getAppliedTax()
-        value = value * tax
-        return self.roundTax(value)
+        tax = self.getAppliedTax(item)
+        tax_amount = value * tax
+        return self.roundTax(tax_amount)
 
-    def calculateIncludedTaxAmount(self, value):
+    def calculateIncludedTaxAmount(self, value, item):
         """
 
         """
+        tax = self.getAppliedTax(item)
+        tax_free = value / (1+tax)
+        return self.calculateTaxAmount(tax_free, item)
 
-        tax = self.getAppliedTax()
+    def getAppliedTax(self, item):
+        """
+        Assume all items have the same tax base.
 
-        tax_free = value / tax
-        return self.calculateTaxAmount(tax_free, tax)
-
-    def getAppliedTax(self):
+        Alternative would have content/line item specific
+        adapters which would return the item tax base here.
+        """
         return self.settings.tax_percent / 100.0
 
     def hasTaxInPrice(self):
         """
         """
         return self.settings.tax_in_set_prices
+
+    def isTaxVisibleInPrice(self):
+        """
+        """
+        return self.settings.tax_visible_in_prices
 
     def getTax(self, raw_price, item):
         """ Calculate how much there is tax for a priced item
@@ -81,21 +96,27 @@ class PriceValueAdjuster(object):
         tax_free = self.getTaxFreePrice(raw_price)
         return self.calculateTaxAmount(tax_free)
 
+    def getTaxedPrice(self, raw_price, item):
+        if self.hasTaxInPrice():
+            return raw_price
+        else:
+            tax = self.calculateTaxAmount(raw_price, item)
+            return raw_price + tax
 
-    def getTaxFreePrice(raw_price):
+    def getTaxFreePrice(self, raw_price, item):
 
         if self.hasTaxInPrice():
-            tax = self.calculateIncludedTaxAmount(raw_price)
+            tax = self.calculateIncludedTaxAmount(raw_price, item)
             return raw_price - tax
         else:
             return raw_price
 
-    def getShopPrice(self, raw_price):
-        tax_free = self.getTaxFreePrice(raw_price)
-        if self.showTaxInPrice():
-            return self.getTaxPrice(tax_free)
+    def getShopPrice(self, raw_price, item):
+        if self.isTaxVisibleInPrice():
+            return self.getTaxedPrice(raw_price, item)
         else:
-            return tax_free
+            return self.getTaxFreePrice(raw_price, item)
+
 
 
 def manufacture_price_adjuster(context):
