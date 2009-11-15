@@ -155,12 +155,12 @@ class ViewletManagerShoppingCart( object ):
                 if not v.condition():
                     viewlets.remove( ( n, v ) )
         return viewlets
-                
+
     def sort (self, viewlets ):
         """ sort by name """
         viewlets.sort( lambda x,y: cmp( int(getattr(x[1],'weight',100)), int(getattr(y[1],'weight',100)) ) )
         return viewlets
-        
+
 ShoppingCartManager = manager.ViewletManager( "ShoppingCart",
                                               IGetPaidCartViewletManager,
                                               GetPaidShoppingCartTemplate,
@@ -195,22 +195,31 @@ class CartFormatter( table.StandaloneSortFormatter ):
 
     def getTotals( self ):
         #if interfaces.IShoppingCart.providedBy( self.context ):
-        return interfaces.ILineContainerTotals( self.context )
-        
+
+        site = getSite()
+        price_adjuster = interfaces.IPriceValueAdjuster(site)
+
+        return component.getMultiAdapter((self.context, price_adjuster), interfaces.ILineContainerTotals)
+
     def renderExtra( self ):
 
         translate = lambda msg: getSite().translate(msgid=msg, domain='plonegetpaid')
 
         if not len( self.context ):
             return super( CartFormatter, self).renderExtra()
-        
+
         totals = self.getTotals()
 
-        tax_list = totals.getTaxCost()
+        tax_list = [
+            {
+                "name" : translate(_(u"Sales tax")),
+                "value" : totals.getSalesTaxCost(),
+            }
+        ]
         shipping_price = totals.getShippingCost()
         subtotal_price = totals.getSubTotalPrice()
         total_price = totals.getTotalPrice()
-        
+
         buffer = [ u'<div class="getpaid-totals"><table class="listing">']
         buffer.append('<tr><th>')
         buffer.append( translate(_(u"SubTotal")) )
@@ -226,9 +235,9 @@ class CartFormatter( table.StandaloneSortFormatter ):
         buffer.append( translate(_(u"Total")) )
         buffer.append( "</th><td>%0.2f</td></tr>"%( total_price ) )
         buffer.append('</table></div>')
-        
+
         return u''.join( buffer) + super( CartFormatter, self).renderExtra()
-    
+
 class ShoppingCartListing( ContainerViewlet ):
 
     actions = ContainerViewlet.actions.copy()
@@ -247,7 +256,7 @@ class ShoppingCartListing( ContainerViewlet ):
     template = ZopeTwoPageTemplateFile('templates/cart-listing.pt')
 
     formatter_factory = CartFormatter
-    
+
     def __init__( self, *args, **kw):
         super( ShoppingCartListing, self ).__init__( *args, **kw )
 
@@ -261,10 +270,10 @@ class ShoppingCartListing( ContainerViewlet ):
     def isOrdered( self, *args ):
         # shopping cart should not be ordered, so override this with False
         return False
-    
+
     def isPlone3(self):
         return config.PLONE3
-    
+
     @form.action(_("Update"), condition="isNotEmpty")
     def handle_update( self, action, data ):
         try:
@@ -318,7 +327,7 @@ class ShoppingCartActions( FormViewlet ):
             else:
                 payable = getToolByName( self.context, 'reference_catalog').lookupObject( last_item )
             if not self.request.get('came_from'):
-                next_url = payable.absolute_url() 
+                next_url = payable.absolute_url()
             else:
                 next_url = self.request.get('came_from')
         return self.request.RESPONSE.redirect(next_url)
@@ -333,19 +342,19 @@ class ShoppingCartActions( FormViewlet ):
         return self.request.RESPONSE.redirect( url )
 
 class OrderTemplate( FormViewlet ):
-    
+
     form_fields = form.Fields()
     template = ZopeTwoPageTemplateFile('templates/cart-order-template.pt')
-    
+
     form_name = _(u"Order Templates")
     form_description = _(u"Select a previous order to fill your cart.")
-    
+
     interface.implements( IConditionalViewlet )
-    
+
     prefix = "order-template"
-    
+
     orders = ()
-    
+
     def render( self ):
         return self.template()
 
@@ -370,36 +379,36 @@ class OrderTemplate( FormViewlet ):
         named_orders_list = component.getUtility(INamedOrderUtility).get(uid)
 
         if order_id not in named_orders_list.keys():
-            return 
+            return
         return named_orders_list[order_id]
-            
 
-        
+
+
     @form.action(_("Fill"), condition="condition_load_template")
     def handle_load_template( self, action, data):
-        
+
         order_id = self.request.form.get('order-template-id')
         found = False
         for o in self.orders:
             if o.order_id == order_id:
                 found = True
                 break
-                
+
         if not found:
             self.status = _(u"Could not find order")
             return
-        
+
         # fetch cart from view
         cart = self.manager.__parent__.cart
-        
+
         for v in o.shopping_cart.values():
             content = v.resolve()
-            item_factory = component.getMultiAdapter( (cart, content), 
+            item_factory = component.getMultiAdapter( (cart, content),
                                      interfaces.ILineItemFactory )
 
             if IVariableAmountDonatableMarker.providedBy(content):
                 item_factory.create( amount=v.cost )
             else:
                 item_factory.create( quantity=v.quantity )
-        
-        self.status = _(u"Previous Order Loaded into Cart")        
+
+        self.status = _(u"Previous Order Loaded into Cart")

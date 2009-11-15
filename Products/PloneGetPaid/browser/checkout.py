@@ -74,7 +74,7 @@ def make_hidden_input(*args, **kwargs):
     # again.  Somewere that populated array is replaced with an empty array
     # setting the shipping cost to 0.  This only happens if the site has
     # shipping set up and the user hits 'Back' from the review and pay step
-# This 'fix' actually results in shipping always being 0. 
+# This 'fix' actually results in shipping always being 0.
 #    if kwargs.has_key('form.shipping_method_code'):
 #        del kwargs['form.shipping_method_code']
 
@@ -708,12 +708,12 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
                      f_states.REVIEWING,
                      f_states.CHARGED):
             return base_url + '/@@getpaid-thank-you?order_id=%s&finance_state=%s' %(order.order_id, state)
-            
+
     def isPlone3(self):
         """test if it is a plone3 site
         """
         return config.PLONE3
-            
+
 
 class ShippingRate( options.PropertyBag ):
     title = "Shipping Rate"
@@ -790,6 +790,13 @@ class OrderTotals( cart.CartItemTotals ):
         self.context = context
         self.shopping_cart = context.shopping_cart
         self.request = request
+
+        # XXX TODO HACK
+        # See getpaid.core.order.Order
+        from zope.app.component.hooks import getSite
+        site = getSite()
+        self.price_adjuster = interfaces.IPriceValueAdjuster(site)
+
 
     def getShippingCost( self ):
         service_code = self.request.form.get('form.shipping_method_code')

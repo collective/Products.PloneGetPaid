@@ -11,20 +11,22 @@ __copyright__ = "2009 Twinapex Research"
 
 import unittest
 
-from zope.component import getUtility
+from zope.app.component.hooks import getSite
+from zope.component import getUtility, getMultiAdapter
 from Testing.ZopeTestCase import ZopeDocTestSuite
 from Products.Five.utilities.marker import mark
 
 from utils import optionflags
-from base import PloneGetPaidTestCase
+from base import PloneGetPaidTestCase, TestHelperMixin
 
 from Products.PloneGetPaid import interfaces
+import getpaid.core.interfaces
 from getpaid.core.interfaces import IShoppingCartUtility
 from getpaid.core.interfaces import IPriceValueAdjuster
 
 from Products.PloneGetPaid.interfaces import IGetPaidManagementSalesTaxOptions, IGetPaidManagementOptions
 
-class TestTaxAndPrices(PloneGetPaidTestCase):
+class TestTaxAndPrices(TestHelperMixin, PloneGetPaidTestCase):
 
     def afterSetUp(self):
         PloneGetPaidTestCase.afterSetUp(self)
@@ -88,6 +90,36 @@ class TestTaxAndPrices(PloneGetPaidTestCase):
         self.settings.tax_in_set_prices = True
         taxed_price = self.utility.getTaxedPrice(10.00, None)
         self.assertAlmostEqual(taxed_price, 10.00)
+
+    def test_taxes_in_cart(self):
+        """ Test that getpaid.core.cart container total calculator uses taxes correctly.
+        """
+        self.set_tax()
+        self.loginAsPortalOwner()
+        self.setupBuyingSituation()
+
+        # Add item to the cart
+        self.createSomethingBuyable()
+        self.addCartItem(self.portal.buyitem)
+
+        site = getSite()
+        price_adjuster = IPriceValueAdjuster(site)
+
+        totals = getMultiAdapter((self.cart, price_adjuster), getpaid.core.interfaces.ILineContainerTotals)
+
+        shipping_price = totals.getShippingCost()
+        self.assertAlmostEqual(shipping_price, 0)
+
+        subtotal_price = totals.getSubTotalPrice()
+        self.assertAlmostEqual(subtotal_price, 10.00)
+
+        tax_cost = totals.getSalesTaxCost()
+        self.assertAlmostEqual(tax_cost, 0.67)
+
+
+        total_price = totals.getTotalPrice()
+        self.assertAlmostEqual(total_price, 10.67)
+
 
 
 def test_suite():

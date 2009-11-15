@@ -7,7 +7,7 @@ __author__ = "Mikko Ohtamaa <mikko.ohtamaa@twinapex.com> http://www.twinapex.com
 __docformat__ = "epytext"
 __copyright__ = "2009 Twinapex Research"
 
-from decimal import Decimal, ROUND_HALF_UP
+import zope.interface
 
 from getpaid.core.interfaces import IPriceValueAdjuster
 
@@ -19,17 +19,37 @@ class PriceValueAdjuster(object):
     How to use this utility::
 
 
-        from zope.component import getUtility
         from getpaid.core.interfaces import IPriceValueAdjuster
 
         # You need to have a handle to site root
 
-        price_value_adjuster = getUtility(IPriceValueAdjuster, context=site)
+        price_value_adjuster = IPriceValueAdjuster(site)
+
+
+    How to get the price which you need to display to the user::
+
+        from zope.component import getUtility, queryAdapter
+        from getpaid.core.interfaces import IPriceValueAdjuster, IBuyableContent
+
+        price_value_adjuster = IPriceValueAdjuster(site)
+
+        # Assume context is a PloneGetPaid object
+        adapter = queryAdapter(context, IBuyableContent)
+        # adapter == None if the context does not support IBuyableContent
+        raw_price = adapter.price
+        tax_adjusted_price = price_value_adjuster.getShopPrice(raw_price, contxet)
+
+        return tax_adjusted_price
+
+    How to get line container totals for a cart::
+
+
 
     This default implementation ignores item hint: it
     assumes all items have the same sales tax.
 
     """
+    zope.interface.implements(IPriceValueAdjuster)
 
     def __init__(self, context):
         self.site = context
@@ -93,8 +113,8 @@ class PriceValueAdjuster(object):
         use the same generic sales tax on the site.
         You could override this to use different
         """
-        tax_free = self.getTaxFreePrice(raw_price)
-        return self.calculateTaxAmount(tax_free)
+        tax_free = self.getTaxFreePrice(raw_price, item)
+        return self.calculateTaxAmount(tax_free, item)
 
     def getTaxedPrice(self, raw_price, item):
         if self.hasTaxInPrice():

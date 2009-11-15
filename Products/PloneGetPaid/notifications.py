@@ -19,6 +19,7 @@ class MerchantOrderNotificationMessage( object ):
     interface.implements(interfaces.INotificationMailMessage)
 
     def __call__(self, settings, store_url, order_contents, template):
+
         kwargs = {'to_email': settings.contact_email,
                   'from_name': settings.store_name,
                   'from_email': settings.contact_email,
@@ -31,7 +32,7 @@ class MerchantOrderNotificationMessage( object ):
         msg = _(template, mapping=kwargs)
 
         return translate(msg)
-    
+
     def __init__( self, order ):
         self.order = order
 
@@ -54,7 +55,7 @@ ${store_url}/@@getpaid-order/${order_id}
             kwargs = {
                      'view_order_information': view_order
                      }
-            temp = _(template, 
+            temp = _(template,
                      mapping=kwargs)
             template = translate(temp)
 
@@ -85,7 +86,7 @@ def getPortal( ):
         # BBB for Zope 2.9
         portal = site.context
     return portal
-    
+
 def sendNotification( order, event ):
     """ sends out email notifications to merchants and clients based on settings.
 
@@ -94,7 +95,7 @@ def sendNotification( order, event ):
     """
     portal = getPortal()
     mailer = getToolByName(portal, 'MailHost')
-    
+
     settings = interfaces.IGetPaidManagementOptions( portal )
     store_url = portal.absolute_url()
     order_contents = u'\n'.join([u' '.join((str(cart_item.quantity),
@@ -173,11 +174,11 @@ def sendNotification( order, event ):
                               order_contents,
                               mailer)
 
-def sendMerchantEmail(adapterName, template, settings, order, 
+def sendMerchantEmail(adapterName, template, settings, order,
                       store_url, order_contents, mailer):
 
-    adapter = component.getAdapter(order, 
-                                   interfaces.INotificationMailMessage, 
+    adapter = component.getAdapter(order,
+                                   interfaces.INotificationMailMessage,
                                    adapterName)
     message = adapter(settings, store_url, order_contents, template)
 
@@ -191,13 +192,13 @@ def sendMerchantEmail(adapterName, template, settings, order,
         pass
 
 
-def sendCustomerEmail(adapterName, template, settings, order, 
+def sendCustomerEmail(adapterName, template, settings, order,
                       store_url, order_contents, mailer):
 
     email = order.contact_information.email
     if email:
-        adapter = component.getAdapter( order, 
-                                        interfaces.INotificationMailMessage, 
+        adapter = component.getAdapter( order,
+                                        interfaces.INotificationMailMessage,
                                         adapterName)
 
         message = adapter(settings, store_url, order_contents, template)
@@ -210,5 +211,5 @@ def sendCustomerEmail(adapterName, template, settings, order,
             # XXX: somebody should be notified about that
             pass
 
-    
+
 

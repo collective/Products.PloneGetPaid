@@ -120,3 +120,99 @@ class ErrorAwarePloneGetPaidFunctionalTestCase(PloneGetPaidFunctionalTestCase):
         self.loginBrowserAsAdmin()
 
 
+class TestHelperMixin(object):
+    """ Helper functions for unit and functional tests.
+
+    To include these to your unit test, subclass this::
+
+        class YourTestCase(TestHelperMixin, PloneGetPaidTestCase):
+            pass
+
+    """
+
+    def makeBuyable(self, context, price, product_code):
+        """ Performs make buyable action on a content item."""
+
+
+        import getpaid.core.interfaces as igetpaid
+        from AccessControl import getSecurityManager
+        from getpaid.core import options, event, order
+        from Products.PloneGetPaid import interfaces
+        from Products.Five.utilities import marker
+        from zope.component import queryAdapter
+
+        # Turn on marker interface
+        from Products.Five.utilities import marker
+        marker.mark(context, interfaces.IBuyableMarker)
+
+        # Add in buy data
+        adapter = queryAdapter(context, igetpaid.IBuyableContent)
+        assert adapter != None
+
+        adapter.made_payable_by = getSecurityManager().getUser().getId()
+        adapter.price = price
+        adapter.product_code = product_code
+
+        return adapter
+
+    def createSomethingBuyable(self):
+        """ Create a Document content which is buyable with price 10.00 """
+        from Products.PloneGetPaid import interfaces
+        import getpaid.core.interfaces
+
+        options = interfaces.IGetPaidManagementOptions(self.portal)
+        options.buyable_types = ['Document']
+
+        self.portal.invokeFactory("Document", "buyitem")
+        self.makeBuyable(self.portal.buyitem, 10.00, "0001")
+
+    def setupBuyingSituation(self):
+        """ Create unit test specific cart.
+
+        The cart is not peristent. The cart can be used to create orders.
+        """
+        import getpaid.core.interfaces
+        from zope import component
+        self.cart = component.getUtility(getpaid.core.interfaces.IShoppingCartUtility).get(self.portal, create=True)
+
+    def addCartItem(self, context):
+        """ Add one item to cart.
+
+        @param context: OBject implementing IBuyable
+        """
+        from zope import component
+        import getpaid.core.interfaces
+        assert self.cart != None
+
+        # Order lines are cart specific - cart reference is always there
+        item_factory = component.getMultiAdapter((self.cart, context), getpaid.core.interfaces.ILineItemFactory)
+        item = item_factory.create()
+
+
+    def createOrder(self):
+        """ Create an order based on the current cart."""
+        import pickle
+        from zope import component
+        from getpaid.core import interfaces
+        from getpaid.core.order import Order
+        from AccessControl import getSecurityManager
+
+        order_manager = component.getUtility( interfaces.IOrderManager )
+
+        order = Order()
+
+        # loads() / dumps() magic makes sure that cart is pickable
+        # and it cleans up objects referred in external database
+        order.shopping_cart = pickle.loads(pickle.dumps(self.cart))
+
+        order.order_id = u"order0001"
+        order.user_id = getSecurityManager().getUser().getId()
+
+        return order
+
+    def setupInvoice(self):
+        from getpaid.invoice.interfaces import IInvoiceSettings
+        settings = IInvoiceSettings(self.portal)
+        settings.terms_of_payment = "14 days"
+        settings.penalty_interest = "14.0%"
+        settings.running_counter = 1000

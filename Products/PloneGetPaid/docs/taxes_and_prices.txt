@@ -1,0 +1,108 @@
+Taxes and prices
+----------------
+
+Problem: Depending on the country sales taxes may be included in the store prices or they
+may be applied to the prices on the checkout.
+
+* In Scandinavia sales taxes are included in the consumer visible prices
+
+* In US sales taxes depend on the state and are applied on the checkout
+
+To support both behaviors GetPaid must be sales tax aware
+
+* How store owner manages taxes internally: are they put in the price data or should system calculate them afterwards
+
+* How consumer sees the prices: does the price tag contain taxes or not
+
+getpaid.core.interfaces.IPriceValueAdjuster is an utility to tackle this problem.
+It provides methods
+
+* To get tax and tax free prices
+
+* To get user visible prices
+
+* Extendable tax behavior: subclass and override this utility to have custom tax algorithms
+
+* Different taxes for different item categories: line item and content item adapters can be used
+  to return item specific tax percent
+
+Where should be used
+--------------------
+
+* When totals are queried: CartTotals, checkout
+
+* When item prices are displayed: portlets, page templates
+
+* When invoice or recipient is generated
+
+Products.PloneGetPaid.price module contains documentation how to use IPriceValueAdjuster.
+
+Backward incompatible changes
+-----------------------------
+
+The following backward incompatible changes have been made:
+
+* Querying ILineContainerTotals utility needs to have IPriceValueAdjuster argument
+
+* Remove of getpaid.core.tax.TaxUtility
+
+Code migration examples are available in Products.PloneGetPaid.price module.
+
+Necessary changes have been made to most of the parts of PloneGetPaid and getpaid.core.
+Some use cases might have slipped under the radar.
+
+This work deals with sales tax only. getpaid.core support multiple tax bases somehow.
+getpaid.core.tax.TaxUtility and getpaid.core.interfaces.ITaxUtility have been
+removed, since they had no working implementations. getpaid.core.cart
+uses now IPriceValueAdjuster directly. If one wants to support various taxes
+with getpaid.core it would need serious changes to user interface and GetPaid subsystems
+in any case.
+
+Discussion
+----------
+
+The serious problem is that getpaid.core.order.Order class exposes getTotal()
+by directly inhering from CartItemTotals. It should not do this.
+
+* When using getTotals() etc. functionality the site context is available and
+  you cannot access such values as the current tax settings
+
+* Currently you need to resort zope.app.component.hooks.getSite hack to
+  have context inside tese functions.
+
+I suggest deprecating getTotals() and CartItemTotals totally.
+They should be replaced with site-aware adapters which can access context data.
+
+Also, when the order is create at least the following data
+should be copied to the order to make orders future proof
+
+* Used taxes
+
+* Item price as taxed, tax free and taxes applied to item
+
+Work available
+--------------
+
+2009/11: Available in getpaid.core and Products.PloneGetPaid miohtama-taxes branch.
+Branch is based on brandon-no-overrides branch.
+
+Files touched
+
+* getpaid.core.interfaces
+
+* getpaid.core.cart
+
+* Products.PloneGetPaid.interfaces
+
+* Products.PloneGetPaid.price
+
+* Products.PloneGetPaid.tests.base
+
+* Products.PloneGetPaid.tests.test_taxes_and_prices
+
+* Products.PloneGetPaid.browser.cart
+
+*
+
+
+
