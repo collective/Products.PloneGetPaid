@@ -76,17 +76,18 @@
   <browser:page
      for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-payment-options"
-     class=".admin.PaymentOptions"     
+     class=".admin.PaymentOptions"
      permission="cmf.ManagePortal"
      menu="getpaid_settings"
      title="Payment Options"
+     template="templates/settings-payment-processors.pt"
      />
 
   <!-- Management Payment Processor Editing -->
   <browser:page
      for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-payment-processor"
-     class=".admin.PaymentProcessor"     
+     class=".admin.PaymentProcessors"
      permission="cmf.ManagePortal"
      menu="getpaid_settings"
      title="Payment Processor Settings"

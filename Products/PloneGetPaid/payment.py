@@ -4,6 +4,8 @@ from getpaid.core.interfaces import ICreditCardTypeEnumerator
 from interfaces import IGetPaidManagementOptions
 from Products.CMFCore.utils import getToolByName
 
+from getpaid.paymentprocessors.registry import paymentProcessorRegistry
+
 class CreditCardTypeEnumerator(CreditCardTypeEnumerator):
     implements(ICreditCardTypeEnumerator)
 
@@ -15,3 +17,20 @@ class CreditCardTypeEnumerator(CreditCardTypeEnumerator):
         portal = getToolByName(self.context.context, 'portal_url').getPortalObject()
         options = IGetPaidManagementOptions(portal)
         return options.accepted_credit_cards
+
+
+def getActivePaymentProcessors(context):
+    """ Return list of activated payment processors.
+    
+    @return: List of getpaid.paymentprocessor.registry.Entry objects
+    """
+    
+    portal_properties = getToolByName(context, 'portal_properties')
+    enabled = portal_properties.payment_processor_properties.enabled_processors
+    
+    processors = paymentProcessorRegistry.getProcessors()
+    
+    # Filter out processors which are activated in the settings
+    
+    return [ p for p in processors if p.name in enabled ]
+    

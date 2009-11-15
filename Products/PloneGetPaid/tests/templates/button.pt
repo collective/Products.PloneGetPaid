@@ -1,0 +1,11 @@
+<tr i18n:domain="getpaid.dummypaymentprocessor" tal:define="processor view/getProcessor">
+
+	<td >
+		<input name="payment_method" type="radio" tal:attributes="value processor/name">
+		<img src="foobar.jpg" alt="Magical processor"/>
+	</td>
+	<td i18n:translate="dummy_payment_method_description">
+		Magical string checked by unit tests
+	</td>
+</tr>
+

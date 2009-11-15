@@ -253,12 +253,26 @@ class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
             source = "getpaid.offsite_payment_processors",
             ))
 
+    onsite_payment_processors = schema.List(
+        title = _(u"On-site Payment Processors"),
+        required = False,
+        default = [],
+        description = _(u"These payment processors"
+                        u" will present the user choice to choose payment processor before"
+                        u" the review and checkout page; activate"
+                        u" several, and the user will be allowed to choose."),
+        value_type = schema.Choice(
+            title = _(u"Off-site Payment Processors"),
+            source = "getpaid.onsite_payment_processors",
+            ))
+
     allow_onsite_payment = schema.Bool(
         title =_(u"Activate On-site Payment"),
         description = _(u"Allow users to type their credit-card information"
                         u" directly into Plone"),
         default = True)
 
+    # TODO: This will be gone
     payment_processor = schema.Choice( title = _(u"On-site Payment Processor"),
                                        source = "getpaid.payment_methods",
                                        default = 'Testing Processor' )

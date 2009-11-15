@@ -5,6 +5,10 @@ CHANGES
 0.8.6 (unreleased)
 ------------------
 
+- Added tax options [miohtama]
+
+- Merged multiple payment processors branch  [miohtama]
+
 0.8.5 (2009-07-28)
 ------------------
 - Allow users to change the opt-in language through the settings panel. [larubbio]
@@ -27,7 +31,7 @@ CHANGES
 - Fix an uninitialized mailer [larubbio]
 
 0.8 (2009-07-07)
-----------------
+===============
 - Allow the user to make changes to the emails that are sent out [larubbbio]
 - Allow sending of emails on auth, charge and decline (I didn't see an event for refund) [larubbio]
 - Manage Cart link in personal_bar changed from $object_url/@@getpaid-cart to $portal_url/@@getpaid-cart like in cart portlet [taito.horiuchi]
