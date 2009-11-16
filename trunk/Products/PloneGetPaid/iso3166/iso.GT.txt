@@ -1,0 +1,25 @@
+
+ISO3166-2 regions for GT
+
+   GT-AV : Alta Verapez
+   GT-BV : Baja Verapez
+   GT-CM : Chimaltenango
+   GT-CQ : Chiquimula
+   GT-PR : El Progreso
+   GT-ES : Escuintla
+   GT-GU : Guatemala
+   GT-HU : Huehuetenango
+   GT-IZ : Izabal
+   GT-JA : Jalapa
+   GT-JU : Jutíapa
+   GT-PE : Petén
+   GT-QZ : Quezaltenango
+   GT-QC : Quiché
+   GT-RE : Reta.thuleu
+   GT-SA : Sacatepéquez
+   GT-SM : San Marcos
+   GT-SR : Santa Rosa
+   GT-SO : Solol6
+   GT-SU : Suchitepéquez
+   GT-TO : Totonicapán
+   GT-ZA : Zacapa

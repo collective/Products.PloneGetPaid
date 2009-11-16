@@ -1,0 +1,9 @@
+<metal:page use-macro="context/@@getpaid-content-template/macros/content_space"
+            i18n:domain="plonegetpaid">
+  <metal:block fill-slot="getpaid_content">
+      <h3 i18n:translate="heading_cart_manage">Your Shopping Cart</h3>
+      <div>
+	<tal:block tal:replace="structure  view/manager/render"/>
+      </div>
+  </metal:block>
+</metal:page>

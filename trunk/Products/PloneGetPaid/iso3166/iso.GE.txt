@@ -1,0 +1,79 @@
+
+ISO3166-2 regions for GE
+
+   GE-AB : Ap'khazet'is Avtonomiuri Respublika
+   GE-AJ : Acharis Avtonomiuri Respublika
+   GE-BUS : Bat 'umi
+   GE-CHI : Chiat'ura
+   GE-GAG : Gagra
+   GE-GOP : Gori
+   GE-KUT : K'ut'aisi
+   GE-PTI : P'ot'i
+   GE-PUS : Rust'avi
+   GE-SUI : Sokhumi
+   GE-TBS : T'bilisi
+   GE-TQI : Tqibuli
+   GE-TQV : Tqvarch'eli
+   GE-TSQ : Tsqalmbo
+   GE-ZUG : Zuqdidi
+   GE-01 : Abashin Raioni
+   GE-02 : Adigenis Raioni
+   GE-03 : Akhalgoria Raioni
+   GE-04 : Akhalk'alak'is Raioni
+   GE-05 : Akhalts'ikhis Raioni
+   GE-06 : Akhmetis Raioni
+   GE-07 : Ambrolauris Raioni
+   GE-08 : Aspindzis Raioni
+   GE-09 : Baghdat' is Raioni
+   GE-10 : Bolniais Raioni
+   GE-11 : Borjamie Raioni
+   GE-12 : Ch'khorotsqus Raioni
+   GE-13 : Ch'okhatauris Raioni
+   GE-14 : Dedop'listsqaros Raioni
+   GE-15 : Dmaniais Raioni
+   GE-16 : Dushet' is Raioni
+   GE-17 : Galis Raioni
+   GE-18 : Gardabnis Raioni
+   GE-19 : Goris Raioni
+   GE-20 : Gudaut' is Raioni
+   GE-21 : Gulrip'shis Raioni
+   GE-22 : Gurjeanis Raioni
+   GE-23 : Javis Raioni
+   GE-24 : K'arelis Raioni
+   GE-25 : Kaspis Raioni
+   GE-26 : K'edis Raioni
+   GE-27 : Kharagaulis Raioni
+   GE-28 : Khashuris Raioni
+   GE-29 : Khelvach'auri6 Raioni
+   GE-30 : Khobis Raioni
+   GE-31 : Xhonis Raioni
+   GE-32 : Khulos Raioni
+   GE-33 : K'obuletis Raioni
+   GE-34 : Lagodekhis Raioni
+   GE-35 : Lanch'khut'is Raioni
+   GE-36 : Lentekhis Raioni
+   GE-37 : Marneulis Raioni
+   GE-38 : Martvilis Raioni
+   GE-39 : Mestiis Raioni
+   GE-40 : Mts'khet'is Raioni
+   GE-41 : Ninotsmindis Raioni
+   GE-42 : Och'amch'iris Raioni
+   GE-43 : Onis Raioni
+   GE-44 : Ozurget' is Raioni
+   GE-45 : Qazbegis Raioni
+   GE-46 : Qvarlis Raioni
+   GE-47 : Sach'kheris Raioni
+   GE-48 : Sagarejos Raioni
+   GE-49 : Samtrediis Raioni
+   GE-50 : Senakis Raioni
+   GE-51 : Shuakhevis Raioni
+   GE-52 : Sighnaghis Raioni
+   GE-53 : Sokhumis Raioni
+   GE-54 : T'elavis Raioni
+   GE-55 : T'erjolis Raioni
+   GE-56 : T'et'ritsqaros Raioni
+   GE-57 : T'ianet'is Raioni
+   GE-58 : Ts'ageris Raioni
+   GE-59 : Tsalenjikhis Raioni
+   GE-62 : Zestap'onis Raioni
+   GE-63 : Zugdidis Raioni

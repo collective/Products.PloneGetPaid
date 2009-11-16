@@ -1,0 +1,48 @@
+<metal:block define-macro="form"
+			 i18n:domain="plonegetpaid">
+  <form action="."
+        tal:attributes="action request/URL" 
+	method="post"
+	enctype="multipart/form-data">
+    
+    <div class="portalMessage" tal:content="view/status" tal:condition="view/status"> </div>
+
+  
+<metal:block define-macro="form-body">
+
+  <fieldset tal:define="widgets view/widgets">
+
+    <legend tal:define="form_name view/form_name|nothing"
+            tal:condition="form_name"
+            tal:content="form_name">Form name</legend>
+
+  <metal:block define-macro="fieldset"> 
+
+  <tal:block tal:repeat="widget widgets">
+      <span class="widget" tal:content="structure widget"/><br/>
+   </tal:block>
+  </metal:block>
+  </fieldset>
+</metal:block>
+
+
+   <div id="actionsView" 
+        tal:define="actions view/availableActions">
+    <span class="actionButtons"
+          tal:condition="actions">
+      <tal:loop tal:repeat="action actions">
+		<input type="submit" class="button context"
+			   id="" name="" value=""
+			   tal:attributes="id action/__name__;
+			   				   name action/__name__;
+			   				   value python:str(action.label);"
+			   i18n:attributes="value" />
+	  </tal:loop>						
+    </span>
+   </div>
+    
+  </form>
+</metal:block>
+
+
+

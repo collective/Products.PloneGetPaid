@@ -1,0 +1,7 @@
+
+ISO3166-2 regions for SZ
+
+   SZ-HH : Hhohho
+   SZ-LU : Lubombo
+   SZ-MA : Manzini
+   SZ-SH : Shiselweni

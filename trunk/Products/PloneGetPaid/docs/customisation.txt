@@ -1,0 +1,216 @@
+**Customising a GetPaid Site**
+
+This document assumes you have already set up a Plone site with
+GetPaid. If you haven't, please read setup.txt
+
+Most functionality and features of GetPaid can be customized, although
+it can often take a fair amount of work. You should be familiar with
+the Zope 3 Component Architecture and should be prepared to follow a
+lot of the convoluted code paths in GetPaid.
+
+However, the examples below will hopefully help!
+
+If you're looking to develop a new shipping method, shipping rate
+service, payment processor or tax method, the best process is to find
+an existing component, copy it and then alter that to suite your
+needs.
+
+Once you've developed your new component, you'll need to enable it by
+either working it into a buildout recipe or including the necessary
+zcml. Including the zcml can either be done by inserting the following
+into the configure.zcml of a product you've created or into your
+site.zcml:
+
+<include package="your.package" />
+
+Creating your own product is one of the commonest ways of customising
+the behaviour of GetPaid. To do this, create a folder in your Zope
+instance's Products directory and put an empty file called __init__.py
+within it. 
+
+You'll also want to create a file in the folder called configure.zcml
+which has the following in it:
+
+<configure xmlns="http://namespaces.zope.org/zope"
+	   xmlns:zcml="http://namespaces.zope.org/zcml"
+	   xmlns:five="http://namespaces.zope.org/five">
+<!-- insert your customisations here -->
+</configure>
+
+Finally, you should also create file in the folder called
+overrides.zcml containing the following:
+
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five">
+
+<!-- insert you overrides here
+</configure>
+
+The remainder of this file contains specific examples of
+customisations and assume you're working with a product created as
+described above called MyProduct. Whenever you make changes to a
+product, you'll need to restart your Zope instance for them to take
+effect.
+
+Customising the cart listing
+
+  - create a skins folder in your product
+
+  - copy the cart-listing.pt from
+    Products/PloneGetPaid/browser/templates to the skins folder of
+    your product.
+
+  - customise your new cart-listing.pt as required.
+
+  - create a file called browser.py in your product with the following
+    contents:
+
+    from Products.PloneGetPaid.browser.cart import ShoppingCartListing
+
+    class MyShoppingCartListing(ShoppingCartListing):
+      template = ZopeTwoPageTemplateFile('skins/cart-listing.pt')
+  
+  - add the following to your product's overrides.zcml:
+ 
+  <browser:viewlet
+       name="10cart-listing"
+       manager="Products.PloneGetPaid.interfaces.IGetPaidCartViewletManager"
+       template="skins/cart-listing.pt"
+       class="Products.MyProduct.browser.MyShoppingCartListing"
+       permission="zope2.View"
+       />
+
+Changing the list of available countries for addresses
+
+  - add a file called vocabularies.py to your product containing the
+    following:
+  
+    from Products.PloneGetPaid.vocabularies import TitledVocabulary
+
+    MY_COUNTRIES = [ ('AR', u'ARGENTINA'),
+		     ('AU', u'AUSTRALIA'),
+		     ('BR', u'BRAZIL'),   
+		     ('CA', u'CANADA'),
+		     ('IL', u'ISRAEL'),
+		     ('NZ', u'NEW ZEALAND'),
+		     ('GB', u'UNITED KINGDOM'),
+		     ('US', u'UNITED STATES'),
+		     ('ZA', u'SOUTH AFRICA') ]
+
+    def Countries( context ):
+      return TitledVocabulary.fromTitles(MY_COUNTRIES)
+
+  - add the following to your product's overrides.zcml:
+
+    <vocabulary
+	 name="getpaid.countries"
+	 factory=".vocabularies.Countries"
+     />
+
+Customising contact information and address fields in the checkout wizard
+
+  - add a file called checkout.py to your product containing the
+    following as altered to suit your needs: 
+
+    from getpaid.core import options
+    from Products.PloneGetPaid.browser.checkout import CheckoutAddress as OriginalCheckoutAddress
+    from Products.PloneGetPaid.browser.widgets import CountrySelectionWidget, StateSelectionWidget
+    from Products.PloneGetPaid.preferences import DefaultFormSchemas
+    from zope import schema
+    from zope.app.location.interfaces import ILocation
+    from zope.formlib import form
+    from zope.interface import Interface,implements
+    from zope.i18nmessageid import MessageFactory
+    _ = MessageFactory('myproduct')
+
+  
+    # We customise IUserContactInformation here, but the same process
+    # can work for IShippingAddress, IBillingAddress, etc
+
+    class IUserContactInformation( Interface ):
+
+        # you can put whatever fields you require here
+        # but beware that certain parts of GetPaid require fields
+        # with specific names
+        
+        name = schema.TextLine(title=_(u"Name"))
+        phone_number = schema.TextLine(title=_(u"Phone Number"),)                                
+        email = schema.TextLine(title=_(u"Email"),)
+        
+    class ContactInfo( options.PersistentBag ):
+        title = "Contact Information" 
+        implements( ILocation )
+        __parent__ = None
+        __name__ = None
+        
+    ContactInfo.initclass(IUserContactInformation)
+    
+    class FormSchemas(DefaultFormSchemas):
+
+        interfaces = dict(DefaultFormSchemas.interfaces)
+        interfaces['contact_information']=IUserContactInformation
+
+        bags = dict(DefaultFormSchemas.bags)
+        bags['contact_information']=ContactInfo
+
+    # This class is only needed if you remove or change fields
+    # with custom widgets
+
+    class CheckoutAddress(OriginalCheckoutAddress):
+    
+        def customise_widgets(self,fields):
+            fields['ship_country'].custom_widget = CountrySelectionWidget
+            fields['bill_country'].custom_widget = CountrySelectionWidget
+            fields['ship_state'].custom_widget = StateSelectionWidget
+            fields['bill_state'].custom_widget = StateSelectionWidget
+    
+  - now add the following to your product's overrides.zcml:
+
+    <utility
+       provides="getpaid.core.interfaces.IFormSchemas"
+       factory=".checkout.FormSchemas"/>
+
+    <!-- only needed if you've had to fiddle with widgets -->
+    <browser:page
+       for="*"
+       name="checkout-address-info"
+       class=".browser.CheckoutAddress"
+       permission="zope2.View"/>
+
+Customising the buyable portlet ("add to cart" link)
+
+  - Make a copy of portlet-content-buyable.pt from
+    ${product_dir}/PloneGetPaid/browser/templates to the templates folder of your product
+    
+  - To register this copy as the template for the existing portlet,
+    you need to make modifications to your configure.zcml file.
+    - Make sure that the plone namespace is declared in the root xml tag
+        <configure
+            [...]
+            xmlns:plone="http://namespaces.plone.org/plone"
+            />
+    - Make sure that the portlet is loaded by adding this line :
+        <include package="Products.PloneGetPaid.browser.portlets" />
+    - Register your template with the plone:portletRenderer directive :
+        <plone:portletRenderer
+            portlet="Products.PloneGetPaid.browser.portlets.buy.IBuyablePortlet"
+            layer=".interfaces.IThemeSpecific"
+            template="templates/portlet-content-buyable.pt"
+            />
+        (this requires that you have an IThemeSpecific interface, as explained in
+         http://plone.org/documentation/how-to/override-the-portlets-in-plone-3.0 )
+    
+  - After restarting Zope, your template should appear instead of the default one.
+  
+  - You can add a quantity input box that let users decide how many items to add
+    to their cart with a simple change to the portlet template.
+    
+    Replace the old Add to Cart link with the following form :
+    
+        <form tal:attributes="action string:${context/absolute_url}/@@getpaid-cart-add" method="post">
+            <input type="text" value="1" size="2" name="quantity" />
+            <input type="hidden" name="add_item" value="True" />
+            <input type="submit" value="Add to Cart"
+                   i18n:attributes="value label_add_to_cart" />
+        </form>

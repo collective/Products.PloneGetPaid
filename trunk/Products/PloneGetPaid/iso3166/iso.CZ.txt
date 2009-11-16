@@ -1,0 +1,11 @@
+
+ISO3166-2 regions for CZ
+
+   CZ-PRG : Praha
+   CZ-CJC : Jihocesky kraj
+   CZ-CJM : Jihomoravsky kraj
+   CZ-CSC : Severoceaky kraj
+   CZ-CSM : Soveromoravsky kraj
+   CZ-CST : Stredocesky kraj
+   CZ-CVC : Vychodocesky kraj
+   CZ-CZC : Západocesky kraj

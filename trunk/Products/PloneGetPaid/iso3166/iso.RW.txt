@@ -1,0 +1,15 @@
+
+ISO3166-2 regions for RW
+
+   RW-C : Butare
+   RW-I : Byumba
+   RW-E : Cyangugu
+   RW-D : Gikongoro
+   RW-G : Gisenyi
+   RW-B : Gitarama
+   RW-J : Kibungo
+   RW-F : Kibuye
+   RW-K : Kigali-Rural Kigali y' Icyaro
+   RW-L : Kigali-Ville Kigali Ngari
+   RW-M : Mutara
+   RW-H : Ruhengeri
