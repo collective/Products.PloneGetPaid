@@ -28,6 +28,7 @@ from Products.CMFCore.utils import getToolByName
 
 from Products.PloneGetPaid.interfaces import PayableMarkers, IGetPaidCartViewletManager, INamedOrderUtility
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IConditionalViewlet, IVariableAmountDonatableMarker
+from Products.PloneGetPaid.interfaces import ICurrencyFormatter
 from Products.PloneGetPaid import sessions
 from Products.PloneGetPaid import config
 
@@ -189,7 +190,6 @@ def lineItemTotal( item, formatter ):
 
 def lineItemPrice( item, formatter ):
     return "%0.2f" % (LineItemColumn("cost")(item, formatter))
-
 
 class CartFormatter( table.StandaloneSortFormatter ):
 
