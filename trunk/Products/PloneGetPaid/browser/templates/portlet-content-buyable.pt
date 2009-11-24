@@ -26,12 +26,20 @@
                tal:condition="field">
                <i tal:content="field" />
             </p>
-
+            <tal:before condition="view/symbol_before">
             <p tal:define="field python: '%.2f' % (getattr(view.payable,'price',0) or 0)"
                tal:condition="field"
 	       i18n:translate="text_price">
                  Price: <span tal:content="view/currency" /> <span tal:content="field" i18n:name="value_price" />
             </p>
+	    </tal:before>
+	    <tal:after condition="not:view/symbol_before">
+            <p tal:define="field python: '%.2f' % (getattr(view.payable,'price',0) or 0)"
+               tal:condition="field"
+	       i18n:translate="text_price">
+                 Price: <span tal:content="field" i18n:name="value_price" /> <span tal:content="view/currency" />
+            </p>
+	    </tal:after>
 
           </div>
         </dd>

@@ -37,3 +37,11 @@ class Renderer(GetPaidRenderer):
         context = self.context.aq_inner
         formatter = getUtility(ICurrencyFormatter)
         return formatter.currency(context)
+    
+    def symbol_before(self):
+        context = self.context.aq_inner
+        pos = getUtility(ICurrencyFormatter)
+        if pos.order(context) == "before_value":
+            return True
+        else:
+            return False

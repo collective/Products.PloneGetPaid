@@ -312,8 +312,9 @@ class IGetPaidManagementCurrencyOptions( igetpaid.IPersistentOptions ):
                                    default = u"2"
                                  )
 
-    us_currency_formatting = schema.Choice( title = _(u"Currency Formatting"),
-                                            vocabulary=CURRENCY_FORMAT,
+    currency_formatting = schema.Choice( title = _(u"Currency Formatting"),
+                                          vocabulary=CURRENCY_FORMAT,
+                                          default = "before_value"
                                  )
 
 # Emails
