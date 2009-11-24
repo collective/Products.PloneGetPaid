@@ -3,6 +3,7 @@ $Id$
 """
 
 from zope import schema
+from zope.schema.vocabulary import SimpleVocabulary
 from zope.interface import Interface
 from zope.schema import Iterable
 from zope.app.container.interfaces import IContainer
@@ -16,6 +17,10 @@ import getpaid.core.interfaces as igetpaid
 import zope.viewlet.interfaces
 
 from Products.PloneGetPaid.i18n import _
+
+CURRENCY_FORMAT = SimpleVocabulary.fromItems((
+    (u"Before Value", "before_value"),
+    (u"After Value", "after_value")))
 
 class IBeforeCheckoutEvent( IObjectEvent ):
     """
@@ -302,39 +307,13 @@ class IGetPaidManagementCurrencyOptions( igetpaid.IPersistentOptions ):
                                    default = u"$"
                                  )
 
-    positive_currency_format = schema.TextLine( title = _(u"Positive Currency Format"),
-                                   required = False,
-                                   default = u""
-                                 )
-
-    negative_currency_format = schema.TextLine( title = _(u"Negative Currency Format"),
-                                   required = False,
-                                   default = u""
-                                 )
-
-    digit_grouping_symbol = schema.TextLine( title = _(u"Digit Grouping Symbol"),
-                                   required = False,
-                                   default = u""
-                                 )
-
-    digit_grouping_symbol = schema.TextLine( title = _(u"Number of Digits in Group"),
-                                   required = False,
-                                   default = u""
-                                 )
-
-    digit_grouping_symbol = schema.TextLine( title = _(u"Decimal Symbol"),
-                                   required = False,
-                                   default = u""
-                                 )
-
     digits_after_decimal = schema.TextLine( title = _(u"Number of Digits After Decimal"),
                                    required = False,
                                    default = u"2"
                                  )
 
-    us_currency_formatting = schema.TextLine( title = _(u"US Currency Formatting"),
-                                   required = False,
-                                   default = u""
+    us_currency_formatting = schema.Choice( title = _(u"Currency Formatting"),
+                                            vocabulary=CURRENCY_FORMAT,
                                  )
 
 # Emails
