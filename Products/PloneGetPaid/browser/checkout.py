@@ -14,7 +14,13 @@ from datetime import timedelta
 from zope.event import notify
 from zope.formlib import form
 from zope import schema, interface
-from zope.app.event.objectevent import ObjectCreatedEvent
+
+try:
+    # For Plone-3 and above.
+    from zope.lifecycleevent import ObjectCreatedEvent
+except ImportError:
+    from zope.app.event.objectevent import ObjectCreatedEvent
+
 from zope.app.renderer.plaintext import PlainTextToHTMLRenderer
 from zope.app.component.hooks import getSite
 

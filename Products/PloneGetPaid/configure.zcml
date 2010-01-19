@@ -35,9 +35,11 @@
 
 <!-- Inject Plone with the nesc interfaces / local site -->
 
+<!--
 <five:localsite
    class="Products.CMFPlone.Portal.PloneSite"
    />
+-->
 
 <!-- Zope 2.9 -->
 <five:implements

@@ -35,7 +35,7 @@ from Products.PloneGetPaid.vocabularies import TitledVocabulary
 
 from yoma.batching import BatchingMixin, RenderNav
 
-from order import OrderRoot
+#from order import OrderRoot
 
 
 def renderOrderId( order, formatter ):
@@ -330,8 +330,8 @@ class ManageOrders( BrowserView ):
             return self._download_content[1]
         return super( ManageOrders, self).__call__()
 
-class AdminOrderRoot ( OrderRoot ):
-    pass
+#class AdminOrderRoot ( OrderRoot ):
+#    pass
 
 class AdminOrderManagerBase( OrderAdminManagerBase ):
     
