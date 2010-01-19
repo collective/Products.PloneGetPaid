@@ -1,5 +1,11 @@
 import doctest
-from zope.app.tests import placelesssetup
+
+try:
+    # For Plone-3 and above.
+    from zope.app.testing import placelesssetup
+except ImportError:
+    from zope.app.tests import placelesssetup
+
 from zope.configuration.xmlconfig import XMLConfig
 from Products.PloneGetPaid.config import PLONE3
 
