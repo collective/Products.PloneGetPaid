@@ -1,7 +1,0 @@
-
-ISO3166-2 regions for FM
-
-   FM-TRK : Chuuk
-   FM-KSA : Kosrae
-   FM-PNI : Pohnpei
-   FM-YAP : Yap

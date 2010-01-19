@@ -1,7 +1,0 @@
-
-ISO3166-2 regions for SL
-
-   SL-W : western Area
-   SL-E : Eastern
-   SL-N : Northern
-   SL-S : Southern

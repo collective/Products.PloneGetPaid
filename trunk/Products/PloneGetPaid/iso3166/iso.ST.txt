@@ -1,5 +1,0 @@
-
-ISO3166-2 regions for ST
-
-   ST-P : Príncipe
-   ST-S : Sao Tomé
