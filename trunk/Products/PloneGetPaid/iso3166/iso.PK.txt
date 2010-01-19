@@ -1,0 +1,11 @@
+
+ISO3166-2 regions for PK
+
+   PK-IS : Islamabad
+   PK-BA : Baluchistan
+   PK-NW : North-West Frontier
+   PK-PB : Punjab
+   PK-SD : Sind
+   PK-TA : Federally Administered Tribal Aresa
+   PK-JK : Azad Rashmir
+   PK-NA : Northern Areas

@@ -1,0 +1,15 @@
+
+ISO3166-2 regions for BH
+
+   BH-01 : Al Hadd
+   BH-03 : Al Manamah
+   BH-10 : Al Mintaqah al Gharbiyah
+   BH-07 : Al Mintagah al Wustá
+   BH-05 : Al Mintaqah ash Shamaliyah
+   BH-02 : Al Muharraq
+   BH-09 : Ar Rifa
+   BH-04 : Jidd Hafs
+   BH-12 : Madluat Jamad
+   BH-08 : Madluat Isã
+   BH-11 : Mintaqat Juzur tawar
+   BH-06 : Sitrah

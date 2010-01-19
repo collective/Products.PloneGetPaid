@@ -1,0 +1,23 @@
+
+ISO3166-2 regions for HR
+
+   HR-07 : Bjelovarsko-bilogorska zupanija
+   HR-12 : Brodsko-posavska zupanija
+   HR-19 : Dubrovacko-neretvanska zupanija
+   HR-18 : Istarska zupanija
+   HR-04 : Karlovacka zupanija
+   HR-06 : Koprivoickco-krizeva6ka zupanija
+   HR-02 : Krapinako-zagorska zupanija
+   HR-09 : Licko-senjska zupanija
+   HR-20 : Medjimuraka zupanija
+   HR-14 : Osjecko-baranjska zupanija
+   HR-11 : Pozesko-slavonska zupanija
+   HR-08 : Primorsko-goranska zupanija
+   HR-03 : Sisasko-moelavacka Iupanija
+   HR-17 : Splitako-dalmatinska zupanija
+   HR-15 : Sibenako-kninska zupanija
+   HR-05 : Varaidinska zupanija
+   HR-10 : VirovitiEko-podravska zupanija
+   HR-16 : VuRovarako-srijemska zupanija
+   HR-13 : Zadaraka
+   HR-01 : Zagrebacka zupanija

@@ -1,0 +1,20 @@
+<table
+     i18n:domain="plonegetpaid" class="listing">
+     <tr>
+      <th i18n:translate="heading_order_id">order id</th>
+      <th i18n:translate="heading_created">created</th>
+      <th i18n:translate="heading_financial_state">financial state</th>
+      <th i18n:translate="heading_fulfillment_state">fulfillment state</th>
+    </tr>
+  <tal:block repeat="order view/history">
+
+    <tr>
+      <td><a
+      tal:attributes="href string:${context/portal_url}/@@getpaid-order/${order/id}"
+      tal:content="order/id">Order ID</a></td>
+      <td tal:content="order/date"></td>
+      <td tal:content="order/finance_state"></td>
+      <td tal:content="order/fulfillment_state"></td>
+    </tr>
+  </tal:block>
+</table>

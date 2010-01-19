@@ -1,0 +1,6 @@
+
+ISO3166-2 regions for LU
+
+   LU-D : Diekirch
+   LU-G : GreveNmacher
+   LU-L : Luxembourg

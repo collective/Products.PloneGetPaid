@@ -1,0 +1,24 @@
+
+ISO3166-2 regions for EC
+
+   EC-A : Azuay
+   EC-B : Bolívar
+   EC-F : Cañar
+   EC-C : Carchi
+   EC-X : Cotopaxi
+   EC-H : Chimborazo
+   EC-O : El Oro
+   EC-E : Esmeraldas
+   EC-W : Galápagos
+   EC-G : Guayas
+   EC-I : Imbabura
+   EC-L : Loja
+   EC-R : Los Rios
+   EC-M : Manabi
+   EC-S : Morona-Santiago
+   EC-N : Napo
+   EC-Y : Pastaza
+   EC-P : Pichincha
+   EC-U : Sucumbíos
+   EC-T : Tungurahua
+   EC-Z : Zamora-Chinchipe

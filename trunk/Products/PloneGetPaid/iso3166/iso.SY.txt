@@ -1,0 +1,17 @@
+
+ISO3166-2 regions for SY
+
+   SY-HA : Al Hasakah
+   SY-LA : Al Ladhiqiyah
+   SY-QU : Al Qunaytirah
+   SY-RA : Ar Raqqah
+   SY-SU : As Suwaydä'
+   SY-DR : Dar'ã
+   SY-DY : Dayr az Zawr
+   SY-DI : Dimashq
+   SY-HL : Halab
+   SY-HM : Hamah
+   SY-HI : Jim'
+   SY-ID : Idlib
+   SY-RD : Rif Dimashq
+   SY-TA : Tartüs

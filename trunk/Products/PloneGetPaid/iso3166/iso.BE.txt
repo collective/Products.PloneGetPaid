@@ -1,0 +1,13 @@
+
+ISO3166-2 regions for BE
+
+   BE-VAN : Antwerpen (nl)
+   BE-WBR : Brabant Wallon (fr)
+   BE-WHT : Hainaut (fr)
+   BE-WLG : Liêge (fr)
+   BE-VLI : Limburg (nl)
+   BE-WLX : Luxembourg (fr)
+   BE-WNA : Namur (fr)
+   BE-VOV : Ooat-Vlaanderen (nl)
+   BE-VBR : Vlaams Brabant (nl)
+   BE-VWV : West-Vlaanderen (nl)

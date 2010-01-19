@@ -1,0 +1,16 @@
+
+ISO3166-2 regions for LY
+
+   LY-BU : Al Butnan
+   LY-JA : Al Jabal al Akhdar
+   LY-JG : Al Jabal al Gharbî
+   LY-JU : Al Jufrah
+   LY-WA : Al Wâhah
+   LY-WU : Al Wustá
+   LY-ZA : Az Zãwiyah
+   LY-BA : Banghazi
+   LY-FA : Fazzan
+   LY-MI : Misratah
+   LY-NA : Naggaza
+   LY-SF : Sawfajjin
+   LY-TB : Tarãbulus

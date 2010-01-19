@@ -1,0 +1,11 @@
+
+ISO3166-2 regions for SB
+
+   SB-CT : Capital Territory
+   SB-CE : Central
+   SB-GU : Guadalcanal
+   SB-IS : Isabel
+   SB-MK : Makira
+   SB-ML : Malaita
+   SB-TE : Temotu
+   SB-WE : Western

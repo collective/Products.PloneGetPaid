@@ -1,0 +1,15 @@
+.prev-batch, .next-batch, .current-batch {   padding:0.25em 1em; }
+.prev-batch { float: left; }
+.next-batch { float: right; }
+.current-batch
+{
+  display: block;
+  background: #dee7ec;
+  text-align: center ;
+  background: #dee7ec;
+  border: 1px solid #8cacbb;
+  font-weight:normal;
+  text-transform:lowercase;
+}
+span.current:before { content: "[" }
+span.current:after { content: "]" }

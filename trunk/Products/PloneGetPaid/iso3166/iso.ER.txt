@@ -1,0 +1,13 @@
+
+ISO3166-2 regions for ER
+
+   ER-AG : Akele Cuzai
+   ER-AS : Asmara
+   ER-BA : Barka
+   ER-DE : Denkalia 
+   ER-GS : Gash-Setit
+   ER-HA : Hamasien
+   ER-SA : Sahel
+   ER-SM : Semhar
+   ER-SN : Senhit
+   ER-SR : Seraye

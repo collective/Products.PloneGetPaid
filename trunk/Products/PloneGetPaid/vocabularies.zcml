@@ -1,0 +1,85 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+	   xmlns:five="http://namespaces.zope.org/five">
+
+  <!-- Vocabularies -->
+
+  <!-- Content Type Vocabulary -->
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="plone.content_types"
+      component=".vocabularies.ContentTypes"
+      />
+
+  <!-- Payment Methods -->
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="getpaid.payment_methods"
+      component=".vocabularies.PaymentMethods"
+      />
+
+  <!-- Shipping Methods -->
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="getpaid.shipping_methods"
+      component=".vocabularies.ShippingMethods"
+      />
+  <!-- Shipping Services -->
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="getpaid.shipping_services"
+      component=".vocabularies.ShippingServices"
+      />
+
+  <!-- Tax Schemes -->
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="getpaid.tax_methods"
+      component=".vocabularies.TaxMethods" 
+      />
+
+  <!-- Currencies -->
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="getpaid.currencies"
+      component=".vocabularies.Currencies"
+      />
+  
+  <!-- Credit Cards -->
+  <!--utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="getpaid.credit_cards"
+      component=".vocabularies.CreditCards"
+      /-->   
+  
+  <!-- Payment Methods -->
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="getpaid.weight_units"
+      component=".vocabularies.WeightUnits"
+      />   
+  
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="getpaid.merchant_notification_choices"
+      component=".vocabularies.MerchantNotificationChoices"
+      />   
+  
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="getpaid.customer_notification_choices"
+      component=".vocabularies.CustomerNotificationChoices"
+      />  
+
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="getpaid.countries"
+      component=".vocabularies.Countries"
+      />
+
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="getpaid.states"
+      component=".vocabularies.States"
+      />
+
+</configure>
