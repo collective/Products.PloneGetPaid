@@ -741,6 +741,10 @@ class CheckoutSelectShipping( BaseCheckoutForm ):
         and returns a list of them for the template to display and the user to choose among.
 
         """
+        ship_method_code = self.request.form.get('form.shipping_method_code')
+        if type(ship_method_code) == type([]):
+            self.request.form['form.shipping_method_code'] = self.request.form['form.shipping_method_code'][-1]
+
         siteroot = getToolByName(self.context, "portal_url").getPortalObject()
         ship_service_names = IGetPaidManagementOptions(siteroot).shipping_services
 

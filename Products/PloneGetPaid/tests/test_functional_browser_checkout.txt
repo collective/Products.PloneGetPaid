@@ -139,7 +139,7 @@ Continue filling in the current form.
 
     >>> browser.getControl('Card Holder Name').value = 'Test Cardholder'
     >>> browser.getControl(name='form.cc_expiration_month').value = ('02',)
-    >>> browser.getControl(name='form.cc_expiration_year').value = ('2009',)
+    >>> browser.getControl(name='form.cc_expiration_year').value = ('2010',)
     >>> browser.getControl(name='form.bill_phone_number').value = '555555555'
 
 Use real test credit card numbers, available from http://developer.authorize.net/faqs/#7429
@@ -232,7 +232,7 @@ We move to the next form and fill in the current form.
 
     >>> browser.getControl('Card Holder Name').value = 'Test Cardholder'
     >>> browser.getControl(name='form.cc_expiration_month').value = ('02',)
-    >>> browser.getControl(name='form.cc_expiration_year').value = ('2009',)
+    >>> browser.getControl(name='form.cc_expiration_year').value = ('2010',)
     >>> browser.getControl(name='form.bill_phone_number').value = '555555555'
 
 Use real test credit card numbers, available from http://developer.authorize.net/faqs/#7429

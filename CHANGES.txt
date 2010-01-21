@@ -2,8 +2,13 @@
 CHANGES
 =======
 
-0.8.6 (unreleased)
+0.8.7 (unreleased)
 ------------------
+
+0.8.6 (2010-01-21)
+------------------
+- Add a workaround for free shipping bug (#274)
+- Fix a broken test by updating the year
 
 0.8.5 (2009-07-28)
 ------------------
