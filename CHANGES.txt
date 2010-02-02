@@ -2,9 +2,6 @@
 CHANGES
 =======
 
-0.8.9 (unreleased)
------------------
-
 0.8.8 (2010-02-02)
 ------------------
 - Rebundle again with upgraded setuptools
