@@ -101,5 +101,5 @@ ISO3166-2 regions for FR
    FR-PM : Saint-Pierre-et-Miquelon 
    FR-NC : Nouvelle-Calédonie 
    FR-PF : Polyn4sie française 
-   FR-TF : Terres Auatrales Françaisea 
+   FR-TF : Terres Auatrales Françaises 
    FR-WF : Wallis et Futuna 
