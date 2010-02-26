@@ -62,7 +62,7 @@
                 <label for="order_template_entry_name" id="order_template_entry_name_label" i18n:translate="">Order template name</label>
                 <div class="formHelp"
                 i18n:translate="" id="order_template_entry_name_help_text">A name you can remember this order template by.</div>
-                <input type="text" id="order_template_entry_name" name="order_template_entry_name" >
+                <input type="text" id="order_template_entry_name" name="order_template_entry_name" />
             </div>
             
             
