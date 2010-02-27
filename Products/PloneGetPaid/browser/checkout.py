@@ -411,8 +411,9 @@ class CheckoutController( ListViewController ):
 
 class CheckoutAddress( BaseCheckoutForm ):
     """
-    browser view for collecting credit card information and submitting it to
+    browser view for collecting addresses information and submitting it to
     a processor.
+
     """
 
     sections = ('billing_address','shipping_address','contact_information')
