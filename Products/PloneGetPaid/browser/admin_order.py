@@ -609,7 +609,7 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
                 totalShipmentWeight += weightValue
         return totalShipmentWeight
        
-    def getShimpentTrackNumbers(self):
+    def getShipmentTrackNumbers(self):
         """
         Returns a list of tracking numbers for the shipment, if not available
         it will return a one element list with the N/A string, just to maintain
