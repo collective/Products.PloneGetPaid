@@ -85,7 +85,7 @@
             <span tal:content="view/getShipmentWeight" />
         </li>
 
-        <tal:cond condition="view/getShimpentTrackNumbers">
+        <tal:cond condition="view/getShipmentTrackNumbers">
         <li>                                                                                                                  <span i18n:translate="text_fulfillment_shipping_track_number"> Shipment Tracking Numbers: </span>
             <ul tal:repeat="trackNumber view/getShimpentTrackNumbers">
               <li tal:content="structure trackNumber"></li>
