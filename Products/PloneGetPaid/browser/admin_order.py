@@ -185,8 +185,9 @@ class OrderEmailsCSVComponent(core.ComponentViewlet):
         for order in manager.storage.values():
             email = order.contact_information.email.lower()
             if email not in unique_emails:
+                name = order.contact_information.name.encode('utf-8')
                 writer.writerow((order.user_id,
-                                 order.contact_information.name,
+                                 name,
                                  email,
                                  order.contact_information.marketing_preference,
                                  order.contact_information.email_html_format))
