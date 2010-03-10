@@ -21,13 +21,9 @@ try:
 except ImportError:
     from zope.app.event.objectevent import ObjectCreatedEvent
 
-from zope.app.renderer.plaintext import PlainTextToHTMLRenderer
 from zope.app.component.hooks import getSite
 
 from zope import component
-
-from zope.schema.interfaces import IField
-from zope.app.apidoc import interface as apidocInterface
 
 from zc.table import column
 from getpaid.wizard import Wizard, ListViewController, interfaces as wizard_interfaces
@@ -315,7 +311,6 @@ class CheckoutWizard( Wizard ):
                                                order_id = order_id,
                                                creation_date = timedelta(1) )
                 if len(results) == 1:
-                    order = list( results )[0]
                     base_url = self.context.absolute_url()
                     url = base_url + '/@@getpaid-thank-you?order_id=%s' %(order_id)
 
@@ -373,13 +368,6 @@ class CheckoutController( ListViewController ):
 
     conditions = {'checkout-select-shipping' : 'checkShippableCart'}
     steps = ['checkout-address-info', 'checkout-select-shipping', 'checkout-review-pay']
-
-    def getStep( self, step_name ):
-        step = component.getMultiAdapter(
-                    ( self.wizard.context, self.wizard.request ),
-                    name=step_name
-                    )
-        return step.__of__( Acquisition.aq_inner( self.wizard.context ) )
 
     def checkShippableCart( self ):
         cart_utility = component.getUtility( interfaces.IShoppingCartUtility )
@@ -682,8 +670,6 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
 
 
     def createOrder( self ):
-        order_manager = component.getUtility( interfaces.IOrderManager )
-
         order = self.createTransientOrder()
 
         shipping_code = self.wizard.data_manager.get('form.shipping_method_code')
@@ -837,8 +823,8 @@ class StorePropertyView(BrowserView):
         settings = IGetPaidManagementOptions(portal)
         value = getattr( settings, name, '')
         if value:
-            renderer = PlainTextToHTMLRenderer(value, self.request)
-            value = renderer.render().strip()
+            transforms = getToolByName(self.context, 'portal_transforms')
+            value = transforms('web_intelligent_plain_text_to_html', value).strip()
         return value
 
 class DisclaimerView( StorePropertyView ):
@@ -907,7 +893,7 @@ class AddressBookView(BrowserView):
         for entry in self.getEntryNames().keys():
 
             field_assignations += "if (contact_name == '%s') {\n" % entry
-            for name in apidocInterface.getElements(interfaces.IShippingAddress, type=IField).keys():
+            for name in schema.getFieldsNames(interfaces.IShippingAddress):
                 try:
                     if name == "ship_state":
                         field_assignations += """\n setTimeout("doWaitUntilStatesAreLoaded('%s')",2000);""" %  getattr(addressBookUsr[entry],name) or ''
