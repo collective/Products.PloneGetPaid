@@ -8,11 +8,7 @@ from zope.schema import Iterable
 from zope.app.container.interfaces import IContainer
 from zope.app.container.constraints import contains
 
-try:
-    # For Plone-3 and above.
-    from zope.component.interfaces import IObjectEvent
-except ImportError:
-    from zope.app.event.interfaces import IObjectEvent
+from zope.component.interfaces import IObjectEvent
 
 from getpaid.core.fields import PhoneNumber
 from getpaid.core.payment import CREDIT_CARD_TYPES

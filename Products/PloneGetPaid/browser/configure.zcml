@@ -151,8 +151,8 @@
       permission="zope2.View"
       />
 -->
-  <five:traversable class=".order.TraversableWrapper" />
-  <five:defaultViewable class=".order.TraversableWrapper"/>
+  <!-- <five:traversable class=".order.TraversableWrapper" />
+  <five:defaultViewable class=".order.TraversableWrapper"/> -->
 
   <browser:defaultView
      for="getpaid.core.interfaces.IOrder"

@@ -5,6 +5,10 @@ CHANGES
 0.8.6 (unreleased)
 ------------------
 
+- Removed various bits of BBB code for Zope 2.9 and Plone 2.5, which have not
+  been supported for a while already.
+  [davisagli]
+
 - Removed registration of the Payable object tab as a Zope 3 browser menu
   (which was BBB for Plone 2.5 and doesn't work with CMF 2.2)
   [davisagli]

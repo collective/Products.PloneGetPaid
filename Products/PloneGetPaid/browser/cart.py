@@ -29,7 +29,6 @@ from Products.CMFCore.utils import getToolByName
 from Products.PloneGetPaid.interfaces import PayableMarkers, IGetPaidCartViewletManager, INamedOrderUtility
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IConditionalViewlet, IVariableAmountDonatableMarker
 from Products.PloneGetPaid import sessions
-from Products.PloneGetPaid import config
 
 from Products.PloneGetPaid.i18n import _
 from Products.CMFPlone.utils import safe_unicode
@@ -261,9 +260,6 @@ class ShoppingCartListing( ContainerViewlet ):
     def isOrdered( self, *args ):
         # shopping cart should not be ordered, so override this with False
         return False
-    
-    def isPlone3(self):
-        return config.PLONE3
     
     @form.action(_("Update"), condition="isNotEmpty")
     def handle_update( self, action, data ):

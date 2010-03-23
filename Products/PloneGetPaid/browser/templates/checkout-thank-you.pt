@@ -23,10 +23,7 @@
         </div>
     </div>
     
-    <tal:cond define="isPlone3 context/@@checkout-review-pay/isPlone3"
-              condition="isPlone3">
-        <div tal:replace="structure provider:getpaid.belowcartthankyou" />
-    </tal:cond>
+    <div tal:replace="structure provider:getpaid.belowcartthankyou" />
     
     
     <div tal:condition="not:isAnon">

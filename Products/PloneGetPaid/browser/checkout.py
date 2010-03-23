@@ -15,11 +15,7 @@ from zope.event import notify
 from zope.formlib import form
 from zope import schema, interface
 
-try:
-    # For Plone-3 and above.
-    from zope.lifecycleevent import ObjectCreatedEvent
-except ImportError:
-    from zope.app.event.objectevent import ObjectCreatedEvent
+from zope.lifecycleevent import ObjectCreatedEvent
 
 from zope.app.component.hooks import getSite
 
@@ -45,7 +41,6 @@ from Products.PloneGetPaid.interfaces import INamedOrderUtility
 
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IAddressBookUtility
 from Products.PloneGetPaid.i18n import _
-from Products.PloneGetPaid import config
 
 from base import BaseFormView
 import cart as cart_core
@@ -707,12 +702,7 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
                      f_states.REVIEWING,
                      f_states.CHARGED):
             return base_url + '/@@getpaid-thank-you?order_id=%s&finance_state=%s' %(order.order_id, state)
-            
-    def isPlone3(self):
-        """test if it is a plone3 site
-        """
-        return config.PLONE3
-            
+
 
 class ShippingRate( options.PropertyBag ):
     title = "Shipping Rate"
