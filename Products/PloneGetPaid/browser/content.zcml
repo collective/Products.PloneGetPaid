@@ -59,26 +59,12 @@
      permission="cmf.ModifyPortalContent"
      />
 
-  <!-- We need to add this here because the permission directive is not working as expected,
-       so we add a menuItem to use the filter directive and check permissions using
-       portal_membership.
-  -->
-  <browser:menuItem
-     for="..interfaces.IBuyableMarker"
-     menu="object"
-     title="Payable"
-     action="edit-payable"
-     filter="python:object.portal_membership.checkPermission('Modify portal content', object)"
-     />
-
   <!-- This view exists mainly to solve this issue:
        http://code.google.com/p/getpaid/issues/detail?id=152 -->
 
   <browser:page
      for="..interfaces.IPremiumMarker"
      name="edit-payable"
-     menu="object"
-     title="Payable"
      class=".content.PremiumEdit"
      permission="cmf.ModifyPortalContent"
      />
@@ -86,8 +72,6 @@
   <browser:page
      for="..interfaces.IShippableMarker"
      name="edit-payable"
-     menu="object"
-     title="Payable"
      class=".content.ShippableEdit"
      permission="cmf.ModifyPortalContent"
      />     
@@ -99,14 +83,6 @@
     permission="cmf.ModifyPortalContent"
     />
 
-  <browser:menuItem
-     for="..interfaces.IDonatableMarker"
-     menu="object"
-     title="Payable"
-     action="edit-payable"
-     filter="python:object.portal_membership.checkPermission('Modify portal content', object)"
-     />
-
   <browser:page
     for="..interfaces.IVariableAmountDonatableMarker"
     name="edit-payable"
@@ -114,15 +90,7 @@
     permission="cmf.ModifyPortalContent"
     />
 
-  <browser:menuItem
-     for="..interfaces.IVariableAmountDonatableMarker"
-     menu="object"
-     title="Payable"
-     action="edit-payable"
-     filter="python:object.portal_membership.checkPermission('Modify portal content', object)"
-     />
-
-  <!-- Deactivation Views, turning paybles back into content -->
+  <!-- Deactivation Views, turning payables back into content -->
   <browser:page
      for="*"
      name="deactivate-buyable"

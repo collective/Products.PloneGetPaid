@@ -5,6 +5,13 @@ CHANGES
 0.8.6 (unreleased)
 ------------------
 
+- Removed registration of the Payable object tab as a Zope 3 browser menu
+  (which was BBB for Plone 2.5 and doesn't work with CMF 2.2)
+  [davisagli]
+
+- Added various conditional imports for Plone 4 compatibility.
+  [taito.horiuchi, davisagli]
+
 0.8.5 (2009-07-28)
 ------------------
 - Allow users to change the opt-in language through the settings panel. [larubbio]
