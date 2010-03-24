@@ -1,4 +1,4 @@
-<metal:page use-macro="context/@@manage-getpaid-order-template/macros/admin"
+<metal:page use-macro="context/@@manage-getpaid-order-template/admin"
     i18n:domain="plonegetpaid">
   <metal:block fill-slot="admin_content">
 

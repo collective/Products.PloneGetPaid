@@ -11,8 +11,6 @@ from zope import component, interface
 from zope.formlib import form
 from zc.table import column, table
 
-from zope.app.component.hooks import getSite
-
 from ore.viewlet.container import ContainerViewlet
 from ore.viewlet.core import FormViewlet
 
@@ -32,6 +30,7 @@ from Products.PloneGetPaid import sessions
 
 from Products.PloneGetPaid.i18n import _
 from Products.CMFPlone.utils import safe_unicode
+from Products.CMFPlone.i18nl10n import utranslate
 
 #################################
 # Shopping Cart Views
@@ -198,7 +197,9 @@ class CartFormatter( table.StandaloneSortFormatter ):
         
     def renderExtra( self ):
 
-        translate = lambda msg: getSite().translate(msgid=msg, domain='plonegetpaid')
+        translate = lambda msg: utranslate(domain='plonegetpaid',
+                                           msgid=msg,
+                                           context=self.request)
 
         if not len( self.context ):
             return super( CartFormatter, self).renderExtra()
@@ -252,7 +253,9 @@ class ShoppingCartListing( ContainerViewlet ):
 
         for column in self.columns:
             if hasattr(column, 'title'):
-                column.title = getSite().translate(msgid=column.title, domain='plonegetpaid')
+                column.title = utranslate(domain='plonegetpaid',
+                                          msgid=column.title,
+                                          context=self.request)
 
     def getContainerContext( self ):
         return self.__parent__.cart

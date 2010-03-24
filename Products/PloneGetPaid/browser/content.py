@@ -88,9 +88,10 @@ class PayableCreation( PayableForm ):
     def activate_payable( self, action, data):
         self.adapters = {}
         self.handle_edit_action.success_handler( self, action, data )
-        self.adapters[ igetpaid.IPayable ].made_payable_by = getSecurityManager().getUser().getId()
+        adapter = self.adapters[ self.form_fields['made_payable_by'].interface ]
+        adapter.made_payable_by = getSecurityManager().getUser().getId()
         notify(
-            event.PayableCreationEvent( self.context, self.adapters[ igetpaid.IPayable ], self.interface )
+            event.PayableCreationEvent( self.context, adapter, self.interface )
             )
 
         # redirect to view
