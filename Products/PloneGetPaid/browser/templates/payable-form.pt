@@ -7,18 +7,10 @@
 <metal:main fill-slot="main">
     <tal:main-macro metal:define-macro="main">
 
-        <div metal:use-macro="here/document_actions/macros/document_actions">
-            Document actions (print, sendto etc)
-        </div>
-
-        <h1 tal:content="object_title" class="documentFirstHeading" i18n:translate="">
+        <h1 tal:content="context/Title" class="documentFirstHeading" i18n:translate="">
           Title or id
         </h1>
     
-        <div metal:use-macro="here/document_byline/macros/byline">
-          Get the byline - contains details about author and modification date.
-        </div>
-
 	<tal:block tal:define="allowed view/allowed">
 
 	 <div tal:condition="python:not allowed">

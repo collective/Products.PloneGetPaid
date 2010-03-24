@@ -1,4 +1,4 @@
-<metal:page use-macro="context/@@manage-getpaid-settings-template/macros/admin">
+<metal:page use-macro="context/@@manage-getpaid-settings-template/admin">
   <metal:block fill-slot="admin_content">
 	    <p>
 	      <span i18n:translate="description_getpaid_setup_documentation">Documentation

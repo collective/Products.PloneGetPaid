@@ -31,12 +31,11 @@ from AccessControl import getSecurityManager
 from ZTUtils import make_query
 from ZTUtils.Zope import complex_marshal
 
-from Products.Five.formlib import formbase
 from Products.Five.browser import BrowserView
+from Products.Five.browser.decode import processInputs
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 
-# Bruno - missing import for INamedOrderUtility
 from Products.PloneGetPaid.interfaces import INamedOrderUtility
 
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IAddressBookUtility
@@ -415,7 +414,7 @@ class CheckoutAddress( BaseCheckoutForm ):
     template = ZopeTwoPageTemplateFile("templates/checkout-address.pt")
 
     def update( self ):
-        formbase.processInputs( self.request )
+        processInputs( self.request )
         self.adapters = self.wizard.data_manager.adapters
         super( CheckoutAddress, self).update()
 
