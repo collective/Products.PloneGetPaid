@@ -17,8 +17,6 @@ from zope import schema, interface
 
 from zope.lifecycleevent import ObjectCreatedEvent
 
-from zope.app.component.hooks import getSite
-
 from zope import component
 
 from zc.table import column
@@ -35,6 +33,7 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.decode import processInputs
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.i18nl10n import utranslate
 
 from Products.PloneGetPaid.interfaces import INamedOrderUtility
 
@@ -581,7 +580,9 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
 
         for column in self.columns:
             if hasattr(column, 'title'):
-                column.title = getSite().translate(msgid=column.title, domain='plonegetpaid')
+                column.title = utranslate(domain='plonegetpaid',
+                                          msgid=column.title,
+                                          context=self.request)
 
         # create an order so that tax/shipping utilities have full order information
         # to determine costs (ie. billing/shipping address ).

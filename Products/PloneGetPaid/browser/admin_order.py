@@ -11,7 +11,6 @@ from zope.schema.interfaces import IContextSourceBinder
 from zope.schema import vocabulary
 from zope.viewlet.interfaces import IViewlet
 from zope.formlib import form
-from zope.app.component.hooks import getSite
 
 from zExceptions import Unauthorized
 from zc.table import table, column
@@ -23,6 +22,7 @@ from getpaid.core.interfaces import IOrderManager
 from hurry.workflow.interfaces import IWorkflowInfo
 
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.i18nl10n import utranslate
 
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
@@ -106,7 +106,9 @@ class OrderListingComponent( core.EventViewlet ):
     def listing( self ):
         for column in self.columns:
             if hasattr(column, 'title'):
-                column.title = getSite().translate(msgid=column.title, domain='plonegetpaid')
+                column.title = utranslate(domain='plonegetpaid',
+                                          msgid=column.title,
+                                          context=self.request)
 
         columns = self.columns
         values = self.manager.get('orders-search').results
@@ -789,7 +791,9 @@ class OrderContentsComponent( core.ComponentViewlet ):
     def listing( self ):
         for column in self.columns:
             if hasattr(column, 'title'):
-                column.title = getSite().translate(msgid=column.title, domain='plonegetpaid')
+                column.title = utranslate(domain='plonegetpaid',
+                                          msgid=column.title,
+                                          context=self.request)
 
         columns = self.columns
         formatter = table.StandaloneFullFormatter( self.context,
