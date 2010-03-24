@@ -3,7 +3,7 @@ $Id$
 """
 
 import os, sys
-from Globals import package_home
+from App.Common import package_home
 
 import _patch
 
