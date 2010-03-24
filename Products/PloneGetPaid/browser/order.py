@@ -100,7 +100,7 @@ class OrderRoot(BrowserView):
         self.context = context
         self.request = request
 
-    def __bobo_traverse__( self, request, name ):
+    def publishTraverse( self, request, name ):
         value = getattr( self, name, _marker )
         if value is not _marker:
             return value

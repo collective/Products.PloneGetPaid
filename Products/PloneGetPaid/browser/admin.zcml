@@ -71,14 +71,14 @@
      template="templates/orders-manage.pt"
      permission="plonegetpaid.ManageOrders"
      />
-<!--
+
   <browser:page
      for="getpaid.core.interfaces.IStore"
      name="admin-manage-order"
      class=".admin_order.AdminOrderRoot"
      permission="plonegetpaid.ManageOrders"
      />
--->
+
 
   <browser:page
      for="getpaid.core.interfaces.IOrder"
