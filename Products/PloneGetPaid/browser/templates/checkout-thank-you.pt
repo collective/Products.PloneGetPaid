@@ -1,8 +1,9 @@
-<metal:page use-macro="context/@@getpaid-content-template/macros/content_space"
+<metal:page use-macro="context/@@getpaid-content-template/content_space"
             i18n:domain="plonegetpaid">
   <metal:block fill-slot="getpaid_content"
                tal:define="finance_state request/form/finance_state|nothing;
-                           order_id request/form/order_id|string:">
+                           order_id request/form/order_id|string:;
+                           isAnon context/@@plone_portal_state/anonymous;">
 
 
     <h3 i18n:translate="heading_checkout_thank_you"> Thank you for your order </h3>
