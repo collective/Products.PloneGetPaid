@@ -143,16 +143,13 @@
      />
 
   <!-- User's Order View -->
-<!--
+
   <browser:page
       for="getpaid.core.interfaces.IStore"
       name="getpaid-order"
       class=".order.OrderRoot"
       permission="zope2.View"
       />
--->
-  <!-- <five:traversable class=".order.TraversableWrapper" />
-  <five:defaultViewable class=".order.TraversableWrapper"/> -->
 
   <browser:defaultView
      for="getpaid.core.interfaces.IOrder"

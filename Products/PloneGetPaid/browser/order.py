@@ -7,26 +7,18 @@ import os
 
 from Products.Five.browser import BrowserView
 from Products.Five.viewlet.manager import ViewletManager
-#from Products.Five.traversable import FiveTraversable
 from OFS.SimpleItem import SimpleItem
 
 from Products.PloneGetPaid import interfaces as ipgp
 
-from zope import interface#, component
-#from zope.publisher.interfaces import IPublishTraverse
-
-#try:
-#    # For Plone-3 and above.
-#    from zope.traversing.interfaces import ITraversable
-#except ImportError:
-#    from zope.app.traversing.interfaces import ITraversable
+from zope import interface, component
+from zope.publisher.interfaces import IPublishTraverse
 
 from getpaid.core.order import query
 from getpaid.core import interfaces as igpc
 
 from Products.PloneGetPaid.i18n import _
 
-# from getpaid.core.interfaces import IOrderManager
 from AccessControl import getSecurityManager
 
 _marker = object()
@@ -99,26 +91,24 @@ class OrderDetails( BrowserView ):
         return super( OrderDetails, self).__call__()
     
 
-#class OrderRoot( BrowserView, FiveTraversable ):
-##class OrderRoot(BrowserView):
-#    """ a view against the store which allow us to expose individual order objects
-#    """
-#    interface.implements( ITraversable )
-##    interface.implements(ITraversable, IPublishTraverse)
-#    
-#    def __init__( self, context, request ):
-#        self.context = context
-#        self.request = request
+class OrderRoot(BrowserView):
+    """ a view against the store which allow us to expose individual order objects
+    """
+    interface.implements(IPublishTraverse)
+   
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
 
-#    def __bobo_traverse__( self, request, name ):
-#        value = getattr( self, name, _marker )
-#        if value is not _marker:
-#            return value
-#        manager = component.getUtility( igpc.IOrderManager )
-#        order = manager.get( name )
-#        if order is None:
-#            raise AttributeError( name )
-#        return TraversableWrapper( order ).__of__( self.context )
+    def __bobo_traverse__( self, request, name ):
+        value = getattr( self, name, _marker )
+        if value is not _marker:
+            return value
+        manager = component.getUtility( igpc.IOrderManager )
+        order = manager.get( name )
+        if order is None:
+            raise AttributeError( name )
+        return TraversableWrapper( order ).__of__( self.context )
 
 
 class TraversableWrapper( SimpleItem ):
