@@ -32,7 +32,7 @@ class AddForm(base.NullAddForm):
 class Renderer(GetPaidRenderer):
     marker = IBuyableMarker
     render = ViewPageTemplateFile('../templates/portlet-content-buyable.pt')
-    
+
     def currency(self):
         context = self.context.aq_inner
         formatter = getUtility(ICurrencyFormatter)

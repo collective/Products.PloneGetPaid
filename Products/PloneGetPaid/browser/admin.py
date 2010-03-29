@@ -17,6 +17,7 @@ from zope.formlib import form
 from zope.viewlet.interfaces import IViewlet
 
 import getpaid.core.interfaces as igetpaid
+from getpaid.paymentprocessors.registry import paymentProcessorRegistry
 
 from Products.PloneGetPaid.interfaces import ISettingsShipmentManager
 from Products.PloneGetPaid.i18n import _
@@ -57,7 +58,7 @@ class BaseSettingsForm( formbase.EditForm, BaseView ):
         if interface is not None:
             self.adapters = { interface : interfaces.IGetPaidManagementOptions( self.context ) }
         super( BaseSettingsForm, self).update()
-        
+
 class Identification( BaseSettingsForm ):
     """
     get paid management interface
@@ -217,6 +218,66 @@ class PaymentOptions( BaseSettingsForm ):
         self.
     """
 
+class PaymentProcessors(BrowserView):
+    """ The user goes to payment processor settings in GetPaid setup.
+
+    Print available payment processors and see if they are enabled. Allow users
+    to choose which processors to enable. Print links to individual processor setting
+    pages.
+
+    Payment processors are stored in portal_properties.payment_processor_properties.
+
+    TODO: This form is not protected against XSS attacks and takes some shortcuts
+    to bypass zope.formlib. I am not experienced enough zope.formlib user.
+    """
+
+    template = ZopeTwoPageTemplateFile('templates/settings-payment-processors.pt')
+
+    def getCheckedForProcessor(self, processor):
+        """
+
+        @param processsor: Processor class instance
+        """
+
+        # See profiles/default/propertiestool.xml
+        if processor.name in self.context.portal_properties.payment_processor_properties.enabled_processors:
+            return "CHECKED"
+        else:
+            return None
+
+    def getProcessors(self):
+        """ Called from the template.
+
+        @return: Iterable of Processor objects
+        """
+        return paymentProcessorRegistry.getProcessors()
+
+    def processForm(self):
+        """ Manage HTTP post """
+        actived = self.request.get("active-payment-processors", [])
+
+        # Add some level of safety
+        for a in actived:
+            if not a in paymentProcessorRegistry.getNames():
+                raise RuntimeError("Tried to enable unsupported processor %s" % a)
+
+        self.context.portal_properties.payment_processor_properties.enabled_processors = actived
+
+        from Products.statusmessages.interfaces import IStatusMessage
+        statusmessages = IStatusMessage(self.request)
+        statusmessages.addStatusMessage(u"Active payment processors updated", "info")
+
+
+    def __call__(self):
+
+        if self.request["REQUEST_METHOD"] == "GET":
+            return self.template() # render page
+        else:
+            # Assume POST, user is changing active payment methods
+            self.processForm()
+            return self.template() # render page
+
+
 class PaymentProcessor( BaseSettingsForm ):
     """
     get paid management interface, slightly different because our form fields
@@ -230,10 +291,24 @@ class PaymentProcessor( BaseSettingsForm ):
         self.setupProcessorOptions()
         return super( PaymentProcessor, self).__call__()
 
-    def setupProcessorOptions( self ):
+
+    def getPaymentProcessorName(self):
+        """ Processor specific setting screen
+
+        @return: String, getpaid.core.interfaces.IPaymentProcessor name
+        """
+
+        # BBB
+        # This returns the active payment processor from old style getpaid
         manage_options = interfaces.IGetPaidManagementOptions( self.context )
 
         processor_name = manage_options.payment_processor
+        return processor_name
+
+    def setupProcessorOptions( self ):
+
+        processor_name = self.getPaymentProcessorName()
+
         if not processor_name:
             self.status = _(u"Please Select Payment Processor in Payment Options Settings")
             return

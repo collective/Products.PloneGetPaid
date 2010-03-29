@@ -242,9 +242,9 @@ class IGetPaidManagementShippingMethods( igetpaid.IPersistentOptions ):
 class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
     """
     """
-    payment_processor = schema.Choice( title = _(u"Payment Processor"),
-                                       source = "getpaid.payment_methods",
-                                       default = 'Testing Processor' )
+#    payment_processor = schema.Choice( title = _(u"Payment Processor"),
+#                                       source = "getpaid.payment_methods",
+#                                       default = 'Testing Processor' )
 
     allow_anonymous_checkout = schema.Bool( title=_(u"Allow Anonymous Checkout"), default=False)
 
@@ -385,7 +385,7 @@ class IGetPaidManagementEmailOptions( igetpaid.IPersistentOptions ):
 
     send_merchant_decline_notification = schema.Bool( title = _(u"Send Merchant Decline Email?"),
                                                       default = False)
-    
+
     customer_decline_email_notification_template = schema.Text( title = _(u"Customer Decline Email Template"),
                                                                 description = _(u"Email sent to the customer following the decline of a new order."),
                                                                 required = False, )
@@ -402,7 +402,7 @@ class IGetPaidManagementEmailOptions( igetpaid.IPersistentOptions ):
 
 #     send_merchant_refund_notification = schema.Bool( title = _(u"Send Merchant Refund Email?"),
 #                                                      default = False)
-    
+
 #     customer_refund_email_notification_template = schema.Text( title = _(u"Customer Refund Email Template"),
 #                                                                description = _(u"Email sent to the customer following the refund of an order."),
 #                                                                required = False, )

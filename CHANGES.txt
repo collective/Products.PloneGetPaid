@@ -26,11 +26,14 @@ CHANGES
 
 0.8.3 (2009-07-22)
 ------------------
-- Add a new 'multishot' cart.  Currently used with getpaid.formgen so sibling adapters can access the cart used for single page checkouts. [larubbio]
+- Add a new 'multishot' cart.  Currently used with getpaid.formgen so
+  sibling adapters can access the cart used for single page
+  checkouts. [larubbio]
 
 0.8.2 (2009-07-10)
 ------------------
-- Rollback the 'fix' for $0 shipping since it causes the shipping cost to be displayed to the user, but not charged.
+- Rollback the 'fix' for $0 shipping since it causes the shipping cost
+  to be displayed to the user, but not charged.
 
 0.8.1 (2009-07-07)
 ------------------
@@ -40,10 +43,19 @@ CHANGES
 0.8 (2009-07-07)
 ----------------
 - Allow the user to make changes to the emails that are sent out [larubbbio]
-- Allow sending of emails on auth, charge and decline (I didn't see an event for refund) [larubbio]
-- Manage Cart link in personal_bar changed from $object_url/@@getpaid-cart to $portal_url/@@getpaid-cart like in cart portlet [taito.horiuchi]
-- Change the order of checkout buttons so the default is to continue through the pipeline [larubbio]
-- Add a hacked 'fix' for $0 shipping bug when user moves backwards through the checkout pipeline [larubbio]
+- Allow sending of emails on auth, charge and decline (I didn't see an
+  event for refund) [larubbio]
+- Manage Cart link in personal_bar changed from
+  $object_url/@@getpaid-cart to $portal_url/@@getpaid-cart like in
+  cart portlet [taito.horiuchi]
+- Change the order of checkout buttons so the default is to continue
+  through the pipeline [larubbio]
+- Add a hacked 'fix' for $0 shipping bug when user moves backwards
+  through the checkout pipeline [larubbio]
+
+For Multipayment
+----------------
+- Hide Payment Processor from Payment Option page.
 
 0.7.9 (2009-05-19)
 ------------------
@@ -52,7 +64,7 @@ CHANGES
 0.7.8 (2009-05-15)
 ------------------
 
-- updated the way we get the version of the product, since there is no 
+- updated the way we get the version of the product, since there is no
   more version file [lucielejard]
 
 0.7.7 (2009-05-15)
@@ -79,7 +91,7 @@ CHANGES
 - updated brazilian portuguese translation [rafaelcrocha]
 - updated the code so that we make sure we get the site root when checking
   out, otherwise we can't get the store settings
-  
+
 
 0.7.4 (2009-01-28)
 ------------------
@@ -99,10 +111,10 @@ CHANGES
 
 * updated the portlet "add to cart" so that we can choose a quantity
   of items to add, this fixes issue 123 [lucielejard]
-* added a provider spot on the "review and pay" page to be able to 
+* added a provider spot on the "review and pay" page to be able to
   hook a viewlet to it
 * Added 2 fixes (for when you use the shipping system):
-* gave a default value to the order.shipments, because it is never 
+* gave a default value to the order.shipments, because it is never
   set up to anything otherwise and you can't access your order,
 * fixed the way we calculate the total, so that we have float numbers
 
@@ -111,40 +123,39 @@ CHANGES
 ------------------
 
 * fix: missing import for interface INamedOrderUtility [bruno.ripa]
-* form update did not do as advertised - see  
+* form update did not do as advertised - see
   http://groups.google.com/group/getpaid-dev/browse_thread/thread/e55f34e1d509ceef
   [matt.halstead]
 * fix: added view to check shippable contents [bruno.ripa]
-* created "Checkout Options" management page to control whether 
-  'Contact me with offers' is displayed on Checkout (fixes issue 184) 
+* created "Checkout Options" management page to control whether
+  'Contact me with offers' is displayed on Checkout (fixes issue 184)
   [mcgruff.scruff]
-* Persisted and added Name on Card and Card Phone Num to orders listing 
+* Persisted and added Name on Card and Card Phone Num to orders listing
   viewlet. [ctxlken]
 * Added last4 and transaction id columns to the orders listing viewlet.
   [asagliocco]
 * Persisted processor transaction id and last-4 digits of credit card to ZODB.
   Also, modified order-summary.pt to present these two fields. [ctxlken]
 * fix: #151 and some missing italian translations [bruno.ripa]
-* Modified anon checkout test to create second browser object in order to 
-  eliminate test failure due to non-existent Login in link after logout in 
-  first browser object (similar to FireFox behavior that requires shutting 
+* Modified anon checkout test to create second browser object in order to
+  eliminate test failure due to non-existent Login in link after logout in
+  first browser object (similar to FireFox behavior that requires shutting
   down browser to fully be logged out. [ctxlken]
 * Provide a slightly longer example of how to integrate an existing
   custom content type. [michael.dunstan]
 * Added a howto for accessing getpaid properties from able object
   [horacio.duran]
-* Added an option to give a name to the order templates to find them 
+* Added an option to give a name to the order templates to find them
   easily after [horacio.duran]
 * changed the zip_safe to be False [lucielejard]
-* Finally the order management screens keeps the filter when paging, 
+* Finally the order management screens keeps the filter when paging,
   rejoice. Also with tests, just in case.  <-- this for trunk
   [horacio.duran]
-* review doc and edit (remove uncertainty "xxx"). split off part to 
+* review doc and edit (remove uncertainty "xxx"). split off part to
   development docs folder. [cjj.ifpeople]
 * porting State widget work from 0.6 branch to here [javimansilla]
 
 0.7 (2008-08-29)
 ----------------
- 
-* Added general text documents to project root.
 
+* Added general text documents to project root.

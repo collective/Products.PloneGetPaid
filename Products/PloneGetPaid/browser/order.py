@@ -34,7 +34,7 @@ class UserOrderHistory( BrowserView ):
         self.manager = OrderHistoryManager( self.context, self.request, self )
         self.manager.update()
         return super( UserOrderHistory, self ).__call__()
-        
+
 # viewlet manager for the same
 class ViewletManagerOrderHistory(object):
     """ Order History Viewlet Manager """
@@ -84,18 +84,18 @@ OrderDetailsManager = ViewletManager(
 class OrderDetails( BrowserView ):
     """ an order view
     """
-    
+
     def __call__( self ):
         self.manager = OrderDetailsManager( self.context, self.request, self )
         self.manager.update()
         return super( OrderDetails, self).__call__()
-    
+
 
 class OrderRoot(BrowserView):
     """ a view against the store which allow us to expose individual order objects
     """
     interface.implements(IPublishTraverse)
-   
+
     def __init__( self, context, request ):
         self.context = context
         self.request = request
@@ -115,14 +115,14 @@ class TraversableWrapper( SimpleItem ):
     """ simple indeed, a zope2 transient wrapper around a persistent order so we can
     publish them ttw.
     """
-    
+
     interface.implements( igpc.IOrder )
 
     id = title = _(u"Order Details")
-    
+
     def Title( self ):
         return self.title
-    
+
     def __init__( self, object ):
         self._object = object
 
@@ -131,4 +131,3 @@ class TraversableWrapper( SimpleItem ):
         if value is not _marker:
             return value
         return super( TraversableWrapper, self).__getattr__( name )
-

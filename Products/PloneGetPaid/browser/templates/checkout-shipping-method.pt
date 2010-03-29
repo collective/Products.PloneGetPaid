@@ -14,20 +14,20 @@
     </div>
 
     <div class="portalMessage" tal:content="view/status" tal:condition="view/status"> </div>
-    
+
     <fieldset tal:define="service_names view/ship_service_names">
       <legend i18n:translate="">Select a shipping rate: </legend>
         <tal:loop tal:repeat="service service_names">
           <tal:loop tal:repeat="sM python:view.service_options[service]">
-              <input tal:condition="repeat/sM/start" 
-                     tal:attributes="value string:${service}.${sM/service_code};" checked type="radio" name="form.shipping_method_code" id="form.shipping_method_code"/>  
-              <input tal:condition="not:repeat/sM/start"  
-                     tal:attributes="value string:${service}.${sM/service_code};" type="radio" name="form.shipping_method_code" id="form.shipping_method_code"/>  
+              <input tal:condition="repeat/sM/start"
+                     tal:attributes="value string:${service}.${sM/service_code};" checked type="radio" name="form.shipping_method_code" id="form.shipping_method_code"/>
+              <input tal:condition="not:repeat/sM/start"
+                     tal:attributes="value string:${service}.${sM/service_code};" type="radio" name="form.shipping_method_code" id="form.shipping_method_code"/>
               <span tal:content="python:sM.service + ', ' + str(sM.currency) + ' ' + ('%0.2f' % sM.cost)" /><br />
           </tal:loop>
         </tal:loop>
       </fieldset>
-      
+
    <br/><br/>
       <div id="actionsView">
         <span class="actionButtons"
@@ -47,7 +47,7 @@
       </tal:loop>
         </span>
       </div>
-    </form> 
+    </form>
   <metal:legal use-macro="context/@@legal-disclaimers-links/links" />
 
   </metal:block>

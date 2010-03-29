@@ -84,14 +84,14 @@ class BatchingFormatter( MyBatchingMixin, table.StandaloneFullFormatter ):
 class OrderListingComponent( core.EventViewlet ):
 
     template = ZopeTwoPageTemplateFile('templates/orders-listing.pt')
-    
+
     columns = [
         column.GetterColumn( title=_(u"Order Id"), getter=renderOrderId ),
-        column.GetterColumn( title=_(u"Customer Id"), getter=AttrColumn("user_id" ) ), 
+        column.GetterColumn( title=_(u"Customer Id"), getter=AttrColumn("user_id" ) ),
         column.GetterColumn( title=_(u"Last4"), getter=AttrColumn("user_payment_info_last4" ) ),
-        column.GetterColumn( title=_(u"Proc Trans Id"), getter=AttrColumn("user_payment_info_trans_id" ) ),       
-        column.GetterColumn( title=_(u"Name on Card"), getter=AttrColumn("name_on_card" ) ),       
-        column.GetterColumn( title=_(u"Card Phone#"), getter=AttrColumn("bill_phone_number" ) ),       
+        column.GetterColumn( title=_(u"Proc Trans Id"), getter=AttrColumn("user_payment_info_trans_id" ) ),
+        column.GetterColumn( title=_(u"Name on Card"), getter=AttrColumn("name_on_card" ) ),
+        column.GetterColumn( title=_(u"Card Phone#"), getter=AttrColumn("bill_phone_number" ) ),
         column.GetterColumn( title=_(u"Status"), getter=AttrColumn("finance_state") ),
         column.GetterColumn( title=_(u"Fulfillment"), getter=AttrColumn("fulfillment_state") ),
         column.GetterColumn( title=_(u"Price"), getter=PriceColumn("getTotalPrice") ),
@@ -99,10 +99,10 @@ class OrderListingComponent( core.EventViewlet ):
         ]
 
     order = 2
-    
+
     def render( self ):
         return self.template()
-    
+
     def listing( self ):
         for column in self.columns:
             if hasattr(column, 'title'):
@@ -115,7 +115,7 @@ class OrderListingComponent( core.EventViewlet ):
         if not values:
             message = _(u'No orders found for your filter.')
             return self.context.utranslate(msgid=message, default=message, domain='plonegetpaid')
-        
+
         formatter = BatchingFormatter( self.context,
                                       self.request,
                                       values,
@@ -124,14 +124,14 @@ class OrderListingComponent( core.EventViewlet ):
                                       visible_column_names = [c.name for c in columns],
                                       #sort_on = ( ('name', False)
                                       columns = columns )
-        
+
         formatter.cssClasses['table'] = 'listing'
         return formatter()
-    
+
 class OrderCSVComponent( core.ComponentViewlet ):
 
     template = ZopeTwoPageTemplateFile('templates/orders-export-csv.pt')
-    
+
     order = 3
 
     def render( self ):
@@ -160,11 +160,11 @@ class OrderCSVComponent( core.ComponentViewlet ):
         # um.. send to user, we need to inform our view, to do the appropriate thing
         # since we can't directly control the response rendering from the viewlet
         self._parent._download_content = ('text/csv',  io.getvalue(), 'OrderSearchExport')
-        
+
 class OrderEmailsCSVComponent(core.ComponentViewlet):
 
     template = ZopeTwoPageTemplateFile('templates/orders-emails-export-csv.pt')
-    
+
     order = 4
 
     def render(self):
@@ -172,17 +172,17 @@ class OrderEmailsCSVComponent(core.ComponentViewlet):
 
     @form.action(_(u"Export All"))
     def export_all(self, action, data):
-        columns = ['User Id', 
-                   'Contact Name', 
-                   'Contact Email', 
-                   'Marketing Preference', 
+        columns = ['User Id',
+                   'Contact Name',
+                   'Contact Email',
+                   'Marketing Preference',
                    'Email Html Format']
-        
+
         io = StringIO.StringIO()
         writer = csv.writer(io)
         writer.writerow([cname for cname in columns ])
         unique_emails = set()
-        
+
         manager = zapi.getUtility(IOrderManager)
         for order in manager.storage.values():
             email = order.contact_information.email.lower()
@@ -222,8 +222,8 @@ class OrderSearchComponent( core.ComponentViewlet ):
     filtered = False
     _finance_values = [ m[1] for m in inspect.getmembers( interfaces.workflow_states.order.finance ) if m[0].isupper() ]
     _fulfillment_values = [ m[1] for m in inspect.getmembers( interfaces.workflow_states.order.fulfillment ) if m[0].isupper() ]
-    
-    form_fields = form.Fields( 
+
+    form_fields = form.Fields(
         schema.Choice( **define( title=u"Created", __name__=u"creation_date",
                                  values=( [ d[0] for d in date_search_order ] ),
                                  default="last 7 days") ),
@@ -250,7 +250,7 @@ class OrderSearchComponent( core.ComponentViewlet ):
         self.request['SESSION']['getpaid.order.filter.creation_date'] = data.get('creation_date')
         if data.get('creation_date'):
             data['creation_date'] = self.date_search_map.get( data['creation_date'] )
-        self.request['SESSION']['getpaid.order.filter.query'] = data 
+        self.request['SESSION']['getpaid.order.filter.query'] = data
         self.filtered = True
         self.results = query.search( data )
 
@@ -259,7 +259,7 @@ class OrderSearchComponent( core.ComponentViewlet ):
         if not self.filtered:
             if self.request['SESSION'].has_key('getpaid.order.filter.query'):
                 search_query = self.request['SESSION']['getpaid.order.filter.query']
-                self.request.set('form.creation_date', 
+                self.request.set('form.creation_date',
                                  self.request['SESSION']['getpaid.order.filter.creation_date'])
             else:
                 search_query = {'creation_date' : datetime.timedelta(7) }
@@ -268,7 +268,7 @@ class OrderSearchComponent( core.ComponentViewlet ):
 
         if self.results is None:
             self.results = []
-            
+
     def render( self ):
         return self.template()
 
@@ -322,7 +322,7 @@ OrdersAdminManager = viewlet_manager.ViewletManager(
 class ManageOrders( BrowserView ):
     # admin the collection of orders
     _download_content = None
-    
+
     def __call__( self ):
         self.manager = OrdersAdminManager( self.context, self.request, self )
         self.manager.update()
@@ -336,9 +336,9 @@ class AdminOrderRoot ( OrderRoot ):
     pass
 
 class AdminOrderManagerBase( OrderAdminManagerBase ):
-    
+
     items_by_state = None
-    
+
     def itemsByStates( self, states ):
         # cache results, so we don't have to lookup adapters for each
         if self.items_by_state is None:
@@ -347,7 +347,7 @@ class AdminOrderManagerBase( OrderAdminManagerBase ):
             self.items_by_state = d = {}
             for k, v in items:
                 d.setdefault(k,[]).append( v )
-        results = []            
+        results = []
         for s in states:
             results.extend( self.items_by_state.get( s, () ) )
         return results
@@ -357,7 +357,7 @@ class AdminOrderManagerBase( OrderAdminManagerBase ):
 
         order_finance_state = self.__parent__.context.finance_state
         order_fulfillment_state = self.__parent__.context.fulfillment_state
-        
+
         for vid, v in viewlets:
             if not v.show( order_finance_state = order_finance_state,
                            order_fulfillment_state = order_fulfillment_state ):
@@ -384,14 +384,14 @@ class OrderWorkflowLogBase( object ):
         return iter( wf_log )
 
     def render( self ):
-        return self.__of__( self.__parent__ ).index()                 
+        return self.__of__( self.__parent__ ).index()
 
     def show( self, **kw ):
         return True
-    
+
 OrderWorkflowLog = viewlet.SimpleViewletClass(
     template = os.path.join( os.path.dirname( __file__ ), 'templates/order-workflow-log.pt'),
-    bases = (OrderWorkflowLogBase,),    
+    bases = (OrderWorkflowLogBase,),
     attributes = { 'order' : 12 },
     name = "order-workflow-log"
     )
@@ -428,7 +428,7 @@ class CollectionTransitionHandler( object ):
         # reset the form manager cache,
         # XXX we really need to broadcast a message to invalidate any states already stored
         form.__parent__.manager.items_by_state = None
-    
+
 
 def bindTransitions( form_instance, transitions, wf_name=None, collection=False, wf=None ):
     """ bind workflow transitions into formlib actions """
@@ -519,10 +519,10 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
     prefix = "ordersummary"
 
     def render( self ):
-        
+
         # pull out the real order object from the traversable wrapper
         self.order = self.context._object
-        
+
         pm = getToolByName(self.context, "portal_membership")
 
         # this check really shouldn't be hardcoded here.. -kapilt
@@ -531,7 +531,7 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
             user_id = user.getId()
             if 'Anonymous' in user.getRoles() or user_id != self.getUserId():
                 raise Unauthorized, "Arbitrary Order Access Only for Managers"
-            
+
         utility = zapi.getUtility(ICountriesStates)
         self.vocab_countries = TitledVocabulary.fromTitles(utility.countries)
         self.vocab_states = TitledVocabulary.fromTitles(utility.states())
@@ -557,14 +557,14 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
         return self.order.fulfillment_state
 
     def user_payment_info_trans_id(self):
-	    return self.order.user_payment_info_trans_id
+        return self.order.user_payment_info_trans_id
 
     def user_payment_info_last4(self):
         return self.order.user_payment_info_last4
-	
+
     def finance_status( self ):
-        return self.order.finance_state   
-    
+        return self.order.finance_state
+
     def mockmethod(self):
         return 'test-value'
 
@@ -574,7 +574,7 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
                   'email': contact.email,
                   'phone': contact.phone_number}
         return contact
-    
+
     def getShippingService(self):
         if not hasattr(self.order,"shipping_service"):
             return "N/A"
@@ -586,16 +586,16 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
         # check the traversable wrrapper
         if not interfaces.IShippableOrder.providedBy( self.order ):
             return _(u"N/A")
-        
+
         service = component.queryUtility( interfaces.IShippingRateService,
                                           self.order.shipping_service )
-        
+
         # play nice if the a shipping method is removed from the store
-        if not service: 
+        if not service:
             return _(u"N/A")
-        
+
         return service.getMethodName( self.order.shipping_method )
-    
+
     def getShipmentWeight(self):
         """
         Lets return the weight in lbs for the moment
@@ -610,7 +610,7 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
                 weightValue = eachProduct.weight * eachProduct.quantity
                 totalShipmentWeight += weightValue
         return totalShipmentWeight
-       
+
     def getShimpentTrackNumbers(self):
         """
         Returns a list of tracking numbers for the shipment, if not available
@@ -623,9 +623,9 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
         for shipment in self.order.shipments.values():
             service = component.queryUtility( interfaces.IShippingRateService,
                                           self.order.shipping_service )
-        
-            if service: 
-                tracking_url = service.getTrackingUrl( shipment.tracking_code ) 
+
+            if service:
+                tracking_url = service.getTrackingUrl( shipment.tracking_code )
                 displayable_service = """<a href="%s">%s</a>""" % (tracking_url,shipment.tracking_code)
             else:
                 displayable_service = "%s" % shipment.tracking_code
@@ -642,7 +642,7 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
             return
         for fieldname in schema.getFieldNamesInOrder(infos.schema):
             yield getattr(infos,fieldname)
-        
+
     def getBillingAddress(self):
         infos = self.order.billing_address
         for fieldname in schema.getFieldNamesInOrder(infos.schema):
@@ -654,7 +654,7 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
 def AvailableOrderFinanceTransitions( context ):
     info = component.getAdapter( (context,), IWorkflowInfo, "order.finance")
     return vocabulary.SimpleVocabulary.fromValues(
-        info.getManualTransitionIds()        
+        info.getManualTransitionIds()
         )
 
 interface.directlyProvides( AvailableOrderFinanceTransitions, IContextSourceBinder )
@@ -669,7 +669,7 @@ interface.directlyProvides( AvailableOrderFulfillmentTransitions, IContextSource
 
 
 def AvailableGenericTransitions( context ):
-    return vocabulary.SimpleVocabulary.fromValues( 
+    return vocabulary.SimpleVocabulary.fromValues(
         IWorkflowInfo( context ).getManualTransitionIds()
         )
 
@@ -708,7 +708,7 @@ def renderItemPrice( item, formatter ):
 ##         if ignoreStickyValues or not widget.hasInput():
 ##             widget.setRenderedValue(self.get(item))
 ##         return widget()
-    
+
 
 ## Experiment with inline table edits as workflow triggers
 ##  part of order contents component class def
@@ -721,7 +721,7 @@ def renderItemPrice( item, formatter ):
 ##                                 getter=_of.get,
 ##                                 setter=_of.set,
 ##                                 field=_of.field,
-##                                 bind=True),    
+##                                 bind=True),
 
 ## class WorkflowColumn( object ):
 
@@ -740,19 +740,19 @@ class OrderContentsComponent( core.ComponentViewlet ):
     relevant workflow actions """
 
     interface.implements( )
-    
+
     template = ZopeTwoPageTemplateFile('templates/order-item-listing.pt')
-    
+
     columns = [
         column.SelectionColumn( lambda item: item.item_id, name="selection"),
         column.GetterColumn( title=_(u"Quantity"), getter=AttrColumn("quantity" ) ),
         column.GetterColumn( title=_(u"Item Id"), getter=renderItemId ),
         column.GetterColumn( title=_(u"Name"), getter=renderItemName ),
-        column.GetterColumn( title=_(u"Price"), getter=renderItemCost ),        
-        column.GetterColumn( title=_(u"Total"), getter=renderItemPrice ),        
+        column.GetterColumn( title=_(u"Price"), getter=renderItemCost ),
+        column.GetterColumn( title=_(u"Total"), getter=renderItemPrice ),
         column.GetterColumn( title=_(u"Status"), getter=AttrColumn("fulfillment_state" ) ),
         ]
-    
+
     selection_column = columns[0]
     order = 10 # position in the viewlet stack
     states = None # tuple of item fulfillment states that we use to get items we display
@@ -760,9 +760,9 @@ class OrderContentsComponent( core.ComponentViewlet ):
     show_fulfillment_states = () # which order fulfillment states we display in
 
     collection_name = _(u"Contents")
-    
+
     def render( self ):
-        return self.__of__( self.__parent__ ).template() 
+        return self.__of__( self.__parent__ ).template()
 
     def show( self, **kw):
         if self.show_fulfillment_states and kw['order_fulfillment_state']:
@@ -774,20 +774,20 @@ class OrderContentsComponent( core.ComponentViewlet ):
             if not self.line_items:
                 return False
         return True
-    
+
     def update( self ):
         # we need a better way of binding multiple states and associated transitions, such
         # that we can chain them together.
         info = IWorkflowInfo( self.line_items[0] )
         transitions = info.getManualTransitionIds()
         self.actions = bindTransitions( self, transitions, collection=True )
-        
+
         return super( OrderContentsComponent, self).update()
 
     def getSelected( self, action, data ):
         selected = self.selection_column.getSelected( self.line_items, self.request)
-        return selected        
-        
+        return selected
+
     def listing( self ):
         for column in self.columns:
             if hasattr(column, 'title'):
@@ -858,15 +858,15 @@ class AllItems( OrderContentsComponent ):
     def update( self ):
         self.line_items = self.__parent__.context.shopping_cart.values()
         return super( OrderContentsComponent, self).update()
-        
+
 class AdminOrder( BrowserView ):
     """ an order view
     """
-    
+
     def __init__( self, context, request ):
         self.context = context
         self.request = request
-    
+
     def __call__( self ):
         self.manager = AdminOrderManager( self.context, self.request, self )
         self.manager.update()

@@ -1,5 +1,5 @@
 <configure xmlns="http://namespaces.zope.org/zope"
-	   xmlns:five="http://namespaces.zope.org/five">
+           xmlns:five="http://namespaces.zope.org/five">
 
   <!-- Vocabularies -->
 
@@ -34,7 +34,7 @@
   <utility
       provides="zope.schema.interfaces.IVocabularyFactory"
       name="getpaid.tax_methods"
-      component=".vocabularies.TaxMethods" 
+      component=".vocabularies.TaxMethods"
       />
 
   <!-- Currencies -->
@@ -43,32 +43,32 @@
       name="getpaid.currencies"
       component=".vocabularies.Currencies"
       />
-  
+
   <!-- Credit Cards -->
   <!--utility
       provides="zope.schema.interfaces.IVocabularyFactory"
       name="getpaid.credit_cards"
       component=".vocabularies.CreditCards"
-      /-->   
-  
+      /-->
+
   <!-- Payment Methods -->
   <utility
       provides="zope.schema.interfaces.IVocabularyFactory"
       name="getpaid.weight_units"
       component=".vocabularies.WeightUnits"
-      />   
-  
+      />
+
   <utility
       provides="zope.schema.interfaces.IVocabularyFactory"
       name="getpaid.merchant_notification_choices"
       component=".vocabularies.MerchantNotificationChoices"
-      />   
-  
+      />
+
   <utility
       provides="zope.schema.interfaces.IVocabularyFactory"
       name="getpaid.customer_notification_choices"
       component=".vocabularies.CustomerNotificationChoices"
-      />  
+      />
 
   <utility
       provides="zope.schema.interfaces.IVocabularyFactory"

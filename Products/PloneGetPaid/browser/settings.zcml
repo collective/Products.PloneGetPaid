@@ -31,7 +31,7 @@
   <browser:page
      for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-content-types"
-     class=".admin.ContentTypes"     
+     class=".admin.ContentTypes"
      permission="cmf.ManagePortal"
      menu="getpaid_settings"
      title="Content Types"
@@ -40,17 +40,17 @@
    <browser:page
      for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-shipping-methods"
-     class=".admin.ShippingSettings"     
+     class=".admin.ShippingSettings"
      permission="cmf.ManagePortal"
      menu="getpaid_settings"
      title="Shipping Methods"
      />
-   
+
   <browser:viewletManager
      name="getpaid.shipment.settings"
      permission="cmf.ManagePortal"
      provides="..interfaces.ISettingsShipmentManager"
-     class=".admin.ShippingViewletManager" 
+     class=".admin.ShippingViewletManager"
      />
 
   <browser:viewlet
@@ -65,34 +65,35 @@
    <browser:page
      for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-shipping-settings"
-     class=".admin.ShippingSettings"     
+     class=".admin.ShippingSettings"
      permission="cmf.ManagePortal"
      menu="getpaid_settings"
      title="Shipping Method Settings"
      />
    -->
-   
+
   <!-- Management Payment Options Editing -->
   <browser:page
      for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-payment-options"
-     class=".admin.PaymentOptions"     
+     class=".admin.PaymentOptions"
      permission="cmf.ManagePortal"
      menu="getpaid_settings"
      title="Payment Options"
+     template="templates/settings-payment-processors.pt"
      />
 
   <!-- Management Payment Processor Editing -->
   <browser:page
      for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-payment-processor"
-     class=".admin.PaymentProcessor"     
+     class=".admin.PaymentProcessors"
      permission="cmf.ManagePortal"
      menu="getpaid_settings"
      title="Payment Processor Settings"
      />
-     
-     
+
+
   <!-- Sales Tax Options -->
   <browser:page
      for="getpaid.core.interfaces.IStore"
@@ -102,42 +103,42 @@
      menu="getpaid_settings"
      title="Sales Tax Configuration"
      />
-     
+
   <!-- Currency -->
-  
+
   <!-- Management Currency Options Editing -->
   <browser:page
      for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-currency"
-     class=".admin.Currency"     
+     class=".admin.Currency"
      permission="cmf.ManagePortal"
      menu="getpaid_settings"
      title="Currency Configuration"
      />
-     
+
   <!-- Emails -->
 
   <!-- Management Email Options -->
   <browser:page
      for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-email"
-     class=".admin.Email"     
+     class=".admin.Email"
      permission="cmf.ManagePortal"
      menu="getpaid_settings"
      title="Email Notifications"
      />
-     
-  <!-- Customize Legal Disclaimers -->   
-     
+
+  <!-- Customize Legal Disclaimers -->
+
   <!-- Management Legal Disclaimer Options -->
   <browser:page
      for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-legal-disclaimers"
-     class=".admin.LegalDisclaimers"     
+     class=".admin.LegalDisclaimers"
      permission="cmf.ManagePortal"
      menu="getpaid_settings"
      title="Legal Disclaimers"
-     />       
+     />
 
   <!-- Customize Checkout Options -->
 
@@ -153,14 +154,14 @@
 
 
   <!-- Order Management -->
-  
-  <!-- Customer Information 
+
+  <!-- Customer Information
   <browser:page
      for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-customer-information"
      class=".admin.CustomerInformation"
      permission="cmf.ManagePortal"
-     />  
+     />
   -->
 
   <!-- Payment Processing Options
@@ -172,7 +173,7 @@
      />
    -->
 
-  <!-- Weight Measurement Options 
+  <!-- Weight Measurement Options
   <browser:page
      for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-weight-units"
@@ -180,15 +181,15 @@
      permission="cmf.ManagePortal"
      />
   -->
-     
-  <!-- Session Timeout Options 
+
+  <!-- Session Timeout Options
   <browser:page
      for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-session-timeout"
      class=".admin.SessionTimeout"
      permission="cmf.ManagePortal"
-     />  
-  -->     
+     />
+  -->
 
 
 

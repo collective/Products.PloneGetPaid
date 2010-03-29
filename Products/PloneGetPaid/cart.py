@@ -24,11 +24,11 @@ class ShoppingCartUtility(Persistent):
     #
     # A quick description of the different cart types:
     #
-    # user: This cart is associated with a logged in user.  It persists 
+    # user: This cart is associated with a logged in user.  It persists
     #       across sessions
     # session: This cart is tied to a browser session.  It will be associated
     #          with the current user if get is called with a logged in user
-    # oneshot: This is a single use cart.  Calling get with key="oneshot:*" 
+    # oneshot: This is a single use cart.  Calling get with key="oneshot:*"
     #          always returns a new cart
     # multishot: A multishot cart is associated with a browser session, but
     #            can not be converted to a user cart.  The session can have
@@ -95,7 +95,7 @@ class ShoppingCartUtility(Persistent):
 
     def _getDisposableCart(self, context, browser_id=None):
         return ShoppingCart()
-        
+
     def _getMultiShotCart(self, context, cart_id=None):
         session_manager = getToolByName(context, 'session_data_manager')
 

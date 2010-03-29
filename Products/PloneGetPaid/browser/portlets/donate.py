@@ -32,7 +32,7 @@ class AddForm(base.NullAddForm):
 class Renderer(GetPaidRenderer):
     marker = IDonatableMarker
     render = ViewPageTemplateFile('../templates/portlet-content-donatable.pt')
-    
+
     def currency(self):
         context = self.context.aq_inner
         formatter = getUtility(ICurrencyFormatter)

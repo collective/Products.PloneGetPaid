@@ -8,6 +8,7 @@
 <!-- Dependencies -->
 <include package="getpaid.core" />
 <!--<include package="getpaid.io" />-->
+<include package="getpaid.paymentprocessors" />
 
 <include package="zope.annotation" />
 

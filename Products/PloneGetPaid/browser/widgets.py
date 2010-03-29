@@ -21,10 +21,10 @@ from Products.PloneGetPaid.vocabularies import TitledVocabulary
 
 from Products.Five.browser import decode
 
-class ObjectWidgetView( ObjectWidgetViewBase ):    
+class ObjectWidgetView( ObjectWidgetViewBase ):
     template = ViewPageTemplateFile('templates/objectwidget.pt')
 
-class ObjectWidget( ObjectWidgetBase ):    
+class ObjectWidget( ObjectWidgetBase ):
     def __init__( self, *args, **kw):
         super( ObjectWidget, self).__init__( *args, **kw )
         self.view = ObjectWidgetView( self, self.request)
@@ -32,8 +32,8 @@ class ObjectWidget( ObjectWidgetBase ):
 class SequenceObjectWidget( ObjectWidgetBase ):
     def __init__( self, context, value_type, request, factory, **kw):
         super( ObjectWidget, self).__init__( context, request, factory, **kw )
-        self.view = ObjectWidgetView( self, self.request)    
-        
+        self.view = ObjectWidgetView( self, self.request)
+
 class WithTemplateWidget(SimpleInputWidget):
     def __call__( self ):
         # XXX dirty hack to make the values coming out of here encoded properly,
@@ -44,7 +44,7 @@ class WithTemplateWidget(SimpleInputWidget):
         if not isinstance(value, unicode):
             value = decode._decode( self.template(), charsets )
         return value
-    
+
 
 class CountrySelectionWidget(WithTemplateWidget):
     template = ViewPageTemplateFile('templates/country-selection-widget.pt')
@@ -188,7 +188,7 @@ class PriceWidget(FloatWidget):
 
 def SelectWidgetFactory( field, request ):
     vocab = field.value_type.vocabulary
-    return OrderedMultiSelectionWidget( field, vocab, request ) 
+    return OrderedMultiSelectionWidget( field, vocab, request )
 
 class OrderedMultiSelectionWidget(BaseSelection):
     template = ViewPageTemplateFile('templates/ordered-selection.pt')
@@ -199,7 +199,7 @@ class OrderedMultiSelectionWidget(BaseSelection):
         values = self._getFormValue()
         # Not all content objects must necessarily support the attributes
         if hasattr(self.context.context, self.context.__name__):
-            # merge in values from content 
+            # merge in values from content
             for value in self.context.get(self.context.context):
                 if value not in values:
                     values.append(value)
