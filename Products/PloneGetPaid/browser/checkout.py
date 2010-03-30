@@ -784,7 +784,7 @@ class CheckoutPaymentMethodSelection( BaseCheckoutForm ):
 
         Decode selected payment method choice from HTTP POST.
         """
-        formbase.processInputs( self.request )
+        processInputs( self.request )
 
         # self.adapters will where to store data - they are
         # adapters for storing
