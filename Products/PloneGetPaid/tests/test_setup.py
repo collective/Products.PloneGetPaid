@@ -1,4 +1,4 @@
-from zope.app.component.interfaces import ISite
+from zope.location.interfaces import ISite
 from zope.app.intid.interfaces import IIntIds
 from zope.component import getUtility
 

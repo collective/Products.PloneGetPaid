@@ -7,7 +7,7 @@ import os, sys
 import glob
 import doctest
 import unittest
-from Globals import package_home
+from App.Common import package_home
 from Products.PloneTestCase import PloneTestCase
 from Testing.ZopeTestCase import FunctionalDocFileSuite as Suite
 
