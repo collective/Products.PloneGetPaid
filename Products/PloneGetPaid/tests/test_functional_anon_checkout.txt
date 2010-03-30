@@ -41,12 +41,14 @@ Setting required settings. (Especially anonymous checkout)
     >>> browser.getLink('Content Types').click()
     >>> browser.getLink('GetPaid').click()
     >>> browser.getLink('Payment Options').click()
-    >>> browser.getControl(name = 'form.payment_processor').displayValue = ['Testing Processor']
     >>> browser.getControl(name = 'form.allow_anonymous_checkout.used').value = 'on'
     >>> browser.getControl(name = 'form.allow_anonymous_checkout').value = True
     >>> browser.getControl('Apply').click()
     >>> browser.getLink('GetPaid').click()
     >>> browser.getLink('Payment Processor Settings').click()
+    >>> browser.getControl(name='active-payment-processors:list').value = True
+    >>> browser.getControl('Apply').click()
+    >>> browser.getLink('Edit Settings').click() 
     >>> browser.getControl(name="form.allow_authorization").displayValue = ['allow_authorization']
     >>> browser.getControl(name="form.allow_capture").displayValue = ['allow_capture']
     >>> browser.getControl(name="form.allow_refunds").displayValue = ['allow_refund']    
