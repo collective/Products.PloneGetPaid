@@ -13,12 +13,15 @@ __copyright__ = "2009 Twinapex Research"
 import os, sys
 import unittest
 import datetime
+from StringIO import StringIO
+from urllib import urlencode
 
 from zope import component
 from zope.configuration.exceptions import ConfigurationError
 from Products.Five import zcml
+from Products.PloneTestCase.setup import portal_owner, default_password
 
-from base import PloneGetPaidTestCase
+from base import PloneGetPaidFunctionalTestCase
 from getpaid.paymentprocessors.registry import BadViewConfigurationException, paymentProcessorRegistry
 from getpaid.core.interfaces import IStore
 from getpaid.core.order import Order
@@ -28,20 +31,22 @@ import dummy_processors
 from getpaid.paymentprocessors.interfaces import IPaymentMethodInformation
 from zope.app.intid.interfaces import IIntIds
 
-class TestPaymentMethods(PloneGetPaidTestCase):
+class TestPaymentMethods(PloneGetPaidFunctionalTestCase):
     """ Test ZCML directives """
 
     def afterSetUp(self):
-        PloneGetPaidTestCase.afterSetUp(self)
+        PloneGetPaidFunctionalTestCase.afterSetUp(self)
+        self.portal.portal_quickinstaller.installProduct('PloneGetPaid')
         paymentProcessorRegistry.clear()
 
         from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
         options = IGetPaidManagementOptions(self.portal)
         options.accepted_credit_cards = [ "visa" ]
-
+        self.basic_auth  = '%s:%s' % (portal_owner, default_password)
 
     def loadDummyZCML(self, string):
-        """ Load ZCML as a string and set the folder so that template references are related correctly. """
+        """ Load ZCML as a string and set the folder so that template
+        references are related correctly."""
         module = sys.modules[__name__]
         dir = os.path.dirname(module.__file__)
         os.chdir(dir)
@@ -66,14 +71,14 @@ class TestPaymentMethods(PloneGetPaidTestCase):
         self.assertEqual(len(paymentProcessorRegistry.getProcessors()), 2)
 
     def render_admin(self):
-        """ Test rendering admin interface views with the current paymentprocessor configuration. """
+        """ Test rendering admin interface views with the current
+        paymentprocessor configuration."""
 
-        # Render the page where you can choose which payment processor settings are managed
-
-        self.loginAsPortalOwner()
-        view = self.portal.restrictedTraverse("@@manage-getpaid-payment-processor")
-        view()
-        self.logout()
+        # Render the page where you can choose which payment processor
+        # settings are managed
+        response = self.publish(self.portal.absolute_url(1) +"/@@manage-getpaid-payment-processor",
+                                basic=self.basic_auth)
+        self.assertEqual(response.getStatus(), 200)
 
 
     def get_payment_method_selection_screen(self):
@@ -99,7 +104,8 @@ class TestPaymentMethods(PloneGetPaidTestCase):
         processors = view.getProcessors()
         self.assertEqual(len(processors), assertedProcessorCount)
 
-        # Render payment method selection HTML - see that template doesn't raise an error
+        # Render payment method selection HTML - see that template
+        # doesn't raise an error
         # TODO: Check HTML output validy using functional tests
         return self.render_wizard_current_page(wizard)
 
@@ -140,7 +146,8 @@ class TestPaymentMethods(PloneGetPaidTestCase):
         return cart
 
     def test_selection_screen_no_processor(self):
-        """ See that the payment method selection screen fails if there is no payment methods available """
+        """ See that the payment method selection screen fails if
+        there is no payment methods available"""
 
         # Go to checkout process point where the payment method is selected
         try:
@@ -159,10 +166,12 @@ class TestPaymentMethods(PloneGetPaidTestCase):
 
         self.portal.portal_properties.payment_processor_properties.enabled_processors = [ "Dummy Processor"]
 
-        # Go to checkout process point where the payment method is selected
+        # Go to checkout process point where the payment method is
+        # selected
         self.render_payment_method_selection_screen(1)
 
-        # Test rendering related admin interface pages and hope to catch all raised exceptions
+        # Test rendering related admin interface pages and hope to
+        # catch all raised exceptions
         self.render_admin()
 
 
@@ -173,14 +182,17 @@ class TestPaymentMethods(PloneGetPaidTestCase):
 
         self.portal.portal_properties.payment_processor_properties.enabled_processors = [ "Dummy Processor", "dummy2"]
 
-        # Go to checkout process point where the payment method is selected
+        # Go to checkout process point where the payment method is
+        # selected
         self.render_payment_method_selection_screen(2)
 
-        # Test rendering related admin interface pages and hope to catch all raised exceptions
+        # Test rendering related admin interface pages and hope to
+        # catch all raised exceptions
         self.render_admin()
 
     def test_bad_view_definition(self):
-        """ Try refering non-existing browser:page in payment processor button configuration """
+        """ Try refering non-existing browser:page in payment
+        processor button configuration"""
 
         bad_button_configure_zcml = '''
         <configure
@@ -217,18 +229,20 @@ class TestPaymentMethods(PloneGetPaidTestCase):
             pass
 
     def test_choose_available_payment_processors(self):
-        """ Test admin page where you can enabled different payment processors on the site """
+        """ Test admin page where you can enabled different payment
+        processors on the site"""
         self.loadDummyZCML(dummy_processors.configure_zcml)
-        self.loginAsPortalOwner()
 
+        self.portal.portal_properties.payment_processor_properties.enabled_processors = ()
         # Do fake POST
-        request = self.portal.REQUEST
-        request["REQUEST_METHOD"] = "POST"
-        request["active-payment-processors"] =["Dummy Processor"]
-
-        view = self.portal.restrictedTraverse("@@manage-getpaid-payment-processor")
-        view()
-        self.assertEqual(self.portal.portal_properties.payment_processor_properties.enabled_processors, ["Dummy Processor"])
+        form = {"active-payment-processors:list":"Dummy Processor"}
+        post_data = StringIO(urlencode(form))
+        response = self.publish(self.portal.absolute_url(1) + "/@@manage-getpaid-payment-processor",
+                                basic=self.basic_auth, request_method='POST',
+                                stdin=post_data)
+        self.assertEqual(response.getStatus(), 200)
+        self.assertEqual(self.portal.portal_properties.payment_processor_properties.enabled_processors,
+                         ['Dummy Processor'])
 
     def test_settings_view(self):
         """ Render settings view for an payment processor. """
@@ -237,7 +251,8 @@ class TestPaymentMethods(PloneGetPaidTestCase):
         self.portal.restrictedTraverse("@@dummy_payment_processor_settings")
 
     def xxx_test_skip_choose_payment_method_if_one_processor(self):
-        """ When only one payment processor is active, the checkout wizard should skip the payment processor selection screen. """
+        """ When only one payment processor is active, the checkout
+        wizard should skip the payment processor selection screen."""
 
         # TODO: getNextStep() logic is broken in getpaid.wizard
 
