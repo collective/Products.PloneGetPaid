@@ -80,7 +80,6 @@
      permission="cmf.ManagePortal"
      menu="getpaid_settings"
      title="Payment Options"
-     template="templates/settings-payment-processors.pt"
      />
 
   <!-- Management Payment Processor Editing -->
@@ -90,7 +89,8 @@
      class=".admin.PaymentProcessors"
      permission="cmf.ManagePortal"
      menu="getpaid_settings"
-     title="Payment Processor Settings"
+     title="Payment Processors Settings"
+     template="templates/settings-payment-processors.pt"
      />
 
 

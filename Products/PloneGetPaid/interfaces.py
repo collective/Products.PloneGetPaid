@@ -255,8 +255,18 @@ class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
                                         required = False,
                                         default = list(CREDIT_CARD_TYPES),
                                         description = _(u"Credit cards accepted for payment"),
-                                        value_type = schema.Choice( title=u"accepted_credit_cards", source="getpaid.core.credit_card_types" )
-                                        )
+                                        value_type = schema.Choice( title=u"accepted_credit_cards",
+                                                                    source="getpaid.core.credit_card_types" )
+                                         )
+
+    enabled_processors = schema.List(title=_(u'Enabled Payment Processors'),
+                                     required=True,
+                                     default=[],
+                                     description=_(u'Payment processors enabled during checkout'),
+                                     value_type = schema.Choice(title=u'enabled_payment_processors',
+                                                                source="getpaid.paymentprocessors.payment_processors")
+                                     )
+
 
 # Order Management
 class IGetPaidManagementCustomerInformation( igetpaid.IPersistentOptions ):

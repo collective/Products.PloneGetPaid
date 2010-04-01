@@ -209,6 +209,7 @@ class PaymentOptions( BaseSettingsForm ):
     """
     form_fields = form.Fields(interfaces.IGetPaidManagementPaymentOptions)
     form_fields['accepted_credit_cards'].custom_widget = SelectWidgetFactory
+    form_fields['enabled_processors'].custom_widget = SelectWidgetFactory
     form_name = _(u'Payment Options')
     """
     def __init__( self, context, request ):
@@ -225,25 +226,11 @@ class PaymentProcessors(BrowserView):
     to choose which processors to enable. Print links to individual processor setting
     pages.
 
-    Payment processors are stored in portal_properties.payment_processor_properties.
+    Payment processors are stored in interfaces.IGetPaidManagementPaymentOptions.
 
     TODO: This form is not protected against XSS attacks and takes some shortcuts
     to bypass zope.formlib. I am not experienced enough zope.formlib user.
     """
-
-    template = ZopeTwoPageTemplateFile('templates/settings-payment-processors.pt')
-
-    def getCheckedForProcessor(self, processor):
-        """
-
-        @param processsor: Processor class instance
-        """
-
-        # See profiles/default/propertiestool.xml
-        if processor.name in self.context.portal_properties.payment_processor_properties.enabled_processors:
-            return "CHECKED"
-        else:
-            return None
 
     def getProcessors(self):
         """ Called from the template.
@@ -251,31 +238,6 @@ class PaymentProcessors(BrowserView):
         @return: Iterable of Processor objects
         """
         return paymentProcessorRegistry.getProcessors()
-
-    def processForm(self):
-        """ Manage HTTP post """
-        actived = self.request.get("active-payment-processors", [])
-
-        # Add some level of safety
-        for a in actived:
-            if not a in paymentProcessorRegistry.getNames():
-                raise RuntimeError("Tried to enable unsupported processor %s" % a)
-
-        self.context.portal_properties.payment_processor_properties.enabled_processors = actived
-
-        from Products.statusmessages.interfaces import IStatusMessage
-        statusmessages = IStatusMessage(self.request)
-        statusmessages.addStatusMessage(u"Active payment processors updated", "info")
-
-
-    def __call__(self):
-
-        if self.request["REQUEST_METHOD"] == "GET":
-            return self.template() # render page
-        else:
-            # Assume POST, user is changing active payment methods
-            self.processForm()
-            return self.template() # render page
 
 
 class PaymentProcessor( BaseSettingsForm ):

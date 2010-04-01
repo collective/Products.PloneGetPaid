@@ -25,8 +25,7 @@ def getActivePaymentProcessors(context):
     @return: List of getpaid.paymentprocessor.registry.Entry objects
     """
     
-    portal_properties = getToolByName(context, 'portal_properties')
-    enabled = portal_properties.payment_processor_properties.enabled_processors
+    enabled = interfaces.IGetPaidManagementPaymentOptions(context).enabled_processors
     
     processors = paymentProcessorRegistry.getProcessors()
     
