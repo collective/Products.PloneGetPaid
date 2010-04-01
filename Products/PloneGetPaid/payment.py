@@ -1,7 +1,7 @@
 from zope.interface import implements
 from getpaid.core.payment import CreditCardTypeEnumerator
 from getpaid.core.interfaces import ICreditCardTypeEnumerator
-from interfaces import IGetPaidManagementOptions
+from interfaces import IGetPaidManagementOptions, IGetPaidManagementPaymentOptions
 from Products.CMFCore.utils import getToolByName
 
 from getpaid.paymentprocessors.registry import paymentProcessorRegistry
@@ -25,7 +25,7 @@ def getActivePaymentProcessors(context):
     @return: List of getpaid.paymentprocessor.registry.Entry objects
     """
     
-    enabled = interfaces.IGetPaidManagementPaymentOptions(context).enabled_processors
+    enabled = IGetPaidManagementPaymentOptions(context).enabled_processors
     
     processors = paymentProcessorRegistry.getProcessors()
     

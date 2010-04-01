@@ -57,12 +57,12 @@ configure_zcml = '''
      for="getpaid.core.interfaces.IStore"
      provides="getpaid.core.interfaces.IPaymentProcessor"
      factory="Products.PloneGetPaid.tests.dummy_processors.DummyProcessor"
-     name="Dummy processor"
+     name="Dummy Processor"
      />
 
     <paymentprocessors:registerProcessor
        name="Dummy Processor"
-       i18n_name="Dummy processor"
+       i18n_name="Dummy Processor"
        selection_view="dummy_payment_processor_button"
        review_pay_view="dummy_payment_processor_review_pay"
        thank_you_view="dummy_payment_processor_thank_you_page"

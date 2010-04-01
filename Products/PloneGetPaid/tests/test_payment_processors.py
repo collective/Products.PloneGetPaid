@@ -17,6 +17,7 @@ from StringIO import StringIO
 from urllib import urlencode
 
 from zope import component
+from zope.app.intid.interfaces import IIntIds
 from zope.configuration.exceptions import ConfigurationError
 from Products.Five import zcml
 from Products.PloneTestCase.setup import portal_owner, default_password
@@ -29,7 +30,7 @@ import getpaid.core.interfaces
 import dummy_processors
 
 from getpaid.paymentprocessors.interfaces import IPaymentMethodInformation
-from zope.app.intid.interfaces import IIntIds
+from Products.PloneGetPaid.interfaces import IGetPaidManagementPaymentOptions
 
 class TestPaymentMethods(PloneGetPaidFunctionalTestCase):
     """ Test ZCML directives """
@@ -66,7 +67,8 @@ class TestPaymentMethods(PloneGetPaidFunctionalTestCase):
         """
         self.loadDummyZCML(dummy_processors.configure_zcml)
         self.loadDummyZCML(dummy_processors.configure_zcml_2)
-        self.portal.portal_properties.payment_processor_properties.enabled_processors = [ "Dummy Processor", "dummy2"]
+        options = IGetPaidManagementPaymentOptions(self.portal)
+        options.enabled_processors = [ "Dummy Processor", "dummy2"]
 
         self.assertEqual(len(paymentProcessorRegistry.getProcessors()), 2)
 
@@ -76,10 +78,15 @@ class TestPaymentMethods(PloneGetPaidFunctionalTestCase):
 
         # Render the page where you can choose which payment processor
         # settings are managed
-        response = self.publish(self.portal.absolute_url(1) +"/@@manage-getpaid-payment-processor",
-                                basic=self.basic_auth)
-        self.assertEqual(response.getStatus(), 200)
-
+        from Products.Five.testbrowser import Browser
+        browser = Browser()
+        browser.open(self.portal.absolute_url())
+        browser.getLink('Log in').click()
+        browser.getControl('Login Name').value = 'portal_owner'
+        browser.getControl('Password').value = 'secret'
+        browser.getControl('Log in').click()
+        browser.open(self.portal.absolute_url() +"/@@manage-getpaid-payment-options")
+        self.assertEqual(browser.headers['status'], '200 Ok')
 
     def get_payment_method_selection_screen(self):
         """ Get the checkout payment method selection view via checkout wizard.
@@ -180,7 +187,8 @@ class TestPaymentMethods(PloneGetPaidFunctionalTestCase):
         self.loadDummyZCML(dummy_processors.configure_zcml)
         self.loadDummyZCML(dummy_processors.configure_zcml_2)
 
-        self.portal.portal_properties.payment_processor_properties.enabled_processors = [ "Dummy Processor", "dummy2"]
+        options = IGetPaidManagementPaymentOptions(self.portal)
+        options.enabled_processors = [ "Dummy Processor", "dummy2"]
 
         # Go to checkout process point where the payment method is
         # selected
@@ -221,7 +229,8 @@ class TestPaymentMethods(PloneGetPaidFunctionalTestCase):
 
         </configure>'''
         zcml.load_string(bad_button_configure_zcml)
-        self.portal.portal_properties.payment_processor_properties.enabled_processors = [ "Bad Dummy Processor", "Bad Dummy Processor 2" ]
+        options = IGetPaidManagementPaymentOptions(self.portal)
+        options.enabled_processors = [ "Bad Dummy Processor", "Bad Dummy Processor 2" ]
         try:
             html = self.render_payment_method_selection_screen(2)
             raise AssertionError("Should not be never reached")
@@ -232,17 +241,21 @@ class TestPaymentMethods(PloneGetPaidFunctionalTestCase):
         """ Test admin page where you can enabled different payment
         processors on the site"""
         self.loadDummyZCML(dummy_processors.configure_zcml)
-
-        self.portal.portal_properties.payment_processor_properties.enabled_processors = ()
         # Do fake POST
-        form = {"active-payment-processors:list":"Dummy Processor"}
-        post_data = StringIO(urlencode(form))
-        response = self.publish(self.portal.absolute_url(1) + "/@@manage-getpaid-payment-processor",
-                                basic=self.basic_auth, request_method='POST',
-                                stdin=post_data)
-        self.assertEqual(response.getStatus(), 200)
-        self.assertEqual(self.portal.portal_properties.payment_processor_properties.enabled_processors,
-                         ['Dummy Processor'])
+        from Products.Five.testbrowser import Browser
+        from Products.PloneGetPaid.tests.helpers import setSelectWidget
+        browser = Browser()
+        browser.open(self.portal.absolute_url())
+        browser.getLink('Log in').click()
+        browser.getControl('Login Name').value = 'portal_owner'
+        browser.getControl('Password').value = 'secret'
+        browser.getControl('Log in').click()
+        browser.open(self.portal.absolute_url() +"/@@manage-getpaid-payment-options")
+        setSelectWidget(browser, "form.enabled_processors", ['Dummy Processor'])
+        browser.getControl('Apply').click()
+        self.assertEqual(browser.headers['status'], '200 Ok')
+        options = IGetPaidManagementPaymentOptions(self.portal)
+        self.assertEqual(options.enabled_processors, [u'Dummy Processor'])
 
     def test_settings_view(self):
         """ Render settings view for an payment processor. """
@@ -333,7 +346,7 @@ class TestPaymentMethods(PloneGetPaidFunctionalTestCase):
         # Check that transient bag got updated
         storage = wizard.data_manager.adapters[IPaymentMethodInformation]
         entry = storage.payment_processor
-        self.assertEqual(entry, u"Dummy processor")
+        self.assertEqual(entry, u"Dummy Processor")
 
         # Now we should contain the payment data in the wizard
         step = "checkout-review-pay"
@@ -343,7 +356,7 @@ class TestPaymentMethods(PloneGetPaidFunctionalTestCase):
 
         # Check that we have payment method as a stored value
         entry = wizard.getActivePaymentProcessor()
-        self.assertEqual(entry, u"Dummy processor")
+        self.assertEqual(entry, u"Dummy Processor")
 
         # Check that we are rendering paymeny processor specific review and pay View
         step = wizard.controller.getCurrentStep()
