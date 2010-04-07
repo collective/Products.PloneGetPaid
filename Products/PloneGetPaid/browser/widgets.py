@@ -15,7 +15,6 @@ from zope.i18n.interfaces import IUserPreferredCharsets
 
 from Products.PloneGetPaid.i18n import _
 
-from Products.PloneGetPaid.config import PLONE3
 from Products.PloneGetPaid.interfaces import IMonthsAndYears
 from Products.PloneGetPaid.interfaces import ICountriesStates
 from Products.PloneGetPaid.vocabularies import TitledVocabulary
@@ -71,7 +70,6 @@ class StateSelectionInputWidget(DropdownWidget):
         """See IBrowserWidget."""
         value = self._getFormValue()
         contents = []
-        have_results = False
 
         value = self._div('value', self.renderValue(value))
         value_wraped = renderElement('div',id=self.name+'_container',
@@ -133,10 +131,7 @@ class StateSelectionInputWidget(DropdownWidget):
         if form_country == '':
             # No country is known.
             # Try to get the state from the form.
-            if PLONE3: # _getCurrentValue not in zope.app.form with zope 2.9
-                state = self._getCurrentValue()
-            else:
-                state = self._getFormInput()
+            state = self._getCurrentValue()
             if state and state not in utility.special_values:
                 # A state has been chosen.  Take the first two letters of
                 # the state value as the country.
@@ -192,8 +187,8 @@ class PriceWidget(FloatWidget):
 
 
 def SelectWidgetFactory( field, request ):
-    vocabulary = field.value_type.vocabulary
-    return OrderedMultiSelectionWidget( field, vocabulary, request ) 
+    vocab = field.value_type.vocabulary
+    return OrderedMultiSelectionWidget( field, vocab, request ) 
 
 class OrderedMultiSelectionWidget(BaseSelection):
     template = ViewPageTemplateFile('templates/ordered-selection.pt')

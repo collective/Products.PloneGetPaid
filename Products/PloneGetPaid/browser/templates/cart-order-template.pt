@@ -1,4 +1,4 @@
-<metal:page use-macro="context/@@getpaid-form/macros/form">
+<metal:page use-macro="context/@@getpaid-form/form">
 <metal:block fill-slot="form-inner">
     
 <fieldset>    
@@ -16,7 +16,7 @@
         </tal:block>
     </select>
         
-    <metal:block use-macro="context/@@getpaid-form/macros/buttons"
+    <metal:block use-macro="context/@@getpaid-form/buttons"
                  i18n:domain="plonegetpaid">
     </metal:block>
     

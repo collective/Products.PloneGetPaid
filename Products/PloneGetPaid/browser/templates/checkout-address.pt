@@ -1,4 +1,4 @@
-<metal:page use-macro="context/@@getpaid-content-template/macros/content_space"
+<metal:page use-macro="context/@@getpaid-content-template/content_space"
 	i18n:domain="plonegetpaid">
   <metal:block fill-slot="getpaid_content">
 

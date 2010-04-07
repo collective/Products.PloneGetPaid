@@ -2,25 +2,18 @@ from StringIO import StringIO
 
 from five.intid.site import add_intids
 
-from Products.PloneGetPaid.Extensions.install import install_dependencies
-from Products.PloneGetPaid.Extensions.install import install_cart_portlet 
-from Products.PloneGetPaid.Extensions.install import install_contentwidget_portlet
 from Products.PloneGetPaid.Extensions.install import notify_install
-from Products.PloneGetPaid.Extensions.install import notify_uninstalled
 from Products.PloneGetPaid.Extensions.install import setup_site
 from Products.PloneGetPaid.Extensions.install import setup_store
 from Products.PloneGetPaid.Extensions.install import setup_software_generation
 from Products.PloneGetPaid.Extensions.install import setup_order_manager
 from Products.PloneGetPaid.Extensions.install import install_plone3_portlets
 from Products.PloneGetPaid.Extensions.install import setup_payment_options
-from Products.PloneGetPaid.Extensions.install import register_shopping_cart_utility
 
 from Products.PloneGetPaid.Extensions.install import setup_addressbook
 from Products.PloneGetPaid.Extensions.install import setup_named_orders
 from Products.PloneGetPaid.Extensions.install import setup_settings
 from Products.PloneGetPaid.Extensions.install import register_shopping_cart_utility
-
-from Products.PloneGetPaid.config import PLONE3
 
 def setupVarious(context):
     """Import steps that are not handled by GS import/export handlers can be
@@ -39,15 +32,8 @@ def setupVarious(context):
     logger = context.getLogger("PloneGetPaid")
     out = StringIO()
 
-    print >> out, "Installing Cart Portlet"
-    install_cart_portlet(site)
-
-    print >> out, "Installing Content Widget Portlet"
-    install_contentwidget_portlet(site)
-
-    if PLONE3:
-        print >> out, "Installing Plone 3 Portlets"
-        install_plone3_portlets(site)
+    print >> out, "Installing Plone 3 Portlets"
+    install_plone3_portlets(site)
     
     print >> out, "Installing Local Site"
     setup_site(site)

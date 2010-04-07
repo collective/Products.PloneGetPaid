@@ -21,7 +21,7 @@ Create the browser object we'll be using.
     >>> browser.getControl('Password').value = 'secret'
     >>> browser.getControl('Log in').click()
     >>> self.portal.portal_quickinstaller.installProduct('PloneGetPaid')
-    'Installing Dependencies\n'
+    ''
     >>> browser.getLink('Home').click()
      
 Testing the setup aspects of GetPaid. Setting required settings. 

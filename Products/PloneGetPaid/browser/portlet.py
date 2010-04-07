@@ -8,7 +8,11 @@ from getpaid.core.interfaces import IShoppingCartUtility
 from Products.PloneGetPaid.interfaces import ICountriesStates
 from zope import component
 from zope.app import zapi
-from simplejson import JSONEncoder
+try:
+    from json import JSONEncoder
+except ImportError:
+    # BBB for Python 2.4
+    from simplejson import JSONEncoder
 
 class StatesAjax(BrowserView):
     def __call__(self):

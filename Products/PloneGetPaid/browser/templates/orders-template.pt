@@ -7,32 +7,34 @@
     </metal:style>
     <metal:block fill-slot="prefs_configlet_content">
 
-      <div id="content"  class="documentEditable">
+      <div class="documentEditable">
 
-	<ul class="contentViews"
-	    tal:define="selected string:@@manage-getpaid-orders">
+  <div id="edit-bar">
+  	<ul id="content-views" class="contentViews"
+  	    tal:define="selected string:@@manage-getpaid-orders">
 
-	  <tal:loop tal:repeat="cview context/@@view_get_menu/getpaid_admin">
-	  	<tal:block tal:define="theAction python: cview['action'];">
-	    <li class="selected"
-		tal:condition="python:selected == cview['action']">
-              <a href=""
-		 tal:attributes="href string: $portal_url/$theAction"
-		 tal:content="cview/title"
-                 i18n:translate=""> label </a>
-	    </li>
-	    <li tal:condition="python:selected != cview['action']">
-              <a href=""
-		 tal:attributes="href string: $portal_url/$theAction"
-		 tal:content="cview/title"
-                 i18n:translate=""> label </a>
-	    </li>
-	    </tal:block>
-	  </tal:loop>
-	</ul>
+  	  <tal:loop tal:repeat="cview context/@@view_get_menu/getpaid_admin">
+  	  	<tal:block tal:define="theAction python: cview['action'];">
+  	    <li class="selected"
+  		tal:condition="python:selected == cview['action']">
+                <a href=""
+  		 tal:attributes="href string: $portal_url/$theAction"
+  		 tal:content="cview/title"
+                   i18n:translate=""> label </a>
+  	    </li>
+  	    <li tal:condition="python:selected != cview['action']">
+                <a href=""
+  		 tal:attributes="href string: $portal_url/$theAction"
+  		 tal:content="cview/title"
+                   i18n:translate=""> label </a>
+  	    </li>
+  	    </tal:block>
+  	  </tal:loop>
+  	</ul>
 
-	<div class="contentActions">
-	  &nbsp;
+  	<div class="contentActions">
+  	  &nbsp;
+  	</div>
 	</div>
 
 	<div id="region-content" class="documentContent">
@@ -40,7 +42,7 @@
 	    Portal status message
 	  </div>
 
-	  <div class="configlet">
+	  <div id="content">
 	    <h1 i18n:translate="heading_getpaid_setup">Site Orders</h1>
 
         <metal:block define-slot="up_to_parent">
@@ -52,12 +54,11 @@
             </a>
 	    </metal:block>
 
-	  </div>
-
-	  <metal:block define-slot="admin_content" tal:content="nothing"
-           i18n:translate="">
-	    Admin Template
-	  </metal:block>
+  	  <metal:block define-slot="admin_content" tal:content="nothing"
+             i18n:translate="">
+  	    Admin Template
+  	  </metal:block>
+    </div>
 	</div>
 
       </div>

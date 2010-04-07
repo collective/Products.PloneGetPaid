@@ -1,4 +1,4 @@
-<metal:page use-macro="context/@@getpaid-content-template/macros/content_space"
+<metal:page use-macro="context/@@getpaid-content-template/content_space"
 	i18n:domain="plonegetpaid">
   <metal:block fill-slot="getpaid_content">
 
@@ -53,9 +53,7 @@
  	         <legend i18n:translate=""> Shopping Cart </legend>
 	         <div tal:replace="structure view/renderCart">cart</div>
              
-              <tal:cond condition="view/isPlone3">
-                <div tal:replace="structure provider:getpaid.belowcartresume" />
-              </tal:cond>
+              <div tal:replace="structure provider:getpaid.belowcartresume" />
       
              
             <div id="save_order_template_entry" style="display: none">

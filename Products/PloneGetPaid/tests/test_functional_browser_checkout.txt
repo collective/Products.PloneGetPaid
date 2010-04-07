@@ -24,7 +24,7 @@ Testing checkout process for authenticated user (in this case, admin)
      >>> browser.getControl('Log in').click()
 
      >>> self.portal.portal_quickinstaller.installProduct('PloneGetPaid')
-     'Installing Dependencies\n'
+     ''
      >>> browser.getLink('Home').click()
      
 Testing the setup aspects of GetPaid. Setting required settings. 
@@ -151,11 +151,11 @@ Use real test credit card numbers, available from http://developer.authorize.net
 
 Donation checkout completed. Now check order
 
-XXX I [lucie] updated the "here" link because it didnt need to be a search on an order
-since we already have the order id
-
-
-    >>> browser.getLink('here').click()
+    >>> try:
+    ...     browser.getLink('here').click()
+    ... except:
+    ...     print self.portal.error_log.getLogEntries()[0]['tb_text']
+    ...     import pdb; pdb.set_trace()
     >>> browser.url.startswith('http://nohost/plone/@@getpaid-order/')
     True
 
@@ -204,7 +204,6 @@ We want it so we buy it.
     >>> browser.open(portal.absolute_url() + '/folder_contents')
     >>> browser.getLink('It is payday!').click()
 
-XXX FIXME.  Now why does this fail with an InvalidObjectReference????
 The link "Add to Cart" is there when you check browser.contents...
 
     >>> 'Add to Cart' in browser.contents
@@ -232,7 +231,7 @@ We move to the next form and fill in the current form.
 
     >>> browser.getControl('Card Holder Name').value = 'Test Cardholder'
     >>> browser.getControl(name='form.cc_expiration_month').value = ('02',)
-    >>> browser.getControl(name='form.cc_expiration_year').value = ('2010',)
+    >>> browser.getControl(name='form.cc_expiration_year').value = ('2011',)
     >>> browser.getControl(name='form.bill_phone_number').value = '555555555'
 
 Use real test credit card numbers, available from http://developer.authorize.net/faqs/#7429

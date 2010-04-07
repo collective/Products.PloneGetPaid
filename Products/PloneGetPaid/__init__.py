@@ -2,16 +2,8 @@
 $Id$
 """
 
-from config import PLONE3
-# CMFonFive has been integrated in CMFCore since version 2.0, so in
-# Plone 3.0 we do not depend on it anymore.
-if PLONE3:
-    _GETPAID_DEPENDENCIES_ = [ ]
-else:
-    _GETPAID_DEPENDENCIES_ = [ 'CMFonFive' ]
-
 import os, sys
-from Globals import package_home
+from App.Common import package_home
 
 import _patch
 

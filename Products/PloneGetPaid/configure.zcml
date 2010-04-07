@@ -9,15 +9,7 @@
 <include package="getpaid.core" />
 <!--<include package="getpaid.io" />-->
 
-<!-- zope.annotation is used in Zope 2.10 -->
-<include
-    zcml:condition="installed zope.annotation"
-    package="zope.annotation" />
-<!-- zope.app.annotation is used in Zope 2.9
-     We know that zope.app.annotation.tests is only installed there. -->
-<include
-    zcml:condition="installed zope.app.annotation.tests"
-    package="zope.app.annotation" />
+<include package="zope.annotation" />
 
 <!-- using five.intid ... by default this
      introduces subscribers for all persistent 
@@ -33,31 +25,11 @@
 -->
 
 
-<!-- Inject Plone with the nesc interfaces / local site -->
-
-<five:localsite
-   class="Products.CMFPlone.Portal.PloneSite"
-   />
-
-<!-- Zope 2.9 -->
 <five:implements
-    zcml:condition="installed zope.app.annotation.tests"
-    class="Products.CMFPlone.Portal.PloneSite"
-    interface="zope.app.annotation.interfaces.IAttributeAnnotatable" />
-
-<five:implements
-    zcml:condition="installed zope.app.annotation.tests"
-    class="Products.Archetypes.public.BaseContent"
-    interface="zope.app.annotation.interfaces.IAttributeAnnotatable" />
-
-<!-- Zope 2.10 -->
-<five:implements
-    zcml:condition="installed zope.annotation"
     class="Products.CMFPlone.Portal.PloneSite"
     interface="zope.annotation.interfaces.IAttributeAnnotatable" />
 
 <five:implements
-    zcml:condition="installed zope.annotation"
     class="Products.Archetypes.public.BaseContent"
     interface="zope.annotation.interfaces.IAttributeAnnotatable" />
 

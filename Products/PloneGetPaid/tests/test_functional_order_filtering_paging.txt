@@ -24,7 +24,7 @@ address book in checkout
      >>> browser.getControl('Log in').click()
 
      >>> self.portal.portal_quickinstaller.installProduct('PloneGetPaid')
-     'Installing Dependencies\n'
+     ''
      >>> browser.getLink('Home').click()
  
 Setting required settings. (Especially anonymous checkout)
