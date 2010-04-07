@@ -1,7 +1,5 @@
 **GetPaid for Plone**
 
-*Product Description: Version 0.7*
-
 GetPaid provides you basic commerce functionality (donations, shopping
 cart, checkout) and order management out of the box while providing a
 flexible framework for creating custom ecommerce applications. There are also a number of add-ons for GetPaid that can extend its functionality and are optional (discounts, UPS shipping, warehouse/inventory management, various payment processors etc). 
@@ -82,11 +80,8 @@ Credits:
 
   "ObjectRealms":http://objectrealms.net |
   "ifPeople":http://www.ifpeople.net |
-  "One/Northwest":http://onenw.org | 
+  "Groundwire":http://groundwire.org | 
   "Contextual Corporation":http://contextualcorp.com | 
   "Trees for Life":http://treesforlife.org | 
   "Totsie.com":http://totsie.com
-
-
-
 

@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.9.0dev'
+version = '0.9.0'
 
 setup(name='Products.PloneGetPaid',
       version=version,
@@ -44,7 +44,7 @@ setup(name='Products.PloneGetPaid',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'getpaid.core',
+          'getpaid.core>=0.8.0',
           'getpaid.wizard',
           'zc.table',
           'zope.interface',
