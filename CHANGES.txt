@@ -2,6 +2,12 @@
 CHANGES
 =======
 
+0.9.2 (unreleased)
+------------------
+
+- Add missing dependency declaration for getpaid.nullpayment.
+  [davisagli]
+
 0.9.1 (2010-04-07)
 ------------------
 

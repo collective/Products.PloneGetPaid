@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.9.1'
+version = '0.9.2dev'
 
 setup(name='Products.PloneGetPaid',
       version=version,
@@ -46,6 +46,7 @@ setup(name='Products.PloneGetPaid',
           'setuptools',
           'five.intid',
           'getpaid.core>=0.8.0',
+          'getpaid.nullpayment',
           'getpaid.wizard',
           'ore.viewlet',
           'yoma.batching',
