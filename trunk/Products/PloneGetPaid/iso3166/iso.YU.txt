@@ -1,0 +1,7 @@
+
+ISO3166-2 regions for YU
+
+   YU-CG : Crna Gora
+   YU-SR : Srbija
+   YU-KM : Kosovo-Metohija
+   YU-VO : Vojvodina

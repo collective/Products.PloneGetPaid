@@ -1,0 +1,23 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+	   xmlns:five="http://namespaces.zope.org/five"
+	   xmlns:zcml="http://namespaces.zope.org/zcml"
+	   >	   
+
+  <subscriber
+     handler="five.intid.intid.addIntIdSubscriber"
+     for="Products.CMFCore.interfaces.IDynamicType
+          zope.app.container.interfaces.IObjectAddedEvent"
+      />
+  <subscriber
+      handler="five.intid.intid.removeIntIdSubscriber"
+      for="Products.CMFCore.interfaces.IDynamicType
+           zope.app.container.interfaces.IObjectRemovedEvent"
+      />
+  <subscriber
+      handler="five.intid.intid.moveIntIdSubscriber"
+      for="Products.CMFCore.interfaces.IDynamicType
+           zope.app.container.interfaces.IObjectMovedEvent"
+      />
+
+</configure>

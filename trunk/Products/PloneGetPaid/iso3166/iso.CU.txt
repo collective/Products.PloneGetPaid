@@ -1,0 +1,18 @@
+
+ISO3166-2 regions for CU
+
+   CU-09 : Camagüey
+   CU-08 : Ciego de `vila
+   CU-06 : Cienfuegos
+   CU-03 : Ciudad de La Habana
+   CU-12 : Granma
+   CU-14 : Guantánamo
+   CU-11 : Holquin
+   CU-02 : La Habana
+   CU-10 : Las Tunas
+   CU-04 : Matanzas
+   CU-01 : Pinar del Río
+   CU-07 : Sancti Spiritus
+   CU-13 : Santiago de Cuba
+   CU-05 : Villa Clara
+   CU-99 : Isla de la Juventud

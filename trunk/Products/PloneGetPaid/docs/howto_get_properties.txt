@@ -1,0 +1,51 @@
+Doing plone based sites it is not rare to find the necessity of doing their
+own views, portlets or any kind of way of data display.
+Now, this should not be a problem when we are showing regular attributes of
+our contents but, when our types are particulary something that we are using
+as getpaid buyable donatable or shippable types we may be stuck at the moment
+of getting some getpaid speciffic attributes such as the price ot the
+product_id or even some other attribute even more speciffic such as shippable item
+eight.
+At the moment of accessing a reglar attribute we know that just by calling
+object.attribute 
+or
+object.getAttribute
+will suffice to get the value of it but to get getpaid attributes is bit
+different.
+These attributes are stored as annotations of the object, in order to retrieve
+them we need to adapt the object to buyable content and then get the annotated
+property.
+So, lets imagine we have a CoffeePot object named PrettyCoffeePot
+We can get its title by simply doing.
+
+>>> PrettyCoffeePot.Title
+>>> 'Pretty Coffee Pot'
+
+But 
+
+>>> PrettyCoffeePot.Price
+>>> AttributeError: 'CoffeePot' object has no attribute 'Price'
+
+Ouch, so lets try something else, if our object is a getpaid *able object is
+is marked with one of the following markers (at least to this date)
+ * IShippableMarker
+ * IBuyableMarker
+ * IDonatableMarker
+ * IPremiumMarker
+So, what we need to do is, we get the adapted interface and then get our
+annotated attributes.
+
+>>> from Products.PloneGetPaid.interfaces import PayableMarkerMap
+>>> iface = PayableMarkerMap.get(AMarker, None)
+>>> iface(PrettyCoffeePot).price
+3.14
+
+
+A few remarks:
+
+    * You should check that iface is not None always
+    * If you still cant get to the attribute like this make sure you are using the right marker for the object, if that fails your GetPaid install may have problems (Deleted GetPaid attributes have been seen sometimes after reinstall from one version to another) if you are doing one of these movements do backup and don't hesitate to drop a mail to the list or visit irc channel.
+    * You can see more examples of this in GetPaid's own portlets[1] or in GetPaidStore[2] Product
+--
+[1] http://code.google.com/p/getpaid/source/browse/Products.PloneGetPaid/trunk/Products/PloneGetPaid/browser/portlets/
+[2] http://opensource.ifpeople.net/products/browser/GetPaidStore

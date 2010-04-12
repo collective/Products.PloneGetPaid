@@ -1,0 +1,10 @@
+
+ISO3166-2 regions for AE
+
+   AE-AZ : Abu Zaby
+   AE-AJ : 'Ajman
+   AE-FU : Al Fujayrah
+   AE-SH : Ash Shariqah
+   AE-DU : Dubayy
+   AE-RK : R'as al Khaymah
+   AE-UQ : Umm al Qaywayn

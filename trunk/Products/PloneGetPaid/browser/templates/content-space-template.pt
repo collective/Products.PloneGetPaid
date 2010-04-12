@@ -1,0 +1,33 @@
+<metal:page define-macro="content_space"
+            i18n:domain="plonegetpaid">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/main_template/macros/master"
+      >
+<head>
+    <metal:javascriptslot fill-slot="javascript_head_slot" >
+      <script type="text/javascript"
+              tal:attributes="src string:$portal_url/++resource++jquery.js"></script>
+      <script type="text/javascript"
+              tal:attributes="src string:$portal_url/++resource++checkout-process.js"></script>
+    </metal:javascriptslot>
+</head>
+<body>
+<div metal:fill-slot="content">
+  <div id="content" class="documentEditable">
+    <div id="region-content" class="documentContent">
+      <metal:block define-slot="getpaid_content" tal:content="nothing"
+                   i18n:translate="">
+	Generic Content Space Template for Getpaid which hides Content
+	Context UI
+      </metal:block>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+</metal:page>

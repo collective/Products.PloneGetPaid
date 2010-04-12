@@ -1,0 +1,25 @@
+
+ISO3166-2 regions for MN
+
+   MN-1 : Ulasnbaatar
+   MN-073 : Arhangay
+   MN-069 : Bayanhongor
+   MN-071 : Bayan-Ölgiy
+   MN-067 : Bulgan
+   MN-037 : Darhan uul
+   MN-061 : Dornod
+   MN-063 : Dornogov,
+   MN-059 : DundgovL
+   MN-057 : Dzavhan
+   MN-065 : Govi-Altay
+   MN-064 : Govi-Sümber
+   MN-039 : Hentiy
+   MN-043 : Hovd
+   MN-041 : Hövsgöl
+   MN-053 : Ömnögovi
+   MN-035 : Orhon
+   MN-055 : Övörhangay
+   MN-049 : Selenge
+   MN-051 : Sühbaatar
+   MN-047 : Töv
+   MN-046 : Uvs

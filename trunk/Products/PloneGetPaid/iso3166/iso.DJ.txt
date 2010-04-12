@@ -1,0 +1,8 @@
+
+ISO3166-2 regions for DJ
+
+   DJ-AS : Ali Sabiah
+   DJ-DI : Dikhil
+   DJ-DJ : Djibouti
+   DJ-OB : Obock
+   DJ-TA : Tadjoura

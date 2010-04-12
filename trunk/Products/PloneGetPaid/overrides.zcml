@@ -1,0 +1,25 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:zcml="http://namespaces.zope.org/zcml">
+
+  <includeOverrides zcml:condition="installed getpaid.ogone"
+      package="getpaid.ogone" />
+
+  <includeOverrides
+      zcml:condition="installed getpaid.googlecheckout"
+      package="getpaid.googlecheckout"
+      file="overrides.zcml"
+      />
+      
+  <includeOverrides
+      zcml:condition="installed getpaid.discount"
+      package="getpaid.discount"
+      file="overrides.zcml"
+      />
+      
+  <includeOverrides
+      zcml:condition="installed getpaid.pxpay"
+      package="getpaid.pxpay"
+      file="overrides.zcml"
+      />
+
+</configure>

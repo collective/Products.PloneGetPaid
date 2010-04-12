@@ -1,0 +1,6 @@
+
+ISO3166-2 regions for KI
+
+   KI-G : Gilbert Islands
+   KI-L : Line Islands
+   KI-P : Phoenix Islands
