@@ -22,9 +22,9 @@ from Products.PloneGetPaid.i18n import _
 
 def PaymentMethods( context ):
     # context is the portal config options, whose context is the portal
-    adapters = component.getAdapters( (context.context,), interfaces.IPaymentProcessor )
-    payment_names = set( map(unicode, [ n for n,a in adapters]) )
-    return vocabulary.SimpleVocabulary.fromValues( payment_names )
+    utilities = component.getUtilitiesFor( interfaces.IPaymentProcessor )
+    methods = set( map( unicode, [n for n,a in utilities ]))
+    return vocabulary.SimpleVocabulary.fromValues( methods )
 
 def ContentTypes( context ):
     # context is actually a preferences object, dig another level to get to the adapted context
@@ -60,9 +60,6 @@ def ShippingServices( context ):
     utilities = component.getUtilitiesFor( interfaces.IShippingRateService )
     services = set( map( unicode, [n for n,a in utilities ]))
     return vocabulary.SimpleVocabulary.fromValues( services )    
-
-#def CreditCards( context ):
-#    return vocabulary.SimpleVocabulary.fromValues( (u"Visa", u"Mastercard", u"Discover", u"American Express") )
 
 def WeightUnits( context ):
     return vocabulary.SimpleVocabulary.fromValues( (_(u"Pounds"),) )

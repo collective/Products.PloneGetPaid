@@ -242,9 +242,12 @@ class IGetPaidManagementShippingMethods( igetpaid.IPersistentOptions ):
 class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
     """
     """
-    payment_processor = schema.Choice( title = _(u"Payment Processor"),
-                                       source = "getpaid.payment_methods",
-                                       default = 'Testing Processor' )
+    payment_processors = schema.List(
+        title = _(u"Payment Processor"),
+        required = True,
+        default = ['Testing Processor'],
+        value_type = schema.Choice( title=u"payment_methods", source="getpaid.payment_methods" )
+        )
 
     allow_anonymous_checkout = schema.Bool( title=_(u"Allow Anonymous Checkout"), default=False)
 

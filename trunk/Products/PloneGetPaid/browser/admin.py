@@ -18,7 +18,7 @@ from zope.viewlet.interfaces import IViewlet
 
 import getpaid.core.interfaces as igetpaid
 
-from Products.PloneGetPaid.interfaces import ISettingsShipmentManager
+from Products.PloneGetPaid.interfaces import ISettingsShipmentManager, ISettingsPaymentManager
 from Products.PloneGetPaid.i18n import _
 
 from Products.CMFCore.utils import getToolByName
@@ -148,19 +148,6 @@ ShippingViewletManager = manager.ViewletManager( "ShippingViewletManager",
                                                  PluginSettingsManagerTemplate,
                                                  bases=(_ShippingViewletManager,)
                                                  )
-# class _PaymentViewletManager( SettingViewletManager ):
-#
-#     def _getNames( self ):
-#         return ()
-#
-# PaymentViewletManager = manager.ViewletManager( "ShippingViewletManager",
-#                                                  ISettingsShipmentManager,
-#                                                  PluginSettingsManagerTemplate
-#                                                  bases=(ShippingViewletManager,)
-#                                                  )
-
-
-
 
 class ShippingSettings( BrowserView ):
     """
@@ -202,53 +189,58 @@ class ShippingServices( FormViewlet, formbase.EditForm ):
     def render( self ):
         return self.template()
 
-class PaymentOptions( BaseSettingsForm ):
-    """
-    get paid management interface
-    """
-    form_fields = form.Fields(interfaces.IGetPaidManagementPaymentOptions)
-    form_fields['accepted_credit_cards'].custom_widget = SelectWidgetFactory
-    form_name = _(u'Payment Options')
-    """
-    def __init__( self, context, request ):
-        " Used to force an initial value of 'Payment processor' option; no need to click 'Apply'
-            button to get payment process work
-        "
-        self.
-    """
 
-class PaymentProcessor( BaseSettingsForm ):
-    """
-    get paid management interface, slightly different because our form fields
-    are dynamically set based on the store's setting for a payment processor.
-    """
+class _PaymentViewletManager( SettingViewletManager ):
 
-    form_fields = form.Fields()
-    form_name = _(u'Payment Processor Settings')
+    def _getNames( self ):
+        options = interfaces.IGetPaidManagementPaymentOptions( self.context )
+        return options.payment_processors
+
+PaymentViewletManager = manager.ViewletManager( "PaymentViewletManager",
+                                                ISettingsPaymentManager,
+                                                PluginSettingsManagerTemplate,
+                                                bases=(_PaymentViewletManager,)
+                                                )
+
+class PaymentOptions( BrowserView ):
+    """
+    container view for all payment options (payment plugin config ui gets
+    pulled in to this view as well).
+    """
+    template = ZopeTwoPageTemplateFile('templates/settings-payment.pt')
 
     def __call__( self ):
-        self.setupProcessorOptions()
-        return super( PaymentProcessor, self).__call__()
+        return self.template()
 
-    def setupProcessorOptions( self ):
-        manage_options = interfaces.IGetPaidManagementOptions( self.context )
+class PaymentProcessors( FormViewlet, formbase.EditForm ):
+    """
+    viewlet for selecting payment options
+    """
+    form_fields = form.Fields(interfaces.IGetPaidManagementPaymentOptions)
+    form_fields['payment_processors'].custom_widget = SelectWidgetFactory
+    form_name = _(u'Payment Options')
 
-        processor_name = manage_options.payment_processor
-        if not processor_name:
-            self.status = _(u"Please Select Payment Processor in Payment Options Settings")
-            return
+    template = ZopeTwoPageTemplateFile('templates/form.pt')
 
-        #NOTE: if a processor name is saved in the configuration but the corresponding payment method package
-        # doesn't exist anymore, a corresponding adapter will not be found.
+    def setUpWidgets( self, ignore_request=False ):
+        self.adapters = self.adapters or {}
+        self.widgets = form.setUpEditWidgets(
+            self.form_fields, self.prefix, self.context, self.request,
+            adapters=self.adapters, ignore_request=ignore_request
+            )
+
+    def update( self ):
         try:
-            processor = component.getAdapter( self.context,
-                                              igetpaid.IPaymentProcessor,
-                                              processor_name )
-        except:
-            self.status = _(u"The currently configured Payment Processor cannot be found; please check if the corresponding package is installed correctly.")
-            return
+            interface = iter( self.form_fields ).next().field.interface
+        except StopIteration:
+            interface = None
+        if interface is not None:
+            self.adapters = { interface : interfaces.IGetPaidManagementOptions( self.context ) }
+        super( PaymentProcessors, self).update()
 
-        self.form_fields = form.Fields( processor.options_interface )
+    def render( self ):
+        return self.template()
+
 
 # Order Management
 class CustomerInformation( BaseSettingsForm ):
