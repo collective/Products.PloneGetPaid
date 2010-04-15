@@ -210,7 +210,7 @@ The link "Add to Cart" is there when you check browser.contents...
     True
     >>> browser.getControl('Add to Cart').click()
     >>> browser.getControl('Checkout').click()
-    >>> browser.getControl('Your Name').value = 'test'
+    >>> browser.getControl(name='form.name').value = 'test æøå'
     >>> browser.getControl('Phone Number').value = '12345678'
     >>> browser.getControl(name='form.email').value = 'test@test.com'
     >>> browser.getControl(name='form.bill_first_line').value = 'Test'
