@@ -27,8 +27,6 @@
                <i tal:content="field" />
             </p>
 
-            <p tal:define="field python: '%.2f' % (getattr(view.payable,'price',0) or 0)"
-	       i18n:translate="text_price">
 
             <script type="text/javascript">
             function submitDonation() {
@@ -44,25 +42,28 @@
               if (amount == NaN) {
                 alert("Invalid input:" + input); 
               } else {
-		var url = window.location.toString();
-		if (url.charAt(url.length - 1) != '/') {
-		  url += '/';
-		}
+                var url = window.location.toString();
+                if (url.charAt(url.length - 1) != '/') {
+                  url += '/';
+                }
                 window.location = url + "@@getpaid-cart-add?add_item=True&amount=" + amount;
               }
-            
             }
 
             </script>
 
-                 <form action="javascript:submitDonation();">
-                 Donation: <input id="donation_amount"
-                                    type="text" 
-                                    name="donation_amount"
-                                    tal:attributes="value field" 
-                                    i18n:name="value_price" />
-                 </form>
-            </p>
+            <form action="javascript:submitDonation();">
+	            <p tal:define="field python: '%.2f' % (getattr(view.payable,'price',0) or 0)"
+	               i18n:translate="text_donate_price">
+	                 Donation: <span i18n:name="value_currency" tal:content="view/currency" /> 
+	                 <input id="donation_amount"
+	                                    type="text" 
+	                                    name="donation_amount"
+	                                    tal:attributes="value field" 
+	                                    i18n:name="value_price" />
+	            </p>
+            </form>
+            
 
           </div>
         </dd>

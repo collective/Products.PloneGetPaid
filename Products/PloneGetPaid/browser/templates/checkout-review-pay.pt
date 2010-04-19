@@ -53,9 +53,8 @@
  	         <legend i18n:translate=""> Shopping Cart </legend>
 	         <div tal:replace="structure view/renderCart">cart</div>
              
-              <div tal:replace="structure provider:getpaid.belowcartresume" />
+             <div tal:replace="structure provider:getpaid.belowcartresume" />
       
-             
             <div id="save_order_template_entry" style="display: none">
                 <label for="order_template_entry_name" id="order_template_entry_name_label" i18n:translate="">Order template name</label>
                 <div class="formHelp"
@@ -63,14 +62,9 @@
                 <input type="text" id="order_template_entry_name" name="order_template_entry_name" />
             </div>
             
-            
-
             <input type="button" id="save_order_template" class="standalone" name="save_order_template" value="Save this order as a template" onclick="swapVisibility('save_order_template','save_order_template_entry')" i18n:attributes="value" /> 
 
-
 	    </fieldset>
-        
-        
         
       </div>
 
@@ -82,17 +76,17 @@
      </div>
 
       <div id="actionsView">
-	<span class="actionButtons"
-	      tal:condition="view/availableActions">
-      <tal:loop tal:repeat="action view/availableActions">
-		<input type="submit" class="button context"
-			   id="" name="" value=""
-			   tal:attributes="id action/__name__;
-			   				   name action/__name__;
-			   				   value python:str(action.label);"
-			   i18n:attributes="value" />
-	  </tal:loop>
-	</span>
+	    <span class="actionButtons"
+	          tal:condition="view/availableActions">
+	        <tal:loop tal:repeat="action view/availableActions">
+			  <input type="submit" class="button context"
+				   id="" name="" value=""
+				   tal:attributes="id action/__name__;
+				   				   name action/__name__;
+				   				   value python:str(action.label);"
+				   i18n:attributes="value" />
+		    </tal:loop>
+	    </span>
       </div>
 
   </form>
