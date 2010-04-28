@@ -11,8 +11,6 @@ from zope.app.component.hooks import setSite
 from Products.PloneGetPaid import generations, preferences, addressbook, namedorder
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IAddressBookUtility, INamedOrderUtility
 from Products.PloneGetPaid.cart import ShoppingCartUtility
-import zope.component
-import five.intid.site
 from getpaid.core.interfaces import IOrderManager, IStore, IShoppingCartUtility, StoreInstalled, StoreUninstalled
 from getpaid.core.order import OrderManager
 from getpaid.core.payment import CREDIT_CARD_TYPES
