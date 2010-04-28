@@ -8,7 +8,10 @@ CHANGES
 - Added missing dependency declaration for getpaid.nullpayment.
   [davisagli]
 
-- Added conditional imports to test files for Plone 4 compatibility.
+- Added conditional imports to test files and various fixes for Plone 4 compatibility.
+  [taito.horiuchi]
+
+- Added icon_expr to controlpanel.xml.
   [taito.horiuchi]
 
 0.9.1 (2010-04-07)
