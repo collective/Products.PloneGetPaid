@@ -5,13 +5,16 @@ CHANGES
 0.9.2 (unreleased)
 ------------------
 
-- Add missing dependency declaration for getpaid.nullpayment.
+- Added missing dependency declaration for getpaid.nullpayment.
   [davisagli]
+
+- Added conditional imports to test files for Plone 4 compatibility.
+  [taito.horiuchi]
 
 0.9.1 (2010-04-07)
 ------------------
 
-- Add missing dependency declarations for five.intid, ore.viewlet and
+- Added missing dependency declarations for five.intid, ore.viewlet and
   yoma.batching.
   [davisagli]
 

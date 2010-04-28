@@ -3,7 +3,12 @@ import os, sys
 import glob
 import doctest
 import unittest
-from Globals import package_home
+try:
+    # For Plone-4
+    from App.Common import package_home
+except:
+    # For Plone-3
+    from Globals import package_home
 from base import PloneGetPaidFunctionalTestCase
 from Testing.ZopeTestCase import FunctionalDocFileSuite as Suite
 

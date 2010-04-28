@@ -1,4 +1,10 @@
-from zope.app.component.interfaces import ISite
+from zope.location.interfaces import ISite
+try:
+    # For Plone-4
+    from zope.location.interfaces import ISite
+except:
+    # For Plone-3
+    from zope.app.component.interfaces import ISite
 from zope.app.intid.interfaces import IIntIds
 from zope.component import getUtility
 
