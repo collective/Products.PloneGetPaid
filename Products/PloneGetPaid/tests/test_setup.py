@@ -1,8 +1,7 @@
-from zope.location.interfaces import ISite
 try:
     # For Plone-4
     from zope.location.interfaces import ISite
-except:
+except ImportError:
     # For Plone-3
     from zope.app.component.interfaces import ISite
 from zope.app.intid.interfaces import IIntIds
