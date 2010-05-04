@@ -1,0 +1,162 @@
+==============================================================================
+Recurring items checkout Doctest
+by jpg_at_rcom.com.ar
+==============================================================================
+
+Create the browser object we'll be using.
+
+	>>> from Products.Five.testbrowser import Browser
+	>>> browser = Browser()
+	>>> portal.error_log._ignored_exceptions = ()
+	>>> browser.handleErrors = False
+    >>> portal = self.portal
+    >>> folder = self.folder
+    >>> portal_url = portal.absolute_url()
+    >>> folder_url = self.folder.absolute_url()
+    >>> login_url = portal_url + '/login_form'
+    >>> logout_url = portal_url + '/logout'
+
+Testing checkout process for authenticated user (in this case, admin)
+
+	>>> membership = self.portal.portal_membership
+	>>> membership.addMember('testmanager', 'secret',
+	...		     ['Member', 'Manager'], [])
+
+	>>> browser.open(portal_url)
+	>>> browser.getLink('Log in').click()
+	>>> browser.getControl('Login Name').value = 'testmanager'
+	>>> browser.getControl('Password').value = 'secret'
+	>>> browser.getControl('Log in').click()
+
+	>>> self.portal.portal_quickinstaller.installProduct('PloneGetPaid')
+	'...'
+	>>> browser.getLink('Home').click()
+
+Testing the setup aspects of GetPaid. Setting required settings.
+
+	>>> browser.getLink('Site Setup').click()
+	>>> browser.getLink('GetPaid').click()
+	>>> browser.getLink('Site Profile').click()
+	>>> browser.getControl('Contact Email').value = 'info@plonegetpaid.com'
+	>>> browser.getControl( name="form.store_name").value = 'Test this fake company'
+	>>> browser.getControl('Contact Country').displayValue = ['ARGENTINA']
+	>>> browser.getControl('Apply').click()
+	>>> browser.getLink('GetPaid').click()
+	>>> browser.getLink('Content Types').click()
+	>>> browser.getLink('GetPaid').click()
+	>>> browser.getLink('Payment Options').click()
+	>>> browser.getControl(name = 'form.payment_processor').displayValue = ['Testing Processor']
+	>>> browser.getControl(name = 'form.allow_anonymous_checkout.used').value = 'on'
+	>>> browser.getControl('Apply').click()
+	>>> browser.getLink('GetPaid').click()
+	>>> browser.getLink('Payment Processor Settings').click()
+	>>> browser.getControl(name="form.allow_authorization").displayValue = ['allow_authorization']
+	>>> browser.getControl(name="form.allow_capture").displayValue = ['allow_capture']
+	>>> browser.getControl(name="form.allow_refunds").displayValue = ['allow_refund']
+	>>> browser.getControl('Apply').click()
+	>>> browser.getLink('GetPaid').click()
+	>>> browser.getLink('Legal Disclaimers').click()
+	>>> browser.getControl(name='form.disclaimer').value = 'Test disclaimer'
+	>>> browser.getControl(name='form.privacy_policy').value = 'Test privacy policy'
+	>>> browser.getControl('Apply').click()
+	>>> browser.getLink('GetPaid').click()
+
+Here we are setting the buyable types for use in the following tests
+
+	>>> from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
+	>>> options = IGetPaidManagementOptions(self.portal)
+	>>> options.buyable_types = ['Document', 'Link', 'Event']
+	>>> options.donate_types = ['Document']
+	>>> options.shippable_types = ['Document']
+
+Here we set up the Credit cards accepted for payment:
+
+	 >>> options.accepted_credit_cards = ["Visa"]
+
+Check to make sure the settings we put in Site Profile appear on this page.
+
+	 >>> browser.getLink('Home').click()
+
+Setup Donatable
+
+	>>> browser.getLink('Make Recurring Payable').click()
+	>>> browser.getControl(name='form.price').value = '11.00'
+	>>> browser.getControl(name='form.frequency').value = '12.00'
+	>>> browser.getControl(name='form.total_occurrences').value = '5'
+	>>> browser.getControl('Activate').click()
+
+Test donation checkout, which should go directly to checkout screen from the portlet.
+
+	>>> browser.getLink('Add to Cart').click()
+
+Continue where we left of after clicking Donate.
+
+	>>> browser.getLink('Checkout').click()
+	>>> browser.getControl('Your Name').value = 'Test'
+	>>> browser.getControl('Phone Number').value = '1234567'
+	>>> browser.getControl('Phone Number').value = '12345678'
+	>>> browser.getControl(name='form.email').value = 'test@test.com'
+	>>> browser.getControl(name='form.bill_first_line').value = 'Test'
+	>>> browser.getControl(name='form.bill_city').value = 'Test'
+	>>> browser.getControl(name='form.bill_state').value = ('US-HI',)
+	>>> browser.getControl(name='form.bill_postal_code').value = '12345'
+	>>> browser.getControl(name='form.ship_first_line').value = 'Test'
+	>>> browser.getControl(name='form.ship_city').value = 'Test'
+	>>> browser.getControl(name='form.ship_state').value = ('US-HI',)
+	>>> browser.getControl(name='form.ship_postal_code').value = '12345'
+
+Now go to the next form.
+
+	>>> browser.getControl('Continue').click()
+
+Continue filling in the current form.
+
+	>>> browser.getControl('Card Holder Name').value = 'Test Cardholder'
+	>>> browser.getControl(name='form.cc_expiration_month').value = ('02',)
+	>>> browser.getControl(name='form.cc_expiration_year').value = ('2009',)
+
+Use real test credit card numbers, available from http://developer.authorize.net/faqs/#7429
+
+	>>> browser.getControl('Credit Card Verfication Number').value = '1234'
+	>>> browser.getControl('Credit Card Number').value = '4007000000027'
+	>>> browser.getControl('Credit Card Type').value = ('Visa',)
+	>>> browser.getControl('Make Payment').click()
+
+Donation checkout completed. Now check order
+
+Verify order was for what we checked out.
+
+	>>> 'CHARGED' in browser.contents
+	True
+    >>> from re import compile, search, DOTALL
+    >>> pattern = compile('.*<div>\s*<span>\s*Your order id is\s*</span>\s*([0-9]*)\s*</div>',
+    ...                   DOTALL)
+    >>> order_id=search(pattern, browser.contents).groups()[0]
+
+This completes test of donation checkout. Verified that item was
+listed on order for user.
+
+    >>> browser.getLink('here').click()
+
+    >>> browser.getLink('Preferences').click()
+    >>> browser.getLink('GetPaid').click()
+    >>> browser.getLink('Orders').click()
+    >>> order_id in browser.contents
+    True
+
+    >>> browser.getControl('Created').value = ['last 7 days']
+    >>> browser.getControl('Filter').click()
+    >>> order_id in browser.contents
+    True
+
+    >>> browser.getControl('Renewal date').options
+    ['', 'last 7 days', 'last month', 'last 3 months', 'last year', 'next 7 days', 'next month', 'next 3 months', 'next year']
+    >>> browser.getControl('Renewal date').value = ['next year']
+    >>> browser.getControl('Filter').click()
+    >>> order_id in browser.contents
+    True
+
+    >>> browser.getControl('Renewal date').value = ['next 3 months']
+    >>> browser.getControl('Filter').click()
+    >>> order_id in browser.contents
+    False

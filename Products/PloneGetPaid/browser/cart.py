@@ -182,12 +182,23 @@ class LineItemColumn( object ):
 def lineItemURL( item, formatter ):
     return '<a href="reference_catalog/lookupObject?uuid=%s">%s</a>'  % (item.item_id, safe_unicode(item.name))
 
-def lineItemTotal( item, formatter ):
-    return "%0.2f" % (item.quantity * item.cost)
-
 def lineItemPrice( item, formatter ):
     return "%0.2f" % (LineItemColumn("cost")(item, formatter))
 
+def lineItemTotal( item, formatter ):
+    return "%0.2f" % (item.quantity * item.cost)
+
+def lineItemFrequency( item, formatter ):
+    try:
+        return "%d" % (item.frequency)
+    except:
+        return "N/A"
+
+def lineItemTotalOccurrences( item, formatter ):
+    try:
+        return "%d" % (item.total_occurrences)
+    except:
+        return "N/A"
 
 class CartFormatter( table.StandaloneSortFormatter ):
 
@@ -203,14 +214,14 @@ class CartFormatter( table.StandaloneSortFormatter ):
 
         if not len( self.context ):
             return super( CartFormatter, self).renderExtra()
-        
+
         totals = self.getTotals()
 
         tax_list = totals.getTaxCost()
         shipping_price = totals.getShippingCost()
         subtotal_price = totals.getSubTotalPrice()
         total_price = totals.getTotalPrice()
-        
+
         buffer = [ u'<div class="getpaid-totals"><table class="listing">']
         buffer.append('<tr><th>')
         buffer.append( translate(_(u"SubTotal")) )
@@ -228,7 +239,7 @@ class CartFormatter( table.StandaloneSortFormatter ):
         buffer.append('</table></div>')
         
         return u''.join( buffer) + super( CartFormatter, self).renderExtra()
-    
+
 class ShoppingCartListing( ContainerViewlet ):
 
     actions = ContainerViewlet.actions.copy()
@@ -240,6 +251,9 @@ class ShoppingCartListing( ContainerViewlet ):
         column.GetterColumn( title=_(u"Name"), getter=lineItemURL ),
         column.GetterColumn( title=_(u"Price"), getter=lineItemPrice ),
         column.GetterColumn( title=_(u"Total"), getter=lineItemTotal ),
+        column.GetterColumn( title=_(u"Frequency"), getter=lineItemFrequency ),
+        column.GetterColumn( title=_(u"Total occurrences"),
+                             getter=lineItemTotalOccurrences ),
        ]
 
     selection_column = columns[0]
@@ -247,7 +261,7 @@ class ShoppingCartListing( ContainerViewlet ):
     template = ZopeTwoPageTemplateFile('templates/cart-listing.pt')
 
     formatter_factory = CartFormatter
-    
+
     def __init__( self, *args, **kw):
         super( ShoppingCartListing, self ).__init__( *args, **kw )
 

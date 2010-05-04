@@ -9,7 +9,7 @@ $Id$
 import operator
 import cgi
 from cPickle import loads, dumps
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from zope.event import notify
 from zope.formlib import form
@@ -682,7 +682,12 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
             order.shipping_cost = shipping_method_obj.cost
             order.shipments = {} # XXX not implemented
 
+
         notify( ObjectCreatedEvent( order ) )
+
+        first_item = order.shopping_cart.values()[0] # we only support one recurring item...
+        if interfaces.IRecurringLineItem.providedBy(first_item):
+            order.renewal_date = order.creation_date + datetime.timedelta(30 * float(first_item.frequency))
 
         return order
 

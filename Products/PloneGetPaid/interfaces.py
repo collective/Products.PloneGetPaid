@@ -81,6 +81,8 @@ class IDonatableMarker( IPayableMarker ):
 class IVariableAmountDonatableMarker( IPayableMarker ):
     """ variable amount donate-able interface added to shippable content """
 
+class IRecurringPaymentMarker( IPayableMarker ):
+    """ IRecurringPayment interface added to IRecurringPayment content """
 
 class IStoreMember( Interface ):
     """ marker interface so we can adapt to members """
@@ -111,7 +113,9 @@ class IEnhancedDonation( igetpaid.IDonationContent ):
                                     required=False,
                                     default=list() )
 
-PayableMarkers = [ IBuyableMarker, IPremiumMarker, IShippableMarker, IDonatableMarker, IVariableAmountDonatableMarker ]
+PayableMarkers = [ IBuyableMarker, IPremiumMarker, IShippableMarker,
+                   IDonatableMarker, IVariableAmountDonatableMarker,
+                   IRecurringPaymentMarker ]
 
 PayableMarkerMap = dict(
      (
@@ -119,7 +123,8 @@ PayableMarkerMap = dict(
       (IPremiumMarker, igetpaid.IPremiumContent),
       (IShippableMarker, igetpaid.IShippableContent),
       (IDonatableMarker, igetpaid.IDonationContent),
-      (IVariableAmountDonatableMarker, igetpaid.IVariableAmountDonationContent)
+      (IVariableAmountDonatableMarker, igetpaid.IVariableAmountDonationContent),
+      (IRecurringPaymentMarker, igetpaid.IRecurringPaymentContent),
     )
 )
 
@@ -249,7 +254,6 @@ class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
     allow_anonymous_checkout = schema.Bool( title=_(u"Allow Anonymous Checkout"), default=False)
 
     use_ssl_for_checkout = schema.Bool( title=_(u"Use SSL for checkout"), default=False)
-
 
     accepted_credit_cards = schema.List( title = _(u"Accepted Credit Cards"),
                                         required = False,

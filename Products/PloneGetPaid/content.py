@@ -8,9 +8,9 @@ The applied zope3 interface allows us to use an adapter to add the component arc
 create views and adapters for the content. BuyableContent is delivered virtually, such as
 electronic PDF or simply viewing the content on the site.
 
-ShippableContent describes a physical, tangible item that must be shipped to an address. 
-Gift cards, products like T-Shirts, or paper-based content that goes into an envelope are 
-all examples of ShippableContent. This allows a content object to be added to a shopping cart, 
+ShippableContent describes a physical, tangible item that must be shipped to an address.
+Gift cards, products like T-Shirts, or paper-based content that goes into an envelope are
+all examples of ShippableContent. This allows a content object to be added to a shopping cart,
 shipped, etc.
 
 PremiumContent implies that the consumer of the content has a local role of Premium Member for the
@@ -40,6 +40,7 @@ from getpaid.core import options
 
 from interfaces import IDonationLevel, IPayableMarker
 from Products.PloneGetPaid import sessions
+
 
 class LineItemFactory( object ):
     """
@@ -166,9 +167,8 @@ class VariableAmountLineItemFactory( LineItemFactory ):
         nitem.cost = amount
         nitem.quantity = 1
         nitem.product_code = payable.product_code
-        
         return nitem
- 
+
 class ShippableItemFactory( LineItemFactory ):
     
     def createLineItem( self, payable, quantity ):
@@ -189,7 +189,37 @@ class ShippableItemFactory( LineItemFactory ):
         nitem.weight = float( payable.weight )
         
         return nitem
-                
+
+class RecurringLineItemFactory( LineItemFactory ):
+
+    def __init__(self, cart, content):
+        self.cart = cart
+        self.content = content
+
+    def createLineItem( self, payable, quantity ):
+
+        nitem = item.RecurringLineItem()
+        nitem.item_id = self.content.UID() # archetypes uid
+
+        # we use intids to reference content that we can dereference cleanly
+        # without access to context.
+        nitem.uid = component.getUtility( IIntIds ).register( self.content )
+
+        # copy over information regarding the item
+        nitem.name = self.content.Title()
+        nitem.description = self.content.Description()
+        nitem.cost = payable.price
+        nitem.quantity = int( quantity )
+        nitem.product_code = payable.product_code
+        nitem.frequency = payable.frequency
+        try:
+            nitem.total_occurrences = payable.total_occurrences
+        except:
+            nitem.total_occurrences = 1000 # == infinite
+        nitem.unit = 'months' # XXX: put on a field
+
+        return nitem
+
 
 #################################
 # Buyable Content
@@ -208,15 +238,15 @@ class BuyableContentAdapter( BuyableContentStorage ):
     of a buyable in an annotation adapter
     """
     interface.implements( interfaces.IBuyableContent )
-    
+
     def __init__( self, context ):
         self.context = context
-    
+
 
 #################################
 # Shippable Content
 """
-shippable deletions need to track orders not shipped 
+shippable deletions need to track orders not shipped
 """
 
 ShippableContentStorage = options.PersistentOptions.wire( "ShippableContentStorage", "getpaid.content.shippable", interfaces.IShippableContent )
@@ -224,7 +254,7 @@ ShippableContentStorage = options.PersistentOptions.wire( "ShippableContentStora
 class ShippableContentAdapter( ShippableContentStorage ):
 
     interface.implements( interfaces.IShippableContent )
-    
+
     def __init__( self, context ):
         self.context = context
 
@@ -236,7 +266,7 @@ PremiumContentStorage = options.PersistentOptions.wire( "PremiumContentStorage",
 class PremiumContentAdapter( PremiumContentStorage ):
 
     interface.implements( interfaces.IPremiumContent )
-    
+
     def __init__( self, context ):
         self.context = context
 
@@ -277,3 +307,16 @@ class VariableAmountDonatableContentAdapter( VariableAmountDonatableContentStora
     def __init__( self, context ):
         self.context = context
 
+#################################
+# RecurringPayable Content
+
+RecurringPaymentContentStorage = options.PersistentOptions.wire( "RecurringPaymentContentStorage",
+                                                                 "getpaid.content.recurringpayment",
+                                                                 interfaces.IRecurringPaymentContent )
+
+class RecurringPaymentContentAdapter( RecurringPaymentContentStorage ):
+
+    interface.implements( interfaces.IRecurringPaymentContent )
+
+    def __init__( self, context ):
+        self.context = context

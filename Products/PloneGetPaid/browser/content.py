@@ -11,9 +11,6 @@ from zope.formlib import form
 from zope import component
 from zope.event import notify
 
-#from zope.app.form import CustomWidgetFactory
-#from zope.app.form.browser.sequencewidget import ListSequenceWidget
-
 from AccessControl import getSecurityManager
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
@@ -173,7 +170,7 @@ class DonateForm( PayableForm ):
     #form_fields['donation_levels'].custom_widget = DonationLevelSequenceWidget
     interface = interfaces.IEnhancedDonation
     marker = interfaces.IDonatableMarker
-    
+
 
 class DonateCreation( DonateForm, PayableCreation ):
     actions = PayableCreation.actions
@@ -249,6 +246,13 @@ class ContentControl( BrowserView ):
 
     isDonatable.__roles__ = None
 
+    def isRecurringPayable( self ):
+        """
+        """
+        return interfaces.IRecurringPaymentMarker.providedBy( self.context )
+
+    isRecurringPayable.__roles__ = None
+
     def _allowChangePayable( self, types ):
         """
         """
@@ -269,6 +273,23 @@ class ContentControl( BrowserView ):
                and self.isBuyable()
 
     allowMakeNotBuyable.__roles__ = None
+
+    def allowMakeRecurringPayable( self ):
+        """
+        """
+        return self._allowChangePayable(self.options.buyable_types) \
+               and not self.isRecurringPayable() \
+               and not self.request.URL0.endswith('@@activate-recurring-payment')
+
+    allowMakeRecurringPayable.__roles__ = None
+
+    def allowMakeNotRecurringPayable( self ):
+        """
+        """
+        return self._allowChangePayable(self.options.buyable_types) \
+               and self.isRecurringPayable()
+
+    allowMakeNotRecurringPayable.__roles__ = None
 
     def allowMakeShippable( self ):
         """
@@ -367,3 +388,16 @@ class ContentPortlet( BrowserView ):
     def isPayable(self):
         return self.payable is not None
 
+class RecurringPaymentForm( PayableForm ):
+    """ recurring payment content operations """
+    form_fields = form.Fields( igetpaid.IRecurringPaymentContent )
+    interface = igetpaid.IRecurringPaymentContent
+    marker = interfaces.IRecurringPaymentMarker
+
+class RecurringPaymentCreation( RecurringPaymentForm, PayableCreation ):
+    actions = PayableCreation.actions
+    update  = PayableCreation.update
+
+class RecurringPaymentEdit( PayableForm ): pass
+class RecurringPaymentDestruction( PayableDestruction ):
+    marker = interfaces.IRecurringPaymentMarker
