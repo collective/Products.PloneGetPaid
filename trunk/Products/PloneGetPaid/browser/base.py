@@ -52,33 +52,57 @@ class BaseView( object ):
             # which is guaranteed to exist
             request.locale = locales.getLocale(None, None, None)
 
+# For Plone-4
+try:
+    class BaseFormView( formbase.EditForm, BaseView ):
 
-class BaseFormView( formbase.EditForm, BaseView ):
+        template = ViewPageTemplateFile('templates/form.pt')
 
-    template = ViewPageTemplateFile('templates/form.pt')
+        adapters = None
+        action_url = "" # NEEDED
+        hidden_form_vars = None # mapping of hidden variables to pass through on the form
 
-    adapters = None
-    action_url = "" # NEEDED
-    hidden_form_vars = None # mapping of hidden variables to pass through on the form
+        def hidden_inputs( self ):
+            if not self.hidden_form_vars: return ''
+            return make_hidden_input( **self.hidden_form_vars )
 
-    def hidden_inputs( self ):
-        if not self.hidden_form_vars: return ''
-        return make_hidden_input( **self.hidden_form_vars )
+        hidden_inputs = property( hidden_inputs )
 
-    hidden_inputs = property( hidden_inputs )
-    
-    def __init__( self, context, request ):
-        # setup some compatiblity
-        self.setupLocale( request )
-        self.setupEnvironment( request )
-        super( BaseFormView, self).__init__( context, request )
-        
-    def setUpWidgets( self, ignore_request=False ):
-        self.adapters = self.adapters is not None and self.adapters or {}
-        self.widgets = form.setUpEditWidgets(
-            self.form_fields, self.prefix, self.context, self.request,
-            adapters=self.adapters, ignore_request=ignore_request
-            )        
+        def setUpWidgets( self, ignore_request=False ):
+            self.adapters = self.adapters is not None and self.adapters or {}
+            self.widgets = form.setUpEditWidgets(
+                self.form_fields, self.prefix, self.context, self.request,
+                adapters=self.adapters, ignore_request=ignore_request
+                )
+
+# For Plone-3
+except:
+    class BaseFormView( formbase.EditForm, BaseView ):
+
+        template = ViewPageTemplateFile('templates/form.pt')
+
+        adapters = None
+        action_url = "" # NEEDED
+        hidden_form_vars = None # mapping of hidden variables to pass through on the form
+
+        def hidden_inputs( self ):
+            if not self.hidden_form_vars: return ''
+            return make_hidden_input( **self.hidden_form_vars )
+
+        hidden_inputs = property( hidden_inputs )
+
+        def __init__( self, context, request ):
+            # setup some compatiblity
+            self.setupLocale( request )
+            self.setupEnvironment( request )
+            super( BaseFormView, self).__init__( context, request )
+
+        def setUpWidgets( self, ignore_request=False ):
+            self.adapters = self.adapters is not None and self.adapters or {}
+            self.widgets = form.setUpEditWidgets(
+                self.form_fields, self.prefix, self.context, self.request,
+                adapters=self.adapters, ignore_request=ignore_request
+                )
 
 class FormViewlet( viewlet.SimpleAttributeViewlet, formbase.SubPageForm, BaseView ):
     """ a viewlet which utilize formlib

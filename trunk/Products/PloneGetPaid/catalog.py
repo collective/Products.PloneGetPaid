@@ -8,11 +8,8 @@ try:
     # Plone 3.3*
     from plone.indexer.decorator import indexer
 
-
-    @indexer(IPayable)
+    @indexer(IPayableMarker)
     def get_price(object):
-        if not IPayableMarker.providedBy(object):
-            return None
         adapted = IPayable(object, None)
         if adapted is not None:
             return adapted.price

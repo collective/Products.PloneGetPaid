@@ -7,6 +7,7 @@ from Products.PloneGetPaid.browser.portlets.base import GetPaidRenderer
 from Products.PloneGetPaid.i18n import _
 from Products.PloneGetPaid.interfaces import IVariableAmountDonatableMarker
 
+import donate
 
 class IDonatablePortlet(IPortletDataProvider):
     pass
@@ -28,6 +29,6 @@ class AddForm(base.NullAddForm):
         return Assignment()
 
 
-class Renderer(GetPaidRenderer):
+class Renderer(donate.Renderer):
     marker = IVariableAmountDonatableMarker
     render = ViewPageTemplateFile('../templates/portlet-content-variableamountdonatable.pt')

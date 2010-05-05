@@ -43,7 +43,7 @@
 	  </div>
 
 	  <div id="content">
-	    <h1 i18n:translate="heading_getpaid_setup">Site Orders</h1>
+	    <h1 i18n:translate="heading_getpaid_setup_orders">Site Orders</h1>
 
         <metal:block define-slot="up_to_parent">
             <a href=""

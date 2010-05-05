@@ -10,6 +10,7 @@
 <!--<include package="getpaid.io" />-->
 
 <include package="zope.annotation" />
+<include zcml:condition="installed plone.indexer" package="plone.indexer" />
 
 <!-- using five.intid ... by default this
      introduces subscribers for all persistent 

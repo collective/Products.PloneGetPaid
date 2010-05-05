@@ -7,6 +7,10 @@
             <span i18n:translate="" tal:content="view/getOrderId"> order id </span>
         </li>
         <li>
+            <span i18n:translate="text_processor_id"> Processor Id</span> -
+            <span i18n:translate="" tal:content="view/getProcessorId"> processor id </span>
+        </li>
+        <li>
             <span i18n:translate="text_customer_id"> Customer Id</span> -
             <span i18n:translate="" tal:content="view/getUserId"> user_id </span>
         </li>

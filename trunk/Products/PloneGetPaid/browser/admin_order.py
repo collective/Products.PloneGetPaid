@@ -87,6 +87,7 @@ class OrderListingComponent( core.EventViewlet ):
     
     columns = [
         column.GetterColumn( title=_(u"Order Id"), getter=renderOrderId ),
+        column.GetterColumn( title=_(u"Proc Id"), getter=AttrColumn("processor_id" ) ), 
         column.GetterColumn( title=_(u"Customer Id"), getter=AttrColumn("user_id" ) ), 
         column.GetterColumn( title=_(u"Last4"), getter=AttrColumn("user_payment_info_last4" ) ),
         column.GetterColumn( title=_(u"Proc Trans Id"), getter=AttrColumn("user_payment_info_trans_id" ) ),       
@@ -547,6 +548,9 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
 
     def getOrderId( self ):
         return self.order.order_id
+
+    def getProcessorId( self ):
+        return self.order.processor_id
 
     def getUserId( self ):
         return self.order.user_id
