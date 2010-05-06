@@ -687,7 +687,7 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
 
         first_item = order.shopping_cart.values()[0] # we only support one recurring item...
         if interfaces.IRecurringLineItem.providedBy(first_item):
-            order.renewal_date = order.creation_date + datetime.timedelta(30 * float(first_item.frequency))
+            order.renewal_date = order.creation_date + timedelta(30 * float(first_item.frequency))
 
         return order
 
