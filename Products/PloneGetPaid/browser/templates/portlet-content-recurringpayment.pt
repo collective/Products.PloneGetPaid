@@ -28,19 +28,24 @@
                <i tal:content="field" />
             </p>
 
-            <p tal:define="field python: '%.2f' % view.payable.price"
+            <p tal:define="field python: '%.2f' % (getattr(view.payable, 'price', 0) or 0)"
                tal:condition="field"
                i18n:translate="text_price">
-                 Price: $ <span tal:content="field" i18n:name="value_price" />
+                 Price: <span i18n:name="value_currency" tal:content="view/currency" /> <span tal:content="field" i18n:name="value_price" />
             </p>
 
           </div>
         </dd>
 
         <dd class="portletFooter">
-            <a href="" tal:attributes="href string:${context/absolute_url}/@@getpaid-cart-add?add_item=True" i18n:translate="label_add_to_cart">
-               Add to Cart
-            </a>
+            <form tal:attributes= "action string:${context/absolute_url}/@@getpaid-cart-add"
+                  method="post">
+              <input type="hidden" name="add_item" value="True" />
+              <input type="text" size="1" name="quantity" value="1" />
+              <input type="submit" 
+                     i18n:attributes="value label_add_to_cart"
+                     value="Add to Cart" />
+            </form>
             <span class="portletBottomLeft"></span>
             <span class="portletBottomRight"></span>
         </dd>
