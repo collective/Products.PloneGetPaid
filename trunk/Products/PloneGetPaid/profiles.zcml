@@ -9,6 +9,24 @@
       directory="profiles/default"
       description="E-commerce framework for Plone"
       provides="Products.GenericSetup.interfaces.EXTENSION"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
       />
 
+  <genericsetup:upgradeStep
+     title="upgrade0to1"
+     description="Upgrades from profile version 0.9.2 to 1."
+     profile="Products.PloneGetPaid:default"
+     source="0.9.2" destination="1" sortkey="1"
+     handler="Products.PloneGetPaid.upgrade.upgrade0to1"
+     />
+  
+  <genericsetup:registerProfile
+     name="upgrade0to1"
+     title="Upgrades PloneGetPaid from profile version 0.9.2 to 1."
+     directory="profiles/upgrade0to1"
+     description="Migration for the annotation key bug in PersistenOptions."
+     provides="Products.GenericSetup.interfaces.EXTENSION"
+     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+     />
+  
 </configure>
