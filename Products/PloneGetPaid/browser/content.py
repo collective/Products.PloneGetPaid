@@ -195,6 +195,19 @@ class VariableAmountDonateEdit( VariableAmountDonateForm ): pass
 class VariableAmountDonateDestruction( PayableDestruction ):
     marker = interfaces.IVariableAmountDonatableMarker
 
+class RecurringPaymentForm( PayableForm ):
+    """ recurring payment content operations """
+    form_fields = form.Fields( igetpaid.IRecurringPaymentContent )
+    interface = igetpaid.IRecurringPaymentContent
+    marker = interfaces.IRecurringPaymentMarker
+
+class RecurringPaymentCreation( RecurringPaymentForm, PayableCreation ):
+    actions = PayableCreation.actions
+    update  = PayableCreation.update
+
+class RecurringPaymentEdit( RecurringPaymentForm ): pass
+class RecurringPaymentDestruction( PayableDestruction ):
+    marker = interfaces.IRecurringPaymentMarker
 
 class ContentControl( BrowserView ):
     """ conditions for presenting various actions
@@ -387,17 +400,3 @@ class ContentPortlet( BrowserView ):
 
     def isPayable(self):
         return self.payable is not None
-
-class RecurringPaymentForm( PayableForm ):
-    """ recurring payment content operations """
-    form_fields = form.Fields( igetpaid.IRecurringPaymentContent )
-    interface = igetpaid.IRecurringPaymentContent
-    marker = interfaces.IRecurringPaymentMarker
-
-class RecurringPaymentCreation( RecurringPaymentForm, PayableCreation ):
-    actions = PayableCreation.actions
-    update  = PayableCreation.update
-
-class RecurringPaymentEdit( PayableForm ): pass
-class RecurringPaymentDestruction( PayableDestruction ):
-    marker = interfaces.IRecurringPaymentMarker

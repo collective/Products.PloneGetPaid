@@ -97,6 +97,13 @@
     permission="cmf.ModifyPortalContent"
     />
 
+  <browser:page
+    for="..interfaces.IRecurringPaymentMarker"
+    name="edit-payable"
+    class=".content.RecurringPaymentEdit"
+    permission="cmf.ModifyPortalContent"
+    />
+
   <!-- Deactivation Views, turning payables back into content -->
   <browser:page
      for="*"
