@@ -85,6 +85,7 @@ def install_plone3_portlets(self):
         portlets.recurring.Assignment(),
         portlets.ship.Assignment(),
         portlets.premium.Assignment(),
+        getpaid.recurringpayment.Assignment(),
         ]
 
     for assignment in assignments:
