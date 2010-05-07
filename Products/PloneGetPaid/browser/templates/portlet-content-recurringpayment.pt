@@ -36,7 +36,7 @@
 
             <p i18n:translate="text_recurrence">
               You will be billed for this product every
-              <span tal:replace="view/payable/frequency" i18n:name="value_interval"/>
+              <span tal:replace="view/payable/interval" i18n:name="value_interval"/>
               month(s), for a total of
               <span tal:replace="view/payable/total_occurrences" i18n:name="value_occurrences"/>
               months.
