@@ -22,6 +22,8 @@ from Products.PloneGetPaid import interfaces
 
 from base import BaseFormView
 
+from zope.app.component.hooks import getSite
+
 import widgets
 
 from Products.PloneGetPaid.i18n import _
@@ -291,11 +293,15 @@ class ContentControl( BrowserView ):
     def allowMakeRecurringPayable( self ):
         """
         """
+
+        processor = component.getAdapter( getSite(),
+                                          igetpaid.IPaymentProcessor,
+                                          self.options.payment_processor )
+
         return self._allowChangePayable(self.options.buyable_types) \
                and not self.request.URL0.endswith('@@activate-recurring-payment') \
-			   and not self.isPayable()
-
-			#			   and IRecurringPaymentProcessor.providedBy("processor") \
+			   and not self.isPayable() \
+			   and igetpaid.IRecurringPaymentProcessor.providedBy(processor)
 
     allowMakeRecurringPayable.__roles__ = None
 
