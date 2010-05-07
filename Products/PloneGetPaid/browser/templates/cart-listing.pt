@@ -18,14 +18,14 @@
            />
   -->
   
-      <tal:loop tal:repeat="action view/availableActions">
-		<input type="submit" class="button context"
-			   id="" name="" value=""
-			   tal:attributes="id action/__name__;
-			   				   name action/__name__;
-			   				   value python:str(action.label);"
-			   i18n:attributes="value" />
-	  </tal:loop>
+    <tal:loop tal:repeat="action view/availableActions">
+      <input type="submit" class="button context"
+           id="" name="" value=""
+           tal:attributes="id action/__name__;
+                     name action/__name__;
+                     value python:str(action.label);"
+           i18n:attributes="value" />
+    </tal:loop>
   </div>
 
   <div tal:replace="structure provider:getpaid.belowcartlisting" />

@@ -10,6 +10,7 @@ from urllib import urlencode
 from zope import component, interface
 from zope.formlib import form
 from zc.table import column, table
+from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 
 from ore.viewlet.container import ContainerViewlet
 from ore.viewlet.core import FormViewlet
@@ -200,45 +201,53 @@ def lineItemTotalOccurrences( item, formatter ):
     except:
         return "N/A"
 
-class CartFormatter( table.StandaloneSortFormatter ):
+_marker = object()
+class CartFormatter( table.StandaloneSortFormatter ):        
+        
+    renderExtra = ViewPageTemplateFile('templates/cart-listing-extras.pt')
+    
+    def __init__(self, context, request, items, visible_column_names=None,
+                 batch_start=None, batch_size=None, prefix=None, columns=None):
+        """ override method to set some stuff we want on this class
+        """
+        super(CartFormatter, self).__init__(context, request, items, 
+            visible_column_names, batch_start, batch_size, 
+            prefix, columns)
+        
+        totals = self.getTotals()
 
+        self.tax_list = totals.getTaxCost()
+        self.shipping_price = totals.getShippingCost()
+        self.subtotal_price = totals.getSubTotalPrice()
+        self.total_price = totals.getTotalPrice()
+        self.extra = super(CartFormatter, self).renderExtra()
+        self.translate = lambda msg: utranslate(domain='plonegetpaid',
+                                           msgid=msg,
+                                           context=self.request)
+        self.has_items = bool(len(self.context))
+        if self.is_recurring():
+            firstitem = self.items[0]
+            self.frequency = firstitem.frequency
+            self.unit = firstitem.unit
+            self.total_occurrences = firstitem.total_occurrences
+    
     def getTotals( self ):
         #if interfaces.IShoppingCart.providedBy( self.context ):
         return interfaces.ILineContainerTotals( self.context )
+    
+    def cart_notes(self):
+        return '<p>foo</p>'
         
-    def renderExtra( self ):
-
-        translate = lambda msg: utranslate(domain='plonegetpaid',
-                                           msgid=msg,
-                                           context=self.request)
-
-        if not len( self.context ):
-            return super( CartFormatter, self).renderExtra()
-
-        totals = self.getTotals()
-
-        tax_list = totals.getTaxCost()
-        shipping_price = totals.getShippingCost()
-        subtotal_price = totals.getSubTotalPrice()
-        total_price = totals.getTotalPrice()
-
-        buffer = [ u'<div class="getpaid-totals"><table class="listing">']
-        buffer.append('<tr><th>')
-        buffer.append( translate(_(u"SubTotal")) )
-        buffer.append( '</th><td style="border-top:1px solid #8CACBB;">%0.2f</td></tr>'%( subtotal_price ) )
-
-        buffer.append( "<tr><th>" )
-        buffer.append( translate(_(u"Shipping")) )
-        buffer.append( "</th><td>%0.2f</td></tr>"%( shipping_price ) )
-
-        for tax in tax_list:
-            buffer.append( "<tr><th>%s</th><td>%0.2f</td></tr>"%( tax['name'], tax['value'] ) )
-        buffer.append( "<tr><th>" )
-        buffer.append( translate(_(u"Total")) )
-        buffer.append( "</th><td>%0.2f</td></tr>"%( total_price ) )
-        buffer.append('</table></div>')
+    def is_recurring(self):
+        if len(self.items) != 1:
+            return False
         
-        return u''.join( buffer) + super( CartFormatter, self).renderExtra()
+        firstitem = self.items[0]
+        for attr in ['frequency', 'unit', 'total_occurrences']:
+            if not hasattr(firstitem, attr):
+                return False
+        
+        return True
 
 class ShoppingCartListing( ContainerViewlet ):
 
