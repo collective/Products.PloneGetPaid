@@ -239,16 +239,7 @@ class CartFormatter( table.StandaloneSortFormatter ):
         return '<p>foo</p>'
         
     def is_recurring(self):
-        import pdb; pdb.set_trace()
-        if len(self.items) != 1:
-            return False
-        
-        firstitem = self.items[0]
-        for attr in ['interval', 'unit', 'total_occurrences']:
-            if not hasattr(firstitem, attr):
-                return False
-        
-        return True
+        return self.context.is_recurring()
 
 class ShoppingCartListing( ContainerViewlet ):
 

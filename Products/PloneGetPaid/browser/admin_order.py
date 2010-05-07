@@ -653,7 +653,22 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
         if len(shipments) == 0:
             shipments = None
         return shipments
-
+    
+    def order_is_recurring(self):
+        return self.order.shopping_cart.is_recurring()
+    
+    def getOrderRecurrenceData(self):
+        data_dict = {'interval': None, 'unit': None, 'total_occurrences': None}
+        try:
+            # items in an order are a tuple of UID and LineItem
+            firstitem = self.order.shopping_cart.items()[0][1]
+        except (AttributeError, KeyError):
+            return data_dict
+        for attr in ['interval','unit','total_occurrences']:
+            data_dict[attr] = getattr(firstitem, attr, 'UNDEFINED')
+        
+        return data_dict
+    
     def getShippingAddress(self):
         infos = self.order.shipping_address
         if infos.ship_same_billing:
