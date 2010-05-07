@@ -125,7 +125,7 @@ We are going to activate a recurring payment?
 Yes, so fill up the form...
     >>> browser.getControl(name='form.price').value = '1'
     >>> browser.getControl(name='form.product_code').value = 'Test Buy Code #2'
-    >>> browser.getControl(name='form.frequency').value = '1'
+    >>> browser.getControl(name='form.interval').value = '1'
     >>> browser.getControl(name='form.total_occurrences').value = '1'
     >>> browser.getControl('Activate').click()
 
@@ -155,7 +155,7 @@ But we can enable again...
 fill up the form...
     >>> browser.getControl(name='form.price').value = '2'
     >>> browser.getControl(name='form.product_code').value = 'Test Buy Code #3'
-    >>> browser.getControl(name='form.frequency').value = '2'
+    >>> browser.getControl(name='form.interval').value = '2'
     >>> browser.getControl(name='form.total_occurrences').value = '2'
     >>> browser.getControl('Activate').click()
 
@@ -170,7 +170,7 @@ Then add it to the cart...
 
 Then we can se the details in the checkout form...
 
-    >>> 'Frequency' in browser.contents
+    >>> 'Interval' in browser.contents
     True
     >>> 'Total occurrences' in browser.contents
     True

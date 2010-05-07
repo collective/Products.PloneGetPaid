@@ -81,7 +81,7 @@ Setup Donatable
 
 	>>> browser.getLink('Make Recurring Payable').click()
 	>>> browser.getControl(name='form.price').value = '11.00'
-	>>> browser.getControl(name='form.frequency').value = '12.00'
+	>>> browser.getControl(name='form.interval').value = '12.00'
 	>>> browser.getControl(name='form.total_occurrences').value = '5'
 	>>> browser.getControl('Activate').click()
 

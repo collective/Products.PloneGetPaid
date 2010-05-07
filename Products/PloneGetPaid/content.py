@@ -211,7 +211,7 @@ class RecurringLineItemFactory( LineItemFactory ):
         nitem.cost = payable.price
         nitem.quantity = int( quantity )
         nitem.product_code = payable.product_code
-        nitem.frequency = payable.frequency
+        nitem.interval = payable.interval
         try:
             nitem.total_occurrences = payable.total_occurrences
         except:

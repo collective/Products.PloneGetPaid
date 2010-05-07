@@ -189,9 +189,9 @@ def lineItemPrice( item, formatter ):
 def lineItemTotal( item, formatter ):
     return "%0.2f" % (item.quantity * item.cost)
 
-def lineItemFrequency( item, formatter ):
+def lineItemInterval( item, formatter ):
     try:
-        return "%d" % (item.frequency)
+        return "%d" % (item.interval)
     except:
         return "N/A"
 
@@ -260,7 +260,7 @@ class ShoppingCartListing( ContainerViewlet ):
         column.GetterColumn( title=_(u"Name"), getter=lineItemURL ),
         column.GetterColumn( title=_(u"Price"), getter=lineItemPrice ),
         column.GetterColumn( title=_(u"Total"), getter=lineItemTotal ),
-        column.GetterColumn( title=_(u"Frequency"), getter=lineItemFrequency ),
+        column.GetterColumn( title=_(u"Interval"), getter=lineItemInterval ),
         column.GetterColumn( title=_(u"Total occurrences"),
                              getter=lineItemTotalOccurrences ),
        ]
