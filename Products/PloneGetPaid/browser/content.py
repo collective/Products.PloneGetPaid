@@ -275,7 +275,8 @@ class ContentControl( BrowserView ):
         """
         """
         return self._allowChangePayable(self.options.buyable_types) \
-               and not self.isBuyable() and not self.request.URL0.endswith('@@activate-buyable')
+               and not self.isPayable() \
+			   and not self.request.URL0.endswith('@@activate-buyable')
 
     allowMakeBuyable.__roles__ = None
 
@@ -291,8 +292,10 @@ class ContentControl( BrowserView ):
         """
         """
         return self._allowChangePayable(self.options.buyable_types) \
-               and not self.isRecurringPayable() \
-               and not self.request.URL0.endswith('@@activate-recurring-payment')
+               and not self.request.URL0.endswith('@@activate-recurring-payment') \
+			   and not self.isPayable()
+
+			#			   and IRecurringPaymentProcessor.providedBy("processor") \
 
     allowMakeRecurringPayable.__roles__ = None
 
