@@ -227,7 +227,7 @@ class CartFormatter( table.StandaloneSortFormatter ):
         self.has_items = bool(len(self.context))
         if self.is_recurring():
             firstitem = self.items[0]
-            self.frequency = firstitem.frequency
+            self.interval = firstitem.interval
             self.unit = firstitem.unit
             self.total_occurrences = firstitem.total_occurrences
     
@@ -239,11 +239,12 @@ class CartFormatter( table.StandaloneSortFormatter ):
         return '<p>foo</p>'
         
     def is_recurring(self):
+        import pdb; pdb.set_trace()
         if len(self.items) != 1:
             return False
         
         firstitem = self.items[0]
-        for attr in ['frequency', 'unit', 'total_occurrences']:
+        for attr in ['interval', 'unit', 'total_occurrences']:
             if not hasattr(firstitem, attr):
                 return False
         
@@ -256,13 +257,9 @@ class ShoppingCartListing( ContainerViewlet ):
     columns = [
         column.SelectionColumn( lambda item: item.item_id, name="selection"),
         column.FieldEditColumn( _(u"Quantity"), 'edit', interfaces.ILineItem['quantity'], lambda item: item.item_id ),
-        #column.GetterColumn( title=_(u"Quantity"), getter=LineItemColumn("quantity") ),
         column.GetterColumn( title=_(u"Name"), getter=lineItemURL ),
         column.GetterColumn( title=_(u"Price"), getter=lineItemPrice ),
         column.GetterColumn( title=_(u"Total"), getter=lineItemTotal ),
-        column.GetterColumn( title=_(u"Interval"), getter=lineItemInterval ),
-        column.GetterColumn( title=_(u"Total occurrences"),
-                             getter=lineItemTotalOccurrences ),
        ]
 
     selection_column = columns[0]

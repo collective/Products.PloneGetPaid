@@ -1,12 +1,12 @@
 <tal:extras tal:condition="view/has_items">
   <div id="getpaid-cartnotes" tal:condition="view/is_recurring">
     <p i18n:translate="RecurringSummary">
-      This charge is recurring.  
-      The amount below will be charged to you every 
-      <span tal:replace="view/frequency | string:unknown">[#]</span> 
+      You will be billed for this product every
+      <span tal:replace="view/interval | string:unknown">[#]</span> 
       <span tal:replace="view/unit | string:unknown">[unit of time]</span>.  
-      The charge will occur a total of 
-      <span tal:replace="view/total_occurrences | string:unknown">[#]</span> times.
+      for a total of
+      <span tal:replace="view/total_occurrences | string:unknown">[#]</span>  
+      payments.
     </p>
   </div>
 
