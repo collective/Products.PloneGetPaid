@@ -83,13 +83,24 @@ class ShoppingCartAddItem( ShoppingCart ):
         qty = int(self.request.get('quantity', 1))
         try:
             item_factory.create(quantity=qty)
-        except interfaces.InvalidCartException, e:
+            
+        except interfaces.AddRecurringItemException, e:
             came_from = self.request.environ.get('HTTP_REFERER', 
                             getSite().absolute_url())
-            message = utranslate(domain='plonegetpaid',
-                                 msgid="%s" % e,
-                                 context=self.request)
-            IStatusMessage(self.request).addStatusMessage(message, type='error')            
+            msg = "Your shopping cart already has items in it. \
+                   A recurring payment item may not be added until \
+                   you check out or delete the existing items."
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')            
+            self.request.response.redirect(came_from)
+            return ''
+            
+        except interfaces.RecurringCartItemAdditionException, e:
+            came_from = self.request.environ.get('HTTP_REFERER', 
+                            getSite().absolute_url())
+            msg = "Your shopping cart already holds a recurring payment. \
+                   Please purchase the current item or delete it from your \
+                   cart before adding addtional items."
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')            
             self.request.response.redirect(came_from)
             return ''
 
