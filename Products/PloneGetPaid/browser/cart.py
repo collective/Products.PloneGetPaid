@@ -11,6 +11,7 @@ from zope import component, interface
 from zope.formlib import form
 from zc.table import column, table
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+from zope.app.component.hooks import getSite
 
 from ore.viewlet.container import ContainerViewlet
 from ore.viewlet.core import FormViewlet
@@ -22,7 +23,7 @@ from AccessControl import getSecurityManager
 from Products.Five.viewlet import manager
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
-
+from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFCore.utils import getToolByName
 
 from Products.PloneGetPaid.interfaces import PayableMarkers, IGetPaidCartViewletManager, INamedOrderUtility
@@ -66,19 +67,31 @@ class ShoppingCart( BrowserView ):
 class ShoppingCartAddItem( ShoppingCart ):
     """
     item we're adding is the context
+    
     """
 
     def __call__( self ):
         if self.request.has_key('add_item'):
             self.addToCart()
         return super( ShoppingCartAddItem, self ).__call__()
-
+    
     def addToCart( self ):
         # create a line item and add it to the cart
-        item_factory = component.getMultiAdapter( (self.cart, self.context), interfaces.ILineItemFactory )
+        item_factory = component.getMultiAdapter( (self.cart, self.context), 
+                                                interfaces.ILineItemFactory )
         # check quantity from request
         qty = int(self.request.get('quantity', 1))
-        item_factory.create(quantity=qty)
+        try:
+            item_factory.create(quantity=qty)
+        except interfaces.InvalidCartException, e:
+            came_from = self.request.environ.get('HTTP_REFERER', 
+                            getSite().absolute_url())
+            message = utranslate(domain='plonegetpaid',
+                                 msgid="%s" % e,
+                                 context=self.request)
+            IStatusMessage(self.request).addStatusMessage(message, type='error')            
+            self.request.response.redirect(came_from)
+            return ''
 
 
 class ShoppingCartAddItemAndGoToCheckout(ShoppingCartAddItem):
