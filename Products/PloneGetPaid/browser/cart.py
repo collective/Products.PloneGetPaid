@@ -84,7 +84,7 @@ class ShoppingCartAddItem( ShoppingCart ):
         try:
             item_factory.create(quantity=qty)
             
-        except interfaces.AddRecurringItemException, e:
+        except interfaces.AddRecurringItemException:
             came_from = self.request.environ.get('HTTP_REFERER', 
                             getSite().absolute_url())
             msg = "Your shopping cart already has items in it. \
@@ -94,7 +94,7 @@ class ShoppingCartAddItem( ShoppingCart ):
             self.request.response.redirect(came_from)
             return ''
             
-        except interfaces.RecurringCartItemAdditionException, e:
+        except interfaces.RecurringCartItemAdditionException:
             came_from = self.request.environ.get('HTTP_REFERER', 
                             getSite().absolute_url())
             msg = "Your shopping cart already holds a recurring payment. \
@@ -125,17 +125,17 @@ class ShoppingCartAddItemAndGoToCheckout(ShoppingCartAddItem):
 
 class ShoppingCartAddItemWithAmountAndGoToCheckout(ShoppingCartAddItem):
     def addToCart( self ):
-
+        
         # create a line item and add it to the cart
         item_factory = component.getMultiAdapter( (self.cart, self.context), interfaces.ILineItemFactory )
-
+        
         # check amount from request
         # todo handle non-floats
         amount = float(self.request.get('amount', 1))
         try:
             item_factory.create(amount=amount)
             
-        except interfaces.AddRecurringItemException, e:
+        except interfaces.AddRecurringItemException:
             came_from = self.request.environ.get('HTTP_REFERER', 
                             getSite().absolute_url())
             msg = "Your shopping cart already has items in it. \
@@ -145,7 +145,7 @@ class ShoppingCartAddItemWithAmountAndGoToCheckout(ShoppingCartAddItem):
             self.request.response.redirect(came_from)
             return ''
             
-        except interfaces.RecurringCartItemAdditionException, e:
+        except interfaces.RecurringCartItemAdditionException:
             came_from = self.request.environ.get('HTTP_REFERER', 
                             getSite().absolute_url())
             msg = "Your shopping cart already holds a recurring payment. \
