@@ -132,8 +132,28 @@ class ShoppingCartAddItemWithAmountAndGoToCheckout(ShoppingCartAddItem):
         # check amount from request
         # todo handle non-floats
         amount = float(self.request.get('amount', 1))
-        item_factory.create(amount=amount)
-
+        try:
+            item_factory.create(amount=amount)
+            
+        except interfaces.AddRecurringItemException, e:
+            came_from = self.request.environ.get('HTTP_REFERER', 
+                            getSite().absolute_url())
+            msg = "Your shopping cart already has items in it. \
+                   A recurring payment item may not be added until \
+                   you check out or delete the existing items."
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')            
+            self.request.response.redirect(came_from)
+            return ''
+            
+        except interfaces.RecurringCartItemAdditionException, e:
+            came_from = self.request.environ.get('HTTP_REFERER', 
+                            getSite().absolute_url())
+            msg = "Your shopping cart already holds a recurring payment. \
+                   Please purchase the current item or delete it from your \
+                   cart before adding addtional items."
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')            
+            self.request.response.redirect(came_from)
+            return ''
         portal = getToolByName( self.context, 'portal_url').getPortalObject()
         url = portal.absolute_url()
 
