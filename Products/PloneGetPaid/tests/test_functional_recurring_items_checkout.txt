@@ -87,7 +87,7 @@ Setup Donatable
 
 Test donation checkout, which should go directly to checkout screen from the portlet.
 
-	>>> browser.getLink('Add to Cart').click()
+	>>> browser.getControl('Add to Cart').click()
 
 Continue where we left of after clicking Donate.
 
@@ -96,6 +96,7 @@ Continue where we left of after clicking Donate.
 	>>> browser.getControl('Phone Number').value = '1234567'
 	>>> browser.getControl('Phone Number').value = '12345678'
 	>>> browser.getControl(name='form.email').value = 'test@test.com'
+	>>> browser.getControl(name='form.bill_name').value = 'Test'
 	>>> browser.getControl(name='form.bill_first_line').value = 'Test'
 	>>> browser.getControl(name='form.bill_city').value = 'Test'
 	>>> browser.getControl(name='form.bill_state').value = ('US-HI',)
@@ -112,8 +113,9 @@ Now go to the next form.
 Continue filling in the current form.
 
 	>>> browser.getControl('Card Holder Name').value = 'Test Cardholder'
+	>>> browser.getControl('Phone Number').value = '12345678'
 	>>> browser.getControl(name='form.cc_expiration_month').value = ('02',)
-	>>> browser.getControl(name='form.cc_expiration_year').value = ('2009',)
+	>>> browser.getControl(name='form.cc_expiration_year').value = ('2012',)
 
 Use real test credit card numbers, available from http://developer.authorize.net/faqs/#7429
 
@@ -149,7 +151,7 @@ Make it buyable.
 
 Add it to my cart.
 
-	>>> browser.getLink('Add to Cart').click()
+	>>> browser.getControl('Add to Cart').click()
 	>>> browser.getControl('Continue Shopping').click()
 	>>> 'Contains <span>1</span> Items' in browser.contents
 	True
@@ -174,11 +176,12 @@ The link "Add to Cart" is there when you check browser.contents...
 
 	>>> 'Add to Cart' in browser.contents
 	True
-	>>> browser.getLink('Add to Cart').click()
+	>>> browser.getControl('Add to Cart').click()
 	>>> browser.getControl('Checkout').click()
 	>>> browser.getControl('Your Name').value = 'test'
 	>>> browser.getControl('Phone Number').value = '12345678'
 	>>> browser.getControl(name='form.email').value = 'test@test.com'
+	>>> browser.getControl(name='form.bill_name').value = 'Test'
 	>>> browser.getControl(name='form.bill_first_line').value = 'Test'
 	>>> browser.getControl(name='form.bill_city').value = 'Test'
 	>>> browser.getControl(name='form.bill_state').value = ('US-HI',)
@@ -196,8 +199,9 @@ controls are not available here (or they are but they should not be).
 We move to the next form and fill in the current form.
 
 	>>> browser.getControl('Card Holder Name').value = 'Test Cardholder'
+	>>> browser.getControl('Phone Number').value = '12345678'
 	>>> browser.getControl(name='form.cc_expiration_month').value = ('02',)
-	>>> browser.getControl(name='form.cc_expiration_year').value = ('2009',)
+	>>> browser.getControl(name='form.cc_expiration_year').value = ('2012',)
 
 Use real test credit card numbers, available from http://developer.authorize.net/faqs/#7429
 

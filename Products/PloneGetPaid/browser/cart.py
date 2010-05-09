@@ -279,9 +279,6 @@ class CartFormatter( table.StandaloneSortFormatter ):
         #if interfaces.IShoppingCart.providedBy( self.context ):
         return interfaces.ILineContainerTotals( self.context )
     
-    def cart_notes(self):
-        return '<p>foo</p>'
-        
     def is_recurring(self):
         return self.context.is_recurring()
 

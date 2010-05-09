@@ -14,7 +14,7 @@ Create the browser object we'll be using.
     True
      >>> membership = self.portal.portal_membership
      >>> membership.addMember('testmanager', 'secret',
-     ...		     ['Member', 'Manager'], [])
+     ...                      ['Member', 'Manager'], [])
 
      >>> browser.getLink('Log in').click()
      >>> browser.getControl('Login Name').value = 'testmanager'
@@ -108,7 +108,7 @@ We have the text and is a link...
     >>> testpage = self.portal.testpage2
     >>> browser.open(testpage.absolute_url())
     >>> browser.getLink('Make Recurring Payable')
-	<Link text='Make Recurring Payable' ...>
+    <Link text='Make Recurring Payable' ...>
 
 We don't have a "disable" button link...
     >>> browser.getLink('Make Not Recurring Payable')
@@ -120,7 +120,7 @@ We don't have a "disable" button link...
 
 We are going to activate a recurring payment?
     >>> browser.getForm(action='activate-recurring-payment')
-	<zope.testbrowser.browser.Form ...>
+    <zope.testbrowser.browser.Form ...>
 
 Yes, so fill up the form...
     >>> browser.getControl(name='form.price').value = '1'
@@ -131,7 +131,7 @@ Yes, so fill up the form...
 
 We can disable...
     >>> browser.getLink(url='@@deactivate-recurring-payment')
-	<Link text='Make Not Recurring Payable' ...>
+    <Link text='Make Not Recurring Payable' ...>
 
 But we can't enable again...
     >>> browser.getLink(url='@@activate-recurring-payment')
@@ -149,7 +149,7 @@ We can't disable it twice...
 
 But we can enable again...
     >>> browser.getLink(url='@@activate-recurring-payment')
-	<Link text='Make Recurring Payable' ...>
+    <Link text='Make Recurring Payable' ...>
     >>> browser.getLink(url='@@activate-recurring-payment').click()
 
 fill up the form...
@@ -162,15 +162,13 @@ fill up the form...
 And we will test the checkout process now...
 First, we have the portlet?
 
-	>>> "Recurring Payable Content Portlet" in browser.contents
-	True
+    >>> "Recurring Payable Content Portlet" in browser.contents
+    True
 
 Then add it to the cart...
-    >>> browser.getLink('Add to Cart').click()
+    >>> browser.getControl('Add to Cart').click()
 
-Then we can se the details in the checkout form...
+Then we can see the details in the cart listing...
 
-    >>> 'Interval' in browser.contents
-    True
-    >>> 'Total occurrences' in browser.contents
+    >>> 'You will be billed for this product every 2 months, for a total of 2 payments.' in browser.contents
     True

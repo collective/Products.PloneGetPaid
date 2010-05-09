@@ -9,7 +9,7 @@ $Id$
 import operator
 import cgi
 from cPickle import loads, dumps
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from zope.event import notify
 from zope.formlib import form
@@ -780,6 +780,9 @@ class OrderFormatter( cart_core.CartFormatter ):
 
     def getTotals( self ):
         return OrderTotals( self.context, self.request)
+
+    def is_recurring(self):
+        return self.context.shopping_cart.is_recurring()
 
 class OrderTotals( cart.CartItemTotals ):
 

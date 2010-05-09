@@ -87,7 +87,7 @@ Setup Donatable
 
 Test donation checkout, which should go directly to checkout screen from the portlet.
 
-	>>> browser.getLink('Add to Cart').click()
+	>>> browser.getControl('Add to Cart').click()
 
 Continue where we left of after clicking Donate.
 
@@ -96,6 +96,7 @@ Continue where we left of after clicking Donate.
 	>>> browser.getControl('Phone Number').value = '1234567'
 	>>> browser.getControl('Phone Number').value = '12345678'
 	>>> browser.getControl(name='form.email').value = 'test@test.com'
+	>>> browser.getControl(name='form.bill_name').value = 'Test'
 	>>> browser.getControl(name='form.bill_first_line').value = 'Test'
 	>>> browser.getControl(name='form.bill_city').value = 'Test'
 	>>> browser.getControl(name='form.bill_state').value = ('US-HI',)
@@ -112,8 +113,9 @@ Now go to the next form.
 Continue filling in the current form.
 
 	>>> browser.getControl('Card Holder Name').value = 'Test Cardholder'
+	>>> browser.getControl('Phone Number').value = '12345678'
 	>>> browser.getControl(name='form.cc_expiration_month').value = ('02',)
-	>>> browser.getControl(name='form.cc_expiration_year').value = ('2009',)
+	>>> browser.getControl(name='form.cc_expiration_year').value = ('2012',)
 
 Use real test credit card numbers, available from http://developer.authorize.net/faqs/#7429
 
@@ -138,7 +140,7 @@ listed on order for user.
 
     >>> browser.getLink('here').click()
 
-    >>> browser.getLink('Preferences').click()
+    >>> browser.open('http://nohost/plone/plone_control_panel')
     >>> browser.getLink('GetPaid').click()
     >>> browser.getLink('Orders').click()
     >>> order_id in browser.contents
