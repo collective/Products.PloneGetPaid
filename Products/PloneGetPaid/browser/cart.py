@@ -233,18 +233,6 @@ def lineItemPrice( item, formatter ):
 def lineItemTotal( item, formatter ):
     return "%0.2f" % (item.quantity * item.cost)
 
-def lineItemInterval( item, formatter ):
-    try:
-        return "%d" % (item.interval)
-    except:
-        return "N/A"
-
-def lineItemTotalOccurrences( item, formatter ):
-    try:
-        return "%d" % (item.total_occurrences)
-    except:
-        return "N/A"
-
 _marker = object()
 class CartFormatter( table.StandaloneSortFormatter ):        
         

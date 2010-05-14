@@ -660,9 +660,8 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
     def getOrderRecurrenceData(self):
         data_dict = {'interval': None, 'unit': None, 'total_occurrences': None}
         try:
-            # items in an order are a tuple of UID and LineItem
-            firstitem = self.order.shopping_cart.items()[0][1]
-        except (AttributeError, KeyError):
+            firstitem = self.order.shopping_cart.values()[0]
+        except (AttributeError, IndexError):
             return data_dict
         for attr in ['interval','unit','total_occurrences']:
             data_dict[attr] = getattr(firstitem, attr, 'UNDEFINED')

@@ -5,8 +5,14 @@ CHANGES
 0.10.0 (unreleased)
 -------------------
 
+- Update variable amount donation portlet to avoid submitting via javascript.
+  [jesses, alext]
+
+- Update the cart formatter extra section to be rendered using a template.
+  [cewing, alext]
+
 - Added support for recurring payable items.
-  [jpg.rcom, davisagli]
+  [jpg.rcom, davisagli, jesses, alext, cewing, larubbio]
 
 - Added missing dependency declaration for getpaid.nullpayment.
   [davisagli]
