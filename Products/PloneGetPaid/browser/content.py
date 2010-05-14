@@ -11,9 +11,6 @@ from zope.formlib import form
 from zope import component
 from zope.event import notify
 
-#from zope.app.form import CustomWidgetFactory
-#from zope.app.form.browser.sequencewidget import ListSequenceWidget
-
 from AccessControl import getSecurityManager
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
@@ -24,6 +21,8 @@ from Products.Five.utilities import marker
 from Products.PloneGetPaid import interfaces
 
 from base import BaseFormView
+
+from zope.app.component.hooks import getSite
 
 import widgets
 
@@ -173,7 +172,7 @@ class DonateForm( PayableForm ):
     #form_fields['donation_levels'].custom_widget = DonationLevelSequenceWidget
     interface = interfaces.IEnhancedDonation
     marker = interfaces.IDonatableMarker
-    
+
 
 class DonateCreation( DonateForm, PayableCreation ):
     actions = PayableCreation.actions
@@ -198,6 +197,19 @@ class VariableAmountDonateEdit( VariableAmountDonateForm ): pass
 class VariableAmountDonateDestruction( PayableDestruction ):
     marker = interfaces.IVariableAmountDonatableMarker
 
+class RecurringPaymentForm( PayableForm ):
+    """ recurring payment content operations """
+    form_fields = form.Fields( igetpaid.IRecurringPaymentContent )
+    interface = igetpaid.IRecurringPaymentContent
+    marker = interfaces.IRecurringPaymentMarker
+
+class RecurringPaymentCreation( RecurringPaymentForm, PayableCreation ):
+    actions = PayableCreation.actions
+    update  = PayableCreation.update
+
+class RecurringPaymentEdit( RecurringPaymentForm ): pass
+class RecurringPaymentDestruction( PayableDestruction ):
+    marker = interfaces.IRecurringPaymentMarker
 
 class ContentControl( BrowserView ):
     """ conditions for presenting various actions
@@ -249,6 +261,13 @@ class ContentControl( BrowserView ):
 
     isDonatable.__roles__ = None
 
+    def isRecurringPayable( self ):
+        """
+        """
+        return interfaces.IRecurringPaymentMarker.providedBy( self.context )
+
+    isRecurringPayable.__roles__ = None
+
     def _allowChangePayable( self, types ):
         """
         """
@@ -258,7 +277,8 @@ class ContentControl( BrowserView ):
         """
         """
         return self._allowChangePayable(self.options.buyable_types) \
-               and not self.isBuyable() and not self.request.URL0.endswith('@@activate-buyable')
+               and not self.isPayable() \
+			   and not self.request.URL0.endswith('@@activate-buyable')
 
     allowMakeBuyable.__roles__ = None
 
@@ -269,6 +289,29 @@ class ContentControl( BrowserView ):
                and self.isBuyable()
 
     allowMakeNotBuyable.__roles__ = None
+
+    def allowMakeRecurringPayable( self ):
+        """
+        """
+
+        processor = component.getAdapter( getSite(),
+                                          igetpaid.IPaymentProcessor,
+                                          self.options.payment_processor )
+
+        return self._allowChangePayable(self.options.buyable_types) \
+               and not self.request.URL0.endswith('@@activate-recurring-payment') \
+			   and not self.isPayable() \
+			   and igetpaid.IRecurringPaymentProcessor.providedBy(processor)
+
+    allowMakeRecurringPayable.__roles__ = None
+
+    def allowMakeNotRecurringPayable( self ):
+        """
+        """
+        return self._allowChangePayable(self.options.buyable_types) \
+               and self.isRecurringPayable()
+
+    allowMakeNotRecurringPayable.__roles__ = None
 
     def allowMakeShippable( self ):
         """
@@ -366,4 +409,3 @@ class ContentPortlet( BrowserView ):
 
     def isPayable(self):
         return self.payable is not None
-

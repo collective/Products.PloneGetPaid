@@ -10,6 +10,8 @@ from urllib import urlencode
 from zope import component, interface
 from zope.formlib import form
 from zc.table import column, table
+from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+from zope.app.component.hooks import getSite
 
 from ore.viewlet.container import ContainerViewlet
 from ore.viewlet.core import FormViewlet
@@ -21,7 +23,7 @@ from AccessControl import getSecurityManager
 from Products.Five.viewlet import manager
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
-
+from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFCore.utils import getToolByName
 
 from Products.PloneGetPaid.interfaces import PayableMarkers, IGetPaidCartViewletManager, INamedOrderUtility
@@ -65,19 +67,42 @@ class ShoppingCart( BrowserView ):
 class ShoppingCartAddItem( ShoppingCart ):
     """
     item we're adding is the context
+    
     """
 
     def __call__( self ):
         if self.request.has_key('add_item'):
             self.addToCart()
         return super( ShoppingCartAddItem, self ).__call__()
-
+    
     def addToCart( self ):
         # create a line item and add it to the cart
-        item_factory = component.getMultiAdapter( (self.cart, self.context), interfaces.ILineItemFactory )
+        item_factory = component.getMultiAdapter( (self.cart, self.context), 
+                                                interfaces.ILineItemFactory )
         # check quantity from request
         qty = int(self.request.get('quantity', 1))
-        item_factory.create(quantity=qty)
+        try:
+            item_factory.create(quantity=qty)
+            
+        except interfaces.AddRecurringItemException:
+            came_from = self.request.environ.get('HTTP_REFERER', 
+                            getSite().absolute_url())
+            msg = "Your shopping cart already has items in it. \
+                   A recurring payment item may not be added until \
+                   you check out or delete the existing items."
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')            
+            self.request.response.redirect(came_from)
+            return ''
+            
+        except interfaces.RecurringCartItemAdditionException:
+            came_from = self.request.environ.get('HTTP_REFERER', 
+                            getSite().absolute_url())
+            msg = "Your shopping cart already holds a recurring payment. \
+                   Please purchase the current item or delete it from your \
+                   cart before adding addtional items."
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')            
+            self.request.response.redirect(came_from)
+            return ''
 
 
 class ShoppingCartAddItemAndGoToCheckout(ShoppingCartAddItem):
@@ -100,15 +125,35 @@ class ShoppingCartAddItemAndGoToCheckout(ShoppingCartAddItem):
 
 class ShoppingCartAddItemWithAmountAndGoToCheckout(ShoppingCartAddItem):
     def addToCart( self ):
-
+        
         # create a line item and add it to the cart
         item_factory = component.getMultiAdapter( (self.cart, self.context), interfaces.ILineItemFactory )
-
+        
         # check amount from request
         # todo handle non-floats
         amount = float(self.request.get('amount', 1))
-        item_factory.create(amount=amount)
-
+        try:
+            item_factory.create(amount=amount)
+            
+        except interfaces.AddRecurringItemException:
+            came_from = self.request.environ.get('HTTP_REFERER', 
+                            getSite().absolute_url())
+            msg = "Your shopping cart already has items in it. \
+                   A recurring payment item may not be added until \
+                   you check out or delete the existing items."
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')            
+            self.request.response.redirect(came_from)
+            return ''
+            
+        except interfaces.RecurringCartItemAdditionException:
+            came_from = self.request.environ.get('HTTP_REFERER', 
+                            getSite().absolute_url())
+            msg = "Your shopping cart already holds a recurring payment. \
+                   Please purchase the current item or delete it from your \
+                   cart before adding addtional items."
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')            
+            self.request.response.redirect(came_from)
+            return ''
         portal = getToolByName( self.context, 'portal_url').getPortalObject()
         url = portal.absolute_url()
 
@@ -182,53 +227,49 @@ class LineItemColumn( object ):
 def lineItemURL( item, formatter ):
     return '<a href="reference_catalog/lookupObject?uuid=%s">%s</a>'  % (item.item_id, safe_unicode(item.name))
 
-def lineItemTotal( item, formatter ):
-    return "%0.2f" % (item.quantity * item.cost)
-
 def lineItemPrice( item, formatter ):
     return "%0.2f" % (LineItemColumn("cost")(item, formatter))
 
+def lineItemTotal( item, formatter ):
+    return "%0.2f" % (item.quantity * item.cost)
 
-class CartFormatter( table.StandaloneSortFormatter ):
-
-    def getTotals( self ):
-        #if interfaces.IShoppingCart.providedBy( self.context ):
-        return interfaces.ILineContainerTotals( self.context )
+_marker = object()
+class CartFormatter( table.StandaloneSortFormatter ):        
         
-    def renderExtra( self ):
-
-        translate = lambda msg: utranslate(domain='plonegetpaid',
-                                           msgid=msg,
-                                           context=self.request)
-
-        if not len( self.context ):
-            return super( CartFormatter, self).renderExtra()
+    renderExtra = ViewPageTemplateFile('templates/cart-listing-extras.pt')
+    
+    def __init__(self, context, request, items, visible_column_names=None,
+                 batch_start=None, batch_size=None, prefix=None, columns=None):
+        """ override method to set some stuff we want on this class
+        """
+        super(CartFormatter, self).__init__(context, request, items, 
+            visible_column_names, batch_start, batch_size, 
+            prefix, columns)
         
         totals = self.getTotals()
 
-        tax_list = totals.getTaxCost()
-        shipping_price = totals.getShippingCost()
-        subtotal_price = totals.getSubTotalPrice()
-        total_price = totals.getTotalPrice()
-        
-        buffer = [ u'<div class="getpaid-totals"><table class="listing">']
-        buffer.append('<tr><th>')
-        buffer.append( translate(_(u"SubTotal")) )
-        buffer.append( '</th><td style="border-top:1px solid #8CACBB;">%0.2f</td></tr>'%( subtotal_price ) )
-
-        buffer.append( "<tr><th>" )
-        buffer.append( translate(_(u"Shipping")) )
-        buffer.append( "</th><td>%0.2f</td></tr>"%( shipping_price ) )
-
-        for tax in tax_list:
-            buffer.append( "<tr><th>%s</th><td>%0.2f</td></tr>"%( tax['name'], tax['value'] ) )
-        buffer.append( "<tr><th>" )
-        buffer.append( translate(_(u"Total")) )
-        buffer.append( "</th><td>%0.2f</td></tr>"%( total_price ) )
-        buffer.append('</table></div>')
-        
-        return u''.join( buffer) + super( CartFormatter, self).renderExtra()
+        self.tax_list = totals.getTaxCost()
+        self.shipping_price = totals.getShippingCost()
+        self.subtotal_price = totals.getSubTotalPrice()
+        self.total_price = totals.getTotalPrice()
+        self.extra = super(CartFormatter, self).renderExtra()
+        self.translate = lambda msg: utranslate(domain='plonegetpaid',
+                                           msgid=msg,
+                                           context=self.request)
+        self.has_items = bool(len(self.context))
+        if self.is_recurring():
+            firstitem = self.items[0]
+            self.interval = firstitem.interval
+            self.unit = firstitem.unit
+            self.total_occurrences = firstitem.total_occurrences
     
+    def getTotals( self ):
+        #if interfaces.IShoppingCart.providedBy( self.context ):
+        return interfaces.ILineContainerTotals( self.context )
+    
+    def is_recurring(self):
+        return self.context.is_recurring()
+
 class ShoppingCartListing( ContainerViewlet ):
 
     actions = ContainerViewlet.actions.copy()
@@ -236,7 +277,6 @@ class ShoppingCartListing( ContainerViewlet ):
     columns = [
         column.SelectionColumn( lambda item: item.item_id, name="selection"),
         column.FieldEditColumn( _(u"Quantity"), 'edit', interfaces.ILineItem['quantity'], lambda item: item.item_id ),
-        #column.GetterColumn( title=_(u"Quantity"), getter=LineItemColumn("quantity") ),
         column.GetterColumn( title=_(u"Name"), getter=lineItemURL ),
         column.GetterColumn( title=_(u"Price"), getter=lineItemPrice ),
         column.GetterColumn( title=_(u"Total"), getter=lineItemTotal ),
@@ -247,7 +287,7 @@ class ShoppingCartListing( ContainerViewlet ):
     template = ZopeTwoPageTemplateFile('templates/cart-listing.pt')
 
     formatter_factory = CartFormatter
-    
+
     def __init__( self, *args, **kw):
         super( ShoppingCartListing, self ).__init__( *args, **kw )
 

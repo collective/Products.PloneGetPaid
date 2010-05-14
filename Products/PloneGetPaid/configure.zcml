@@ -13,7 +13,7 @@
 <include zcml:condition="installed plone.indexer" package="plone.indexer" />
 
 <!-- using five.intid ... by default this
-     introduces subscribers for all persistent 
+     introduces subscribers for all persistent
      objects. -->
 <include package="five.intid" file="base.zcml"/>
 <include file="intid.zcml" />
@@ -74,6 +74,12 @@
    factory=".content.VariableAmountDonatableContentAdapter"
   />
 
+<adapter
+   for="Products.PloneGetPaid.interfaces.IRecurringPaymentMarker"
+   provides="getpaid.core.interfaces.IRecurringPaymentContent"
+   factory=".content.RecurringPaymentContentAdapter"
+   />
+
 <!-- Content to Line Item Adapter -->
 <adapter
    for="getpaid.core.interfaces.IShoppingCart
@@ -96,6 +102,13 @@
    factory=".content.VariableAmountLineItemFactory"
    />
 
+<adapter
+   for="getpaid.core.interfaces.IShoppingCart
+        .interfaces.IRecurringPaymentMarker"
+   provides="getpaid.core.interfaces.ILineItemFactory"
+   factory=".content.RecurringLineItemFactory"
+   />
+
 <!-- Property Storage for Configuration Options -->
 <adapter
    for="getpaid.core.interfaces.IStore"
@@ -108,7 +121,7 @@
 	class="Products.PluggableAuthService.PropertiedUser.PropertiedUser"
 	interface=".interfaces.IStoreMember"
 	/>
-	
+
 <adapter
 	for=".interfaces.IStoreMember"
 	provides="getpaid.core.interfaces.IUserContactInformation"

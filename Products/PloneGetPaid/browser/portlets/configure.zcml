@@ -36,6 +36,14 @@
       />
 
   <plone:portlet
+      name="getpaid.recurringpayment"
+      interface=".recurring.IRecurringPaymentPortlet"
+      assignment=".recurring.Assignment"
+      renderer=".recurring.Renderer"
+      addview=".recurring.AddForm"
+      />
+
+  <plone:portlet
       name="getpaid.premium"
       interface=".premium.IPremiumPortlet"
       assignment=".premium.Assignment"

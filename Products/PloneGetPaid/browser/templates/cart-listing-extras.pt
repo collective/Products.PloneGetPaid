@@ -1,0 +1,31 @@
+<tal:extras tal:condition="view/has_items">
+  <div id="getpaid-cartnotes" tal:condition="view/is_recurring">
+    <p i18n:translate="RecurringCartSummary">
+      You will be billed for this product every <span tal:replace="view/interval | string:unknown" i18n:name="value_interval">[#]</span> <span tal:replace="view/unit | string:unknown" i18n:name="value_unit">[unit of time]</span>, for a total of <span tal:replace="view/total_occurrences | string:unknown" i18n:name="value_total_occurrences">[#]</span> payments.
+    </p>
+  </div>
+
+  <div class="getpaid-totals">
+    <table class="vertical listing">
+      <tr>
+        <th i18n:translate="SubTotal">SubTotal</th>
+        <td tal:content="view/subtotal_price">[subtotal price]</td>
+      </tr>
+      <tr>
+        <th i18n:translate="Shipping">Shipping</th>
+        <td tal:content="view/shipping_price">[shipping price]</td>
+      </tr>
+      <tr tal:repeat="tax view/tax_list">
+        <th tal:content="tax/name">[tax name]</th>
+        <td tal:content="tax/value">[tax value]</td>
+      </tr>
+      <tr>
+        <th i18n:translate="Total">Total</th>
+        <td tal:content="view/total_price">total_price</td>
+      </tr>
+    </table>
+  </div>
+  <div tal:replace="structure view/extra">
+    Extra from superclasses goes here
+  </div>
+</tal:extras>

@@ -25,6 +25,8 @@
     >>> mark(o4, interfaces.IShippableMarker)
     >>> o5 = Content()
     >>> mark(o5, interfaces.IDonatableMarker)
+    >>> o6 = Content()
+    >>> mark(o6, interfaces.IRecurringPaymentMarker)
 
     This first one should fail since there is no adapter provided for
     the base interface of IPayableMarker
@@ -42,3 +44,5 @@
     <Products.PloneGetPaid.content.ShippableContentAdapter object at ...>
     >>> coreinterfaces.IPayable(o5)
     <Products.PloneGetPaid.content.DonatableContentAdapter object at ...>
+    >>> coreinterfaces.IPayable(o6)
+    <Products.PloneGetPaid.content.RecurringPaymentContentAdapter object at ...>

@@ -51,6 +51,13 @@
      permission="cmf.ModifyPortalContent"
      />
 
+  <browser:page
+     for="*"
+     name="activate-recurring-payment"
+     class=".content.RecurringPaymentCreation"
+     permission="cmf.ModifyPortalContent"
+     />
+
   <!-- Edit Views, on payable -->
   <browser:page
      for="..interfaces.IBuyableMarker"
@@ -74,7 +81,7 @@
      name="edit-payable"
      class=".content.ShippableEdit"
      permission="cmf.ModifyPortalContent"
-     />     
+     />
 
   <browser:page
     for="..interfaces.IDonatableMarker"
@@ -87,6 +94,13 @@
     for="..interfaces.IVariableAmountDonatableMarker"
     name="edit-payable"
     class=".content.VariableAmountDonateEdit"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:page
+    for="..interfaces.IRecurringPaymentMarker"
+    name="edit-payable"
+    class=".content.RecurringPaymentEdit"
     permission="cmf.ModifyPortalContent"
     />
 
@@ -127,6 +141,13 @@
      />
 
   <browser:page
+     for="*"
+     name="deactivate-recurring-payment"
+     class=".content.RecurringPaymentDestruction"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
     name="portlet-contentwidget"
     for="..interfaces.IDonatableMarker"
     class=".content.ContentPortlet"
@@ -163,6 +184,14 @@
     for="..interfaces.IPremiumMarker"
     class=".content.ContentPortlet"
     template="templates/portlet-content-premium.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="portlet-contentwidget"
+    for="..interfaces.IRecurringPaymentMarker"
+    class=".content.ContentPortlet"
+    template="templates/portlet-content-recurringpayment.pt"
     permission="zope2.View"
     />
 

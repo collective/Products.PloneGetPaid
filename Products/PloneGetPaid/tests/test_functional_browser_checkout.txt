@@ -144,7 +144,7 @@ Continue filling in the current form.
 
 Use real test credit card numbers, available from http://developer.authorize.net/faqs/#7429
 
-    >>> browser.getControl('Credit Card Verfication Number').value = '1234'
+    >>> browser.getControl('Credit Card Verification Number').value = '1234'
     >>> browser.getControl('Credit Card Number').value = '4007000000027'
     >>> browser.getControl('Credit Card Type').value = ('Visa',)
     >>> browser.getControl('Make Payment').click()
@@ -236,7 +236,7 @@ We move to the next form and fill in the current form.
 
 Use real test credit card numbers, available from http://developer.authorize.net/faqs/#7429
 
-    >>> browser.getControl('Credit Card Verfication Number').value = '1234'
+    >>> browser.getControl('Credit Card Verification Number').value = '1234'
     >>> browser.getControl('Credit Card Number').value = '4007000000027'
     >>> browser.getControl('Credit Card Type').value = ('Visa',)
     >>> browser.getControl('Make Payment').click()
