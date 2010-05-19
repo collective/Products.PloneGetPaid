@@ -682,7 +682,12 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
             order.shipping_cost = shipping_method_obj.cost
             order.shipments = {} # XXX not implemented
 
+
         notify( ObjectCreatedEvent( order ) )
+
+        if order.shopping_cart.is_recurring():
+            first_item = order.shopping_cart.values()[0]
+            order.renewal_date = order.creation_date + timedelta(30 * float(first_item.interval))
 
         return order
 
@@ -775,6 +780,9 @@ class OrderFormatter( cart_core.CartFormatter ):
 
     def getTotals( self ):
         return OrderTotals( self.context, self.request)
+
+    def is_recurring(self):
+        return self.context.shopping_cart.is_recurring()
 
 class OrderTotals( cart.CartItemTotals ):
 

@@ -2,8 +2,19 @@
 CHANGES
 =======
 
-0.9.2 (unreleased)
-------------------
+0.10.0 (unreleased)
+-------------------
+
+- Update variable amount donation portlet to avoid submitting via javascript.
+  [jesses, alext]
+
+- Update the cart formatter extra section to be rendered using a template.
+  [cewing, alext]
+
+- Added support for recurring payable items.  If upgrading from an older version
+  of PloneGetPaid, you'll need to reinstall PloneGetPaid to add a new portlet and
+  action.
+  [jpg.rcom, davisagli, jesses, alext, cewing, larubbio]
 
 - Added missing dependency declaration for getpaid.nullpayment.
   [davisagli]

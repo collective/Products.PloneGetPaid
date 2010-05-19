@@ -77,6 +77,7 @@ ${store_url}/@@getpaid-order/${order_id}
     def __init__( self, order ):
         self.order = order
 
+
 def getPortal( ):
     site = component.getSiteManager()
     try:
@@ -94,7 +95,7 @@ def sendNotification( order, event ):
     """
     portal = getPortal()
     mailer = getToolByName(portal, 'MailHost')
-    
+
     settings = interfaces.IGetPaidManagementOptions( portal )
     store_url = portal.absolute_url()
     order_contents = u'\n'.join([u' '.join((str(cart_item.quantity),
@@ -209,6 +210,3 @@ def sendCustomerEmail(adapterName, template, settings, order,
             # should do the shipment
             # XXX: somebody should be notified about that
             pass
-
-    
-

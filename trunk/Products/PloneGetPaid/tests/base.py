@@ -44,14 +44,14 @@ class PloneGetPaidTestCase(PloneTestCase):
         # I moved here so that doctests work ok without needing to add PloneGetPaid
         #   and so we don't need to add this line to all our unit tests
         self.portal.portal_quickinstaller.installProduct('PloneGetPaid')
-        
-        
+
+
 class PloneGetPaidFunctionalTestCase(FunctionalTestCase):
-    """Base class for functional integration tests for the 'PloneGetPaid' product. 
-    This may provide specific set-up and tear-down operations, or provide 
+    """Base class for functional integration tests for the 'PloneGetPaid' product.
+    This may provide specific set-up and tear-down operations, or provide
     convenience methods.
     """
-    
+
     def afterSetUp( self ):
         baseAfterSetUp(self)
 

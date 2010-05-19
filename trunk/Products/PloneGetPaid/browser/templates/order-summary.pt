@@ -6,6 +6,22 @@
             <span i18n:translate="text_order_id"> Order Id</span> -
             <span i18n:translate="" tal:content="view/getOrderId"> order id </span>
         </li>
+        <li tal:define="recurring view/order_is_recurring">
+            <span i18n:translate="text_order_type"> Order Type</span> -
+            <span tal:condition="not:recurring"
+                  i18n:translate="text_order_standard">Non-recurring Order</span>
+            <tal:if-recurring tal:condition="recurring">
+             <span i18n:translate="text_order_recurring">Recurring Order</span>
+             <tal:recurrence-data tal:define="data view/getOrderRecurrenceData">
+              <br /><span i18n:translate="text_order_interval"> Interval</span> -
+              <span tal:define="count data/interval;
+                                unit data/unit"
+                    tal:content="string:${count} ${unit}">order interval</span>
+              <br /><span i18n:translate="text_order_occurrences"> Total Occurrences</span> -
+              <span tal:content="data/total_occurrences">order total occurrences</span>
+             </tal:recurrence-data>
+            </tal:if-recurring>
+        </li>
         <li>
             <span i18n:translate="text_processor_id"> Processor Id</span> -
             <span i18n:translate="" tal:content="view/getProcessorId"> processor id </span>
