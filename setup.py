@@ -4,20 +4,15 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.9.2dev'
+version = '0.10.0'
 
 setup(name='Products.PloneGetPaid',
       version=version,
-      description="PloneGetPaid product",
+      description="E-commerce framework for Plone",
       long_description = (
         read('README.txt')
         + '\n' +
         read('CHANGES.txt')
-        + '\n' +
-        'Detailed Documentation\n'
-        '**********************\n'
-        + '\n' +
-        read('docs', 'HISTORY.txt')
         + '\n' +
         'Download\n'
         '**********************\n'
@@ -45,8 +40,8 @@ setup(name='Products.PloneGetPaid',
       install_requires=[
           'setuptools',
           'five.intid',
-          'getpaid.core>=0.8.0',
-          'getpaid.nullpayment',
+          'getpaid.core>=0.9.0',
+          'getpaid.nullpayment>=0.5.0',
           'getpaid.wizard',
           'ore.viewlet',
           'yoma.batching',
