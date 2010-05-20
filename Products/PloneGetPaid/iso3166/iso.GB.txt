@@ -16,20 +16,20 @@ ISO3166-2 regions for GB
    GB-BNS : Barnsley
    GB-BAS : Bath and North East Somerset
    GB-BDF : Bedfordshire
-   GB-BFS : Belfast 
+   GB-BFS : Belfast
    GB-BEX : Bexley
-   GB-BIR : Birmingham 
+   GB-BIR : Birmingham
    GB-BBD : Blackburn with Darwen
    GB-BPL : Blackpool
    GB-BGW : Blaenau Gwent
    GB-BOL : Bolton
    GB-BMH : Bournemouth
    GB-BRC : Bracknell Forest
-   GB-BRD : Bradford 
+   GB-BRD : Bradford
    GB-BEN : Brent
    GB-BGE : Bridgend
    GB-BNH : Brighton and Hove
-   GB-BST : Bristol,
+   GB-BST : Bristol
    GB-BRY : Bromley
    GB-BKM : Buckinghamshire
    GB-BUR : Bury
@@ -37,7 +37,7 @@ ISO3166-2 regions for GB
    GB-CLD : Calderdale
    GB-CAM : Cambridgeshire
    GB-CMD : Camden
-   GB-CRF : Cardiff 
+   GB-CRF : Cardiff
    GB-CMN : Carmarthenshire
    GB-GFY : Sir Gaerfyrddin
    GB-CKF : Carrickfergus
@@ -49,15 +49,15 @@ ISO3166-2 regions for GB
    GB-CWY : Conwy
    GB-CKT : Cookstown
    GB-CON : Cornwall
-   GB-COV : Coventry 
+   GB-COV : Coventry
    GB-CGV : Cralgavon
    GB-CRY : Croydon
    GB-CMA : Cumbria
    GB-DAL : Darlington
    GB-DEN : Denbighshire
-   GB-DER : Derby 
+   GB-DER : Derby
    GB-DBY : Derbyshire
-   GB-DRY : Derry 
+   GB-DRY : Derry
    GB-DEV : Devon
    GB-DNC : Doncaster
    GB-DOR : Dorset
@@ -116,18 +116,18 @@ ISO3166-2 regions for GB
    GB-LBH : Lambeth
    GB-LAN : Lancashire
    GB-LRN : Larne
-   GB-LDS : Leeds 
-   GB-LCE : Leicester 
+   GB-LDS : Leeds
+   GB-LCE : Leicester
    GB-LEC : Leicestershire
    GB-LEW : Lewisham
    GB-LMV : Limavady
    GB-LIN : Lincolnshire
    GB-LSB : Lisburn
    GB-LIV : Liverpool
-   GB-LND : London, 
+   GB-LND : London,
    GB-LUT : Luton
    GB-MFT : Magherafelt
-   GB-MAN : Manchester 
+   GB-MAN : Manchester
    GB-MDW : Medway
    GB-MTY : Merthyr Tydfil
    GB-MRT : Merton
@@ -138,7 +138,7 @@ ISO3166-2 regions for GB
    GB-MRY : Moray
    GB-MYL : Moyle
    GB-NTL : Neath Port Talbot
-   GB-NET : Newcastle upon Tyne 
+   GB-NET : Newcastle upon Tyne
    GB-NWM : Newham
    GB-NWP : Newport
    GB-NYM : Newry and Mourne
@@ -154,7 +154,7 @@ ISO3166-2 regions for GB
    GB-NYK : North Yorkshire
    GB-NTH : Northamptonshire
    GB-NBL : Northumbarland
-   GB-NGM : Nottingham 
+   GB-NGM : Nottingham
    GB-NTT : Nottinghamshire
    GB-OLD : Oldham
    GB-OMH : Omagh
@@ -163,9 +163,9 @@ ISO3166-2 regions for GB
    GB-PEM : Pembrokeshire
    GB-PKN : Perth and Kinross
    GB-PTE : Peterborough
-   GB-PLY : Plymouth 
+   GB-PLY : Plymouth
    GB-POL : Poole
-   GB-POR : Portsmouth 
+   GB-POR : Portsmouth
    GB-POW : Powys
    GB-RDG : Reading
    GB-RDB : Redbridge
@@ -177,11 +177,11 @@ ISO3166-2 regions for GB
    GB-ROT : Rotherham
    GB-RUT : Rutland
    GB-SHN : St. Helens
-   GB-SLF : Salford 
+   GB-SLF : Salford
    GB-SAW : Sandwell
    GB-SCB : Scottish Borders, The
    GB-SFT : Sefton
-   GB-SHF : Sheffield 
+   GB-SHF : Sheffield
    GB-ZET : Shetland Islands
    GB-SHR : Shropshire
    GB-SLG : Slough
@@ -191,20 +191,20 @@ ISO3166-2 regions for GB
    GB-SGC : South Gloucestershire
    GB-SLK : South Lanarkshire
    GB-STY : South Tyneside
-   GB-STH : Southampton 
+   GB-STH : Southampton
    GB-SOS : Southend-on-Sea
    GB-SWK : Southwark
    GB-STS : Staffordshire
    GB-STG : Stirling
    GB-SKP : Stockport
    GB-STT : Stockton-on-Tees
-   GB-STE : Stoke-on-Trent 
+   GB-STE : Stoke-on-Trent
    GB-STB : Strabane
    GB-SFK : Suffolk
-   GB-SND : Sunderland 
+   GB-SND : Sunderland
    GB-SRY : Surrey
    GB-STN : Sutton
-   GB-SWA : Swansea 
+   GB-SWA : Swansea
    GB-SWD : Swindon
    GB-TAM : Tameside
    GB-TFW : Telford and Wrekin
@@ -215,7 +215,7 @@ ISO3166-2 regions for GB
    GB-TRF : Trafford
    GB-VGL : Vale of Glamorgan, The
    GB-BMG : Bro Morgannwg GB-BMG
-   GB-WKF : Wakefield 
+   GB-WKF : Wakefield
    GB-WLL : Walsall
    GB-WFT : Waltham Forest
    GB-WND : Wandsworth
@@ -234,4 +234,4 @@ ISO3166-2 regions for GB
    GB-WLV : Wolverhampton
    GB-WOR : Worcestershire
    GB-WRX : Wrexham
-   GB-YOR : York 
+   GB-YOR : York
