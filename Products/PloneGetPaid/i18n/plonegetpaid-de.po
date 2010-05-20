@@ -1,20 +1,22 @@
 # Manually defined message ids
 # Andreas Schmid <a.schmid00@gmail.com>, 2007.
+# Harald Friessnegger <harald@webmeisterei.com>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
 "POT-Creation-Date: 2009-11-13 09:58+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Andreas Schmid <a.schmid00@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2010-05-20 16:06+0200\n"
+"Last-Translator: Harald Friessnegger <harald@webmeisterei.com>\n"
+"Language-Team: Deutsch <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 "Language-Code: de\n"
 "Language-Name: Deutsch\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plonegetpaid\n"
+"X-Generator: Lokalize 1.0\n"
 
 #: ./interfaces.py:457
 msgid "A list of countries"
@@ -312,11 +314,11 @@ msgstr ""
 
 #: ./browser/admin_order.py:171
 msgid "Export All"
-msgstr ""
+msgstr "Alle exportieren"
 
 #: ./browser/admin_order.py:138
 msgid "Export Search"
-msgstr ""
+msgstr "Suchresultate Exportieren"
 
 #: ./browser/cart.py:372
 msgid "Fill"
@@ -347,7 +349,7 @@ msgstr "Rechtliche Hinweise"
 #: ./browser/templates/checkout-review-pay.pt:38
 #: ./browser/templates/order-summary.pt:63
 msgid "Mailing Address"
-msgstr "E-Mail Adresse"
+msgstr "Lieferadresse"
 
 #: ./browser/checkout.py:612
 msgid "Make Payment"
@@ -577,7 +579,7 @@ msgstr "Zustellbare Produkt Typen"
 
 #: ./browser/cart.py:220
 msgid "Shipping"
-msgstr ""
+msgstr "Versand"
 
 #: ./browser/admin.py:182
 #: ./interfaces.py:226
@@ -620,7 +622,7 @@ msgstr "Verkaufstelle/Organisations Name"
 
 #: ./browser/cart.py:216
 msgid "SubTotal"
-msgstr ""
+msgstr "Zwischensumme"
 
 #: ./interfaces.py:292
 msgid "Tax Method"
@@ -659,7 +661,7 @@ msgstr "US Dollar"
 
 #: ./browser/cart.py:268
 msgid "Update"
-msgstr "Update"
+msgstr "Aktualisieren"
 
 #. Default: "Upgrade"
 #: ./browser/templates/upgrade.pt:25
@@ -705,7 +707,7 @@ msgstr "Gewichtseinheiten"
 #. Default: "You must confirm your shopping cart modifications by clicking 'Update' below."
 #: ./browser/templates/cart-listing.pt:5
 msgid "You must confirm your shopping cart modifications by clicking 'Update' below."
-msgstr ""
+msgstr "Sie müssen die Änderungen an Ihrem Warenkorb mit 'Aktualisieren' bestätigen."
 
 #. Default: "Your Installation Needs Upgrading"
 #: ./browser/templates/upgrade.pt:37
@@ -760,12 +762,12 @@ msgstr ""
 #. Default: "Your Cart is Empty"
 #: ./browser/templates/cart-empty.pt:5
 msgid "heading_cart_empty"
-msgstr ""
+msgstr "Ihr Warenkorb ist leer"
 
 #. Default: "Your Shopping Cart"
 #: ./browser/templates/cart-manage.pt:4
 msgid "heading_cart_manage"
-msgstr ""
+msgstr "Ihr Warenkorb"
 
 #. Default: "change date"
 #: ./browser/templates/order-workflow-log.pt:6
@@ -880,7 +882,7 @@ msgstr ""
 #: ./browser/templates/portlet-content-premium.pt:40
 #: ./browser/templates/portlet-content-shippable.pt:42
 msgid "label_add_to_cart"
-msgstr ""
+msgstr "Zum Warenkorb hinzufügen"
 
 #. Default: "Donate!"
 #: ./browser/templates/portlet-content-donatable.pt:38
@@ -922,17 +924,17 @@ msgstr ""
 #. Default: "Export List of Emails and Preferences"
 #: ./browser/templates/orders-emails-export-csv.pt:3
 msgid "legend_csv_email_export"
-msgstr ""
+msgstr "Exportiere Liste mit Emailadressen und Einstellungen"
 
 #. Default: "Export to CSV"
 #: ./browser/templates/orders-export-csv.pt:3
 msgid "legend_csv_export"
-msgstr ""
+msgstr "In CSV Datei Exportieren"
 
 #. Default: "Next Steps"
 #: ./browser/templates/cart-actions.pt:3
 msgid "legend_next_steps"
-msgstr ""
+msgstr "Nächste Schritte"
 
 #. Default: "Finance"
 #: ./browser/templates/order-finance.pt:3
@@ -1033,14 +1035,14 @@ msgstr ""
 #: ./browser/templates/portlet-content-donatable.pt:31
 #: ./browser/templates/portlet-content-shippable.pt:31
 msgid "text_price"
-msgstr ""
+msgstr "Preis: $value_currency $value_price"
 
 #. Default: "Product Details"
 #: ./browser/templates/portlet-content-buyable.pt:12
 #: ./browser/templates/portlet-content-donatable.pt:12
 #: ./browser/templates/portlet-content-premium.pt:12
 msgid "text_product_details"
-msgstr ""
+msgstr "Produktbeschreibung"
 
 #. Default: "Total Price"
 #: ./browser/templates/order-summary.pt:26
@@ -1065,4 +1067,5 @@ msgstr ""
 #: ./browser/templates/checkout-thank-you.pt:19
 msgid "your_order_id"
 msgstr ""
+
 
