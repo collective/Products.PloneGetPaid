@@ -1,2 +1,4 @@
-This package contains the PloneGetPaid product
 
+`Installation instructions`_
+
+.. _`Installation instructions`: http://code.google.com/p/getpaid/wiki/InstallingGetPaid

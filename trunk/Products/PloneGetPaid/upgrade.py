@@ -15,7 +15,7 @@ from Products.PloneGetPaid.interfaces import IBuyableMarker, IPremiumMarker, ISh
 
 
 def upgrade0to1(self):
-    """ Upgrades Products.PloneGetPaid from profile 0.9.2 to 1."""
+    """ Upgrades Products.PloneGetPaid from profile 0.10.1 to 1."""
 
     ###
     # Migration for PersistentOptions with annotation key bug
@@ -62,4 +62,4 @@ def upgrade0to1(self):
     setup_tool = getToolByName(self, 'portal_setup')
     setup_tool.runAllImportStepsFromProfile('profile-Products.PloneGetPaid:upgrade0to1')
 
-    return "Upgraded Products.PloneGetPaid from profile version 0.9.2 to 1."
+    return "Upgraded Products.PloneGetPaid from profile version 0.10.1 to 1."
