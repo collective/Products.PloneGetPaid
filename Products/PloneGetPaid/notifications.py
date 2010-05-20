@@ -98,8 +98,10 @@ def sendNotification( order, event ):
 
     settings = interfaces.IGetPaidManagementOptions( portal )
     store_url = portal.absolute_url()
+    properties = getToolByName(portal, 'portal_properties')
+    encoding = properties.site_properties.default_charset
     order_contents = u'\n'.join([u' '.join((str(cart_item.quantity),
-                                  cart_item.name,
+                                  cart_item.name.decode(encoding),
                                   u"@%0.2f" % (cart_item.cost,),
                                   'total: US$%0.2f' % (cart_item.cost*cart_item.quantity,),
                                 )) for cart_item in order.shopping_cart.values()])
