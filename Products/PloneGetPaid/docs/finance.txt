@@ -3,7 +3,7 @@
 This document is targeted at people who are responsible for the
 financial side of running an online service based on GetPaid.
 
-This document assumes a GetPaid site has been set up and ther are orders
+This document assumes a GetPaid site has been set up and there are orders
 to process. If this isn't the case, please have a web developer start
 with installation.txt and work through the documentation from there.
 
@@ -18,7 +18,7 @@ information may not apply.
 
 Each section below documents a particular finance workflow state with
 an explanation of what it's used for and what possible transitions
-there are for it. 
+there are for it.
 
 Probably the most important information needed is that an order is
 only safe to process if it is in the CHARGED state. Any other state
@@ -47,7 +47,7 @@ REVIEWING
     This indicates that the processor has not authorized the payment
     request and has cancelled the order on behalf of the customer.
     The order state becomes CANCELLED_BY_PROCESSOR.
-    
+
     xxx why not just used CANCELLED? The transition history will show
     where it came from.
 
@@ -65,7 +65,7 @@ CHARGEABLE
 
     Should an order be found in the CHARGEABLE state, this action be
     used to manually reject the order and make its finance state
-    PAYMENT_DECLINED. 
+    PAYMENT_DECLINED.
 
 CHARGING
 
