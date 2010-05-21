@@ -69,7 +69,7 @@ def make_hidden_input(*args, **kwargs):
     # again.  Somewere that populated array is replaced with an empty array
     # setting the shipping cost to 0.  This only happens if the site has
     # shipping set up and the user hits 'Back' from the review and pay step
-# This 'fix' actually results in shipping always being 0. 
+# This 'fix' actually results in shipping always being 0.
 #    if kwargs.has_key('form.shipping_method_code'):
 #        del kwargs['form.shipping_method_code']
 
@@ -599,7 +599,7 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         formatter.cssClasses['table'] = 'listing'
         return formatter()
 
-    @form.action(_(u"Make Payment"), name="make-payment", condition=form.haveInputWidgets )
+    @form.action(_(u"Make Payment"), name="make-payment")#, condition=form.haveInputWidgets )
     def makePayment( self, action, data ):
         """ create an order, and submit to the processor
         """
@@ -622,7 +622,10 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         # extract data to our adapters
 
         formSchemas = component.getUtility(interfaces.IFormSchemas)
-        order.user_payment_info_last4 = adapters[formSchemas.getInterface('payment')].credit_card[-4:]
+        last4 = None
+        if adapters[formSchemas.getInterface('payment')].credit_card:
+            last4 = adapters[formSchemas.getInterface('payment')].credit_card[-4:]
+        order.user_payment_info_last4 = last4
         order.name_on_card = adapters[formSchemas.getInterface('payment')].name_on_card
         order.bill_phone_number = adapters[formSchemas.getInterface('payment')].bill_phone_number
         result = processor.authorize( order, adapters[formSchemas.getInterface('payment')] )

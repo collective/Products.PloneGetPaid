@@ -14,6 +14,12 @@ CHANGES
   (therefore added marker view ICartView for cart related views)
   [fRiSi]
 
+- minor changes to the checkout-review-pay step so it does not require
+  credit card information to create the order.
+  (see the thread
+  `please review PloneGetPaid changes for a new paymentprocessor`
+  on the developer list)
+
 0.10.0 (2010-05-19)
 -------------------
 
