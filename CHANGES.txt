@@ -10,7 +10,7 @@ CHANGES
 
 - updated German translation [fRiSi]
 
-- don't show the buy/donate portlet when displaying the shopping cart
+- don't show the buy/donate/cart portlet when displaying the shopping cart
   (therefore added marker view ICartView for cart related views)
   [fRiSi]
 

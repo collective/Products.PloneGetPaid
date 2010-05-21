@@ -5,7 +5,7 @@ from plone.portlets.interfaces import IPortletDataProvider
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.PloneGetPaid.browser.portlets.base import GetPaidRenderer
 from Products.PloneGetPaid.i18n import _
-
+from Products.PloneGetPaid.browser.interfaces import ICartView
 
 class ICartPortlet(IPortletDataProvider):
     pass
@@ -33,9 +33,11 @@ class Renderer(base.Renderer):
     @property
     def available(self):
         """Portlet is always available.
+        The only situation we do not need it is when we display the shopping
+        cart.
 
         The template does some checking of its own via another browser
         view that is called.
         """
-        return True
+        return not ICartView.providedBy(self.view)
 
