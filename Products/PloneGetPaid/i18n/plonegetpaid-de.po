@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
 "POT-Creation-Date: 2009-11-13 09:58+0000\n"
-"PO-Revision-Date: 2010-05-20 16:06+0200\n"
+"PO-Revision-Date: 2010-05-21 13:52+0200\n"
 "Last-Translator: Harald Friessnegger <harald@webmeisterei.com>\n"
 "Language-Team: Deutsch <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -91,7 +91,7 @@ msgstr "Online kaufbare Güter"
 
 #: ./interfaces.py:191
 msgid "Buyable Types"
-msgstr "Kaufbares"
+msgstr "Kaufbare Inhalte"
 
 #: ./browser/checkout.py:499
 msgid "Cancel"
@@ -107,7 +107,7 @@ msgstr "Auschecken"
 
 #: ./browser/admin.py:456
 msgid "Checkout Options"
-msgstr ""
+msgstr "Checkout Optionen"
 
 #: ./interfaces.py:147
 msgid "Contact Address"
@@ -207,7 +207,7 @@ msgstr ""
 
 #: ./browser/admin.py:291
 msgid "Currency Configuration"
-msgstr ""
+msgstr "Währungseinstellungen"
 
 #: ./interfaces.py:300
 msgid "Currency Symbol"
@@ -245,7 +245,7 @@ msgstr ""
 #: ./browser/templates/legal-disclaimers-links.pt:14
 #: ./interfaces.py:418
 msgid "Disclaimer"
-msgstr "Hinweise"
+msgstr "Rechtliche Hinweise"
 
 #: ./interfaces.py:430
 msgid "Display 'Contact me with offers' option on Checkout page"
@@ -253,7 +253,7 @@ msgstr ""
 
 #: ./browser/widgets.py:216
 msgid "Do Not Send"
-msgstr ""
+msgstr "keine Email senden"
 
 #: ./vocabularies.py:91
 msgid "Do not send customer email notification of a completed transaction"
@@ -290,7 +290,7 @@ msgstr "E-Mail Benachrichtigungen"
 
 #: ./interfaces.py:355
 msgid "Email sent to the customer following the authorization of a new order (prior to the charge being completed)."
-msgstr ""
+msgstr "Email die an den Händler geschickt wird wenn die Bestellung authorisiert wurde (bevor der Zahlvorgang abgeschlossen ist)"
 
 #: ./interfaces.py:389
 msgid "Email sent to the customer following the decline of a new order."
@@ -302,7 +302,7 @@ msgstr ""
 
 #: ./interfaces.py:348
 msgid "Email sent to the merchant following the authorization of a new order (prior to the charge being completed)."
-msgstr ""
+msgstr "Email die an den Verkäufer geschickt wird wenn die Bestellung authorisiert wurde (bevor der Zahlvorgang abgeschlossen ist)"
 
 #: ./interfaces.py:382
 msgid "Email sent to the merchant following the decline of a new order."
@@ -485,7 +485,7 @@ msgstr "Preis"
 #: ./browser/templates/legal-disclaimers-links.pt:7
 #: ./interfaces.py:422
 msgid "Privacy Policy"
-msgstr "Datenschut"
+msgstr "Datenschutz"
 
 #: ./browser/admin_order.py:92
 msgid "Proc Trans Id"
@@ -509,7 +509,7 @@ msgstr ""
 #. Default: "Save this order as a template"
 #: ./browser/templates/checkout-review-pay.pt:70
 msgid "Save this order as a template"
-msgstr ""
+msgstr "Diese Bestellung als Vorlage speichern"
 
 #. Default: "Save to address book"
 #: ./browser/templates/checkout-address.pt:55
@@ -527,7 +527,7 @@ msgstr ""
 
 #: ./browser/widgets.py:216
 msgid "Send"
-msgstr ""
+msgstr "Email senden"
 
 #: ./interfaces.py:358
 msgid "Send Customer Authorization Email?"
@@ -575,7 +575,7 @@ msgstr ""
 
 #: ./interfaces.py:215
 msgid "Shippable Product Types"
-msgstr "Zustellbare Produkt Typen"
+msgstr "Zustellbare Inhalte"
 
 #: ./browser/cart.py:220
 msgid "Shipping"
@@ -789,7 +789,7 @@ msgstr ""
 #. Default: "Disclaimer"
 #: ./browser/templates/disclaimer.pt:5
 msgid "heading_checkout_disclaimer"
-msgstr ""
+msgstr "Rechtliche Hinweise"
 
 #. Default: "Privacy Policy"
 #: ./browser/templates/privacy-policy.pt:5
