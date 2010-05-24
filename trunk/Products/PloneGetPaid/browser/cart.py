@@ -34,11 +34,14 @@ from Products.PloneGetPaid.i18n import _
 from Products.CMFPlone.utils import safe_unicode
 from Products.CMFPlone.i18nl10n import utranslate
 
+from Products.PloneGetPaid.browser.interfaces import ICartView
+
 #################################
 # Shopping Cart Views
 
 class ShoppingCart( BrowserView ):
 
+    interface.implements(ICartView)
     _cart = None
 
     def __call__( self ):
@@ -67,40 +70,40 @@ class ShoppingCart( BrowserView ):
 class ShoppingCartAddItem( ShoppingCart ):
     """
     item we're adding is the context
-    
+
     """
 
     def __call__( self ):
         if self.request.has_key('add_item'):
             self.addToCart()
         return super( ShoppingCartAddItem, self ).__call__()
-    
+
     def addToCart( self ):
         # create a line item and add it to the cart
-        item_factory = component.getMultiAdapter( (self.cart, self.context), 
+        item_factory = component.getMultiAdapter( (self.cart, self.context),
                                                 interfaces.ILineItemFactory )
         # check quantity from request
         qty = int(self.request.get('quantity', 1))
         try:
             item_factory.create(quantity=qty)
-            
+
         except interfaces.AddRecurringItemException:
-            came_from = self.request.environ.get('HTTP_REFERER', 
+            came_from = self.request.environ.get('HTTP_REFERER',
                             getSite().absolute_url())
             msg = "Your shopping cart already has items in it. \
                    A recurring payment item may not be added until \
                    you check out or delete the existing items."
-            IStatusMessage(self.request).addStatusMessage(msg, type='error')            
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')
             self.request.response.redirect(came_from)
             return ''
-            
+
         except interfaces.RecurringCartItemAdditionException:
-            came_from = self.request.environ.get('HTTP_REFERER', 
+            came_from = self.request.environ.get('HTTP_REFERER',
                             getSite().absolute_url())
             msg = "Your shopping cart already holds a recurring payment. \
                    Please purchase the current item or delete it from your \
                    cart before adding addtional items."
-            IStatusMessage(self.request).addStatusMessage(msg, type='error')            
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')
             self.request.response.redirect(came_from)
             return ''
 
@@ -125,33 +128,33 @@ class ShoppingCartAddItemAndGoToCheckout(ShoppingCartAddItem):
 
 class ShoppingCartAddItemWithAmountAndGoToCheckout(ShoppingCartAddItem):
     def addToCart( self ):
-        
+
         # create a line item and add it to the cart
         item_factory = component.getMultiAdapter( (self.cart, self.context), interfaces.ILineItemFactory )
-        
+
         # check amount from request
         # todo handle non-floats
         amount = float(self.request.get('amount', 1))
         try:
             item_factory.create(amount=amount)
-            
+
         except interfaces.AddRecurringItemException:
-            came_from = self.request.environ.get('HTTP_REFERER', 
+            came_from = self.request.environ.get('HTTP_REFERER',
                             getSite().absolute_url())
             msg = "Your shopping cart already has items in it. \
                    A recurring payment item may not be added until \
                    you check out or delete the existing items."
-            IStatusMessage(self.request).addStatusMessage(msg, type='error')            
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')
             self.request.response.redirect(came_from)
             return ''
-            
+
         except interfaces.RecurringCartItemAdditionException:
-            came_from = self.request.environ.get('HTTP_REFERER', 
+            came_from = self.request.environ.get('HTTP_REFERER',
                             getSite().absolute_url())
             msg = "Your shopping cart already holds a recurring payment. \
                    Please purchase the current item or delete it from your \
                    cart before adding addtional items."
-            IStatusMessage(self.request).addStatusMessage(msg, type='error')            
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')
             self.request.response.redirect(came_from)
             return ''
         portal = getToolByName( self.context, 'portal_url').getPortalObject()
@@ -198,12 +201,12 @@ class ViewletManagerShoppingCart( object ):
                 if not v.condition():
                     viewlets.remove( ( n, v ) )
         return viewlets
-                
+
     def sort (self, viewlets ):
         """ sort by name """
         viewlets.sort( lambda x,y: cmp( int(getattr(x[1],'weight',100)), int(getattr(y[1],'weight',100)) ) )
         return viewlets
-        
+
 ShoppingCartManager = manager.ViewletManager( "ShoppingCart",
                                               IGetPaidCartViewletManager,
                                               GetPaidShoppingCartTemplate,
@@ -234,18 +237,18 @@ def lineItemTotal( item, formatter ):
     return "%0.2f" % (item.quantity * item.cost)
 
 _marker = object()
-class CartFormatter( table.StandaloneSortFormatter ):        
-        
+class CartFormatter( table.StandaloneSortFormatter ):
+
     renderExtra = ViewPageTemplateFile('templates/cart-listing-extras.pt')
-    
+
     def __init__(self, context, request, items, visible_column_names=None,
                  batch_start=None, batch_size=None, prefix=None, columns=None):
         """ override method to set some stuff we want on this class
         """
-        super(CartFormatter, self).__init__(context, request, items, 
-            visible_column_names, batch_start, batch_size, 
+        super(CartFormatter, self).__init__(context, request, items,
+            visible_column_names, batch_start, batch_size,
             prefix, columns)
-        
+
         totals = self.getTotals()
 
         self.tax_list = totals.getTaxCost()
@@ -262,11 +265,11 @@ class CartFormatter( table.StandaloneSortFormatter ):
             self.interval = firstitem.interval
             self.unit = firstitem.unit
             self.total_occurrences = firstitem.total_occurrences
-    
+
     def getTotals( self ):
         #if interfaces.IShoppingCart.providedBy( self.context ):
         return interfaces.ILineContainerTotals( self.context )
-    
+
     def is_recurring(self):
         return self.context.is_recurring()
 
@@ -303,7 +306,7 @@ class ShoppingCartListing( ContainerViewlet ):
     def isOrdered( self, *args ):
         # shopping cart should not be ordered, so override this with False
         return False
-    
+
     @form.action(_("Update"), condition="isNotEmpty")
     def handle_update( self, action, data ):
         try:
@@ -352,7 +355,7 @@ class ShoppingCartActions( FormViewlet ):
             else:
                 payable = getToolByName( self.context, 'reference_catalog').lookupObject( last_item )
             if not self.request.get('came_from'):
-                next_url = payable.absolute_url() 
+                next_url = payable.absolute_url()
             else:
                 next_url = self.request.get('came_from')
         return self.request.RESPONSE.redirect(next_url)
@@ -366,19 +369,19 @@ class ShoppingCartActions( FormViewlet ):
         return self.request.RESPONSE.redirect( url )
 
 class OrderTemplate( FormViewlet ):
-    
+
     form_fields = form.Fields()
     template = ZopeTwoPageTemplateFile('templates/cart-order-template.pt')
-    
+
     form_name = _(u"Order Templates")
     form_description = _(u"Select a previous order to fill your cart.")
-    
+
     interface.implements( IConditionalViewlet )
-    
+
     prefix = "order-template"
-    
+
     orders = ()
-    
+
     def render( self ):
         return self.template()
 
@@ -403,36 +406,36 @@ class OrderTemplate( FormViewlet ):
         named_orders_list = component.getUtility(INamedOrderUtility).get(uid)
 
         if order_id not in named_orders_list.keys():
-            return 
+            return
         return named_orders_list[order_id]
-            
 
-        
+
+
     @form.action(_("Fill"), condition="condition_load_template")
     def handle_load_template( self, action, data):
-        
+
         order_id = self.request.form.get('order-template-id')
         found = False
         for o in self.orders:
             if o.order_id == order_id:
                 found = True
                 break
-                
+
         if not found:
             self.status = _(u"Could not find order")
             return
-        
+
         # fetch cart from view
         cart = self.manager.__parent__.cart
-        
+
         for v in o.shopping_cart.values():
             content = v.resolve()
-            item_factory = component.getMultiAdapter( (cart, content), 
+            item_factory = component.getMultiAdapter( (cart, content),
                                      interfaces.ILineItemFactory )
 
             if IVariableAmountDonatableMarker.providedBy(content):
                 item_factory.create( amount=v.cost )
             else:
                 item_factory.create( quantity=v.quantity )
-        
-        self.status = _(u"Previous Order Loaded into Cart")        
+
+        self.status = _(u"Previous Order Loaded into Cart")

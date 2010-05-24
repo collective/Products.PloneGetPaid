@@ -47,29 +47,30 @@
 
       <div class="visualClear"><!-- --></div>
 
-      
+
       <div class="cart-listing">
 	     <fieldset>
  	         <legend i18n:translate=""> Shopping Cart </legend>
 	         <div tal:replace="structure view/renderCart">cart</div>
-             
+
              <div tal:replace="structure provider:getpaid.belowcartresume" />
-      
+
             <div id="save_order_template_entry" style="display: none">
                 <label for="order_template_entry_name" id="order_template_entry_name_label" i18n:translate="">Order template name</label>
                 <div class="formHelp"
                 i18n:translate="" id="order_template_entry_name_help_text">A name you can remember this order template by.</div>
                 <input type="text" id="order_template_entry_name" name="order_template_entry_name" />
             </div>
-            
-            <input type="button" id="save_order_template" class="standalone" name="save_order_template" value="Save this order as a template" onclick="swapVisibility('save_order_template','save_order_template_entry')" i18n:attributes="value" /> 
+
+            <input type="button" id="save_order_template" class="standalone" name="save_order_template" value="Save this order as a template" onclick="swapVisibility('save_order_template','save_order_template_entry')" i18n:attributes="value" />
 
 	    </fieldset>
-        
+
       </div>
 
       <div>
-	  <fieldset tal:define="widgets python: view.getWidgetsBySectionName('payment')">
+	  <fieldset tal:define="widgets python: view.getWidgetsBySectionName('payment')"
+                tal:condition="widgets">
 	    <legend i18n:translate=""> Payment Details </legend>
 	    <div metal:use-macro="context/@@getpaid-form/fieldset"> </div>
 	  </fieldset>
