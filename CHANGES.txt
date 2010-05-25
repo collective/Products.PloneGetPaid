@@ -19,6 +19,10 @@ CHANGES
   (see the thread
   `please review PloneGetPaid changes for a new paymentprocessor`
   on the developer list)
+  [fRiSi]
+
+- define a custom cell_formatter to be able to link orders and cart items
+  in zc.table views (this fixes #292)
 
 0.10.0 (2010-05-19)
 -------------------

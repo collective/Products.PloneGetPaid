@@ -32,6 +32,7 @@ from Products.PloneGetPaid import interfaces as ipgp
 from Products.PloneGetPaid.i18n import _
 from Products.PloneGetPaid.interfaces import ICountriesStates
 from Products.PloneGetPaid.vocabularies import TitledVocabulary
+from Products.PloneGetPaid.browser.cart import formatLinkCell
 
 from yoma.batching import BatchingMixin, RenderNav
 
@@ -86,13 +87,13 @@ class OrderListingComponent( core.EventViewlet ):
     template = ZopeTwoPageTemplateFile('templates/orders-listing.pt')
 
     columns = [
-        column.GetterColumn( title=_(u"Order Id"), getter=renderOrderId ),
-        column.GetterColumn( title=_(u"Proc Id"), getter=AttrColumn("processor_id" ) ), 
-        column.GetterColumn( title=_(u"Customer Id"), getter=AttrColumn("user_id" ) ), 
+        column.GetterColumn( title=_(u"Order Id"), getter=renderOrderId, cell_formatter=formatLinkCell ),
+        column.GetterColumn( title=_(u"Proc Id"), getter=AttrColumn("processor_id" ) ),
+        column.GetterColumn( title=_(u"Customer Id"), getter=AttrColumn("user_id" ) ),
         column.GetterColumn( title=_(u"Last4"), getter=AttrColumn("user_payment_info_last4" ) ),
-        column.GetterColumn( title=_(u"Proc Trans Id"), getter=AttrColumn("user_payment_info_trans_id" ) ),       
-        column.GetterColumn( title=_(u"Name on Card"), getter=AttrColumn("name_on_card" ) ),       
-        column.GetterColumn( title=_(u"Card Phone#"), getter=AttrColumn("bill_phone_number" ) ),       
+        column.GetterColumn( title=_(u"Proc Trans Id"), getter=AttrColumn("user_payment_info_trans_id" ) ),
+        column.GetterColumn( title=_(u"Name on Card"), getter=AttrColumn("name_on_card" ) ),
+        column.GetterColumn( title=_(u"Card Phone#"), getter=AttrColumn("bill_phone_number" ) ),
         column.GetterColumn( title=_(u"Status"), getter=AttrColumn("finance_state") ),
         column.GetterColumn( title=_(u"Fulfillment"), getter=AttrColumn("fulfillment_state") ),
         column.GetterColumn( title=_(u"Price"), getter=PriceColumn("getTotalPrice") ),
@@ -161,11 +162,11 @@ class OrderCSVComponent( core.ComponentViewlet ):
         # um.. send to user, we need to inform our view, to do the appropriate thing
         # since we can't directly control the response rendering from the viewlet
         self._parent._download_content = ('text/csv',  io.getvalue(), 'OrderSearchExport')
-        
+
 class OrderEmailsCSVComponent(core.ComponentViewlet):
 
     template = ZopeTwoPageTemplateFile('templates/orders-emails-export-csv.pt')
-    
+
     order = 4
 
     def render(self):
@@ -173,17 +174,17 @@ class OrderEmailsCSVComponent(core.ComponentViewlet):
 
     @form.action(_(u"Export All"))
     def export_all(self, action, data):
-        columns = ['User Id', 
-                   'Contact Name', 
-                   'Contact Email', 
-                   'Marketing Preference', 
+        columns = ['User Id',
+                   'Contact Name',
+                   'Contact Email',
+                   'Marketing Preference',
                    'Email Html Format']
-        
+
         io = StringIO.StringIO()
         writer = csv.writer(io)
         writer.writerow([cname for cname in columns ])
         unique_emails = set()
-        
+
         manager = zapi.getUtility(IOrderManager)
         for order in manager.storage.values():
             email = order.contact_information.email.lower()
@@ -263,7 +264,7 @@ class OrderSearchComponent( core.ComponentViewlet ):
         self.request['SESSION']['getpaid.order.filter.creation_date'] = data.get('creation_date')
         if data.get('creation_date'):
             data['creation_date'] = self.date_search_map.get( data['creation_date'] )
-        self.request['SESSION']['getpaid.order.filter.query'] = data 
+        self.request['SESSION']['getpaid.order.filter.query'] = data
         if data.get('renewal_date'):
             data['renewal_date'] = self.renewals_search_map.get( data['renewal_date'] )
         self.filtered = True
@@ -274,7 +275,7 @@ class OrderSearchComponent( core.ComponentViewlet ):
         if not self.filtered:
             if self.request['SESSION'].has_key('getpaid.order.filter.query'):
                 search_query = self.request['SESSION']['getpaid.order.filter.query']
-                self.request.set('form.creation_date', 
+                self.request.set('form.creation_date',
                                  self.request['SESSION']['getpaid.order.filter.creation_date'])
             else:
                 search_query = {'creation_date' : datetime.timedelta(7) }
@@ -534,10 +535,10 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
     prefix = "ordersummary"
 
     def render( self ):
-        
+
         # pull out the real order object from the traversable wrapper
         self.order = self.context._object
-        
+
         pm = getToolByName(self.context, "portal_membership")
 
         # this check really shouldn't be hardcoded here.. -kapilt
@@ -546,7 +547,7 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
             user_id = user.getId()
             if 'Anonymous' in user.getRoles() or user_id != self.getUserId():
                 raise Unauthorized, "Arbitrary Order Access Only for Managers"
-            
+
         utility = zapi.getUtility(ICountriesStates)
         self.vocab_countries = TitledVocabulary.fromTitles(utility.countries)
         self.vocab_states = TitledVocabulary.fromTitles(utility.states())
@@ -579,10 +580,10 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
 
     def user_payment_info_last4(self):
         return self.order.user_payment_info_last4
-	
+
     def finance_status( self ):
-        return self.order.finance_state   
-    
+        return self.order.finance_state
+
     def mockmethod(self):
         return 'test-value'
 
@@ -592,7 +593,7 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
                   'email': contact.email,
                   'phone': contact.phone_number}
         return contact
-    
+
     def getShippingService(self):
         if not hasattr(self.order,"shipping_service"):
             return "N/A"
@@ -607,13 +608,13 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
 
         service = component.queryUtility( interfaces.IShippingRateService,
                                           self.order.shipping_service )
-        
+
         # play nice if the a shipping method is removed from the store
-        if not service: 
+        if not service:
             return _(u"N/A")
-        
+
         return service.getMethodName( self.order.shipping_method )
-    
+
     def getShipmentWeight(self):
         """
         Lets return the weight in lbs for the moment
@@ -628,7 +629,7 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
                 weightValue = eachProduct.weight * eachProduct.quantity
                 totalShipmentWeight += weightValue
         return totalShipmentWeight
-       
+
     def getShipmentTrackNumbers(self):
         """
         Returns a list of tracking numbers for the shipment, if not available
@@ -641,9 +642,9 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
         for shipment in self.order.shipments.values():
             service = component.queryUtility( interfaces.IShippingRateService,
                                           self.order.shipping_service )
-        
-            if service: 
-                tracking_url = service.getTrackingUrl( shipment.tracking_code ) 
+
+            if service:
+                tracking_url = service.getTrackingUrl( shipment.tracking_code )
                 displayable_service = """<a href="%s">%s</a>""" % (tracking_url,shipment.tracking_code)
             else:
                 displayable_service = "%s" % shipment.tracking_code
@@ -653,10 +654,10 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
         if len(shipments) == 0:
             shipments = None
         return shipments
-    
+
     def order_is_recurring(self):
         return self.order.shopping_cart.is_recurring()
-    
+
     def getOrderRecurrenceData(self):
         data_dict = {'interval': None, 'unit': None, 'total_occurrences': None}
         try:
@@ -665,9 +666,9 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
             return data_dict
         for attr in ['interval','unit','total_occurrences']:
             data_dict[attr] = getattr(firstitem, attr, 'UNDEFINED')
-        
+
         return data_dict
-    
+
     def getShippingAddress(self):
         infos = self.order.shipping_address
         if infos.ship_same_billing:
@@ -792,7 +793,7 @@ class OrderContentsComponent( core.ComponentViewlet ):
     show_fulfillment_states = () # which order fulfillment states we display in
 
     collection_name = _(u"Contents")
-    
+
     def render( self ):
         return self.__of__( self.__parent__ ).template()
 
