@@ -1,0 +1,19 @@
+<metal:page use-macro="context/@@manage-getpaid-settings-template/admin">
+  <metal:block fill-slot="admin_content">
+    <p>
+      <span i18n:translate="description_getpaid_setup_documentation">Documentation
+	on GetPaid can be found at <span i18n:name="label_plone_documentation"><a href="http://plone.org/products/getpaid/documentation">http://plone.org/products/getpaid/documentation</a></span>.</span>
+    </p>
+    <tal:repeat repeat="view view/forms">
+      <fieldset>
+        <legend tal:content="view/prefix">plugin_id</legend>
+        <dl>
+          <dt i18n:translate="">Status:</dt>
+          <dd tal:condition="view/manager/status" i18n:translate="">Installed</dd>
+          <dd tal:condition="not:view/manager/status" i18n:translate="">Not installed</dd>
+        </dl>
+        <metal:block use-macro="view/@@ploneform-macros/titlelessform" />
+      </fieldset>
+    </tal:repeat>
+  </metal:block>
+</metal:page>

@@ -1,0 +1,16 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+           i18n_domain="plonegetpaid">
+
+  <include package="plone.z3cform" />
+
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-plugins"
+     class=".admin_plugins.PluginsManagerForm"
+     permission="cmf.ManagePortal"
+     menu="getpaid_settings"
+     title="Plugins"
+     />
+</configure>

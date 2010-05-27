@@ -49,6 +49,7 @@ setup(name='Products.PloneGetPaid',
           'zope.interface',
           'zope.component',
           # -*- Extra requirements: -*-
+          'plone.z3cform'
       ],
       entry_points="""
       # -*- Entry points: -*-
