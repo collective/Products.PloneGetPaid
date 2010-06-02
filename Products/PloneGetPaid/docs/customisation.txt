@@ -101,12 +101,13 @@ Changing the list of available countries for addresses
     def Countries( context ):
       return TitledVocabulary.fromTitles(MY_COUNTRIES)
 
-  - add the following to your product's overrides.zcml:
+  - add the following to your product's overrides.zcml::
 
-    <vocabulary
-	 name="getpaid.countries"
-	 factory=".vocabularies.Countries"
-     />
+        <utility
+          provides="zope.schema.interfaces.IVocabularyFactory"
+          component=".vocabularies.Countries"
+          name="getpaid.countries"
+          />
 
 Customising contact information and address fields in the checkout wizard
 
