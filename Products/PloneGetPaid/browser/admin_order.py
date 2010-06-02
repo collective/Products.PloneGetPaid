@@ -780,7 +780,7 @@ class OrderContentsComponent( core.ComponentViewlet ):
         column.SelectionColumn( lambda item: item.item_id, name="selection"),
         column.GetterColumn( title=_(u"Quantity"), getter=AttrColumn("quantity" ) ),
         column.GetterColumn( title=_(u"Item Id"), getter=renderItemId ),
-        column.GetterColumn( title=_(u"Name"), getter=renderItemName ),
+        column.GetterColumn( title=_(u"Name"), getter=renderItemName, cell_formatter=formatLinkCell),
         column.GetterColumn( title=_(u"Price"), getter=renderItemCost ),
         column.GetterColumn( title=_(u"Total"), getter=renderItemPrice ),
         column.GetterColumn( title=_(u"Status"), getter=AttrColumn("fulfillment_state" ) ),
