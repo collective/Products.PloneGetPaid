@@ -1,22 +1,22 @@
 # --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
-# SOME DESCRIPTIVE TITLE.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # never generate this file with i18ndude, it is managed manual
+# Harald Friessnegger <harald@webmeisterei.com>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "POT-Creation-Date: 2010-06-04 10:01+0000\n"
-"PO-Revision-Date: 2007-08-15 01:07-0300\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2010-06-04 12:32+0200\n"
+"Last-Translator: Harald Friessnegger <harald@webmeisterei.com>\n"
+"Language-Team: Deutsch <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 "Language-Code: de\n"
 "Language-Name: Deutsch\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plone\n"
+"X-Generator: Lokalize 1.0\n"
 
 #: ./interfaces.py:462
 msgid "A list of countries"
@@ -97,7 +97,7 @@ msgstr ""
 
 #: ./profiles/default/portlets.xml
 msgid "Buyable portlet"
-msgstr ""
+msgstr "Kaufbarer Artikel"
 
 #: ./browser/checkout.py:490
 msgid "Cancel"
@@ -109,7 +109,7 @@ msgstr ""
 
 #: ./profiles/default/portlets.xml
 msgid "Cart portlet"
-msgstr ""
+msgstr "Warenkorb"
 
 #: ./browser/cart.py:370
 msgid "Checkout"
@@ -269,7 +269,7 @@ msgstr ""
 
 #: ./profiles/default/portlets.xml
 msgid "Donatable portlet"
-msgstr ""
+msgstr "Spenden"
 
 #: ./interfaces.py:106
 msgid "Donation Level Name"
@@ -341,11 +341,11 @@ msgstr ""
 
 #: ./profiles/default/actions.xml
 msgid "Make Buyable"
-msgstr ""
+msgstr "Kaufbar machen"
 
 #: ./profiles/default/actions.xml
 msgid "Make Not Buyable"
-msgstr ""
+msgstr "nicht mehr kaufbar"
 
 #: ./profiles/default/actions.xml
 msgid "Make Not Premium Members Only"
@@ -369,7 +369,7 @@ msgstr ""
 
 #: ./profiles/default/actions.xml
 msgid "Make Shippable Product"
-msgstr ""
+msgstr "Lieferbar machen"
 
 #: ./profiles/default/actions.xml
 msgid "Make this a Donation"
@@ -457,7 +457,7 @@ msgstr ""
 
 #: ./profiles/default/actions.xml
 msgid "Payable"
-msgstr ""
+msgstr "Zahloptionen"
 
 #: ./browser/admin.py:211
 msgid "Payment Options"
@@ -598,7 +598,7 @@ msgstr ""
 
 #: ./profiles/default/portlets.xml
 msgid "Shippable portlet"
-msgstr ""
+msgstr "Lieferbarer Artikel"
 
 #: ./browser/admin.py:182
 #: ./interfaces.py:232
@@ -721,4 +721,5 @@ msgstr ""
 #: ./interfaces.py:475
 msgid "years"
 msgstr ""
+
 
