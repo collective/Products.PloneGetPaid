@@ -44,6 +44,7 @@ from Products.PloneGetPaid.browser.cart import formatLinkCell
 from base import BaseFormView
 import cart as cart_core
 from widgets import CountrySelectionWidget, StateSelectionWidget, CCExpirationDateWidget
+from Products.PloneGetPaid.browser.interfaces import IDontShowGetPaidPortlets
 
 def null_condition( *args ):
     return ()
@@ -105,7 +106,7 @@ class BaseCheckoutForm( BaseFormView ):
     _next_url = None # redirect url
     wizard = None  # wizard
 
-    interface.implements( wizard_interfaces.IWizardFormStep )
+    interface.implements( wizard_interfaces.IWizardFormStep, IDontShowGetPaidPortlets )
 
     def __init__( self, context, request ):
         self.context = context
@@ -259,6 +260,7 @@ class CheckoutWizard( Wizard ):
     steps can't override call methods, as such logic won't be processed, since we call
     update / render methods directly.
     """
+
 
     def checkShoppingCart(self):
         cart = component.getUtility(interfaces.IShoppingCartUtility).get( self.context )
