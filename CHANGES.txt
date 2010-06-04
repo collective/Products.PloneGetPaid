@@ -37,6 +37,9 @@ CHANGES
 - use separate messageids for the checkout action and heading (this fixes #293)
   [fRiSi]
 
+- do not show `made_payable_by` field on `@@edit-payable`
+  [fRiSi]
+
 0.10.0 (2010-05-19)
 -------------------
 
