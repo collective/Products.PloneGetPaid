@@ -1086,7 +1086,6 @@ msgstr ""
 #: ./browser/templates/portlet-content-buyable.pt:33
 #: ./browser/templates/portlet-content-donatable.pt:33
 #: ./browser/templates/portlet-content-recurringpayment.pt:34
-#, fuzzy
 msgid "text_price"
 msgstr "Preis: $value_currency $value_price"
 
