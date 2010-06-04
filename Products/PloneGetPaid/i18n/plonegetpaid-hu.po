@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
-"POT-Creation-Date: 2009-11-13 09:58+0000\n"
+"POT-Creation-Date: 2010-06-04 10:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Fabio Corneti <info@corneti.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,20 +16,20 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin2\n"
 "Domain: plonegetpaid\n"
 
-#: ./interfaces.py:457
+#: ./interfaces.py:462
 msgid "A list of countries"
 msgstr "Országok listája"
 
-#: ./interfaces.py:461
+#: ./interfaces.py:466
 msgid "A list of states"
 msgstr "Megyék (államok/tartományok) listája"
 
-#: ./interfaces.py:471
+#: ./interfaces.py:476
 msgid "A list of years"
 msgstr "Évek listája"
 
 #. Default: "A name you can remember this order template by."
-#: ./browser/templates/checkout-review-pay.pt:63
+#: ./browser/templates/checkout-review-pay.pt:60
 msgid "A name you can remember this order template by."
 msgstr "Egy név, amiről meg lehet jegyezni ezt a megrendelés sablont"
 
@@ -38,15 +38,15 @@ msgstr "Egy név, amiről meg lehet jegyezni ezt a megrendelés sablont"
 msgid "A name you remember this address by. Will not appear on shipping label."
 msgstr "Egy név, amiről meg lehet jegyezni ezt a címet. Nem jelenik meg a szállítási címkén."
 
-#: ./browser/checkout.py:492
+#: ./browser/checkout.py:483
 msgid "A new address has been saved"
 msgstr "Az új cím el lett mentve"
 
-#: ./interfaces.py:253
+#: ./interfaces.py:258
 msgid "Accepted Credit Cards"
 msgstr "Elfogadott bankkártyák"
 
-#: ./browser/content.py:87
+#: ./browser/content.py:86
 msgid "Activate"
 msgstr "Aktivál"
 
@@ -55,11 +55,11 @@ msgstr "Aktivál"
 msgid "Addressbook entry name"
 msgstr "Címjegyzék bejegyzés neve"
 
-#: ./interfaces.py:248
+#: ./interfaces.py:254
 msgid "Allow Anonymous Checkout"
 msgstr "Bejelentkezés nélkül is lehet rendelni"
 
-#: ./interfaces.py:104
+#: ./interfaces.py:107
 msgid "Amount"
 msgstr "Összesen"
 
@@ -68,14 +68,14 @@ msgstr "Összesen"
 msgid "Apply"
 msgstr "Alkalmaz"
 
-#: ./browser/checkout.py:673
+#: ./browser/checkout.py:669
 msgid "Back"
 msgstr "Vissza"
 
 #. Default: "Billing Address"
 #: ./browser/templates/checkout-address.pt:36
 #: ./browser/templates/checkout-review-pay.pt:30
-#: ./browser/templates/order-summary.pt:53
+#: ./browser/templates/order-summary.pt:73
 msgid "Billing Address"
 msgstr "Számlázási cím"
 
@@ -83,23 +83,24 @@ msgstr "Számlázási cím"
 msgid "Buyable"
 msgstr "Megvásárolható"
 
-#: ./interfaces.py:194
+#: ./interfaces.py:200
 msgid "Buyable Content delivered through the web/virtually"
 msgstr "Megvásárolható tartalom weben/virtuálisan leszállítva"
 
-#: ./interfaces.py:191
+#: ./interfaces.py:197
 msgid "Buyable Types"
 msgstr "Megvásárolható típusok"
 
-#: ./browser/checkout.py:499
+#: ./browser/checkout.py:490
 msgid "Cancel"
 msgstr "Mégsem"
 
-#: ./browser/admin_order.py:94
+#: ./browser/admin_order.py:96
 msgid "Card Phone#"
 msgstr "Kártyabirtokos telefonszáma"
 
-#: ./browser/cart.py:321
+#: ./browser/cart.py:370
+#: ./browser/templates/portlet-cart.pt:29
 msgid "Checkout"
 msgstr "Megrendelés elküldése"
 
@@ -107,31 +108,31 @@ msgstr "Megrendelés elküldése"
 msgid "Checkout Options"
 msgstr "Megrendelés opciók"
 
-#: ./interfaces.py:147
+#: ./interfaces.py:153
 msgid "Contact Address"
 msgstr "Kapcsolat - cím"
 
-#: ./interfaces.py:152
+#: ./interfaces.py:158
 msgid "Contact Address2"
 msgstr "Kapcsolat - cím2"
 
-#: ./interfaces.py:157
+#: ./interfaces.py:163
 msgid "Contact City"
 msgstr "Kapcsolat - város"
 
-#: ./interfaces.py:142
+#: ./interfaces.py:148
 msgid "Contact Company"
 msgstr "Kapcsolat - cégnév"
 
-#: ./interfaces.py:162
+#: ./interfaces.py:168
 msgid "Contact Country"
 msgstr "Kapcsolat - ország"
 
-#: ./interfaces.py:137
+#: ./interfaces.py:143
 msgid "Contact Email"
 msgstr "Kapcsolat - email"
 
-#: ./interfaces.py:183
+#: ./interfaces.py:189
 msgid "Contact Fax"
 msgstr "Kapcsolat - fax"
 
@@ -141,20 +142,20 @@ msgid "Contact Information"
 msgstr "Kapcsolat"
 
 #. Default: "Contact Name"
-#: ./browser/templates/order-summary.pt:42
-#: ./interfaces.py:132
+#: ./browser/templates/order-summary.pt:62
+#: ./interfaces.py:138
 msgid "Contact Name"
 msgstr "Kapcsolat - név"
 
-#: ./interfaces.py:177
+#: ./interfaces.py:183
 msgid "Contact Phone"
 msgstr "Kapcsolat - telefon"
 
-#: ./interfaces.py:167
+#: ./interfaces.py:173
 msgid "Contact State/Province"
 msgstr "Kapcsolat - megye/tartomány"
 
-#: ./interfaces.py:172
+#: ./interfaces.py:178
 msgid "Contact Zip/Postal Code"
 msgstr "Kapcsolat - irányítószám"
 
@@ -162,44 +163,44 @@ msgstr "Kapcsolat - irányítószám"
 msgid "Content Types"
 msgstr "Tartalom típusok"
 
-#: ./interfaces.py:210
+#: ./interfaces.py:216
 msgid "Content Types available for donation"
 msgstr "Tartalom típus, ami elérhető adomány céljára"
 
-#: ./interfaces.py:202
+#: ./interfaces.py:208
 msgid "Content Types only available to premium memberships"
 msgstr "Csak prémium tagoknak elérhető tartalom típusok "
 
-#: ./interfaces.py:218
+#: ./interfaces.py:224
 msgid "Content Types that represent goods that can be purchased and shipped"
 msgstr "Megrendelhető és szállítható tartalomtípusok"
 
-#: ./browser/admin_order.py:760
+#: ./browser/admin_order.py:795
 msgid "Contents"
 msgstr "Tartalom"
 
-#: ./browser/checkout.py:494
+#: ./browser/checkout.py:485
 msgid "Continue"
 msgstr "Folytatás"
 
-#: ./browser/cart.py:301
+#: ./browser/cart.py:350
 msgid "Continue Shopping"
 msgstr "Vásárlás folytatása"
 
-#: ./browser/cart.py:383
+#: ./browser/cart.py:432
 msgid "Could not find order"
 msgstr "Megrendelés nem található"
 
-#: ./browser/admin_order.py:98
+#: ./browser/admin_order.py:100
 msgid "Created"
 msgstr "Létrehozva"
 
 #. Default: "Credit Card Last 4"
-#: ./browser/templates/order-summary.pt:34
+#: ./browser/templates/order-summary.pt:54
 msgid "Credit Card Last 4"
 msgstr "Hitelkártya utolsó 4"
 
-#: ./interfaces.py:256
+#: ./interfaces.py:261
 msgid "Credit cards accepted for payment"
 msgstr "Fizetéskor elfogadott bankkártyák"
 
@@ -207,27 +208,27 @@ msgstr "Fizetéskor elfogadott bankkártyák"
 msgid "Currency Configuration"
 msgstr ""
 
-#: ./interfaces.py:300
+#: ./interfaces.py:305
 msgid "Currency Symbol"
 msgstr "Valutanem jele"
 
-#: ./interfaces.py:354
+#: ./interfaces.py:359
 msgid "Customer Authorization Email Template"
 msgstr ""
 
-#: ./interfaces.py:371
+#: ./interfaces.py:376
 msgid "Customer Charge Email Template"
 msgstr ""
 
-#: ./interfaces.py:388
+#: ./interfaces.py:393
 msgid "Customer Decline Email Template"
 msgstr ""
 
-#: ./browser/admin_order.py:90
+#: ./browser/admin_order.py:92
 msgid "Customer Id"
 msgstr "Ügyfél azonosító"
 
-#: ./interfaces.py:325
+#: ./interfaces.py:330
 msgid "Decimal Symbol"
 msgstr "Tizedel jel"
 
@@ -235,21 +236,21 @@ msgstr "Tizedel jel"
 msgid "Delete"
 msgstr "Törlés"
 
-#: ./interfaces.py:315
+#: ./interfaces.py:320
 msgid "Digit Grouping Symbol"
 msgstr "Szám csoportosítás jel"
 
 #. Default: "Disclaimer"
 #: ./browser/templates/legal-disclaimers-links.pt:14
-#: ./interfaces.py:418
+#: ./interfaces.py:423
 msgid "Disclaimer"
 msgstr "Megrendelés feltételei"
 
-#: ./interfaces.py:430
+#: ./interfaces.py:435
 msgid "Display 'Contact me with offers' option on Checkout page"
 msgstr "Hírlevél opció megjelenítése a megrendelés oldalon"
 
-#: ./browser/widgets.py:216
+#: ./browser/widgets.py:211
 msgid "Do Not Send"
 msgstr ""
 
@@ -265,20 +266,20 @@ msgstr "Ne küldjön a kereskedőnek email értesítést a sikeres tranzakciór�
 msgid "Donatable"
 msgstr "Adományozható"
 
-#: ./interfaces.py:207
+#: ./interfaces.py:213
 msgid "Donatable Content Types"
 msgstr "Adományozható tartalom típusok"
 
-#: ./interfaces.py:103
+#: ./interfaces.py:106
 msgid "Donation Level Name"
 msgstr "Adomány szint neve"
 
-#: ./interfaces.py:108
+#: ./interfaces.py:111
 msgid "Donation Levels"
 msgstr "Adomány szintek"
 
 #. Default: "E-mail"
-#: ./browser/templates/order-summary.pt:44
+#: ./browser/templates/order-summary.pt:64
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -286,55 +287,55 @@ msgstr "E-mail"
 msgid "Email Notifications"
 msgstr "Email értesítők"
 
-#: ./interfaces.py:355
+#: ./interfaces.py:360
 msgid "Email sent to the customer following the authorization of a new order (prior to the charge being completed)."
 msgstr ""
 
-#: ./interfaces.py:389
+#: ./interfaces.py:394
 msgid "Email sent to the customer following the decline of a new order."
 msgstr ""
 
-#: ./interfaces.py:372
+#: ./interfaces.py:377
 msgid "Email sent to the customer following the successful charge of a new order."
 msgstr ""
 
-#: ./interfaces.py:348
+#: ./interfaces.py:353
 msgid "Email sent to the merchant following the authorization of a new order (prior to the charge being completed)."
 msgstr ""
 
-#: ./interfaces.py:382
+#: ./interfaces.py:387
 msgid "Email sent to the merchant following the decline of a new order."
 msgstr ""
 
-#: ./interfaces.py:365
+#: ./interfaces.py:370
 msgid "Email sent to the merchant following the successful charge of a new order."
 msgstr ""
 
-#: ./browser/admin_order.py:171
+#: ./browser/admin_order.py:175
 msgid "Export All"
 msgstr "Mindet exportál"
 
-#: ./browser/admin_order.py:138
+#: ./browser/admin_order.py:142
 msgid "Export Search"
 msgstr "Export keresés"
 
-#: ./browser/cart.py:372
+#: ./browser/cart.py:421
 msgid "Fill"
 msgstr "Kitöltés"
 
-#: ./browser/admin_order.py:246
+#: ./browser/admin_order.py:262
 msgid "Filter"
 msgstr "Szűrő"
 
-#: ./browser/admin_order.py:96
+#: ./browser/admin_order.py:98
 msgid "Fulfillment"
 msgstr "Teljesítés"
 
-#: ./browser/admin_order.py:747
+#: ./browser/admin_order.py:782
 msgid "Item Id"
 msgstr "Termék azonosító"
 
-#: ./browser/admin_order.py:91
+#: ./browser/admin_order.py:93
 msgid "Last4"
 msgstr "Utolsó 4"
 
@@ -345,85 +346,85 @@ msgstr "Felhasználási feltételek"
 #. Default: "Mailing Address"
 #: ./browser/templates/checkout-address.pt:43
 #: ./browser/templates/checkout-review-pay.pt:38
-#: ./browser/templates/order-summary.pt:63
+#: ./browser/templates/order-summary.pt:83
 msgid "Mailing Address"
 msgstr "Szállítási cím"
 
-#: ./browser/checkout.py:612
+#: ./browser/checkout.py:605
 msgid "Make Payment"
 msgstr "Fizetés megkezdése"
 
-#: ./interfaces.py:347
+#: ./interfaces.py:352
 msgid "Merchant Authorization Email Template"
 msgstr ""
 
-#: ./interfaces.py:364
+#: ./interfaces.py:369
 msgid "Merchant Charge Email Template"
 msgstr ""
 
-#: ./interfaces.py:381
+#: ./interfaces.py:386
 msgid "Merchant Decline Email Template"
 msgstr ""
 
-#: ./browser/checkout.py:748
+#: ./browser/checkout.py:746
 msgid "Misconfigured Store - No Shipping Method Activated"
 msgstr ""
 
-#: ./browser/admin_order.py:586
-#: ./browser/checkout.py:592
+#: ./browser/admin_order.py:607
+#: ./browser/checkout.py:583
 msgid "N/A"
 msgstr "N/A"
 
-#: ./browser/admin_order.py:748
-#: ./browser/cart.py:240
-#: ./browser/checkout.py:548
+#: ./browser/admin_order.py:783
+#: ./browser/cart.py:290
+#: ./browser/checkout.py:539
 msgid "Name"
 msgstr "Név"
 
-#: ./browser/admin_order.py:93
+#: ./browser/admin_order.py:95
 msgid "Name on Card"
 msgstr "Kártyán szereplő név"
 
-#: ./interfaces.py:310
+#: ./interfaces.py:315
 msgid "Negative Currency Format"
 msgstr "Negatív valutanem formátum"
 
-#: ./browser/admin_order.py:114
+#: ./browser/admin_order.py:118
 msgid "No orders found for your filter."
 msgstr ""
 
-#: ./interfaces.py:330
+#: ./interfaces.py:335
 msgid "Number of Digits After Decimal"
 msgstr "Tizedes pontosság"
 
-#: ./interfaces.py:320
+#: ./interfaces.py:325
 msgid "Number of Digits in Group"
 msgstr "Számjegyek számossága egy csoportban"
 
-#: ./interfaces.py:178
+#: ./interfaces.py:184
 msgid "Only digits allowed"
 msgstr "Csak számokat lehet megadni"
 
-#: ./browser/order.py:123
+#: ./browser/order.py:121
 msgid "Order Details"
 msgstr "Megrendelés részletei"
 
-#: ./browser/admin_order.py:89
-#: ./interfaces.py:508
+#: ./browser/admin_order.py:90
+#: ./interfaces.py:513
 msgid "Order Id"
 msgstr "Megrendelés azonosító"
 
-#: ./browser/cart.py:334
+#: ./browser/cart.py:383
 msgid "Order Templates"
 msgstr "Megrendelés sablonok"
 
 #. Default: "Order template name"
-#: ./browser/templates/checkout-review-pay.pt:62
+#: ./browser/templates/checkout-review-pay.pt:59
 msgid "Order template name"
 msgstr "Megrendelés sablon neve"
 
 #. Default: "Payment Details"
-#: ./browser/templates/checkout-review-pay.pt:81
+#: ./browser/templates/checkout-review-pay.pt:74
 msgid "Payment Details"
 msgstr "Fizetés részletei"
 
@@ -431,7 +432,7 @@ msgstr "Fizetés részletei"
 msgid "Payment Options"
 msgstr "Fizetési opciók"
 
-#: ./interfaces.py:244
+#: ./interfaces.py:250
 msgid "Payment Processor"
 msgstr "Fizetés feldolgozó"
 
@@ -440,7 +441,7 @@ msgid "Payment Processor Settings"
 msgstr "Fizetés feldolgozó beállításai"
 
 #. Default: "Phone Number"
-#: ./browser/templates/order-summary.pt:46
+#: ./browser/templates/order-summary.pt:66
 msgid "Phone Number"
 msgstr "Telefonszám"
 
@@ -448,7 +449,7 @@ msgstr "Telefonszám"
 msgid "Please Select Payment Processor in Payment Options Settings"
 msgstr "Kérjük válassza ki a fizetés feldolgozót a fizetés opciók beállításainál"
 
-#: ./interfaces.py:305
+#: ./interfaces.py:310
 msgid "Positive Currency Format"
 msgstr "Pozitív valutanem formátum"
 
@@ -460,7 +461,7 @@ msgstr "Font"
 msgid "Premium"
 msgstr "Prémium"
 
-#: ./interfaces.py:199
+#: ./interfaces.py:205
 msgid "Premium Content Types"
 msgstr "Prémium tartalom típusok"
 
@@ -469,43 +470,56 @@ msgstr "Prémium tartalom típusok"
 msgid "Premium not implemented yet"
 msgstr "Prémium még nincs megvalósítva"
 
-#: ./browser/cart.py:399
+#: ./browser/cart.py:448
 msgid "Previous Order Loaded into Cart"
 msgstr "Korábbi megrendelést betöltöttünk a kosárba"
 
-#: ./browser/admin_order.py:97
-#: ./browser/cart.py:241
-#: ./browser/checkout.py:549
+#: ./browser/admin_order.py:99
+#: ./browser/cart.py:291
+#: ./browser/checkout.py:540
 msgid "Price"
 msgstr "Ár"
 
 #. Default: "Privacy Policy"
 #: ./browser/templates/legal-disclaimers-links.pt:7
-#: ./interfaces.py:422
+#: ./interfaces.py:427
 msgid "Privacy Policy"
 msgstr "Adatvédelmi irányelvek"
 
-#: ./browser/admin_order.py:92
+#: ./browser/admin_order.py:91
+msgid "Proc Id"
+msgstr ""
+
+#: ./browser/admin_order.py:94
 msgid "Proc Trans Id"
 msgstr "Proc Trans Id"
 
-#: ./browser/admin_order.py:746
-#: ./browser/cart.py:238
-#: ./browser/checkout.py:547
+#: ./browser/admin_order.py:781
+#: ./browser/cart.py:289
+#: ./browser/checkout.py:538
 msgid "Quantity"
 msgstr "Mennyiség"
+
+#: ./browser/portlets/recurring.py:23
+msgid "Recurring Payment"
+msgstr ""
+
+#. Default: "You will be billed for this product every ${value_interval} ${value_unit}, for a total of ${value_total_occurrences} payments."
+#: ./browser/templates/cart-listing-extras.pt:4
+msgid "RecurringCartSummary"
+msgstr ""
 
 #: ./browser/admin.py:283
 msgid "Sales Tax Configuration"
 msgstr "ÁFA beállítás"
 
 #. Default: "Same as billing"
-#: ./browser/templates/order-summary.pt:72
+#: ./browser/templates/order-summary.pt:92
 msgid "Same as billing"
 msgstr "Megegyezik a számlázási címmel"
 
 #. Default: "Save this order as a template"
-#: ./browser/templates/checkout-review-pay.pt:70
+#: ./browser/templates/checkout-review-pay.pt:65
 msgid "Save this order as a template"
 msgstr "Megrendelés elmentése sablonként"
 
@@ -514,7 +528,7 @@ msgstr "Megrendelés elmentése sablonként"
 msgid "Save to address book"
 msgstr "Mentés a címjegyzékbe"
 
-#: ./browser/cart.py:335
+#: ./browser/cart.py:384
 msgid "Select a previous order to fill your cart."
 msgstr "Válasszon ki egy korábbi megrendelést, hogy feltöltsük vele a kosarat"
 
@@ -523,31 +537,31 @@ msgstr "Válasszon ki egy korábbi megrendelést, hogy feltöltsük vele a kosar
 msgid "Select a shipping rate:"
 msgstr "Szállítási módok"
 
-#: ./browser/widgets.py:216
+#: ./browser/widgets.py:211
 msgid "Send"
 msgstr ""
 
-#: ./interfaces.py:358
+#: ./interfaces.py:363
 msgid "Send Customer Authorization Email?"
 msgstr ""
 
-#: ./interfaces.py:375
+#: ./interfaces.py:380
 msgid "Send Customer Charge Email?"
 msgstr ""
 
-#: ./interfaces.py:392
+#: ./interfaces.py:397
 msgid "Send Customer Decline Email?"
 msgstr ""
 
-#: ./interfaces.py:351
+#: ./interfaces.py:356
 msgid "Send Merchant Authorization Email?"
 msgstr ""
 
-#: ./interfaces.py:368
+#: ./interfaces.py:373
 msgid "Send Merchant Charge Email?"
 msgstr ""
 
-#: ./interfaces.py:385
+#: ./interfaces.py:390
 msgid "Send Merchant Decline Email?"
 msgstr ""
 
@@ -559,7 +573,7 @@ msgstr "Az ügyfél értesítése emailben a sikeres tranzakciórol"
 msgid "Send merchant email notification when a transaction happens"
 msgstr "A kereskedő értesítése emailben a sikeres tranzakcióról"
 
-#: ./interfaces.py:283
+#: ./interfaces.py:288
 msgid "Session Timeout"
 msgstr "Munkamenet ideje lejárt"
 
@@ -571,28 +585,28 @@ msgstr "Beállítások"
 msgid "Shippable"
 msgstr "Szállítható"
 
-#: ./interfaces.py:215
+#: ./interfaces.py:221
 msgid "Shippable Product Types"
 msgstr "Szállítható termék típusok"
 
-#: ./browser/cart.py:220
+#: ./browser/templates/cart-listing-extras.pt:15
 msgid "Shipping"
 msgstr "Szállítás"
 
 #: ./browser/admin.py:182
-#: ./interfaces.py:226
+#: ./interfaces.py:232
 msgid "Shipping Methods"
 msgstr "Szállítási módok"
 
-#: ./interfaces.py:234
+#: ./interfaces.py:240
 msgid "Shipping Rate Service"
 msgstr "Szállítási szolgáltatás"
 
-#: ./interfaces.py:229
+#: ./interfaces.py:235
 msgid "Shipping methods to offer for orders in your store"
 msgstr "Szállítási módók, melyeket a boltban kínálunk megrendelések mellé"
 
-#: ./interfaces.py:237
+#: ./interfaces.py:243
 msgid "Shipping services to offer for orders in your store"
 msgstr "Szállítási szolgáltatások, melyeket a boltban kínálunk megrendelések mellé"
 
@@ -602,7 +616,7 @@ msgstr "Szállítási szolgáltatások, melyeket a boltban kínálunk megrendel�
 msgid "Shopping Cart"
 msgstr "Kosár"
 
-#: ./interfaces.py:285
+#: ./interfaces.py:290
 msgid "Shopping cart session timeout (in seconds)"
 msgstr "Kosár munkamenet lejárata (másodpercben)"
 
@@ -610,23 +624,23 @@ msgstr "Kosár munkamenet lejárata (másodpercben)"
 msgid "Site Profile"
 msgstr "Honlap profilja"
 
-#: ./browser/admin_order.py:95
+#: ./browser/admin_order.py:97
 msgid "Status"
 msgstr "Állapot"
 
-#: ./interfaces.py:127
+#: ./interfaces.py:133
 msgid "Store/Organization Name"
 msgstr "Bolt/szervezet neve"
 
-#: ./browser/cart.py:216
+#: ./browser/templates/cart-listing-extras.pt:11
 msgid "SubTotal"
 msgstr "Részösszeg"
 
-#: ./interfaces.py:292
+#: ./interfaces.py:297
 msgid "Tax Method"
 msgstr "Adózás módja"
 
-#: ./interfaces.py:432
+#: ./interfaces.py:437
 msgid "Text to use for opt in checkbox"
 msgstr ""
 
@@ -634,22 +648,22 @@ msgstr ""
 msgid "The currently configured Payment Processor cannot be found; please check if the corresponding package is installed correctly."
 msgstr "Az aktuálisra beállított fizetési feldolgozó nem található, kérjük ellenőrizze, hogy a megfelelő csomag installálva van-e."
 
-#: ./interfaces.py:467
+#: ./interfaces.py:472
 msgid "The list of months"
 msgstr "Hónapok listája"
 
-#: ./browser/admin_order.py:750
-#: ./browser/cart.py:226
-#: ./browser/checkout.py:550
+#: ./browser/admin_order.py:785
+#: ./browser/cart.py:292
+#: ./browser/checkout.py:541
 msgid "Total"
 msgstr "Összesen"
 
 #. Default: "Transaction ID"
-#: ./browser/templates/order-summary.pt:30
+#: ./browser/templates/order-summary.pt:50
 msgid "Transaction ID"
 msgstr "Tranzakció azonosító"
 
-#: ./interfaces.py:335
+#: ./interfaces.py:340
 msgid "US Currency Formatting"
 msgstr "USA valutanem formázás"
 
@@ -657,7 +671,7 @@ msgstr "USA valutanem formázás"
 msgid "US Dollars"
 msgstr "USA dollár"
 
-#: ./browser/cart.py:268
+#: ./browser/cart.py:317
 msgid "Update"
 msgstr "Frissítés"
 
@@ -677,15 +691,15 @@ msgstr ""
 msgid "Upgrade to Latest"
 msgstr ""
 
-#: ./interfaces.py:250
+#: ./interfaces.py:256
 msgid "Use SSL for checkout"
 msgstr "SSL használata a megrendelés feladásához"
 
-#: ./browser/admin_order.py:230
+#: ./browser/admin_order.py:244
 msgid "User Id"
 msgstr ""
 
-#: ./browser/portlets/variableamountdonate.py:22
+#: ./browser/portlets/variableamountdonate.py:23
 msgid "Variable Amount Donation"
 msgstr "Változó összegű adomány"
 
@@ -694,7 +708,7 @@ msgstr "Változó összegű adomány"
 msgid "We are sorry but your credit card was declined."
 msgstr "Sajnáljuk, a bankkártyája vissza lett utasítva."
 
-#: ./interfaces.py:276
+#: ./interfaces.py:281
 msgid "Weight Units"
 msgstr "Súly mértékegység"
 
@@ -712,11 +726,11 @@ msgid "Your Installation of GetPaid is Current"
 msgstr ""
 
 #. Default: "You can check the status of your order ${status_url}"
-#: ./browser/templates/checkout-thank-you.pt:34
+#: ./browser/templates/checkout-thank-you.pt:32
 msgid "box_order_status_url_description"
 msgstr "Megtekintheti a megrendelés állapotát ${status_url}"
 
-#: ./interfaces.py:456
+#: ./interfaces.py:461
 msgid "countries"
 msgstr "országok"
 
@@ -789,7 +803,7 @@ msgid "heading_checkout_privacy_policy"
 msgstr "Adatvédelmi irányelvek"
 
 #. Default: "Thank you for your order"
-#: ./browser/templates/checkout-thank-you.pt:8
+#: ./browser/templates/checkout-thank-you.pt:9
 msgid "heading_checkout_thank_you"
 msgstr "Köszönjük megrendelését"
 
@@ -823,11 +837,16 @@ msgstr "teljesítés állapota"
 msgid "heading_general_information"
 msgstr "Általános információk"
 
-#. Default: "Site Orders"
-#: ./browser/templates/orders-template.pt:44
-#: ./browser/templates/settings-template.pt:37
+#. Default: "GetPaid Setup"
+#: ./browser/templates/settings-template.pt:38
+#, fuzzy
 msgid "heading_getpaid_setup"
 msgstr "Megrendelések"
+
+#. Default: "Site Orders"
+#: ./browser/templates/orders-template.pt:46
+msgid "heading_getpaid_setup_orders"
+msgstr ""
 
 #. Default: "new state"
 #: ./browser/templates/order-workflow-log.pt:9
@@ -865,20 +884,24 @@ msgid "heading_your_orders"
 msgstr "Ön megrendelései"
 
 #. Default: "here"
-#: ./browser/templates/checkout-thank-you.pt:35
+#: ./browser/templates/checkout-thank-you.pt:33
 msgid "here"
 msgstr "itt"
 
 #. Default: "Add to Cart"
-#: ./browser/templates/portlet-content-buyable.pt:42
+#: ./browser/templates/portlet-content-buyable.pt:44
 #: ./browser/templates/portlet-content-premium.pt:40
-#: ./browser/templates/portlet-content-shippable.pt:42
+#: ./browser/templates/portlet-content-recurringpayment.pt:52
 msgid "label_add_to_cart"
 msgstr "Kosárba"
 
 #. Default: "Donate!"
-#: ./browser/templates/portlet-content-donatable.pt:38
-#: ./browser/templates/portlet-content-variableamountdonatable.pt:72
+#: ./browser/templates/portlet-content-variableamountdonatable.pt:44
+msgid "label_donate"
+msgstr ""
+
+#. Default: "Donate!"
+#: ./browser/templates/portlet-content-donatable.pt:40
 msgid "label_donate!"
 msgstr "Adományozható!"
 
@@ -898,8 +921,8 @@ msgid "label_organization_name"
 msgstr "Bolt/szervezet neve"
 
 #. Default: "Up to GetPaid Setup"
-#: ./browser/templates/orders-template.pt:47
-#: ./browser/templates/settings-template.pt:40
+#: ./browser/templates/orders-template.pt:49
+#: ./browser/templates/settings-template.pt:41
 msgid "label_up_to_getpaid_setup"
 msgstr "Fel a GetPaid beállításához"
 
@@ -958,11 +981,11 @@ msgstr "Megrendelések keresése"
 msgid "legend_summary"
 msgstr "Összefoglalás"
 
-#: ./interfaces.py:466
+#: ./interfaces.py:471
 msgid "months"
 msgstr "hónapok"
 
-#: ./interfaces.py:460
+#: ./interfaces.py:465
 msgid "states"
 msgstr "megyék"
 
@@ -972,12 +995,12 @@ msgid "text_contains_items"
 msgstr "${size} terméket tartalmaz"
 
 #. Default: "The Context ${portal} Does Not Support this Operation."
-#: ./browser/templates/payable-form.pt:25
+#: ./browser/templates/payable-form.pt:17
 msgid "text_context_does_not_support_operation"
 msgstr "A környezet ${portal} nem támogatja ezt a műveletet."
 
 #. Default: "Creation Date"
-#: ./browser/templates/order-summary.pt:14
+#: ./browser/templates/order-summary.pt:34
 msgid "text_creation_date"
 msgstr "Létrehozás dátuma"
 
@@ -988,32 +1011,37 @@ msgid "text_current_status"
 msgstr "Aktuális állapot"
 
 #. Default: "Customer Id"
-#: ./browser/templates/order-summary.pt:10
+#: ./browser/templates/order-summary.pt:30
 msgid "text_customer_id"
 msgstr "Ügyfél azonosító"
 
+#. Default: "Donation: ${value_currency} ${value_price}"
+#: ./browser/templates/portlet-content-variableamountdonatable.pt:33
+msgid "text_donate_price"
+msgstr ""
+
 #. Default: "Finance Status"
-#: ./browser/templates/order-summary.pt:18
+#: ./browser/templates/order-summary.pt:38
 msgid "text_finance_status"
 msgstr "Fizetés állapota"
 
 #. Default: "Shipping Service"
-#: ./browser/templates/order-summary.pt:80
+#: ./browser/templates/order-summary.pt:100
 msgid "text_fulfillment_shipping_method"
 msgstr "Szállítási szolgáltatások"
 
 #. Default: "Shipment Tracking Numbers:"
-#: ./browser/templates/order-summary.pt:89
+#: ./browser/templates/order-summary.pt:109
 msgid "text_fulfillment_shipping_track_number"
 msgstr "Szállítás-követő azonosító szám"
 
 #. Default: "Shipment Weight"
-#: ./browser/templates/order-summary.pt:84
+#: ./browser/templates/order-summary.pt:104
 msgid "text_fulfillment_shipping_weight"
 msgstr "Szállítási súly"
 
 #. Default: "Fulfillment Status"
-#: ./browser/templates/order-summary.pt:22
+#: ./browser/templates/order-summary.pt:42
 msgid "text_fulfillment_status"
 msgstr "Teljesítés állapota"
 
@@ -1022,13 +1050,43 @@ msgstr "Teljesítés állapota"
 msgid "text_order_id"
 msgstr "Megrendelés azonosító"
 
-#. Default: "Price: <span>${DYNAMIC_CONTENT}</span>"
-#: ./browser/templates/portlet-content-buyable.pt:31
-#: ./browser/templates/portlet-content-donatable.pt:31
-#: ./browser/templates/portlet-content-shippable.pt:31
+#. Default: "Interval"
+#: ./browser/templates/order-summary.pt:16
+msgid "text_order_interval"
+msgstr ""
+
+#. Default: "Total Occurrences"
+#: ./browser/templates/order-summary.pt:20
+msgid "text_order_occurrences"
+msgstr ""
+
+#. Default: "Recurring Order"
+#: ./browser/templates/order-summary.pt:14
+msgid "text_order_recurring"
+msgstr ""
+
+#. Default: "Non-recurring Order"
+#: ./browser/templates/order-summary.pt:11
+msgid "text_order_standard"
+msgstr ""
+
+#. Default: "Order Type"
+#: ./browser/templates/order-summary.pt:10
+msgid "text_order_type"
+msgstr ""
+
+#. Default: "Price: ${value_currency} ${value_price}"
+#: ./browser/templates/portlet-content-buyable.pt:33
+#: ./browser/templates/portlet-content-donatable.pt:33
+#: ./browser/templates/portlet-content-recurringpayment.pt:34
 #, fuzzy
 msgid "text_price"
 msgstr "Adomány: ${value_price} HUF"
+
+#. Default: "Processor Id"
+#: ./browser/templates/order-summary.pt:26
+msgid "text_processor_id"
+msgstr ""
 
 #. Default: "Product Details"
 #: ./browser/templates/portlet-content-buyable.pt:12
@@ -1037,8 +1095,13 @@ msgstr "Adomány: ${value_price} HUF"
 msgid "text_product_details"
 msgstr "Termék részletei"
 
+#. Default: "You will be billed for this product every ${value_interval} month(s), for a total of ${value_occurrences} months."
+#: ./browser/templates/portlet-content-recurringpayment.pt:41
+msgid "text_recurrence"
+msgstr ""
+
 #. Default: "Total Price"
-#: ./browser/templates/order-summary.pt:26
+#: ./browser/templates/order-summary.pt:46
 msgid "text_total_price"
 msgstr "Teljes ár"
 
@@ -1047,17 +1110,17 @@ msgstr "Teljes ár"
 msgid "text_your_cart"
 msgstr "Kosár"
 
-#: ./interfaces.py:470
+#: ./interfaces.py:475
 msgid "years"
 msgstr "évek"
 
 #. Default: "Your finance state is"
-#: ./browser/templates/checkout-thank-you.pt:13
+#: ./browser/templates/checkout-thank-you.pt:14
 msgid "your_finance_state_is"
 msgstr "A fizetés állapota"
 
 #. Default: "Your order id is"
-#: ./browser/templates/checkout-thank-you.pt:19
+#: ./browser/templates/checkout-thank-you.pt:20
 msgid "your_order_id"
 msgstr "A megrendelés azonosítója"
 

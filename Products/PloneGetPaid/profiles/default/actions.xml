@@ -1,11 +1,15 @@
 <object name="portal_actions" meta_type="Plone Actions Tool">
-    <action-provider name="portal_actions">
+    <action-provider name="portal_actions"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="plone">
+
         <action title="Make Buyable"
                 action_id="getpaid_make_buyable"
                 category="object_buttons"
                 condition_expr="python:path('object/@@getpaid_control').allowMakeBuyable()"
                 url_expr="string:$object_url/@@activate-buyable"
-                visible="True">
+                visible="True"
+                i18n:attributes="title">
             <permission>Modify portal content</permission>
         </action>
         <action title="Make Shippable Product"
@@ -13,7 +17,8 @@
                 category="object_buttons"
                 condition_expr="python:path('object/@@getpaid_control').allowMakeShippable()"
                 url_expr="string:$object_url/@@activate-shippable"
-                visible="True">
+                visible="True"
+                i18n:attributes="title">
             <permission>Modify portal content</permission>
         </action>
         <action title="Make this a Donation"
@@ -21,23 +26,26 @@
                 category="object_buttons"
                 condition_expr="python:path('object/@@getpaid_control').allowMakeDonatable()"
                 url_expr="string:$object_url/@@activate-donate"
-                visible="True">
+                visible="True"
+                i18n:attributes="title">
             <permission>Modify portal content</permission>
         </action>
-        <action title="Make this a Variable Amount Donation" 
-                action_id="getpaid_make_variableamountdonatable" 
-                category="object_buttons" 
-                condition_expr="python:path('object/@@getpaid_control').allowMakeVariableAmountDonatable()" 
-                url_expr="string:$object_url/@@activate-variableamountdonate" 
-                visible="True">
+        <action title="Make this a Variable Amount Donation"
+                action_id="getpaid_make_variableamountdonatable"
+                category="object_buttons"
+                condition_expr="python:path('object/@@getpaid_control').allowMakeVariableAmountDonatable()"
+                url_expr="string:$object_url/@@activate-variableamountdonate"
+                visible="True"
+                i18n:attributes="title">
             <permission>Modify portal content</permission>
         </action>
-        <action title="Make Not Buyable" 
-                action_id="getpaid_make_not_buyable" 
-                category="object_buttons" 
-                condition_expr="python:path('object/@@getpaid_control').allowMakeNotBuyable()" 
-                url_expr="string:$object_url/@@deactivate-buyable" 
-                visible="True">
+        <action title="Make Not Buyable"
+                action_id="getpaid_make_not_buyable"
+                category="object_buttons"
+                condition_expr="python:path('object/@@getpaid_control').allowMakeNotBuyable()"
+                url_expr="string:$object_url/@@deactivate-buyable"
+                visible="True"
+                i18n:attributes="title">
             <permission>Modify portal content</permission>
         </action>
         <action title="Make Not Shippable Product"
@@ -45,7 +53,8 @@
                 category="object_buttons"
                 condition_expr="python:path('object/@@getpaid_control').allowMakeNotShippable()"
                 url_expr="string:$object_url/@@deactivate-shippable"
-                visible="True">
+                visible="True"
+                i18n:attributes="title">
             <permission>Modify portal content</permission>
         </action>
         <action title="Make Not Premium Members Only"
@@ -53,7 +62,8 @@
                 category="object_buttons"
                 condition_expr="python:path('object/@@getpaid_control').allowMakeNotPremiumContent()"
                 url_expr="string:$object_url/@@deactivate-premium-content"
-                visible="True">
+                visible="True"
+                i18n:attributes="title">
             <permission>Modify portal content</permission>
         </action>
         <action title="Make this not a Donation"
@@ -61,23 +71,26 @@
                 category="object_buttons"
                 condition_expr="python:path('object/@@getpaid_control').allowMakeNotDonatable()"
                 url_expr="string:$object_url/@@deactivate-donate"
-                visible="True">
+                visible="True"
+                i18n:attributes="title">
             <permission>Modify portal content</permission>
         </action>
-        <action title="Make this not a Variable Amount Donation" 
-                action_id="getpaid_make_not_variableamountdonatable" 
-                category="object_buttons" 
-                condition_expr="python:path('object/@@getpaid_control').allowMakeNotVariableAmountDonatable()" 
-                url_expr="string:$object_url/@@deactivate-variableamountdonate" 
-                visible="True">
+        <action title="Make this not a Variable Amount Donation"
+                action_id="getpaid_make_not_variableamountdonatable"
+                category="object_buttons"
+                condition_expr="python:path('object/@@getpaid_control').allowMakeNotVariableAmountDonatable()"
+                url_expr="string:$object_url/@@deactivate-variableamountdonate"
+                visible="True"
+                i18n:attributes="title">
             <permission>Modify portal content</permission>
         </action>
-        <action title="Manage Cart" 
-                action_id="getpaid_manage_cart" 
-                category="user" 
-                condition_expr="python:path('object/@@getpaid_control').showManageCart()" 
-                url_expr="string:$portal_url/@@getpaid-cart" 
-                visible="True">
+        <action title="Manage Cart"
+                action_id="getpaid_manage_cart"
+                category="user"
+                condition_expr="python:path('object/@@getpaid_control').showManageCart()"
+                url_expr="string:$portal_url/@@getpaid-cart"
+                visible="True"
+                i18n:attributes="title">
             <permission>Modify portal content</permission>
         </action>
         <action title="Make Recurring Payable"
@@ -85,7 +98,8 @@
                 category="object_buttons"
                 condition_expr="python:path('object/@@getpaid_control').allowMakeRecurringPayable()"
                 url_expr="string:$object_url/@@activate-recurring-payment"
-                visible="True">
+                visible="True"
+                i18n:attributes="title">
             <permission>Modify portal content</permission>
         </action>
         <action title="Make Not Recurring Payable"
@@ -93,7 +107,8 @@
                 category="object_buttons"
                 condition_expr="python:path('object/@@getpaid_control').allowMakeNotRecurringPayable()"
                 url_expr="string:$object_url/@@deactivate-recurring-payment"
-                visible="True">
+                visible="True"
+                i18n:attributes="title">
             <permission>Modify portal content</permission>
         </action>
         <action title="Manage Cart"
@@ -101,15 +116,17 @@
                 category="user"
                 condition_expr="python:path('object/@@getpaid_control').showManageCart()"
                 url_expr="string:$object_url/@@getpaid-cart"
-                visible="True">
+                visible="True"
+                i18n:attributes="title">
             <permission>View</permission>
         </action>
-        <action title="Payable" 
-                action_id="buyable" 
-                category="object" 
-                condition_expr="python:path('object/@@getpaid_control').isPayable()" 
-                url_expr="string:${object_url}/@@edit-payable" 
-                visible="True">
+        <action title="Payable"
+                action_id="buyable"
+                category="object"
+                condition_expr="python:path('object/@@getpaid_control').isPayable()"
+                url_expr="string:${object_url}/@@edit-payable"
+                visible="True"
+                i18n:attributes="title">
             <permission>Modify portal content</permission>
         </action>
     </action-provider>

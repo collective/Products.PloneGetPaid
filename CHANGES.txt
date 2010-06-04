@@ -8,6 +8,14 @@ CHANGES
 - Fixed UnicodeDecodeError for notification event subscriber.
   [taito.horiuchi]
 
+- i18n.sh now updates plonegetpaid-plone.pot and takes
+  actions.xml and portlets.xml into account, too.
+
+  since the translators of zh and da added their translations
+  manually which resulted in some ids being removed,
+  so i did not update those
+  [fRiSi]
+
 - updated German translation [fRiSi]
 
 - don't show the buy/donate/cart portlet when displaying the shopping cart
@@ -27,6 +35,7 @@ CHANGES
   [fRiSi]
 
 - use separate messageids for the checkout action and heading (this fixes #293)
+  [fRiSi]
 
 0.10.0 (2010-05-19)
 -------------------
