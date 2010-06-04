@@ -24,6 +24,9 @@ CHANGES
 
 - define a custom cell_formatter to be able to link orders and cart items
   in zc.table views (this fixes #292)
+  [fRiSi]
+
+- use separate messageids for the checkout action and heading (this fixes #293)
 
 0.10.0 (2010-05-19)
 -------------------
