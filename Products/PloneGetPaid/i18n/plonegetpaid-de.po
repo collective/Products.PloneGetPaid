@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
 "POT-Creation-Date: 2009-11-13 09:58+0000\n"
-"PO-Revision-Date: 2010-05-21 13:52+0200\n"
+"PO-Revision-Date: 2010-06-04 11:00+0200\n"
 "Last-Translator: Harald Friessnegger <harald@webmeisterei.com>\n"
 "Language-Team: Deutsch <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -103,7 +103,7 @@ msgstr ""
 
 #: ./browser/cart.py:321
 msgid "Checkout"
-msgstr "Auschecken"
+msgstr "zur Kassa"
 
 #: ./browser/admin.py:456
 msgid "Checkout Options"
@@ -514,7 +514,7 @@ msgstr "Diese Bestellung als Vorlage speichern"
 #. Default: "Save to address book"
 #: ./browser/templates/checkout-address.pt:55
 msgid "Save to address book"
-msgstr ""
+msgstr "Ins Adressbuch übernehmen"
 
 #: ./browser/cart.py:335
 msgid "Select a previous order to fill your cart."
@@ -722,7 +722,7 @@ msgstr ""
 #. Default: "You can check the status of your order ${status_url}"
 #: ./browser/templates/checkout-thank-you.pt:34
 msgid "box_order_status_url_description"
-msgstr ""
+msgstr "Unter diesem Link können sie den $status_url überprüfen."
 
 #: ./interfaces.py:456
 msgid "countries"
@@ -784,7 +784,7 @@ msgstr ""
 #: ./browser/templates/checkout-review-pay.pt:12
 #: ./browser/templates/checkout-shipping-method.pt:3
 msgid "heading_checkout"
-msgstr ""
+msgstr "Kassa"
 
 #. Default: "Disclaimer"
 #: ./browser/templates/disclaimer.pt:5
@@ -799,7 +799,7 @@ msgstr ""
 #. Default: "Thank you for your order"
 #: ./browser/templates/checkout-thank-you.pt:8
 msgid "heading_checkout_thank_you"
-msgstr ""
+msgstr "Vielen Dank für ihre Bestellung"
 
 #. Default: "comment"
 #: ./browser/templates/order-workflow-log.pt:10
@@ -875,7 +875,7 @@ msgstr ""
 #. Default: "here"
 #: ./browser/templates/checkout-thank-you.pt:35
 msgid "here"
-msgstr ""
+msgstr "Status ihrer Bestellung"
 
 #. Default: "Add to Cart"
 #: ./browser/templates/portlet-content-buyable.pt:42
@@ -898,7 +898,7 @@ msgstr ""
 #. Default: "Manage Cart"
 #: ./browser/templates/portlet-cart.pt:23
 msgid "label_manage_cart"
-msgstr ""
+msgstr "zum Warenkorb"
 
 #. Default: "Store/Organization Name:"
 #: ./browser/templates/admin-overview.pt:38
@@ -919,7 +919,7 @@ msgstr ""
 #. Default: "Your Cart Contents"
 #: ./browser/templates/cart-listing.pt:4
 msgid "legend_cart_contents"
-msgstr ""
+msgstr "Inhalt ihres Warenkorbes"
 
 #. Default: "Export List of Emails and Preferences"
 #: ./browser/templates/orders-emails-export-csv.pt:3
@@ -977,7 +977,7 @@ msgstr ""
 #. Default: "Contains ${size} Items"
 #: ./browser/templates/portlet-cart.pt:19
 msgid "text_contains_items"
-msgstr ""
+msgstr "Ihr Warenkorb enthält $size Produkte"
 
 #. Default: "The Context ${portal} Does Not Support this Operation."
 #: ./browser/templates/payable-form.pt:25
@@ -1052,7 +1052,7 @@ msgstr ""
 #. Default: "Your Cart"
 #: ./browser/templates/portlet-cart.pt:14
 msgid "text_your_cart"
-msgstr ""
+msgstr "Warenkorb"
 
 #: ./interfaces.py:470
 msgid "years"
@@ -1066,6 +1066,6 @@ msgstr ""
 #. Default: "Your order id is"
 #: ./browser/templates/checkout-thank-you.pt:19
 msgid "your_order_id"
-msgstr ""
+msgstr "Ihre Bestellnummer lautet"
 
 
