@@ -6,7 +6,7 @@ CHANGES
 -------------------
 
 - Fixed UnicodeDecodeError for notification event subscriber.
-  [taito.horiuchi]
+  [taito.horiuchi, fRiSi]
 
 - i18n.sh now updates plonegetpaid-plone.pot and takes
   actions.xml and portlets.xml into account, too.
