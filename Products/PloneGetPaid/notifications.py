@@ -14,6 +14,8 @@ from DocumentTemplate.DT_HTML import HTML
 from interfaces import _
 from zope.i18n import translate
 from Products.CMFPlone.utils import safe_unicode
+from zope.component._api import getUtility
+from Products.PloneGetPaid.interfaces import ICurrencyFormatter
 
 class MerchantOrderNotificationMessage( object ):
 
@@ -98,11 +100,15 @@ def sendNotification( order, event ):
     mailer = getToolByName(portal, 'MailHost')
 
     settings = interfaces.IGetPaidManagementOptions( portal )
+
+    formatter = getUtility(ICurrencyFormatter)
+    currency = formatter.currency(portal)
+
     store_url = portal.absolute_url()
     order_contents = u'\n'.join([u' '.join((str(cart_item.quantity),
                                   safe_unicode(cart_item.name),
                                   u"@%0.2f" % (cart_item.cost,),
-                                  'total: US$%0.2f' % (cart_item.cost*cart_item.quantity,),
+                                  'total: %s %0.2f' % (currency, cart_item.cost*cart_item.quantity,),
                                 )) for cart_item in order.shopping_cart.values()])
 
     # Auth
@@ -184,13 +190,14 @@ def sendMerchantEmail(adapterName, template, settings, order,
     message = adapter(settings, store_url, order_contents, template)
 
     try:
-        mailer.send(str(message))
-    except:
+        mailer.send(message, charset='utf-8')
+    except Exception, e:
         # Something happened and most probably we weren't able to send the
         # message. That's bad, but we got the money already and really
         # should do the shipment
         # XXX: somebody should be notified about that
-        pass
+        import logging
+        logging.fatal("an error occured while sending a notification for order %s email\n%s" % (order.getOrderId(), str(e)))
 
 
 def sendCustomerEmail(adapterName, template, settings, order,
@@ -204,10 +211,12 @@ def sendCustomerEmail(adapterName, template, settings, order,
 
         message = adapter(settings, store_url, order_contents, template)
         try:
-            mailer.send(str(message))
-        except:
+            mailer.send(message, charset='utf-8')
+        except Exception, e:
             # Something happened and most probably we weren't able to send the
             # message. That's bad, but we got the money already and really
             # should do the shipment
             # XXX: somebody should be notified about that
-            pass
+            import logging
+            logging.fatal("an error occured while sending a notification for order %s email\n%s" % (order.getOrderId(), str(e)))
+
