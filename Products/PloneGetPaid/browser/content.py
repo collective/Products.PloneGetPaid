@@ -119,7 +119,7 @@ class PayableDestruction( BrowserView ):
         self.request.response.redirect( '%s%s' % (self.context.absolute_url(), extra) )
 
 class BuyableForm( PayableForm ):
-    form_fields = form.Fields( igetpaid.IBuyableContent ).omit('made_payable_by')
+    form_fields = form.Fields( igetpaid.IBuyableContent )
     form_fields['price'].custom_widget = widgets.PriceWidget
     interface = igetpaid.IBuyableContent
     marker = interfaces.IBuyableMarker
