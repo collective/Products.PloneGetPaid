@@ -1,11 +1,15 @@
-function disableMailingAddress() {
-    $("#mailing-address input").attr("disabled","disabled"); 
-    $("#mailing-address select").attr("disabled","disabled"); 
-    $("#form\\.ship_same_billing").attr({onclick: "enableMailingAddress()", disabled: ""})
-}
+jQuery(function($) {
 
-function enableMailingAddress() {
-    $("#mailing-address input").attr("disabled",""); 
-    $("#mailing-address select").attr("disabled",""); 
-    $("#form\\.ship_same_billing").attr("onclick", "disableMailingAddress()")
-}
+    /* ship_same_billing enables/disables all inputs of #mailing-address */
+    $("#form\\.ship_same_billing").bind('click', function(e) {
+
+        var $disable = '';
+        if ($(this).attr('checked')) {
+            $disable = 'disabled';
+        }
+        $("#mailing-address input").attr("disabled", $disable);
+        $("#mailing-address select").attr("disabled", $disable);
+        $(this).removeAttr('disabled');
+    });
+
+});
