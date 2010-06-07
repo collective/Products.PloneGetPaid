@@ -37,6 +37,8 @@ CHANGES
 - use separate messageids for the checkout action and heading (this fixes #293)
   [fRiSi]
 
+- do not include jquery in content-space-template since plone ships with
+  a newer version (this fixes #294)
 
 0.10.0 (2010-05-19)
 -------------------
