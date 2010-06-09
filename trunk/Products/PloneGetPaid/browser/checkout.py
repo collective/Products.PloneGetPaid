@@ -39,10 +39,12 @@ from Products.PloneGetPaid.interfaces import INamedOrderUtility
 
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IAddressBookUtility
 from Products.PloneGetPaid.i18n import _
+from Products.PloneGetPaid.browser.cart import formatLinkCell
 
 from base import BaseFormView
 import cart as cart_core
 from widgets import CountrySelectionWidget, StateSelectionWidget, CCExpirationDateWidget
+from Products.PloneGetPaid.browser.interfaces import IDontShowGetPaidPortlets
 
 def null_condition( *args ):
     return ()
@@ -104,7 +106,7 @@ class BaseCheckoutForm( BaseFormView ):
     _next_url = None # redirect url
     wizard = None  # wizard
 
-    interface.implements( wizard_interfaces.IWizardFormStep )
+    interface.implements( wizard_interfaces.IWizardFormStep, IDontShowGetPaidPortlets )
 
     def __init__( self, context, request ):
         self.context = context
@@ -258,6 +260,7 @@ class CheckoutWizard( Wizard ):
     steps can't override call methods, as such logic won't be processed, since we call
     update / render methods directly.
     """
+
 
     def checkShoppingCart(self):
         cart = component.getUtility(interfaces.IShoppingCartUtility).get( self.context )
@@ -533,7 +536,7 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
 
     columns = [
         column.GetterColumn( title=_(u"Quantity"), getter=cart_core.LineItemColumn("quantity") ),
-        column.GetterColumn( title=_(u"Name"), getter=cart_core.lineItemURL ),
+        column.GetterColumn( title=_(u"Name"), getter=cart_core.lineItemURL, cell_formatter=formatLinkCell ),
         column.GetterColumn( title=_(u"Price"), getter=cart_core.lineItemPrice ),
         column.GetterColumn( title=_(u"Total"), getter=cart_core.lineItemTotal ),
        ]

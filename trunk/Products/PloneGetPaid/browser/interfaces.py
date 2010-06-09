@@ -1,5 +1,5 @@
 from zope.interface import Interface
 
-class ICartView(Interface):
-    """marker for shopping cart views
+class IDontShowGetPaidPortlets(Interface):
+    """marker for views that need not display getpaid related portlets
     """

@@ -7,7 +7,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.PloneGetPaid.browser.portlets.base import GetPaidRenderer
 from Products.PloneGetPaid.i18n import _
 from Products.PloneGetPaid.interfaces import IDonatableMarker, ICurrencyFormatter
-from Products.PloneGetPaid.browser.interfaces import ICartView
+from Products.PloneGetPaid.browser.interfaces import IDontShowGetPaidPortlets
 
 class IDonatablePortlet(IPortletDataProvider):
     pass
@@ -37,7 +37,7 @@ class Renderer(GetPaidRenderer):
     def available(self):
         #don't show this portlet when a cart view is active
         #eg when viewing buyable-object/@@getpaid-cart-add
-        return not ICartView.providedBy(self.view) and super(Renderer, self).available
+        return not IDontShowGetPaidPortlets.providedBy(self.view) and super(Renderer, self).available
 
 
     def currency(self):

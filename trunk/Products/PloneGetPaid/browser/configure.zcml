@@ -7,7 +7,7 @@
 
   <include zcml:condition="installed plone.app.portlets"
       package=".portlets" />
-      
+
   <include zcml:condition="installed plone.app.viewletmanager"
       package=".viewlets" />
 
@@ -18,7 +18,7 @@
      template="templates/form.pt"
      permission="zope2.View"
      />
-     
+
    <browser:page
       for="*"
       name="getpaid-form-valuesonly"
@@ -51,10 +51,6 @@
       image="resources/getpaid.png" />
 
   <browser:resource
-      name="jquery.js"
-      file="resources/jquery-1.2.1.pack.js" />
-      
-  <browser:resource
       name="checkout-process.js"
       file="resources/checkout-process.js" />
 
@@ -82,17 +78,17 @@
      class=".checkout.CheckoutWizard"
      permission="zope2.View"
      />
-   
-  <adapter 
+
+  <adapter
       for="getpaid.wizard.interfaces.IWizard"
       provides="getpaid.wizard.interfaces.IWizardController"
       factory=".checkout.CheckoutController" />
-    
-  <adapter 
+
+  <adapter
       for="getpaid.wizard.interfaces.IWizard"
       provides="getpaid.wizard.interfaces.IWizardDataManager"
       factory="getpaid.wizard.DataManager"/>
-      
+
   <browser:page
      for="*"
      name="checkout-address-info"
@@ -106,14 +102,14 @@
      class=".checkout.CheckoutReviewAndPay"
      permission="zope2.View"
      />
-     
+
   <browser:page
     for="*"
     name="checkout-select-shipping"
     class=".checkout.CheckoutSelectShipping"
     permission="zope2.View"
     />
-        
+
   <browser:page
      for="*"
      name="addresbook-listing"
@@ -127,7 +123,7 @@
      name="getpaid-thank-you"
      permission="zope2.View"
      />
-     
+
   <browser:page
      for="*"
      template="templates/checkout-cancelled-declined.pt"
@@ -249,7 +245,7 @@
      template="templates/legal-disclaimers-links.pt"
      permission="zope2.View"
      />
-     
+
   <browser:page
       for="*"
       name="payable-content"

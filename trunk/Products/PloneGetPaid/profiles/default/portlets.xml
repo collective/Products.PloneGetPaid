@@ -1,37 +1,46 @@
-<portlets>
+<portlets
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="plone">
   <portlet
       addview="getpaid.shippable"
       title="Shippable portlet"
       description="A portlet that handles shippable items"
+      i18n:attributes="title; description"
       />
   <portlet
       addview="getpaid.buyable"
       title="Buyable portlet"
       description="A portlet that handles buyable items"
+      i18n:attributes="title; description"
       />
   <portlet
       addview="getpaid.donatable"
       title="Donatable portlet"
       description="A portlet that handles donatable items"
+      i18n:attributes="title; description"
       />
   <portlet
       addview="getpaid.variableamountdonatable"
       title="Variable Amount Donatable portlet"
       description="A portlet that handles donatable items"
+      i18n:attributes="title; description"
       />
   <portlet
       addview="getpaid.recurringpayment"
       title="Recurring Payment portlet"
       description="A portlet that handles recurring payments"
+      i18n:attributes="title; description"
       />
   <portlet
       addview="getpaid.premium"
       title="Premium portlet"
       description="A portlet that handles premium items"
+      i18n:attributes="title; description"
       />
   <portlet
       addview="getpaid.cart"
       title="Cart portlet"
       description="A portlet that shows the shopping cart"
+      i18n:attributes="title; description"
       />
 </portlets>

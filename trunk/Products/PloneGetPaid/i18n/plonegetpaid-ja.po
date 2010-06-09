@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
-"POT-Creation-Date: 2009-11-13 09:58+0000\n"
+"POT-Creation-Date: 2010-06-04 10:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Taito Horiuchi <taito.horiuchi@abita.fi>\n"
 "Language-Team: Japanese\n"
@@ -14,20 +14,20 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plonegetpaid\n"
 
-#: ./interfaces.py:457
+#: ./interfaces.py:462
 msgid "A list of countries"
 msgstr "国のリスト"
 
-#: ./interfaces.py:461
+#: ./interfaces.py:466
 msgid "A list of states"
 msgstr "都道府県のリスト"
 
-#: ./interfaces.py:471
+#: ./interfaces.py:476
 msgid "A list of years"
 msgstr "年のリスト"
 
 #. Default: "A name you can remember this order template by."
-#: ./browser/templates/checkout-review-pay.pt:63
+#: ./browser/templates/checkout-review-pay.pt:60
 msgid "A name you can remember this order template by."
 msgstr "このオーダーテンプレートの名称"
 
@@ -36,15 +36,15 @@ msgstr "このオーダーテンプレートの名称"
 msgid "A name you remember this address by. Will not appear on shipping label."
 msgstr "このアドレスの名称（出荷ラベルには表示されません。）"
 
-#: ./browser/checkout.py:492
+#: ./browser/checkout.py:483
 msgid "A new address has been saved"
 msgstr "新規アドレスは保存されました。"
 
-#: ./interfaces.py:253
+#: ./interfaces.py:258
 msgid "Accepted Credit Cards"
 msgstr "利用可能なクレジットカード"
 
-#: ./browser/content.py:87
+#: ./browser/content.py:86
 msgid "Activate"
 msgstr "有効化"
 
@@ -53,11 +53,11 @@ msgstr "有効化"
 msgid "Addressbook entry name"
 msgstr "アドレスブック登録名"
 
-#: ./interfaces.py:248
+#: ./interfaces.py:254
 msgid "Allow Anonymous Checkout"
 msgstr "匿名購入を許可する。"
 
-#: ./interfaces.py:104
+#: ./interfaces.py:107
 msgid "Amount"
 msgstr "値段"
 
@@ -66,14 +66,14 @@ msgstr "値段"
 msgid "Apply"
 msgstr "適用"
 
-#: ./browser/checkout.py:673
+#: ./browser/checkout.py:669
 msgid "Back"
 msgstr "戻る"
 
 #. Default: "Billing Address"
 #: ./browser/templates/checkout-address.pt:36
 #: ./browser/templates/checkout-review-pay.pt:30
-#: ./browser/templates/order-summary.pt:53
+#: ./browser/templates/order-summary.pt:73
 msgid "Billing Address"
 msgstr "請求先"
 
@@ -81,23 +81,24 @@ msgstr "請求先"
 msgid "Buyable"
 msgstr "購入可"
 
-#: ./interfaces.py:194
+#: ./interfaces.py:200
 msgid "Buyable Content delivered through the web/virtually"
 msgstr "購入可能なコンテンツタイプ"
 
-#: ./interfaces.py:191
+#: ./interfaces.py:197
 msgid "Buyable Types"
 msgstr "購入可能"
 
-#: ./browser/checkout.py:499
+#: ./browser/checkout.py:490
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: ./browser/admin_order.py:94
+#: ./browser/admin_order.py:96
 msgid "Card Phone#"
 msgstr "カード所持者電話番号"
 
-#: ./browser/cart.py:321
+#: ./browser/cart.py:370
+#: ./browser/templates/portlet-cart.pt:29
 msgid "Checkout"
 msgstr "購入"
 
@@ -105,31 +106,31 @@ msgstr "購入"
 msgid "Checkout Options"
 msgstr "購入オプション"
 
-#: ./interfaces.py:147
+#: ./interfaces.py:153
 msgid "Contact Address"
 msgstr "アドレス"
 
-#: ./interfaces.py:152
+#: ./interfaces.py:158
 msgid "Contact Address2"
 msgstr "アドレス２"
 
-#: ./interfaces.py:157
+#: ./interfaces.py:163
 msgid "Contact City"
 msgstr "区・市"
 
-#: ./interfaces.py:142
+#: ./interfaces.py:148
 msgid "Contact Company"
 msgstr "法人名"
 
-#: ./interfaces.py:162
+#: ./interfaces.py:168
 msgid "Contact Country"
 msgstr "国"
 
-#: ./interfaces.py:137
+#: ./interfaces.py:143
 msgid "Contact Email"
 msgstr "E-メール"
 
-#: ./interfaces.py:183
+#: ./interfaces.py:189
 msgid "Contact Fax"
 msgstr "ファックス"
 
@@ -139,20 +140,20 @@ msgid "Contact Information"
 msgstr "連絡先情報"
 
 #. Default: "Contact Name"
-#: ./browser/templates/order-summary.pt:42
-#: ./interfaces.py:132
+#: ./browser/templates/order-summary.pt:62
+#: ./interfaces.py:138
 msgid "Contact Name"
 msgstr "名前"
 
-#: ./interfaces.py:177
+#: ./interfaces.py:183
 msgid "Contact Phone"
 msgstr "電話"
 
-#: ./interfaces.py:167
+#: ./interfaces.py:173
 msgid "Contact State/Province"
 msgstr "都道府県"
 
-#: ./interfaces.py:172
+#: ./interfaces.py:178
 msgid "Contact Zip/Postal Code"
 msgstr "郵便番号"
 
@@ -160,44 +161,44 @@ msgstr "郵便番号"
 msgid "Content Types"
 msgstr "コンテンツタイプ"
 
-#: ./interfaces.py:210
+#: ./interfaces.py:216
 msgid "Content Types available for donation"
 msgstr "寄付可能なコンテンツタイプ"
 
-#: ./interfaces.py:202
+#: ./interfaces.py:208
 msgid "Content Types only available to premium memberships"
 msgstr "プレミアムメンバーにのみ可能なコンテンツタイプ"
 
-#: ./interfaces.py:218
+#: ./interfaces.py:224
 msgid "Content Types that represent goods that can be purchased and shipped"
 msgstr "購入および出荷可能な商品を対象とするコンテンツタイプ"
 
-#: ./browser/admin_order.py:760
+#: ./browser/admin_order.py:795
 msgid "Contents"
 msgstr "内容"
 
-#: ./browser/checkout.py:494
+#: ./browser/checkout.py:485
 msgid "Continue"
 msgstr "続ける"
 
-#: ./browser/cart.py:301
+#: ./browser/cart.py:350
 msgid "Continue Shopping"
 msgstr "ショッピングを続ける"
 
-#: ./browser/cart.py:383
+#: ./browser/cart.py:432
 msgid "Could not find order"
 msgstr "オーダーが見つかりませんでした。"
 
-#: ./browser/admin_order.py:98
+#: ./browser/admin_order.py:100
 msgid "Created"
 msgstr "作成完了"
 
 #. Default: "Credit Card Last 4"
-#: ./browser/templates/order-summary.pt:34
+#: ./browser/templates/order-summary.pt:54
 msgid "Credit Card Last 4"
 msgstr "クレジットカードの最後4桁"
 
-#: ./interfaces.py:256
+#: ./interfaces.py:261
 msgid "Credit cards accepted for payment"
 msgstr "支払に利用可能なクレジットカードを選択してください。"
 
@@ -205,27 +206,27 @@ msgstr "支払に利用可能なクレジットカードを選択してくださ
 msgid "Currency Configuration"
 msgstr ""
 
-#: ./interfaces.py:300
+#: ./interfaces.py:305
 msgid "Currency Symbol"
 msgstr "通貨表示"
 
-#: ./interfaces.py:354
+#: ./interfaces.py:359
 msgid "Customer Authorization Email Template"
 msgstr ""
 
-#: ./interfaces.py:371
+#: ./interfaces.py:376
 msgid "Customer Charge Email Template"
 msgstr ""
 
-#: ./interfaces.py:388
+#: ./interfaces.py:393
 msgid "Customer Decline Email Template"
 msgstr ""
 
-#: ./browser/admin_order.py:90
+#: ./browser/admin_order.py:92
 msgid "Customer Id"
 msgstr "カスタマーID"
 
-#: ./interfaces.py:325
+#: ./interfaces.py:330
 msgid "Decimal Symbol"
 msgstr "小数点表示"
 
@@ -233,21 +234,21 @@ msgstr "小数点表示"
 msgid "Delete"
 msgstr "削除"
 
-#: ./interfaces.py:315
+#: ./interfaces.py:320
 msgid "Digit Grouping Symbol"
 msgstr ""
 
 #. Default: "Disclaimer"
 #: ./browser/templates/legal-disclaimers-links.pt:14
-#: ./interfaces.py:418
+#: ./interfaces.py:423
 msgid "Disclaimer"
 msgstr "規約"
 
-#: ./interfaces.py:430
+#: ./interfaces.py:435
 msgid "Display 'Contact me with offers' option on Checkout page"
 msgstr "「告知を受け付ける」オプションを購入ページに表示する。"
 
-#: ./browser/widgets.py:216
+#: ./browser/widgets.py:211
 msgid "Do Not Send"
 msgstr ""
 
@@ -263,20 +264,20 @@ msgstr "トランザクション完了時に販売者に告知メールを送信
 msgid "Donatable"
 msgstr "寄付可"
 
-#: ./interfaces.py:207
+#: ./interfaces.py:213
 msgid "Donatable Content Types"
 msgstr "寄付可能"
 
-#: ./interfaces.py:103
+#: ./interfaces.py:106
 msgid "Donation Level Name"
 msgstr "寄付レベル名"
 
-#: ./interfaces.py:108
+#: ./interfaces.py:111
 msgid "Donation Levels"
 msgstr "寄付レベル"
 
 #. Default: "E-mail"
-#: ./browser/templates/order-summary.pt:44
+#: ./browser/templates/order-summary.pt:64
 msgid "E-mail"
 msgstr "E-メール"
 
@@ -284,55 +285,55 @@ msgstr "E-メール"
 msgid "Email Notifications"
 msgstr "E-メール告知"
 
-#: ./interfaces.py:355
+#: ./interfaces.py:360
 msgid "Email sent to the customer following the authorization of a new order (prior to the charge being completed)."
 msgstr ""
 
-#: ./interfaces.py:389
+#: ./interfaces.py:394
 msgid "Email sent to the customer following the decline of a new order."
 msgstr ""
 
-#: ./interfaces.py:372
+#: ./interfaces.py:377
 msgid "Email sent to the customer following the successful charge of a new order."
 msgstr ""
 
-#: ./interfaces.py:348
+#: ./interfaces.py:353
 msgid "Email sent to the merchant following the authorization of a new order (prior to the charge being completed)."
 msgstr ""
 
-#: ./interfaces.py:382
+#: ./interfaces.py:387
 msgid "Email sent to the merchant following the decline of a new order."
 msgstr ""
 
-#: ./interfaces.py:365
+#: ./interfaces.py:370
 msgid "Email sent to the merchant following the successful charge of a new order."
 msgstr ""
 
-#: ./browser/admin_order.py:171
+#: ./browser/admin_order.py:175
 msgid "Export All"
 msgstr "全てエクスポート"
 
-#: ./browser/admin_order.py:138
+#: ./browser/admin_order.py:142
 msgid "Export Search"
 msgstr "エクスポート検索"
 
-#: ./browser/cart.py:372
+#: ./browser/cart.py:421
 msgid "Fill"
 msgstr ""
 
-#: ./browser/admin_order.py:246
+#: ./browser/admin_order.py:262
 msgid "Filter"
 msgstr "フィルター"
 
-#: ./browser/admin_order.py:96
+#: ./browser/admin_order.py:98
 msgid "Fulfillment"
 msgstr ""
 
-#: ./browser/admin_order.py:747
+#: ./browser/admin_order.py:782
 msgid "Item Id"
 msgstr "アイテムID"
 
-#: ./browser/admin_order.py:91
+#: ./browser/admin_order.py:93
 msgid "Last4"
 msgstr "最後4桁"
 
@@ -343,85 +344,85 @@ msgstr "法的規約"
 #. Default: "Mailing Address"
 #: ./browser/templates/checkout-address.pt:43
 #: ./browser/templates/checkout-review-pay.pt:38
-#: ./browser/templates/order-summary.pt:63
+#: ./browser/templates/order-summary.pt:83
 msgid "Mailing Address"
 msgstr "出荷先"
 
-#: ./browser/checkout.py:612
+#: ./browser/checkout.py:605
 msgid "Make Payment"
 msgstr "支払う"
 
-#: ./interfaces.py:347
+#: ./interfaces.py:352
 msgid "Merchant Authorization Email Template"
 msgstr ""
 
-#: ./interfaces.py:364
+#: ./interfaces.py:369
 msgid "Merchant Charge Email Template"
 msgstr ""
 
-#: ./interfaces.py:381
+#: ./interfaces.py:386
 msgid "Merchant Decline Email Template"
 msgstr ""
 
-#: ./browser/checkout.py:748
+#: ./browser/checkout.py:746
 msgid "Misconfigured Store - No Shipping Method Activated"
 msgstr ""
 
-#: ./browser/admin_order.py:586
-#: ./browser/checkout.py:592
+#: ./browser/admin_order.py:607
+#: ./browser/checkout.py:583
 msgid "N/A"
 msgstr ""
 
-#: ./browser/admin_order.py:748
-#: ./browser/cart.py:240
-#: ./browser/checkout.py:548
+#: ./browser/admin_order.py:783
+#: ./browser/cart.py:290
+#: ./browser/checkout.py:539
 msgid "Name"
 msgstr "商品名"
 
-#: ./browser/admin_order.py:93
+#: ./browser/admin_order.py:95
 msgid "Name on Card"
 msgstr "カード記載の氏名"
 
-#: ./interfaces.py:310
+#: ./interfaces.py:315
 msgid "Negative Currency Format"
 msgstr ""
 
-#: ./browser/admin_order.py:114
+#: ./browser/admin_order.py:118
 msgid "No orders found for your filter."
 msgstr ""
 
-#: ./interfaces.py:330
+#: ./interfaces.py:335
 msgid "Number of Digits After Decimal"
 msgstr "小数点以下の位"
 
-#: ./interfaces.py:320
+#: ./interfaces.py:325
 msgid "Number of Digits in Group"
 msgstr ""
 
-#: ./interfaces.py:178
+#: ./interfaces.py:184
 msgid "Only digits allowed"
 msgstr "「333-444-5555」ではなく「3334445555」のように連続した半角数字で入力してください。"
 
-#: ./browser/order.py:123
+#: ./browser/order.py:121
 msgid "Order Details"
 msgstr "オーダー詳細"
 
-#: ./browser/admin_order.py:89
-#: ./interfaces.py:508
+#: ./browser/admin_order.py:90
+#: ./interfaces.py:513
 msgid "Order Id"
 msgstr "オーダーID"
 
-#: ./browser/cart.py:334
+#: ./browser/cart.py:383
 msgid "Order Templates"
 msgstr "オーダーテンプレート"
 
 #. Default: "Order template name"
-#: ./browser/templates/checkout-review-pay.pt:62
+#: ./browser/templates/checkout-review-pay.pt:59
 msgid "Order template name"
 msgstr "オーダーテンプレート名"
 
 #. Default: "Payment Details"
-#: ./browser/templates/checkout-review-pay.pt:81
+#: ./browser/templates/checkout-review-pay.pt:74
 msgid "Payment Details"
 msgstr "カード決済支払詳細"
 
@@ -429,7 +430,7 @@ msgstr "カード決済支払詳細"
 msgid "Payment Options"
 msgstr "支払オプション"
 
-#: ./interfaces.py:244
+#: ./interfaces.py:250
 msgid "Payment Processor"
 msgstr "支払処理プロセッサ"
 
@@ -438,7 +439,7 @@ msgid "Payment Processor Settings"
 msgstr "支払処理プロセッサ設定"
 
 #. Default: "Phone Number"
-#: ./browser/templates/order-summary.pt:46
+#: ./browser/templates/order-summary.pt:66
 msgid "Phone Number"
 msgstr "電話番号"
 
@@ -446,7 +447,7 @@ msgstr "電話番号"
 msgid "Please Select Payment Processor in Payment Options Settings"
 msgstr "支払オプション設定で支払処理プロセッサを選択してください。"
 
-#: ./interfaces.py:305
+#: ./interfaces.py:310
 msgid "Positive Currency Format"
 msgstr ""
 
@@ -458,7 +459,7 @@ msgstr "ポンド"
 msgid "Premium"
 msgstr "プレミアム"
 
-#: ./interfaces.py:199
+#: ./interfaces.py:205
 msgid "Premium Content Types"
 msgstr "プレミアムコンテンツタイプ"
 
@@ -467,43 +468,56 @@ msgstr "プレミアムコンテンツタイプ"
 msgid "Premium not implemented yet"
 msgstr "プレミアムはまだ実装されていません。"
 
-#: ./browser/cart.py:399
+#: ./browser/cart.py:448
 msgid "Previous Order Loaded into Cart"
 msgstr "先のオーダーがカートにロードされました。"
 
-#: ./browser/admin_order.py:97
-#: ./browser/cart.py:241
-#: ./browser/checkout.py:549
+#: ./browser/admin_order.py:99
+#: ./browser/cart.py:291
+#: ./browser/checkout.py:540
 msgid "Price"
 msgstr "価格"
 
 #. Default: "Privacy Policy"
 #: ./browser/templates/legal-disclaimers-links.pt:7
-#: ./interfaces.py:422
+#: ./interfaces.py:427
 msgid "Privacy Policy"
 msgstr "プライバシーポリシー"
 
-#: ./browser/admin_order.py:92
+#: ./browser/admin_order.py:91
+msgid "Proc Id"
+msgstr ""
+
+#: ./browser/admin_order.py:94
 msgid "Proc Trans Id"
 msgstr ""
 
-#: ./browser/admin_order.py:746
-#: ./browser/cart.py:238
-#: ./browser/checkout.py:547
+#: ./browser/admin_order.py:781
+#: ./browser/cart.py:289
+#: ./browser/checkout.py:538
 msgid "Quantity"
 msgstr "数"
+
+#: ./browser/portlets/recurring.py:23
+msgid "Recurring Payment"
+msgstr ""
+
+#. Default: "You will be billed for this product every ${value_interval} ${value_unit}, for a total of ${value_total_occurrences} payments."
+#: ./browser/templates/cart-listing-extras.pt:4
+msgid "RecurringCartSummary"
+msgstr ""
 
 #: ./browser/admin.py:283
 msgid "Sales Tax Configuration"
 msgstr "税金設定"
 
 #. Default: "Same as billing"
-#: ./browser/templates/order-summary.pt:72
+#: ./browser/templates/order-summary.pt:92
 msgid "Same as billing"
 msgstr "請求先と同じ"
 
 #. Default: "Save this order as a template"
-#: ./browser/templates/checkout-review-pay.pt:70
+#: ./browser/templates/checkout-review-pay.pt:65
 msgid "Save this order as a template"
 msgstr "このオーダーをテンプレートとして保存"
 
@@ -512,7 +526,7 @@ msgstr "このオーダーをテンプレートとして保存"
 msgid "Save to address book"
 msgstr "アドレスブックに保存"
 
-#: ./browser/cart.py:335
+#: ./browser/cart.py:384
 msgid "Select a previous order to fill your cart."
 msgstr ""
 
@@ -521,31 +535,31 @@ msgstr ""
 msgid "Select a shipping rate:"
 msgstr "出荷料金を選択する。"
 
-#: ./browser/widgets.py:216
+#: ./browser/widgets.py:211
 msgid "Send"
 msgstr ""
 
-#: ./interfaces.py:358
+#: ./interfaces.py:363
 msgid "Send Customer Authorization Email?"
 msgstr ""
 
-#: ./interfaces.py:375
+#: ./interfaces.py:380
 msgid "Send Customer Charge Email?"
 msgstr ""
 
-#: ./interfaces.py:392
+#: ./interfaces.py:397
 msgid "Send Customer Decline Email?"
 msgstr ""
 
-#: ./interfaces.py:351
+#: ./interfaces.py:356
 msgid "Send Merchant Authorization Email?"
 msgstr ""
 
-#: ./interfaces.py:368
+#: ./interfaces.py:373
 msgid "Send Merchant Charge Email?"
 msgstr ""
 
-#: ./interfaces.py:385
+#: ./interfaces.py:390
 msgid "Send Merchant Decline Email?"
 msgstr ""
 
@@ -557,7 +571,7 @@ msgstr "トランザクション完了時に購入者にメール告知を送信
 msgid "Send merchant email notification when a transaction happens"
 msgstr "トランザクション完了時に販売者にメール告知を送信する。"
 
-#: ./interfaces.py:283
+#: ./interfaces.py:288
 msgid "Session Timeout"
 msgstr "セッションタイムアウト"
 
@@ -569,28 +583,28 @@ msgstr "設定"
 msgid "Shippable"
 msgstr "出荷可"
 
-#: ./interfaces.py:215
+#: ./interfaces.py:221
 msgid "Shippable Product Types"
 msgstr "出荷可能"
 
-#: ./browser/cart.py:220
+#: ./browser/templates/cart-listing-extras.pt:15
 msgid "Shipping"
 msgstr "送料"
 
 #: ./browser/admin.py:182
-#: ./interfaces.py:226
+#: ./interfaces.py:232
 msgid "Shipping Methods"
 msgstr "出荷方法"
 
-#: ./interfaces.py:234
+#: ./interfaces.py:240
 msgid "Shipping Rate Service"
 msgstr "出荷レートサービス"
 
-#: ./interfaces.py:229
+#: ./interfaces.py:235
 msgid "Shipping methods to offer for orders in your store"
 msgstr ""
 
-#: ./interfaces.py:237
+#: ./interfaces.py:243
 msgid "Shipping services to offer for orders in your store"
 msgstr ""
 
@@ -600,7 +614,7 @@ msgstr ""
 msgid "Shopping Cart"
 msgstr "ショッピングカート"
 
-#: ./interfaces.py:285
+#: ./interfaces.py:290
 msgid "Shopping cart session timeout (in seconds)"
 msgstr "ショッピングカートセッションタイムアウト"
 
@@ -608,23 +622,23 @@ msgstr "ショッピングカートセッションタイムアウト"
 msgid "Site Profile"
 msgstr "サイトプロフィール"
 
-#: ./browser/admin_order.py:95
+#: ./browser/admin_order.py:97
 msgid "Status"
 msgstr "状態"
 
-#: ./interfaces.py:127
+#: ./interfaces.py:133
 msgid "Store/Organization Name"
 msgstr "ショップ・組織名"
 
-#: ./browser/cart.py:216
+#: ./browser/templates/cart-listing-extras.pt:11
 msgid "SubTotal"
 msgstr "小計"
 
-#: ./interfaces.py:292
+#: ./interfaces.py:297
 msgid "Tax Method"
 msgstr "税法"
 
-#: ./interfaces.py:432
+#: ./interfaces.py:437
 msgid "Text to use for opt in checkbox"
 msgstr ""
 
@@ -632,22 +646,22 @@ msgstr ""
 msgid "The currently configured Payment Processor cannot be found; please check if the corresponding package is installed correctly."
 msgstr "現在設定されている支払処理プロセッサが見つかりません。処理プロセッサが正しくインストールされているか確認してください。"
 
-#: ./interfaces.py:467
+#: ./interfaces.py:472
 msgid "The list of months"
 msgstr "月のリスト"
 
-#: ./browser/admin_order.py:750
-#: ./browser/cart.py:226
-#: ./browser/checkout.py:550
+#: ./browser/admin_order.py:785
+#: ./browser/cart.py:292
+#: ./browser/checkout.py:541
 msgid "Total"
 msgstr "合計"
 
 #. Default: "Transaction ID"
-#: ./browser/templates/order-summary.pt:30
+#: ./browser/templates/order-summary.pt:50
 msgid "Transaction ID"
 msgstr "トランザクションID"
 
-#: ./interfaces.py:335
+#: ./interfaces.py:340
 msgid "US Currency Formatting"
 msgstr "アメリカ合衆国通貨フォーマット"
 
@@ -655,7 +669,7 @@ msgstr "アメリカ合衆国通貨フォーマット"
 msgid "US Dollars"
 msgstr "アメリカドル"
 
-#: ./browser/cart.py:268
+#: ./browser/cart.py:317
 msgid "Update"
 msgstr "更新"
 
@@ -679,15 +693,15 @@ msgstr ""
 msgid "Upgrade to Latest"
 msgstr ""
 
-#: ./interfaces.py:250
+#: ./interfaces.py:256
 msgid "Use SSL for checkout"
 msgstr "購入時にSSL接続を利用する。"
 
-#: ./browser/admin_order.py:230
+#: ./browser/admin_order.py:244
 msgid "User Id"
 msgstr ""
 
-#: ./browser/portlets/variableamountdonate.py:22
+#: ./browser/portlets/variableamountdonate.py:23
 msgid "Variable Amount Donation"
 msgstr "自由金額寄付"
 
@@ -696,7 +710,7 @@ msgstr "自由金額寄付"
 msgid "We are sorry but your credit card was declined."
 msgstr "申し訳ありませんが、クレジットカード決済は拒否されました。"
 
-#: ./interfaces.py:276
+#: ./interfaces.py:281
 msgid "Weight Units"
 msgstr "重量単位"
 
@@ -716,11 +730,11 @@ msgid "Your Installation of GetPaid is Current"
 msgstr ""
 
 #. Default: "You can check the status of your order ${status_url}"
-#: ./browser/templates/checkout-thank-you.pt:34
+#: ./browser/templates/checkout-thank-you.pt:32
 msgid "box_order_status_url_description"
 msgstr "オーダーの状態を${status_url}から確認できます。"
 
-#: ./interfaces.py:456
+#: ./interfaces.py:461
 msgid "countries"
 msgstr "国"
 
@@ -793,7 +807,7 @@ msgid "heading_checkout_privacy_policy"
 msgstr "プライバシーポリシー"
 
 #. Default: "Thank you for your order"
-#: ./browser/templates/checkout-thank-you.pt:8
+#: ./browser/templates/checkout-thank-you.pt:9
 msgid "heading_checkout_thank_you"
 msgstr "オーダーありがとうございます。"
 
@@ -827,11 +841,16 @@ msgstr ""
 msgid "heading_general_information"
 msgstr "概要"
 
-#. Default: "Site Orders"
-#: ./browser/templates/orders-template.pt:44
-#: ./browser/templates/settings-template.pt:37
+#. Default: "GetPaid Setup"
+#: ./browser/templates/settings-template.pt:38
+#, fuzzy
 msgid "heading_getpaid_setup"
 msgstr "サイトオーダー"
+
+#. Default: "Site Orders"
+#: ./browser/templates/orders-template.pt:46
+msgid "heading_getpaid_setup_orders"
+msgstr ""
 
 #. Default: "new state"
 #: ./browser/templates/order-workflow-log.pt:9
@@ -869,20 +888,24 @@ msgid "heading_your_orders"
 msgstr "オーダー"
 
 #. Default: "here"
-#: ./browser/templates/checkout-thank-you.pt:35
+#: ./browser/templates/checkout-thank-you.pt:33
 msgid "here"
 msgstr "ここ"
 
 #. Default: "Add to Cart"
-#: ./browser/templates/portlet-content-buyable.pt:42
+#: ./browser/templates/portlet-content-buyable.pt:44
 #: ./browser/templates/portlet-content-premium.pt:40
-#: ./browser/templates/portlet-content-shippable.pt:42
+#: ./browser/templates/portlet-content-recurringpayment.pt:52
 msgid "label_add_to_cart"
 msgstr "カートに追加"
 
 #. Default: "Donate!"
-#: ./browser/templates/portlet-content-donatable.pt:38
-#: ./browser/templates/portlet-content-variableamountdonatable.pt:72
+#: ./browser/templates/portlet-content-variableamountdonatable.pt:44
+msgid "label_donate"
+msgstr ""
+
+#. Default: "Donate!"
+#: ./browser/templates/portlet-content-donatable.pt:40
 msgid "label_donate!"
 msgstr "寄付！"
 
@@ -902,8 +925,8 @@ msgid "label_organization_name"
 msgstr "ショップ・組織名"
 
 #. Default: "Up to GetPaid Setup"
-#: ./browser/templates/orders-template.pt:47
-#: ./browser/templates/settings-template.pt:40
+#: ./browser/templates/orders-template.pt:49
+#: ./browser/templates/settings-template.pt:41
 msgid "label_up_to_getpaid_setup"
 msgstr "GetPaid設定へ"
 
@@ -962,11 +985,11 @@ msgstr "オーダーを検索"
 msgid "legend_summary"
 msgstr "要約"
 
-#: ./interfaces.py:466
+#: ./interfaces.py:471
 msgid "months"
 msgstr "月"
 
-#: ./interfaces.py:460
+#: ./interfaces.py:465
 msgid "states"
 msgstr "都道府県"
 
@@ -976,12 +999,12 @@ msgid "text_contains_items"
 msgstr "${size}アイテムあります。"
 
 #. Default: "The Context ${portal} Does Not Support this Operation."
-#: ./browser/templates/payable-form.pt:25
+#: ./browser/templates/payable-form.pt:17
 msgid "text_context_does_not_support_operation"
 msgstr "${portal}はこのオペレーションをサポートしていません。"
 
 #. Default: "Creation Date"
-#: ./browser/templates/order-summary.pt:14
+#: ./browser/templates/order-summary.pt:34
 msgid "text_creation_date"
 msgstr "作成日"
 
@@ -992,32 +1015,37 @@ msgid "text_current_status"
 msgstr "現在の状態"
 
 #. Default: "Customer Id"
-#: ./browser/templates/order-summary.pt:10
+#: ./browser/templates/order-summary.pt:30
 msgid "text_customer_id"
 msgstr "カスタマーID"
 
+#. Default: "Donation: ${value_currency} ${value_price}"
+#: ./browser/templates/portlet-content-variableamountdonatable.pt:33
+msgid "text_donate_price"
+msgstr ""
+
 #. Default: "Finance Status"
-#: ./browser/templates/order-summary.pt:18
+#: ./browser/templates/order-summary.pt:38
 msgid "text_finance_status"
 msgstr "ファイナンス状態"
 
 #. Default: "Shipping Service"
-#: ./browser/templates/order-summary.pt:80
+#: ./browser/templates/order-summary.pt:100
 msgid "text_fulfillment_shipping_method"
 msgstr "ショッピングサービス"
 
 #. Default: "Shipment Tracking Numbers:"
-#: ./browser/templates/order-summary.pt:89
+#: ./browser/templates/order-summary.pt:109
 msgid "text_fulfillment_shipping_track_number"
 msgstr "出荷トレッキング番号："
 
 #. Default: "Shipment Weight"
-#: ./browser/templates/order-summary.pt:84
+#: ./browser/templates/order-summary.pt:104
 msgid "text_fulfillment_shipping_weight"
 msgstr "出荷重量"
 
 #. Default: "Fulfillment Status"
-#: ./browser/templates/order-summary.pt:22
+#: ./browser/templates/order-summary.pt:42
 msgid "text_fulfillment_status"
 msgstr ""
 
@@ -1026,11 +1054,41 @@ msgstr ""
 msgid "text_order_id"
 msgstr "オーダーID"
 
-#. Default: "Price: <span>${DYNAMIC_CONTENT}</span>"
-#: ./browser/templates/portlet-content-buyable.pt:31
-#: ./browser/templates/portlet-content-donatable.pt:31
-#: ./browser/templates/portlet-content-shippable.pt:31
+#. Default: "Interval"
+#: ./browser/templates/order-summary.pt:16
+msgid "text_order_interval"
+msgstr ""
+
+#. Default: "Total Occurrences"
+#: ./browser/templates/order-summary.pt:20
+msgid "text_order_occurrences"
+msgstr ""
+
+#. Default: "Recurring Order"
+#: ./browser/templates/order-summary.pt:14
+msgid "text_order_recurring"
+msgstr ""
+
+#. Default: "Non-recurring Order"
+#: ./browser/templates/order-summary.pt:11
+msgid "text_order_standard"
+msgstr ""
+
+#. Default: "Order Type"
+#: ./browser/templates/order-summary.pt:10
+msgid "text_order_type"
+msgstr ""
+
+#. Default: "Price: ${value_currency} ${value_price}"
+#: ./browser/templates/portlet-content-buyable.pt:33
+#: ./browser/templates/portlet-content-donatable.pt:33
+#: ./browser/templates/portlet-content-recurringpayment.pt:34
 msgid "text_price"
+msgstr ""
+
+#. Default: "Processor Id"
+#: ./browser/templates/order-summary.pt:26
+msgid "text_processor_id"
 msgstr ""
 
 #. Default: "Product Details"
@@ -1040,8 +1098,13 @@ msgstr ""
 msgid "text_product_details"
 msgstr "商品詳細"
 
+#. Default: "You will be billed for this product every ${value_interval} month(s), for a total of ${value_occurrences} months."
+#: ./browser/templates/portlet-content-recurringpayment.pt:41
+msgid "text_recurrence"
+msgstr ""
+
 #. Default: "Total Price"
-#: ./browser/templates/order-summary.pt:26
+#: ./browser/templates/order-summary.pt:46
 msgid "text_total_price"
 msgstr "合計額"
 
@@ -1050,17 +1113,17 @@ msgstr "合計額"
 msgid "text_your_cart"
 msgstr "カート"
 
-#: ./interfaces.py:470
+#: ./interfaces.py:475
 msgid "years"
 msgstr "年"
 
 #. Default: "Your finance state is"
-#: ./browser/templates/checkout-thank-you.pt:13
+#: ./browser/templates/checkout-thank-you.pt:14
 msgid "your_finance_state_is"
 msgstr "ファイナンス状態："
 
 #. Default: "Your order id is"
-#: ./browser/templates/checkout-thank-you.pt:19
+#: ./browser/templates/checkout-thank-you.pt:20
 msgid "your_order_id"
 msgstr "オーダーID："
 

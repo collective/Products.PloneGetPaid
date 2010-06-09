@@ -34,14 +34,14 @@ from Products.PloneGetPaid.i18n import _
 from Products.CMFPlone.utils import safe_unicode
 from Products.CMFPlone.i18nl10n import utranslate
 
-from Products.PloneGetPaid.browser.interfaces import ICartView
+from Products.PloneGetPaid.browser.interfaces import IDontShowGetPaidPortlets
 
 #################################
 # Shopping Cart Views
 
 class ShoppingCart( BrowserView ):
 
-    interface.implements(ICartView)
+    interface.implements(IDontShowGetPaidPortlets)
     _cart = None
 
     def __call__( self ):
@@ -273,6 +273,13 @@ class CartFormatter( table.StandaloneSortFormatter ):
     def is_recurring(self):
         return self.context.is_recurring()
 
+def formatLinkCell(value, item, formatter):
+    """zc.table.column.GetterColumn default cell_formatter
+    method replaces <>&, we need that to inject our anchor-tag
+    so we overwrite this method
+    """
+    return unicode(value)
+
 class ShoppingCartListing( ContainerViewlet ):
 
     actions = ContainerViewlet.actions.copy()
@@ -280,7 +287,7 @@ class ShoppingCartListing( ContainerViewlet ):
     columns = [
         column.SelectionColumn( lambda item: item.item_id, name="selection"),
         column.FieldEditColumn( _(u"Quantity"), 'edit', interfaces.ILineItem['quantity'], lambda item: item.item_id ),
-        column.GetterColumn( title=_(u"Name"), getter=lineItemURL ),
+        column.GetterColumn( title=_(u"Name"), getter=lineItemURL, cell_formatter=formatLinkCell ),
         column.GetterColumn( title=_(u"Price"), getter=lineItemPrice ),
         column.GetterColumn( title=_(u"Total"), getter=lineItemTotal ),
        ]

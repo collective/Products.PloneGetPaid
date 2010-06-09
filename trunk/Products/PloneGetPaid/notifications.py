@@ -13,6 +13,9 @@ from DocumentTemplate.DT_HTML import HTML
 
 from interfaces import _
 from zope.i18n import translate
+from Products.CMFPlone.utils import safe_unicode
+from zope.component._api import getUtility
+from Products.PloneGetPaid.interfaces import ICurrencyFormatter
 
 class MerchantOrderNotificationMessage( object ):
 
@@ -31,7 +34,7 @@ class MerchantOrderNotificationMessage( object ):
         msg = _(template, mapping=kwargs)
 
         return translate(msg)
-    
+
     def __init__( self, order ):
         self.order = order
 
@@ -54,7 +57,7 @@ ${store_url}/@@getpaid-order/${order_id}
             kwargs = {
                      'view_order_information': view_order
                      }
-            temp = _(template, 
+            temp = _(template,
                      mapping=kwargs)
             template = translate(temp)
 
@@ -86,7 +89,7 @@ def getPortal( ):
         # BBB for Zope 2.9
         portal = site.context
     return portal
-    
+
 def sendNotification( order, event ):
     """ sends out email notifications to merchants and clients based on settings.
 
@@ -97,13 +100,15 @@ def sendNotification( order, event ):
     mailer = getToolByName(portal, 'MailHost')
 
     settings = interfaces.IGetPaidManagementOptions( portal )
+
+    formatter = getUtility(ICurrencyFormatter)
+    currency = formatter.currency(portal)
+
     store_url = portal.absolute_url()
-    properties = getToolByName(portal, 'portal_properties')
-    encoding = properties.site_properties.default_charset
     order_contents = u'\n'.join([u' '.join((str(cart_item.quantity),
-                                  cart_item.name.decode(encoding),
+                                  safe_unicode(cart_item.name),
                                   u"@%0.2f" % (cart_item.cost,),
-                                  'total: US$%0.2f' % (cart_item.cost*cart_item.quantity,),
+                                  'total: %s %0.2f' % (currency, cart_item.cost*cart_item.quantity,),
                                 )) for cart_item in order.shopping_cart.values()])
 
     # Auth
@@ -176,39 +181,42 @@ def sendNotification( order, event ):
                               order_contents,
                               mailer)
 
-def sendMerchantEmail(adapterName, template, settings, order, 
+def sendMerchantEmail(adapterName, template, settings, order,
                       store_url, order_contents, mailer):
 
-    adapter = component.getAdapter(order, 
-                                   interfaces.INotificationMailMessage, 
+    adapter = component.getAdapter(order,
+                                   interfaces.INotificationMailMessage,
                                    adapterName)
     message = adapter(settings, store_url, order_contents, template)
 
     try:
-        mailer.send(str(message))
-    except:
+        mailer.send(message, charset='utf-8')
+    except Exception, e:
         # Something happened and most probably we weren't able to send the
         # message. That's bad, but we got the money already and really
         # should do the shipment
         # XXX: somebody should be notified about that
-        pass
+        import logging
+        logging.fatal("an error occured while sending a notification for order %s email\n%s" % (order.getOrderId(), str(e)))
 
 
-def sendCustomerEmail(adapterName, template, settings, order, 
+def sendCustomerEmail(adapterName, template, settings, order,
                       store_url, order_contents, mailer):
 
     email = order.contact_information.email
     if email:
-        adapter = component.getAdapter( order, 
-                                        interfaces.INotificationMailMessage, 
+        adapter = component.getAdapter( order,
+                                        interfaces.INotificationMailMessage,
                                         adapterName)
 
         message = adapter(settings, store_url, order_contents, template)
         try:
-            mailer.send(str(message))
-        except:
+            mailer.send(message, charset='utf-8')
+        except Exception, e:
             # Something happened and most probably we weren't able to send the
             # message. That's bad, but we got the money already and really
             # should do the shipment
             # XXX: somebody should be notified about that
-            pass
+            import logging
+            logging.fatal("an error occured while sending a notification for order %s email\n%s" % (order.getOrderId(), str(e)))
+

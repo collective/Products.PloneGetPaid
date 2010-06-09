@@ -52,17 +52,12 @@
                 i18n:translate="" id="addressbook_entry_name_help_text">A name you remember this address by. Will not appear on shipping label.</div>
                 <input type="text" id="addressbook_entry_name" name="addressbook_entry_name" />
             </div>
-            <input type="button" id="save_to_addressbook" class="standalone" name="save_to_addressbook" value="Save to address book" onclick="swapVisibility('save_to_addressbook','save_ab_entry')" i18n:attributes="value" /> 
+            <input type="button" id="save_to_addressbook" class="standalone" name="save_to_addressbook" value="Save to address book" onclick="swapVisibility('save_to_addressbook','save_ab_entry')" i18n:attributes="value" />
             <input type="button" id="load_from_addressbook" class="standalone" tal:condition="view/hasAddressBookEntries" name="load_from_addressbook" value="Load from address book" onclick="window.open('./@@addresbook-listing','_blank','menubar=0,resizable=1,width=350,height=250')"/>
             </div>
           </tal:notanon>
       </div>
-      <tal:def define="same_billing request/form.ship_same_billing|nothing">
-        <tal:block tal:replace='structure string:<script type="text/javascript" charset="utf-8">'></tal:block>
-          <tal:cond condition="not:same_billing" replace="structure string:enableMailingAddress();"></tal:cond>
-          <tal:cond condition="same_billing" replace="structure string:disableMailingAddress();"></tal:cond>
-        <tal:block tal:replace='structure string:</script>'></tal:block>
-      </tal:def>
+
     </fieldset>
   </td>
 

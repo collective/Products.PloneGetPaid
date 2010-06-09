@@ -11,8 +11,6 @@
 <head>
     <metal:javascriptslot fill-slot="javascript_head_slot" >
       <script type="text/javascript"
-              tal:attributes="src string:$portal_url/++resource++jquery.js"></script>
-      <script type="text/javascript"
               tal:attributes="src string:$portal_url/++resource++checkout-process.js"></script>
     </metal:javascriptslot>
 </head>
@@ -20,10 +18,9 @@
 <div metal:fill-slot="content">
   <div id="content" class="documentEditable">
     <div id="region-content" class="documentContent">
-      <metal:block define-slot="getpaid_content" tal:content="nothing"
-                   i18n:translate="">
-	Generic Content Space Template for Getpaid which hides Content
-	Context UI
+      <metal:block define-slot="getpaid_content" tal:content="nothing">
+    	Generic Content Space Template for Getpaid which hides Content
+    	Context UI
       </metal:block>
     </div>
   </div>
