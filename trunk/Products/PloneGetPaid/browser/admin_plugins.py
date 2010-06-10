@@ -1,3 +1,8 @@
+"""
+admin plugins
+
+$Id: admin_processors.py 3449 2010-04-13 14:46:04Z datakurre $
+"""
 from zope import component, interface, schema
 
 from Products.Five.browser import BrowserView

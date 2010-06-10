@@ -187,7 +187,5 @@
      />
   -->
 
-  <!-- Add/Remove Plugins (see: getpaid.core.interfaces.IPluginManager) -->
-  <include file="admin_plugins.zcml" />
 
 </configure>

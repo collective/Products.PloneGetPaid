@@ -73,30 +73,9 @@
    -->
    
   <!-- Management Payment Options Editing -->
-  <browser:page
-     for="getpaid.core.interfaces.IStore"
-     name="manage-getpaid-payment-options"
-     class=".admin.PaymentOptions"     
-     permission="cmf.ManagePortal"
-     menu="getpaid_settings"
-     title="Payment Options"
-     />
-
-  <browser:viewletManager
-     name="getpaid.payment.settings"
-     permission="cmf.ManagePortal"
-     provides="..interfaces.ISettingsPaymentManager"
-     class=".admin.PaymentViewletManager"
-     />
-  
-  <browser:viewlet
-     name="settings"
-     manager="..interfaces.ISettingsPaymentManager"
-     class=".admin.PaymentProcessors"
-     permission="cmf.ManagePortal"
-     weight="10"
-     />
-    
+  <!-- Payment Processor Settings (see: Products.PloneGetPaid.interfaces.SettingsPaymentManager) -->
+  <include file="admin_processors.zcml" />
+     
   <!-- Sales Tax Options -->
   <browser:page
      for="getpaid.core.interfaces.IStore"
@@ -194,6 +173,8 @@
      />  
   -->     
 
-
+  <!-- Plugins -->
+  <!-- Add/Remove Plugins (see: getpaid.core.interfaces.IPluginManager) -->
+  <include file="admin_plugins.zcml" />
 
 </configure>

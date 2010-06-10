@@ -1,0 +1,29 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+           i18n_domain="plonegetpaid">
+
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-payment-options"
+     class=".admin_processors.PaymentOptions"     
+     permission="cmf.ManagePortal"
+     menu="getpaid_settings"
+     title="Payment Options"
+     />
+
+  <browser:viewletManager
+     name="getpaid.payment.settings"
+     permission="cmf.ManagePortal"
+     provides="..interfaces.ISettingsPaymentManager"
+     class=".admin_processors.PaymentViewletManager"
+     />
+  
+  <browser:viewlet
+     name="settings"
+     manager="..interfaces.ISettingsPaymentManager"
+     class=".admin_processors.PaymentProcessors"
+     permission="cmf.ManagePortal"
+     weight="10"
+     />
+</configure>
