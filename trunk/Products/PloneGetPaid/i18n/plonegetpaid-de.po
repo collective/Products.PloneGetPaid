@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
 "POT-Creation-Date: 2010-06-04 10:01+0000\n"
-"PO-Revision-Date: 2010-06-04 11:00+0200\n"
+"PO-Revision-Date: 2010-06-09 18:17+0200\n"
 "Last-Translator: Harald Friessnegger <harald@webmeisterei.com>\n"
 "Language-Team: Deutsch <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -813,7 +813,7 @@ msgstr ""
 #. Default: "Thank you for your order"
 #: ./browser/templates/checkout-thank-you.pt:9
 msgid "heading_checkout_thank_you"
-msgstr "Vielen Dank für ihre Bestellung"
+msgstr "Vielen Dank für Ihre Bestellung"
 
 #. Default: "comment"
 #: ./browser/templates/order-workflow-log.pt:10
@@ -1129,4 +1129,5 @@ msgstr ""
 #: ./browser/templates/checkout-thank-you.pt:20
 msgid "your_order_id"
 msgstr "Ihre Bestellnummer lautet"
+
 
