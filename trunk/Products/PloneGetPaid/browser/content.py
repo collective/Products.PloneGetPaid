@@ -294,14 +294,13 @@ class ContentControl( BrowserView ):
         """
         """
 
-        processor = component.getAdapter( getSite(),
-                                          igetpaid.IPaymentProcessor,
-                                          self.options.payment_processor )
+        processors = [component.getUtility(igetpaid.IPaymentProcessor, name=processor)
+                      for processor in self.options.payment_processors]
 
         return self._allowChangePayable(self.options.buyable_types) \
                and not self.request.URL0.endswith('@@activate-recurring-payment') \
 			   and not self.isPayable() \
-			   and igetpaid.IRecurringPaymentProcessor.providedBy(processor)
+			   and True in [igetpaid.IRecurringPaymentProcessor.providedBy(p) for p in processors]
 
     allowMakeRecurringPayable.__roles__ = None
 
