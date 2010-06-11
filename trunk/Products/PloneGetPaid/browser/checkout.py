@@ -608,14 +608,13 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         """
         siteroot = getToolByName(self.context, "portal_url").getPortalObject()
         manage_options = IGetPaidManagementOptions(siteroot)
-        processor_name = manage_options.payment_processor
+        processor_name = manage_options.payment_processors[0]
 
         if not processor_name:
             raise RuntimeError( "No Payment Processor Specified" )
 
-        processor = component.getAdapter( siteroot,
-                                          interfaces.IPaymentProcessor,
-                                          processor_name )
+        processor = component.getUtility( interfaces.IPaymentProcessor,
+                                          name=processor_name )
 
         adapters = self.wizard.data_manager.adapters
 
