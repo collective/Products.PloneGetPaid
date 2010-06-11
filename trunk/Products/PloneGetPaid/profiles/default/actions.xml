@@ -1,133 +1,169 @@
-<object name="portal_actions" meta_type="Plone Actions Tool">
-    <action-provider name="portal_actions"
-        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-        i18n:domain="plone">
-
-        <action title="Make Buyable"
-                action_id="getpaid_make_buyable"
-                category="object_buttons"
-                condition_expr="python:path('object/@@getpaid_control').allowMakeBuyable()"
-                url_expr="string:$object_url/@@activate-buyable"
-                visible="True"
-                i18n:attributes="title">
-            <permission>Modify portal content</permission>
-        </action>
-        <action title="Make Shippable Product"
-                action_id="getpaid_make_shippable"
-                category="object_buttons"
-                condition_expr="python:path('object/@@getpaid_control').allowMakeShippable()"
-                url_expr="string:$object_url/@@activate-shippable"
-                visible="True"
-                i18n:attributes="title">
-            <permission>Modify portal content</permission>
-        </action>
-        <action title="Make this a Donation"
-                action_id="getpaid_make_donatable"
-                category="object_buttons"
-                condition_expr="python:path('object/@@getpaid_control').allowMakeDonatable()"
-                url_expr="string:$object_url/@@activate-donate"
-                visible="True"
-                i18n:attributes="title">
-            <permission>Modify portal content</permission>
-        </action>
-        <action title="Make this a Variable Amount Donation"
-                action_id="getpaid_make_variableamountdonatable"
-                category="object_buttons"
-                condition_expr="python:path('object/@@getpaid_control').allowMakeVariableAmountDonatable()"
-                url_expr="string:$object_url/@@activate-variableamountdonate"
-                visible="True"
-                i18n:attributes="title">
-            <permission>Modify portal content</permission>
-        </action>
-        <action title="Make Not Buyable"
-                action_id="getpaid_make_not_buyable"
-                category="object_buttons"
-                condition_expr="python:path('object/@@getpaid_control').allowMakeNotBuyable()"
-                url_expr="string:$object_url/@@deactivate-buyable"
-                visible="True"
-                i18n:attributes="title">
-            <permission>Modify portal content</permission>
-        </action>
-        <action title="Make Not Shippable Product"
-                action_id="getpaid_make_not_shippable"
-                category="object_buttons"
-                condition_expr="python:path('object/@@getpaid_control').allowMakeNotShippable()"
-                url_expr="string:$object_url/@@deactivate-shippable"
-                visible="True"
-                i18n:attributes="title">
-            <permission>Modify portal content</permission>
-        </action>
-        <action title="Make Not Premium Members Only"
-                action_id="getpaid_make_not_premium"
-                category="object_buttons"
-                condition_expr="python:path('object/@@getpaid_control').allowMakeNotPremiumContent()"
-                url_expr="string:$object_url/@@deactivate-premium-content"
-                visible="True"
-                i18n:attributes="title">
-            <permission>Modify portal content</permission>
-        </action>
-        <action title="Make this not a Donation"
-                action_id="getpaid_make_not_donatable"
-                category="object_buttons"
-                condition_expr="python:path('object/@@getpaid_control').allowMakeNotDonatable()"
-                url_expr="string:$object_url/@@deactivate-donate"
-                visible="True"
-                i18n:attributes="title">
-            <permission>Modify portal content</permission>
-        </action>
-        <action title="Make this not a Variable Amount Donation"
-                action_id="getpaid_make_not_variableamountdonatable"
-                category="object_buttons"
-                condition_expr="python:path('object/@@getpaid_control').allowMakeNotVariableAmountDonatable()"
-                url_expr="string:$object_url/@@deactivate-variableamountdonate"
-                visible="True"
-                i18n:attributes="title">
-            <permission>Modify portal content</permission>
-        </action>
-        <action title="Manage Cart"
-                action_id="getpaid_manage_cart"
-                category="user"
-                condition_expr="python:path('object/@@getpaid_control').showManageCart()"
-                url_expr="string:$portal_url/@@getpaid-cart"
-                visible="True"
-                i18n:attributes="title">
-            <permission>Modify portal content</permission>
-        </action>
-        <action title="Make Recurring Payable"
-                action_id="getpaid_recurring_payment"
-                category="object_buttons"
-                condition_expr="python:path('object/@@getpaid_control').allowMakeRecurringPayable()"
-                url_expr="string:$object_url/@@activate-recurring-payment"
-                visible="True"
-                i18n:attributes="title">
-            <permission>Modify portal content</permission>
-        </action>
-        <action title="Make Not Recurring Payable"
-                action_id="getpaid_make_not_recurring_payment"
-                category="object_buttons"
-                condition_expr="python:path('object/@@getpaid_control').allowMakeNotRecurringPayable()"
-                url_expr="string:$object_url/@@deactivate-recurring-payment"
-                visible="True"
-                i18n:attributes="title">
-            <permission>Modify portal content</permission>
-        </action>
-        <action title="Manage Cart"
-                action_id="getpaid_manage_cart"
-                category="user"
-                condition_expr="python:path('object/@@getpaid_control').showManageCart()"
-                url_expr="string:$object_url/@@getpaid-cart"
-                visible="True"
-                i18n:attributes="title">
-            <permission>View</permission>
-        </action>
-        <action title="Payable"
-                action_id="buyable"
-                category="object"
-                condition_expr="python:path('object/@@getpaid_control').isPayable()"
-                url_expr="string:${object_url}/@@edit-payable"
-                visible="True"
-                i18n:attributes="title">
-            <permission>Modify portal content</permission>
-        </action>
-    </action-provider>
+<?xml version="1.0"?>
+<object name="portal_actions" meta_type="Plone Actions Tool"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+  <object name="object" meta_type="CMF Action Category">
+    <property name="title"></property>
+    <object name="buyable" meta_type="CMF Action">
+      <property name="title">Payable</property>
+      <property name="description"></property>
+      <property name="url_expr">string:${object_url}/@@edit-payable</property>
+      <property name="link_target"></property>
+      <property name="icon_expr"></property>
+      <property name="available_expr">python:path('object/@@getpaid_control').isPayable()</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+  </object>
+  <object name="object_buttons" meta_type="CMF Action Category">
+    <property name="title"></property>
+    <object name="getpaid_make_buyable" meta_type="CMF Action">
+      <property name="title">Make Buyable</property>
+      <property name="description"></property>
+      <property name="url_expr">string:${object_url}/@@activate-buyable</property>
+      <property name="link_target"></property>
+      <property name="icon_expr">string:${portal_url}/user.gif</property>
+      <property name="available_expr">python:path('object/@@getpaid_control').allowMakeBuyable()</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+    <object name="getpaid_make_shippable" meta_type="CMF Action">
+      <property name="title">Make Shippable Product</property>
+      <property name="description"></property>
+      <property name="url_expr">string:${object_url}/@@activate-shippable</property>
+      <property name="link_target"></property>
+      <property name="icon_expr">string:${portal_url}/user.gif</property>
+      <property name="available_expr">python:path('object/@@getpaid_control').allowMakeShippable()</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+    <object name="getpaid_make_donatable" meta_type="CMF Action">
+      <property name="title">Make this a Donation</property>
+      <property name="description"></property>
+      <property name="url_expr">string:${object_url}/@@activate-donate</property>
+      <property name="link_target"></property>
+      <property name="icon_expr">string:${portal_url}/user.gif</property>
+      <property name="available_expr">python:path('object/@@getpaid_control').allowMakeDonatable()</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+    <object name="getpaid_make_variableamountdonatable" meta_type="CMF Action">
+      <property name="title">Make this a Variable Amount Donation</property>
+      <property name="description"></property>
+      <property name="url_expr">string:${object_url}/@@activate-variableamountdonate</property>
+      <property name="link_target"></property>
+      <property name="icon_expr">string:${portal_url}/user.gif</property>
+      <property name="available_expr">python:path('object/@@getpaid_control').allowMakeVariableAmountDonatable()</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+    <object name="getpaid_make_not_buyable" meta_type="CMF Action">
+      <property name="title">Make Not Buyable</property>
+      <property name="description"></property>
+      <property name="url_expr">string:${object_url}/@@deactivate-buyable</property>
+      <property name="link_target"></property>
+      <property name="icon_expr">string:${portal_url}/user.gif</property>
+      <property name="available_expr">python:path('object/@@getpaid_control').allowMakeNotBuyable()</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+    <object name="getpaid_make_not_shippable" meta_type="CMF Action">
+      <property name="title">Make Not Shippable Product</property>
+      <property name="description"></property>
+      <property name="url_expr">string:${object_url}/@@deactivate-shippable</property>
+      <property name="link_target"></property>
+      <property name="icon_expr">string:${portal_url}/user.gif</property>
+      <property name="available_expr">python:path('object/@@getpaid_control').allowMakeNotShippable()</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+    <object name="getpaid_make_not_premium" meta_type="CMF Action">
+      <property name="title">Make Not Premium Members Only</property>
+      <property name="description"></property>
+      <property name="url_expr">string:${object_url}/@@deactivate-premium-content</property>
+      <property name="link_target"></property>
+      <property name="icon_expr">string:${portal_url}/user.gif</property>
+      <property name="available_expr">python:path('object/@@getpaid_control').allowMakeNotPremiumContent()</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+    <object name="getpaid_make_not_donatable" meta_type="CMF Action">
+      <property name="title">Make this not a Donation</property>
+      <property name="description"></property>
+      <property name="url_expr">string:${object_url}/@@deactivate-donate</property>
+      <property name="link_target"></property>
+      <property name="icon_expr">string:${portal_url}/user.gif</property>
+      <property name="available_expr">python:path('object/@@getpaid_control').allowMakeNotDonatable()</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+    <object name="getpaid_make_not_variableamountdonatable" meta_type="CMF Action">
+      <property name="title">Make this not a Variable Amount Donation</property>
+      <property name="description"></property>
+      <property name="url_expr">string:${object_url}/@@deactivate-variableamountdonate</property>
+      <property name="link_target"></property>
+      <property name="icon_expr">string:${portal_url}/user.gif</property>
+      <property name="available_expr">python:path('object/@@getpaid_control').allowMakeNotVariableAmountDonatable()</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+    <object name="getpaid_recurring_payment" meta_type="CMF Action">
+      <property name="title">Make Recurring Payable</property>
+      <property name="description"></property>
+      <property name="url_expr">string:${object_url}/@@activate-recurring-payment</property>
+      <property name="link_target"></property>
+      <property name="icon_expr">string:${portal_url}/user.gif</property>
+      <property name="available_expr">python:path('object/@@getpaid_control').allowMakeRecurringPayable()</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+    <object name="getpaid_make_not_recurring_payment" meta_type="CMF Action">
+      <property name="title">Make Not Recurring Payable</property>
+      <property name="description"></property>
+      <property name="url_expr">string:${object_url}/@@deactivate-recurring-payment</property>
+      <property name="link_target"></property>
+      <property name="icon_expr">string:${portal_url}/user.gif</property>
+      <property name="available_expr">python:path('object/@@getpaid_control').allowMakeNotRecurringPayable()</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+  </object>
+  <object name="user" meta_type="CMF Action Category">
+    <property name="title"></property>
+    <object name="getpaid_manage_cart" meta_type="CMF Action">
+      <property name="title">Manage Cart</property>
+      <property name="description"></property>
+      <property name="url_expr">string:${object_url}/@@getpaid-cart</property>
+      <property name="link_target"></property>
+      <property name="icon_expr"></property>
+      <property name="available_expr">python:path('object/@@getpaid_control').showManageCart()</property>
+      <property name="permissions">
+        <element value="View"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+  </object>
 </object>
