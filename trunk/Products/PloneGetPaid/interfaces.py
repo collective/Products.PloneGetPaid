@@ -256,6 +256,8 @@ class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
 
     allow_anonymous_checkout = schema.Bool( title=_(u"Allow Anonymous Checkout"), default=False)
 
+    use_ssl_for_checkout = schema.Bool( title=_(u"Use SSL for checkout"), default=False)
+
 # Order Management
 class IGetPaidManagementCustomerInformation( igetpaid.IPersistentOptions ):
     """
