@@ -46,6 +46,8 @@ import cart as cart_core
 from widgets import CountrySelectionWidget, StateSelectionWidget, CCExpirationDateWidget
 from Products.PloneGetPaid.browser.interfaces import IDontShowGetPaidPortlets
 
+from Products.CMFPlone.utils import safe_unicode
+
 def null_condition( *args ):
     return ()
 
@@ -90,7 +92,7 @@ def make_hidden_input(*args, **kwargs):
         except UnicodeDecodeError:
             v = str(v)
         qlist[i] = ('<input type="hidden" name="%s%s" value="%s">'
-                    % (hq(k), m, hq(v)))
+                    % (hq(k), m, safe_unicode(hq(v))))
 
     return '\n'.join(qlist)
 

@@ -5,7 +5,7 @@ CHANGES
 0.10.1 (unreleased)
 -------------------
 
-- Fixed UnicodeDecodeError for notification event subscriber.
+- Fixed UnicodeDecodeError for notification event subscriber and make_hidden_input function.
   [taito.horiuchi, fRiSi]
 
 - i18n.sh now updates plonegetpaid-plone.pot and takes
