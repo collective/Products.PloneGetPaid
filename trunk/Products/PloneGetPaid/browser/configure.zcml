@@ -72,6 +72,8 @@
   <include file="cart.zcml" />
 
   <!-- Checkout UI -->
+  <include file="checkout_wizard.zcml" />
+  <!--
   <browser:page
      for="*"
      name="getpaid-checkout-wizard"
@@ -130,6 +132,7 @@
      name="getpaid-cancelled-declined"
      permission="zope2.View"
      />
+  -->
 
   <browser:page
      for="*"

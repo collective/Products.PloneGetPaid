@@ -27,7 +27,7 @@ setup(name='Products.PloneGetPaid',
         "Operating System :: OS Independent",
         "Topic :: Office/Business :: Financial",
         "Topic :: Software Development :: Libraries",
-      ],
+        ],
       keywords='commerce donation zope plone getpaid',
       author='GetPaid Team',
       author_email='getpaid-dev@googlegroups.com',
@@ -49,7 +49,8 @@ setup(name='Products.PloneGetPaid',
           'zope.interface',
           'zope.component',
           # -*- Extra requirements: -*-
-          'plone.z3cform'
+          'plone.z3cform',
+          'collective.z3cform.wizard',
       ],
       entry_points="""
       # -*- Entry points: -*-

@@ -1,0 +1,11 @@
+<metal:page use-macro="context/@@getpaid-content-template/content_space"
+	i18n:domain="plonegetpaid">
+  <metal:block fill-slot="getpaid_content">
+    <tal:wizard condition="not:view/finished">
+      <div tal:replace="structure view/index" />
+    </tal:wizard>
+    <tal:finished condition="view/finished">
+      <div tal:replace="structure provider:getpaid.payment.buttons" />
+    </tal:finished>
+  </metal:block>
+</metal:page>

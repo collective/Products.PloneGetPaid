@@ -1,0 +1,22 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+           i18n_domain="plonegetpaid">
+
+  <include package="collective.z3cform.wizard"/> 
+  
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="getpaid-checkout-wizard"
+     class=".checkout_wizard.CheckoutWizard"
+     permission="zope2.View"
+     />
+
+  <browser:viewletManager
+     name="getpaid.payment.buttons"
+     provides="..interfaces.IPaymentButtonManager"
+     class=".checkout_wizard.PaymentButtonManager"
+     permission="zope2.View"
+     />
+  
+</configure>

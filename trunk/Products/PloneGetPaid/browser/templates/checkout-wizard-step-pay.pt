@@ -1,0 +1,2 @@
+<div tal:replace="structure view/index" />
+<div tal:replace="structure provider:getpaid.payment.buttons" />
