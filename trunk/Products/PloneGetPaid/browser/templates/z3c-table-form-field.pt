@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      i18n:domain="plonegetpaid" tal:omit-tag=""
+      tal:define="widget options/widget">
+  <div class="field" style="margin: 0;"
+       tal:define="error widget/error"
+       tal:attributes="class python:'field' + (error and ' error' or '')">
+    <tal:condition condition="error">
+      <div tal:define="raw error/render"
+           tal:replace="structure python:raw.replace(' class=' + chr(34) + 'error' + chr(34), '')">
+        Error
+      </div>
+    </tal:condition>
+    <div class="widget">
+      <input type="text" tal:replace="structure widget/render" />
+    </div>
+  </div>
+</html>

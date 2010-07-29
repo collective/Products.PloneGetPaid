@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="Products.ploneGetPaid">
+  <body>
+    <metal:style fill-slot="style_slot">
+      <style type="text/css">#edit-bar { display: none; }</style>
+    </metal:style>
+    <metal:main fill-slot="main">
+      <h1 class="documentFirstHeading" i18n:translate="">Your Shopping Cart</h1>
+      <tal:cart condition="view/cart">
+        <metal:block use-macro="context/@@ploneform-macros/titlelessform">
+          <metal:fields fill-slot="fields">
+            <tal:replace replace="structure view/renderTable" />
+            <div class="getpaid-totals">
+              <table class="vertical listing" tal:define="totals view/totals">
+                <tr>
+                  <th i18n:translate="">SubTotal</th>
+                  <td tal:content="totals/subtotal"></td>
+                </tr>
+                <!--
+                <tr>
+                  <th i18n:translate="">Shipping</th>
+                  <td tal:content="view/shipping_price"></td>
+                </tr>
+                -->
+                <tr tal:repeat="tax totals/taxes">
+                  <th tal:content="tax/name" i18n:translate=""></th>
+                  <td tal:content="tax/value"></td>
+                </tr>
+                <tr>
+                  <th i18n:translate="">Total</th>
+                  <td tal:content="totals/total"></td>
+                </tr>
+              </table>
+            </div>
+            <input name="GETPAID_REFERER" type="hidden" tal:attributes="value view/refererURL" />
+          </metal:fields>
+        </metal:block>
+      </tal:cart>
+      <tal:no-cart condition="not:view/cart">
+        <tal:replace replace="structure provider:getpaid.cart.empty" />
+      </tal:no-cart>
+      <div class="visualClear"><!----></div>
+    </metal:main>
+  </body>
+</html>

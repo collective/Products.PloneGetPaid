@@ -50,6 +50,7 @@
       name="getpaid.png"
       image="resources/getpaid.png" />
 
+  <!--
   <browser:resource
       name="checkout-process.js"
       file="resources/checkout-process.js" />
@@ -57,6 +58,7 @@
   <browser:resource
       name="country-states-selection.js"
       file="resources/country-states-selection.js" />
+  -->
 
   <browser:resource
       name="batching.css"
@@ -69,6 +71,7 @@
   <include file="content.zcml" />
 
   <!-- Shopping Cart UI -->
+  <include file="shopping_cart.zcml" />
   <include file="cart.zcml" />
 
   <!-- Checkout UI -->
@@ -132,7 +135,6 @@
      name="getpaid-cancelled-declined"
      permission="zope2.View"
      />
-  -->
 
   <browser:page
      for="*"
@@ -140,6 +142,7 @@
      name="empty-cart"
      permission="zope2.View"
      />
+  -->
 
   <!-- User's Order View -->
 
@@ -218,12 +221,14 @@
       permission="zope2.View"
       />
 
+  <!--
   <browser:page
       for="*"
       name="states-ajax"
       class=".portlet.StatesAjax"
       permission="zope2.View"
   />
+  -->
 
   <!-- Disclaimer and Privacy Policy -->
   <browser:page

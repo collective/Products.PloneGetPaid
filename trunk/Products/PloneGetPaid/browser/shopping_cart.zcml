@@ -1,0 +1,120 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:plone="http://namespaces.plone.org/plone"
+           xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+           i18n_domain="plonegetpaid">
+  
+  <include package="plone.z3ctable" />
+
+  <!-- Shopping Cart Edit Form -->
+  <browser:page
+     name="shopping-cart"
+     for="getpaid.core.interfaces.IStore"
+     class=".shopping_cart.ShoppingCartForm"
+     permission="zope2.View"
+     />
+
+  <!-- Shopping Cart Content Provider (read-only) -->
+  <adapter
+     name="getpaid.cart"
+     provides="zope.contentprovider.interfaces.IContentProvider"
+     for="zope.interface.Interface
+          zope.publisher.interfaces.browser.IDefaultBrowserLayer
+          zope.interface.Interface"
+     factory=".shopping_cart.ShoppingCart"
+     />
+
+  <interface
+     interface=".shopping_cart.IOrderId"
+     type="zope.contentprovider.interfaces.ITALNamespaceData"
+     />
+     
+  <interface
+     interface=".shopping_cart.IShowEditLink"
+     type="zope.contentprovider.interfaces.ITALNamespaceData"
+     />
+
+  <adapter
+     name="getpaid.cart.empty"
+     provides="zope.contentprovider.interfaces.IContentProvider"
+     for="zope.interface.Interface
+          zope.publisher.interfaces.browser.IDefaultBrowserLayer
+          zope.interface.Interface"
+     factory=".shopping_cart.EmptyShoppingCart"
+     />
+
+  <!-- Shopping Cart Portlet -->
+  <plone:portlet
+     name="Products.PloneGetPaid.portlets.shopping_cart"
+     interface=".portlets.shopping_cart.IShoppingCartPortlet"
+     assignment=".portlets.shopping_cart.Assignment"
+     renderer=".portlets.shopping_cart.Renderer"
+     addview=".portlets.shopping_cart.AddForm"
+     editview=".portlets.shopping_cart.EditForm"
+     />
+
+  <!-- Display adapters for table columns to render ILineItems -->
+  <adapter
+     provides=".shopping_cart.ILineItemDisplayAdapter"
+     for="getpaid.core.interfaces.ILineItemContainer
+          zope.publisher.interfaces.browser.IBrowserRequest
+          getpaid.core.interfaces.ILineItem"
+     factory=".shopping_cart.LineItemDisplayAdapter"
+     />
+
+  <adapter
+     provides=".shopping_cart.ILineItemDisplayAdapter"
+     for="getpaid.core.interfaces.ILineItemContainer
+          zope.publisher.interfaces.browser.IBrowserRequest
+          z3c.form.interfaces.IFieldsForm"
+     factory=".shopping_cart.LineItemFormDisplayAdapter"
+     />
+  
+  <!-- Columns for LineItemContainerTable -->
+  <!--
+  <adapter
+     name="selected"
+     for="getpaid.core.interfaces.ILineItemContainer
+          zope.publisher.interfaces.browser.IBrowserRequest
+          z3c.table.interfaces.ITable"
+     provides="z3c.table.interfaces.IColumn"
+     factory=".shopping_cart.SelectionColumn"
+     />
+  -->
+  <adapter
+     name="description"
+     provides="z3c.table.interfaces.IColumn"
+     for="getpaid.core.interfaces.ILineItemContainer
+          zope.publisher.interfaces.browser.IBrowserRequest
+          z3c.table.interfaces.ITable"
+     factory=".shopping_cart.LinkColumn"
+     />
+  
+  <adapter
+     name="quantity"
+     provides="z3c.table.interfaces.IColumn"
+     for="getpaid.core.interfaces.ILineItemContainer
+          zope.publisher.interfaces.browser.IBrowserRequest
+          z3c.table.interfaces.ITable"
+     factory=".shopping_cart.QuantityColumn"
+     />
+  
+  <adapter
+     name="price"
+     provides="z3c.table.interfaces.IColumn"
+     for="getpaid.core.interfaces.ILineItemContainer
+          zope.publisher.interfaces.browser.IBrowserRequest
+          z3c.table.interfaces.ITable"
+     factory=".shopping_cart.PriceColumn"
+     />
+  
+  <adapter
+     name="total"
+     provides="z3c.table.interfaces.IColumn"
+     for="getpaid.core.interfaces.ILineItemContainer
+          zope.publisher.interfaces.browser.IBrowserRequest
+          z3c.table.interfaces.ITable"
+     factory=".shopping_cart.TotalColumn"
+     />
+
+</configure>

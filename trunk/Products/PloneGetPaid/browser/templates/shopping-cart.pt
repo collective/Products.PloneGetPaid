@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      i18n:domain="Products.PloneGetPaid" omit-tag="">
+  <tal:cart condition="view/cart">
+    <fieldset id="shopping-cart" class="group">
+      <legend i18n:translate="">Shopping Cart</legend>
+      <tal:replace replace="structure view/renderTable" />
+      <div class="getpaid-totals">
+        <table class="vertical listing" tal:define="totals view/totals">
+          <tr>
+            <th i18n:translate="">SubTotal</th>
+            <td tal:content="totals/subtotal"></td>
+          </tr>
+          <!--
+          <tr>
+            <th i18n:translate="">Shipping</th>
+            <td tal:content="view/shipping_price"></td>
+          </tr>
+          -->
+          <tr tal:repeat="tax totals/taxes">
+            <th tal:content="tax/name" i18n:translate=""></th>
+            <td tal:content="tax/value"></td>
+          </tr>
+          <tr>
+            <th i18n:translate="">Total</th>
+            <td tal:content="totals/total"></td>
+          </tr>
+          <tr tal:condition="view/show_edit_link|nothing">
+            <th></th>
+            <td><a href="#" i18n:translate=""
+                   tal:attributes="href string:${context/portal_url}/@@shopping-cart">
+                Edit Shopping Cart</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </fieldset>
+  </tal:cart>
+  <tal:no-cart tal:condition="not:view/cart">
+    <tal:replace replace="structure provider:getpaid.cart.empty" />
+  </tal:no-cart>
+</html>

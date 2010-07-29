@@ -50,6 +50,7 @@ setup(name='Products.PloneGetPaid',
           'zope.component',
           # -*- Extra requirements: -*-
           'plone.z3cform',
+          'plone.z3ctable',
           'collective.z3cform.wizard',
       ],
       entry_points="""

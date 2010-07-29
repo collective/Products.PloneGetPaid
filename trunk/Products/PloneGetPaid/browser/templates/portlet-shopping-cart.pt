@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      i18n:domain="Products.PloneGetPaid" tal:omit-tag="">
+  <dl class="portlet" tal:condition="not:view/data/omit_border">
+    <dt class="portletHeader" tal:condition="not:view/data/omit_header">
+      <span class="portletTopLeft"></span>
+      <span class="portletTopMiddle" i18n:translate="">Your Cart</span>
+      <span class="portletTopRight"></span>
+    </dt>
+    <dd class="portletItem odd">
+      <metal:body define-macro="body">
+        <p i18n:translate="text_contains_items">
+          Contains <span tal:content="view/size" i18n:name="size"> 5 </span> Items
+        </p>
+        <ul>
+          <li><a href="" tal:attributes="href string:${context/portal_url}/@@shopping-cart"
+                 i18n:translate="label_manage_cart">Manage Cart</a></li>
+          <li><a href="" tal:attributes="href string:${context/portal_url}/@@checkout-wizard"
+                 i18n:translate="">Checkout</a></li>
+        </ul>
+      </metal:body>
+    </dd>
+    <!--
+    <dd class="portletFooter">
+    <span class="portletBottomLeft"></span>
+    <span class="portletBottomRight"></span>
+    </dd>
+    -->
+  </dl>
+  <dl tal:condition="view/data/omit_border">
+    <metal use-macro="here/macros/body" />
+  </dl>
+</html>

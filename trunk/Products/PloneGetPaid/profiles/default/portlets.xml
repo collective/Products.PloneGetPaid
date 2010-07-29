@@ -43,4 +43,10 @@
       description="A portlet that shows the shopping cart"
       i18n:attributes="title; description"
       />
+  <portlet
+      addview="Products.PloneGetPaid.portlets.shopping_cart"
+      title="Shopping cart portlet"
+      description="A portlet, which displays user's shopping cart with actions"
+      i18n:attributes="title; description"
+      />
 </portlets>
