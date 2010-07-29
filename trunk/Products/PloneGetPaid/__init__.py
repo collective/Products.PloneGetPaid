@@ -1,6 +1,13 @@
 """
-$Id$
+GetPaid for Plone
 """
+
+__version__ = "$Revision$"
+# $Id$
+# $URL$
+
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory("Products.PloneGetPaid")
 
 import os, sys
 from App.Common import package_home
