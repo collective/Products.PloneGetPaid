@@ -1,8 +1,11 @@
 """
 Session Based Cart Implementation
-
-$Id$
 """
+
+__version__ = "$Revision$"
+# $Id$
+# $URL$
+
 from zope.component import getUtility
 from zope.interface import implements
 
@@ -11,7 +14,6 @@ from getpaid.core.interfaces import IShoppingCartUtility
 from Products.CMFCore.utils import getToolByName
 from persistent import Persistent
 from BTrees.OOBTree import OOBTree
-from AccessControl import getSecurityManager
 from cPickle import loads, dumps
 
 class ShoppingCartUtility(Persistent):
@@ -38,6 +40,7 @@ class ShoppingCartUtility(Persistent):
         """ Get the persistent cart. It does not persist for anonymous users or
         one time only usage (things like one page buy and checkout)
         """
+        mtool = getToolByName(context, "portal_membership")
         if key is not None:
             if create:
                 raise ValueError('Invalid combination of optional '
@@ -52,9 +55,9 @@ class ShoppingCartUtility(Persistent):
             elif name == 'multishot':
                 return self._getMultiShotCart(context, cart_id=value)
         else:
-            uid = getSecurityManager().getUser().getId()
-            if uid is not None:
+            if not mtool.isAnonymousUser():
                 # Check if there is a session cart - if there is we need to transfer it
+                uid = mtool.getAuthenticatedMember().getId()
                 session_cart = self._getCartForSession(context, False)
                 if session_cart:
                     session_cart.member_id = uid
@@ -112,6 +115,7 @@ class ShoppingCartUtility(Persistent):
     def destroy(self, context, key=None):
         """ Destroy the cart.
         """
+        mtool = getToolByName(context, "portal_membership")
         if key is not None:
             name, value = self._decodeKey(key)
             if name == 'user':
@@ -121,8 +125,8 @@ class ShoppingCartUtility(Persistent):
             elif name == 'multishot':
                 return self._destroyMultiShotCart(context, value)
         else:
-            uid = getSecurityManager().getUser().getId()
-            if uid is not None:
+            if not mtool.isAnonymousUser():
+                uid = mtool.getAuthenticatedMember().getId()
                 return self._destroyCartForUser(context, uid)
             else:
                 return self._destroyCartForSession(context)
@@ -162,8 +166,9 @@ class ShoppingCartUtility(Persistent):
         """Return key that can be used to recover the cart for the
         current user or session.
         """
-        uid = getSecurityManager().getUser().getId()
-        if uid is not None:
+        mtool = getToolByName(context, "portal_membership")
+        if not mtool.isAnonymousUser():
+            uid = mtool.getAuthenticatedMember().getId()
             return 'user:%s' % uid
         else:
             session_manager = getToolByName(context, 'session_data_manager')
