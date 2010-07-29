@@ -4,7 +4,7 @@
 
   <div tal:replace="structure view/index" />
 
-  <div tal:condition="view/wizard/areOrderDetailsAvailable"
+  <div tal:condition="view/wizard/isVerifiedCheckoutContinuation"
        tal:define="order_id view/order_id"
        tal:replace="structure provider:getpaid.cart" />
 

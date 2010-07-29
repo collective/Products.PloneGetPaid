@@ -6,9 +6,10 @@ __version__ = "$Revision$"
 # $Id$
 # $URL$
 
+import types
+import hashlib
+import cPickle
 import ZTUtils
-
-from cPickle import loads, dumps
 
 from zope import component, exceptions, interface, schema, viewlet
 
@@ -38,9 +39,6 @@ from Products.PloneGetPaid import _
 from collective.z3cform.wizard.interfaces import IWizard, IStep
 from collective.z3cform.wizard import wizard, utils
 
-from types import DictType
-from hashlib import md5
-
 
 class ICheckoutContinuationKey(interface.Interface):
     """ Adapts Order to Checkout Wizard Continuation Key """
@@ -56,18 +54,11 @@ class CheckoutContinuationKeyAdapter(object):
         return self._key
 
     def __init__(self, order):
-        key = md5()
+        key = hashlib.md5()
         key.update(str(order.order_id))
         key.update(str(order.processor_order_id))
         key.update(str(order.creation_date))
         self._key = key.hexdigest()
-
-
-class PaymentProcessorButtonBase(ViewletBase):
-    """ Checkout Wizard Payment button base """
-    def __init__(self, context, request, view, manager):
-        self.wizard = view
-        super(PaymentProcessorButtonBase, self).__init__(context, request, view, manager)
 
 
 class IPaymentProcessorButtonManager(viewlet.interfaces.IViewletManager):
@@ -83,15 +74,30 @@ class PaymentProcessorButtonManager(ViewletManagerBase):
 
     def filter(self, viewlets):
         viewlets = super(PaymentProcessorButtonManager, self).filter(viewlets)
-        site = getToolByName(self.context, 'portal_url').getPortalObject()
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
         results = []
         for name, viewlet in viewlets:
-            if name in IGetPaidManagementOptions(site).payment_processors:
+            if name in IGetPaidManagementOptions(portal).payment_processors:
                 results.append((name, viewlet))
         return results
 
     def render(self):
         return '<div id="payment-buttons">%s</div>' % "".join([b.render() for b in self.viewlets])
+
+
+class IPaymentProcessorButton(interface.Interface):
+    """ Checkout Wizard Payment button """
+    # wizard = ...
+
+
+class PaymentProcessorButtonBase(ViewletBase):
+    """ Checkout Wizard Payment button base """
+
+    interface.implements(IPaymentProcessorButton)
+
+    def __init__(self, context, request, view, manager):
+        self.wizard = view
+        super(PaymentProcessorButtonBase, self).__init__(context, request, view, manager)
 
 
 class SchemaGroup(group.Group):
@@ -140,6 +146,21 @@ class PaymentGroup(SchemaGroup):
     label = _(u"Payment Information")
     section = 'payment'
 
+#class IOrderId(interface.Interface):
+#    order_id = schema.Text(title=_(u"Order Id"), required=False)
+#
+#class OrderDetails(form.DisplayForm, form.GroupForm):
+#    interface.implements(IOrderId)
+#
+#    groups = (ContactGroup, BillingGroup, ShippingGroup, PaymentGroup)
+#    fields = field.Fields()
+#    render = ViewPageTemplateFile("templates/order-details.pt")
+#
+#    def update(self):
+#        super(OrderDetails, self).update()
+#       
+#    def getContent(self):
+#        content = {}
 
 class Customer(wizard.GroupStep):
     prefix = 'details'
@@ -157,8 +178,8 @@ class Customer(wizard.GroupStep):
     
     def __init__(self, context, request, wizard):
         """ Filter required FormSchema sections """
-        # No groups when cart os empty
-        if not wizard._cart:
+        # No groups when cart is empty
+        if not wizard.isCartAvailable:
             self.groups = ()
         # Include shipping information only, when cart
         # contains shippable items
@@ -172,22 +193,24 @@ class Customer(wizard.GroupStep):
 
 
 class Review(Customer):
-    prefix = 'details'
+    prefix = 'review'
     label  = _(u"Review order")
     description = _(u"Please, review Your order information")
     weight = 40
-
-    template = ViewPageTemplateFile("templates/checkout-wizard-step-review.pt")
 
     interface.implements(IDisplayForm)
     mode = DISPLAY_MODE
     ignoreRequest = True
 
+    template = ViewPageTemplateFile("templates/checkout-wizard-step-review.pt")
+
     @property
     def available(self):
-        return super(Review, self).available \
-            and self.request.SESSION[self.wizard.sessionKey].get(self.prefix, None) \
+        return self.request.SESSION[self.wizard.sessionKey].get('details', None) \
             and not self.wizard.isOrderAvailable
+
+    def getContent(self):
+        return self.request.SESSION[self.wizard.sessionKey].get('details')
 
 
 class Method(wizard.Step):
@@ -197,7 +220,7 @@ class Method(wizard.Step):
     weight = 60
 
     fields = field.Fields(
-       schema.Choice(__name__='processor', title=_(u"Other payment method"),
+       schema.Choice(__name__='processor_id', title=_(u"Other payment method"),
                      values=[], required=True))
     template = ViewPageTemplateFile("templates/checkout-wizard-step-method.pt")
 
@@ -208,11 +231,8 @@ class Method(wizard.Step):
         return super(Method, self).available \
             and finance_state in [None, wf.order.finance.REVIEWING] 
 
-    def __init__(self, context, request, wizard):
-        super(Method, self).__init__(context, request, wizard) 
-
     def update(self):
-        """ Setup widget for stepfull payment processors, when processor spesific steps found """
+        """ Setup widget for stepful payment processors, when processor spesific steps found """
         # FIXME: We cannot use IContextSourceBinder, because its context
         # would be wizard's data container (a dict from session) with no
         # way to get the wizard object.
@@ -220,21 +240,23 @@ class Method(wizard.Step):
         descriptions = {} # Processor's description should be stored as its registration info
         for registration in [r for r in sm.registeredUtilities() if r.name and r.info]:
             descriptions[registration.name] = registration.info
-        stepfull_processors = [(name, descriptions.get(name, _(name))) \
-                                   for name in self.wizard.stepfull_processors]
-        if stepfull_processors:
-            self.fields["processor"].field.vocabulary = SimpleVocabulary.fromItems(stepfull_processors)
-            self.fields["processor"].widgetFactory = radio.RadioFieldWidget
+        stepful_processors = [SimpleVocabulary.createTerm(name, name, descriptions.get(name, _(name))) \
+                                   for name in self.wizard._stepful_processors]
+        if stepful_processors:
+            self.fields["processor_id"].field.vocabulary = SimpleVocabulary(stepful_processors)
+            self.fields["processor_id"].widgetFactory = radio.RadioFieldWidget
         else:
-            self.fields["processor"].mode = HIDDEN_MODE
+            self.fields["processor_id"].mode = HIDDEN_MODE
 
         # Now, when all order details should be collected (and only processor specific 
         # steps left), create an order and attach it to the session
         if not self.wizard.isOrderAvailable:
             self.wizard.session['order_id'] = self.wizard._createOrder()
-
-        # Continue as usual...
         super(Method, self).update()
+
+    @property
+    def order_id(self):
+        return self.wizard._order.order_id
 
 
 class Payment(wizard.GroupStep):
@@ -246,6 +268,7 @@ class Payment(wizard.GroupStep):
 
     groups = (PaymentGroup,)
     fields = field.Fields()
+    template = ViewPageTemplateFile("templates/checkout-wizard-step-payment.pt")
 
     @property
     def available(self):
@@ -253,11 +276,15 @@ class Payment(wizard.GroupStep):
             and self.wizard._order.finance_workflow.state().getState() or None
         return super(Payment, self).available \
             and finance_state == wf.order.finance.REVIEWING
-    
+
+    @property
+    def order_id(self):
+        return self.wizard._order.order_id
+
 
 class Confirmation(wizard.GroupStep):
     """ Order confirmation view """
-    prefix = 'details'
+    prefix = 'confirmation'
     label  = _(u"Confirmation")
     description = _(u"Here's the confirmation for your order")
     weight = 80
@@ -268,7 +295,6 @@ class Confirmation(wizard.GroupStep):
 
     groups = None
     fields = field.Fields()
-
     template = ViewPageTemplateFile("templates/checkout-wizard-step-confirmation.pt")
 
     @property
@@ -278,7 +304,7 @@ class Confirmation(wizard.GroupStep):
 
     def __init__(self, context, request, wizard):
         """ Filter required FormSchema sections """
-        if  wizard.areOrderDetailsAvailable \
+        if  wizard.isVerifiedCheckoutContinuation \
                 and wizard.session.has_key("order_id"):
             # Include shipping information only, when cart
             # contains shippable items
@@ -291,6 +317,9 @@ class Confirmation(wizard.GroupStep):
         else:
             self.groups = ()
         super(Confirmation, self).__init__(context, request, wizard)
+
+    def getContent(self):
+        return self.request.SESSION[self.wizard.sessionKey].get('details')
 
     @property
     def order_id(self):
@@ -305,18 +334,16 @@ class Confirmation(wizard.GroupStep):
         return self.wizard._order.fulfillment_state
 
     def update(self):
-        # Try to authorized order
+        # For not yet authorized order
         if self.wizard._order.finance_state == wf.order.finance.REVIEWING \
                 and self.wizard._authorizeOrder() != interfaces.keys.results_success:
             utils = getToolByName(self.context, 'plone_utils')
             utils.addPortalMessage(_(u"Your payment information couldn't be verified."))
             self.wizard.jump(self.wizard.currentIndex - 1)
-        # Only chargeable orders should continue here
+        # For orders in other state
         else:
             super(Confirmation, self).update()
-            # Clear out the session (thus, displays personal information only once)
-            self.request.SESSION[self.wizard.sessionKey] = {}
-            self.wizard.sync()
+            self.wizard._resetSession()
 
 
 class ICheckoutWizard(IWizard):
@@ -330,13 +357,12 @@ class CheckoutWizard(wizard.Wizard):
     buttons = wizard.Wizard.buttons.copy()
     handlers = wizard.Wizard.handlers.copy()
 
-    label = _(u"Checkout")
+    label = _(u"Online Checkout")
 
     # the overwritten collective.z3cform.wizard is found at self.index
     template = ViewPageTemplateFile("templates/checkout-wizard.pt")
 
     def __init__(self, context, request):
-        
         super(CheckoutWizard, self).__init__(context, request)
         # Add IFormLayer for request to support z3c.form
         interface.alsoProvides(self.request, IFormLayer)
@@ -388,7 +414,7 @@ class CheckoutWizard(wizard.Wizard):
         # Query and initialize steps, include processor step if processor selected
         self.activeSteps = []
         for name, step in component.getAdapters((self.context, self.request, self), IStep):
-            if name not in self.processor_names or name == self.selected_processor:
+            if name not in self._processor_names or name == self._selected_processor:
                 step.__name__ = name
                 self.activeSteps.append(step)
         self.activeSteps.sort(lambda x,y: cmp(int(getattr(x, 'weight', 100)), int(getattr(y, 'weight', 100))))
@@ -414,9 +440,76 @@ class CheckoutWizard(wizard.Wizard):
         self.actions.execute()
         self.updateWidgets()
 
+    @button.buttonAndHandler(_(u"Cancel"), name="cancel",
+                             condition=lambda form: not form.onLastStep)
+    def handleCancel(self, action):
+        self._cancelOrder()
+        self._destroyCart()
+        self._resetSession()
+        utils = getToolByName(self.context, 'plone_utils')
+        utils.addPortalMessage(_(u"Your order has been cancelled."))
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        self.request.response.redirect(portal.absolute_url() + "/@@checkout-wizard")
+
+    @property
+    def onLastStep(self):
+        return self.currentIndex == len(self.activeSteps) - 1
+
+    @property
+    def isBackAvailable(self):
+        return not self.onFirstStep \
+            and self.activeSteps[self.currentIndex - 1].available
+    
+    @property
+    def isContinueAvailable(self):
+        return not self.onLastStep \
+            and (not self._order or self._stepful_processors)
+
+    @property
+    def isCartAvailable(self):
+        return self._cart and True or False
+
+    @property
+    def isOrderAvailable(self):
+        return self._order and True or False
+
+    @property
+    def isVerifiedCheckoutContinuation(self):
+        if hasattr(self, "session") and self.session.get("order_id", None):
+            return True
+        elif self.isOrderAvailable and self.request.form.has_key("key"):
+            key = str(component.getAdapter(self._order, ICheckoutContinuationKey))
+            return self.request.form.get("key") == key
+        return False
+
+    @property
+    def canPaymentButtonsBeShown(self):
+        finance_state = self.isOrderAvailable \
+            and self._order.finance_workflow.state().getState() or None
+        return self.isOrderAvailable and not self.isBackAvailable \
+            and finance_state in [None, wf.order.finance.REVIEWING]
+
+    @property
+    def _cart(self):
+        manager = component.getUtility( interfaces.IShoppingCartUtility )
+        return manager.get(self.context, create=False) or None
+
+    @property
+    def _order(self):
+        manager = component.getUtility(interfaces.IOrderManager)
+        order_id = hasattr(self, "session") and self.session.get("order_id", None) \
+            or self.request.form.get("order_id", None)
+        return order_id and order_id in manager and manager.get(order_id) or None
+
+    @property
+    def _selected_processor(self):
+        """ selected payment processor, when selected """
+        return self.request.form.get('method.widgets.processor_id', [None])[0] \
+            or self.session.has_key('method') and self.session['method'].get('processor_id', None) or None
+
     @property
     @view.memoize
-    def processor_names(self):
+    def _processor_names(self):
         """ selected payment processor, when selected """
         processor_names = [processor.value for processor in
                            component.getUtility(schema.interfaces.IVocabularyFactory,
@@ -428,93 +521,16 @@ class CheckoutWizard(wizard.Wizard):
         return processor_names
 
     @property
-    def selected_processor(self):
-        """ selected payment processor, when selected """
-        return self.request.form.get('method.widgets.processor', [None])[0] \
-            or self.session.has_key('method') and self.session['method'].get('processor', None) or None
-        
-    @property
     @view.memoize
-    def stepfull_processors(self):
+    def _stepful_processors(self):
         site = getToolByName(self.context, 'portal_url').getPortalObject()
         enabled_processors = IGetPaidManagementOptions(site).payment_processors
         return [processor for processor in enabled_processors \
                     if component.queryMultiAdapter((self.context, self.request, self), IStep, name=processor)]
 
-    @property
-    def _cart(self):
-        manager = component.getUtility( interfaces.IShoppingCartUtility )
-        return manager.get(self.context, create=False) or None
-
-    @property
-    def isCartAvailable(self):
-        return self._cart and True or False
-
-    @property
-    def _order(self):
-        manager = component.getUtility(interfaces.IOrderManager)
-        order_id = hasattr(self, "session") and self.session.get("order_id", None) \
-            or self.request.form.get("order_id", None)
-        return order_id and order_id in manager and manager.get(order_id) or None
-
-    @property
-    def isOrderAvailable(self):
-        return self._order and True or False
-
-    @property
-    def areOrderDetailsAvailable(self):
-        if hasattr(self, "session") and self.session.get("order_id", None):
-            return True
-        elif self.isOrderAvailable and self.request.form.has_key("key"):
-            key = str(component.getAdapter(self._order, ICheckoutContinuationKey))
-            return self.request.form.get("key") == key
-        return False
-
-    @property
-    def onLastStep(self):
-        return self.currentIndex == len(self.activeSteps) - 1
-
-    @button.buttonAndHandler(_(u"Cancel"), name="cancel",
-                             condition=lambda form: not form.onLastStep)
-    def handleCancel(self, action):
-        # Clear out the session
-        if self.isOrderAvailable:
-            order = self._order
-
-            if order.finance_state is None:
-                order.finance_workflow.fireTransition("create")
-            if order.finance_state is wf.order.finance.REVIEWING:
-                order.finance_workflow.fireTransition("reviewing-declined")
-            if order.finance_state is wf.order.finance.PAYMENT_DECLINED:
-                order.finance_workflow.fireTransition("cancel-declined")
-
-            if order.fulfillment_state is None:
-                order.fulfillment_workflow.fireTransition("create")
-            if order.fulfillment_state is wf.order.fulfillment.NEW:
-                order.fulfillment_workflow.fireTransition("cancel-new-order")
-
+    def _resetSession(self):
         self.request.SESSION[self.sessionKey] = {}
         self.sync()
-        component.getUtility(interfaces.IShoppingCartUtility).destroy(self.context)
-        self.updateCurrentStep(0)
-        self.updateActions()
-
-    @property
-    def isBackAvailable(self):
-        return not self.onFirstStep \
-            and self.activeSteps[self.currentIndex - 1].available
-    
-    @property
-    def isContinueAvailable(self):
-        return not self.onLastStep \
-            and (not self._order or self.stepfull_processors)
-
-    @property
-    def arePaymentButtonsAvailable(self):
-        finance_state = self.isOrderAvailable and self._order.finance_workflow.state().getState() or None
-        return self.isOrderAvailable \
-            and not self.isBackAvailable \
-            and finance_state in [None, wf.order.finance.REVIEWING] 
 
     def _createOrder(self):
         # FIXME: currently, this is oversimplication of order creation process and
@@ -534,7 +550,7 @@ class CheckoutWizard(wizard.Wizard):
             bag = schemas.getBagClass(section)()
             for field_name, field in schema.getFieldsInOrder(bag.schema):
                 for step in self.session.keys():
-                    if type(self.session[step]) is DictType \
+                    if type(self.session[step]) is types.DictType \
                             and self.session[step].has_key(field_name):
                         setattr(bag, field_name, self.session[step][field_name])
             setattr(order, section, bag)
@@ -544,7 +560,7 @@ class CheckoutWizard(wizard.Wizard):
         # Shopping cart is attached to the session, but we want to                                                     
         # switch the storage to the persistent zodb, we pickle to get a                                                
         # clean copy to store.                                                                                         
-        order.shopping_cart = loads(dumps(self._cart))
+        order.shopping_cart = cPickle.loads(cPickle.dumps(self._cart))
 
         # Store the order
         manager = component.getUtility(interfaces.IOrderManager)
@@ -557,42 +573,54 @@ class CheckoutWizard(wizard.Wizard):
                 # the id was taken, try again
                 pass
 
-        # Fire transition
+        # Fire transition, destroy cart and return id
         order.finance_workflow.fireTransition('create')
-
-        # Destroy the cart
-        component.getUtility(interfaces.IShoppingCartUtility).destroy(self.context)
-
-        # Return the id
+        self._destroyCart()
         return order.order_id
-
+    
     def _authorizeOrder(self):
-        """ Simple authorization for onsite (stepfull) payment processors """
+        """ Simple authorization for onsite (stepful) payment processors """
 
         order = self._order
-
-        processor_id = self.session.has_key("method") \
-            and self.session["method"].get("processor_id", None) \
-            or order.processor_id
-        processor = getUtility(interfaces.IPaymentProcessor, name=processor_id)
+        processor_id = self._selected_processor
+        processor = component.getUtility(interfaces.IPaymentProcessor, name=processor_id)
 
         # Fill in the payment information
         schemas = component.getUtility(interfaces.IFormSchemas)
-        payment_information = schemas.getBagClass("payment")()
+        payment_information = schemas.getBagClass("payment")(self.session)
         for field_name, field in schema.getFieldsInOrder(payment_information.schema):
             for step in self.session.keys():
-                if type(self.session[step]) is DictType \
+                if type(self.session[step]) is types.DictType \
                         and self.session[step].has_key(field_name):
                     setattr(payment_information, field_name, self.session[step][field_name])
 
         # FIXME: This doesn't currently store anything from payment_information
         # to order, if processor doesn't do it
-        if processor.authorize(order, payment_information) \
-                == interfaces.keys.results_success:
+        if processor.authorize(order, payment_information) == interfaces.keys.results_success:
             order.processor_id = processor_id
             if order.finance_state == wf.order.finance.REVIEWING:
                 order.finance_workflow.fireTransition("authorize")
+            if order.fulfillment_state == None:
+                order.fulfillment_workflow.fireTransition("create")
             return interfaces.keys.results_success
         else:
             return False
 
+    def _cancelOrder(self):
+        if self.isOrderAvailable:
+            order = self._order
+
+            if order.finance_state is None:
+                order.finance_workflow.fireTransition("create")
+            if order.finance_state is wf.order.finance.REVIEWING:
+                order.finance_workflow.fireTransition("reviewing-declined")
+            if order.finance_state is wf.order.finance.PAYMENT_DECLINED:
+                order.finance_workflow.fireTransition("cancel-declined")
+
+            if order.fulfillment_state is None:
+                order.fulfillment_workflow.fireTransition("create")
+            if order.fulfillment_state is wf.order.fulfillment.NEW:
+                order.fulfillment_workflow.fireTransition("cancel-new-order")
+
+    def _destroyCart(self):
+        component.getUtility(interfaces.IShoppingCartUtility).destroy(self.context)

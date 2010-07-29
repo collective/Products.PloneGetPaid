@@ -6,6 +6,8 @@ __version__ = "$Revision$"
 # $Id$
 # $URL$
 
+import math
+
 from zope import component, event, interface, lifecycleevent, schema
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -26,8 +28,6 @@ from getpaid.core import interfaces
 from Products.PloneGetPaid.interfaces import ICurrencyFormatter
 from Products.PloneGetPaid.browser.interfaces import IDontShowGetPaidPortlets
 from Products.PloneGetPaid import _
-
-import math
 
 
 class ILineItemDisplayAdapter(interface.Interface):
@@ -332,16 +332,17 @@ class ShoppingCart(LineItemContainerTable):
 
     @property
     def cart(self):
+        """ Shopping cart """
         return self.container
 
     @property
     def container(self):
-        if hasattr(self, "order_id"):
+        if hasattr(self, "order_id") and self.order_id:
             manager = component.getUtility(interfaces.IOrderManager)
-            if self.order_id in manager:
-                return manager.get(self.order_id).shopping_cart
-        manager = component.getUtility( interfaces.IShoppingCartUtility )
-        return manager.get(self.context, create=False) or None
+            return self.order_id in manager and manager.get(self.order_id).shopping_cart or None
+        else:
+            manager = component.getUtility(interfaces.IShoppingCartUtility )
+            return manager.get(self.context, create=False) or None
 
     @property
     def totals(self):

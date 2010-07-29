@@ -52,7 +52,7 @@
                       tal:define="form nocall:view/currentStep"
                       tal:attributes="action request/getURL;
                                       enctype form/enctype;
-                                      class python:'rowlike enableUnloadProtection kssattr-formname-%s' % request.getURL().split('/')[-1]">
+                                      class python:'rowlike enableUnloadProtection'">
                   <div tal:define="raw form/render;
                                    raw python:raw.replace('z3cformInlineValidation ', '')"
                        tal:replace="structure raw" />
@@ -73,7 +73,7 @@
       <tal:order condition="view/isOrderAvailable">
         <div metal:use-macro="template/macros/checkout-wizard">
           <metal:buttons fill-slot="payment-buttons" 
-                         tal:condition="view/arePaymentButtonsAvailable"
+                         tal:condition="view/canPaymentButtonsBeShown"
                          tal:replace="structure provider:getpaid.payment.buttons" />
         </div>
       </tal:order>
