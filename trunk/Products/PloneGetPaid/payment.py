@@ -13,7 +13,13 @@ class CreditCardTypeEnumerator(CreditCardTypeEnumerator):
 
     def acceptedCreditCardTypes(self):
         # Get the configured values
-        portal = getToolByName(self.context.context, 'portal_url').getPortalObject()
+
+        # FIXME: We cannot use self.context to locate Plone Site object,
+        # because self.context on collective.z3cform.wizard.Step contains
+        # wizard's data container (a dict from session).
+        site = component.getSiteManager()
+        portal = getToolByName(site, 'portal_url').getPortalObject()
+
         options = IGetPaidManagementOptions(portal)
 
         processors = [component.getUtility(IPaymentProcessor, name=processor)
