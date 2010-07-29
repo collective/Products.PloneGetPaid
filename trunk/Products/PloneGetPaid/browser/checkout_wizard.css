@@ -1,0 +1,50 @@
+ul.wizard-steps {
+    text-align: center;
+}
+
+#content ul.wizard-steps li {
+    display: inline;
+    margin-right: 1em;
+}
+
+.wizard-step-link.selected {
+    font-weight: bold;
+    font-size: 120%;
+}
+
+.fieldErrorBox .error {
+    border: none;
+    padding: 0;
+}
+
+.wizard-buttons {
+    clear: both;
+    border-color: #329FD7;
+    border-style: solid none none none;
+    border-width: 0.1em;
+    text-align: right;
+}
+
+.wizard-buttons .action {
+    float: right;
+}
+
+#content .wizard-buttons input {
+    margin: 0.25em 0 0 0.25em;
+    padding: 0.1em 0.5em;
+    font-size: 200%;
+}
+
+#checkout-wizard form fieldset {
+    float: left;
+    margin-right: 1em;
+}
+
+#checkout-wizard form fieldset .row {
+    float: none;
+}
+
+#payment-buttons {
+    margin-bottom: 1em;
+    text-align: center;
+}

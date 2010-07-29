@@ -1,11 +1,83 @@
-<metal:page use-macro="context/@@getpaid-content-template/content_space"
-	i18n:domain="plonegetpaid">
-  <metal:block fill-slot="getpaid_content">
-    <tal:wizard condition="not:view/finished">
-      <div tal:replace="structure view/index" />
-    </tal:wizard>
-    <tal:finished condition="view/finished">
-      <div tal:replace="structure provider:getpaid.payment.buttons" />
-    </tal:finished>
-  </metal:block>
-</metal:page>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="Products.PloneGetPaid">
+  <body>
+    <metal:style fill-slot="style_slot">
+      <style type="text/css">#edit-bar { display: none; }</style>
+    </metal:style>
+    <metal:main fill-slot="main">
+      <h1 class="documentFirstHeading" tal:content="view/label">Title</h1>
+      <tal:no-order condition="not:view/isOrderAvailable">
+        <tal:cart condition="view/isCartAvailable">
+          <div metal:define-macro="checkout-wizard" id="checkout-wizard">
+
+            <ul metal:define-slot="wizard-steps" class="wizard-steps">
+              <li tal:repeat="step view/activeSteps"
+                  class="wizard-step-link"
+                  tal:attributes="class python:'wizard-step-link' + ((step is view.currentStep) and ' selected' or '')">
+                <a tal:omit-tag="python:not step.available or step is view.currentStep"
+                   tal:content="string:${repeat/step/number}. ${step/label}"
+                   tal:attributes="href string:${view/absolute_url|string:.}?step:int=${repeat/step/index}">
+                  Link to step
+                </a>
+              </li>
+            </ul>
+          
+            <!--
+            <dl class="portalMessage info" tal:condition="view/finished">
+              <dt>Info</dt>
+              <dd tal:content="view/status"></dd>
+            </dl>
+            -->
+
+            <div class="form" tal:condition="not:view/finished"
+                 tal:attributes="id string:wizard-step-${view/currentStep/prefix}">
+              
+              <div class="description"
+                   tal:condition="view/description"
+                   tal:content="structure view/description">Form description</div>
+              
+              <dl class="portalMessage info" tal:condition="view/status">
+                <dt>Info</dt>
+                <dd tal:content="view/status"></dd>
+              </dl>
+              
+              <tal:form define="form nocall:view/currentStep">
+                <h2 tal:condition="form/label" tal:content="form/label">
+                  Subform title
+                </h2>
+                <p class="discreet" tal:content="form/description"/>
+                <metal:buttons define-slot="payment-buttons" tal:omit-tag=""/>
+                <form action="." method="post"
+                      tal:define="form nocall:view/currentStep"
+                      tal:attributes="action request/getURL;
+                                      enctype form/enctype;
+                                      class python:'rowlike enableUnloadProtection kssattr-formname-%s' % request.getURL().split('/')[-1]">
+                  <div tal:define="raw form/render;
+                                   raw python:raw.replace('z3cformInlineValidation ', '')"
+                       tal:replace="structure raw" />
+                  <div class="wizard-buttons">
+                    <div class="action" tal:repeat="action view/actions/values">
+                      <input type="submit" tal:replace="structure action/render"/>
+                    </div>
+                  </div>
+                </form>
+              </tal:form>
+
+            </div>
+          </div>
+        </tal:cart>
+        <tal:no-cart condition="not:view/isCartAvailable"
+                     replace="structure provider:getpaid.cart.empty" />
+      </tal:no-order>
+      <tal:order condition="view/isOrderAvailable">
+        <div metal:use-macro="template/macros/checkout-wizard">
+          <metal:buttons fill-slot="payment-buttons" 
+                         tal:condition="view/arePaymentButtonsAvailable"
+                         tal:replace="structure provider:getpaid.payment.buttons" />
+        </div>
+      </tal:order>
+      <div class="visualClear"><!----></div>
+    </metal:main>
+  </body>
+</html>

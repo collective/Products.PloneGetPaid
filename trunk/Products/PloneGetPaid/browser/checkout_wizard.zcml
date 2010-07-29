@@ -1,21 +1,67 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:browser="http://namespaces.zope.org/browser"
            xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-           i18n_domain="plonegetpaid">
+           i18n_domain="Products.PloneGetPaid">
 
   <include package="collective.z3cform.wizard"/> 
   
+  <browser:resource
+     name="Products.PloneGetPaid.browser.checkout_wizard.css"
+     file="checkout_wizard.css"/>
+  
   <browser:page
+     name="checkout-wizard"
      for="getpaid.core.interfaces.IStore"
-     name="getpaid-checkout-wizard"
      class=".checkout_wizard.CheckoutWizard"
      permission="zope2.View"
+     /> 
+
+  <adapter
+     provides=".checkout_wizard.ICheckoutContinuationKey"
+     for="getpaid.core.interfaces.IOrder"
+     factory=".checkout_wizard.CheckoutContinuationKeyAdapter"
+     />
+  
+  <adapter
+     name="customer"
+     provides="collective.z3cform.wizard.interfaces.IStep"
+     for="zope.interface.Interface
+          zope.publisher.interfaces.browser.IBrowserRequest
+          .checkout_wizard.ICheckoutWizard"
+     factory=".checkout_wizard.Customer"
+     />
+
+  <adapter
+     name="review"
+     provides="collective.z3cform.wizard.interfaces.IStep"
+     for="zope.interface.Interface
+          zope.publisher.interfaces.browser.IBrowserRequest
+          .checkout_wizard.ICheckoutWizard"
+     factory=".checkout_wizard.Review"
+     />
+
+  <adapter
+     name="method"
+     provides="collective.z3cform.wizard.interfaces.IStep"
+     for="zope.interface.Interface
+          zope.publisher.interfaces.browser.IBrowserRequest
+          .checkout_wizard.ICheckoutWizard"
+     factory=".checkout_wizard.Method"
+     />
+
+  <adapter
+     name="confirmation"
+     provides="collective.z3cform.wizard.interfaces.IStep"
+     for="zope.interface.Interface
+          zope.publisher.interfaces.browser.IBrowserRequest
+          .checkout_wizard.ICheckoutWizard"
+     factory=".checkout_wizard.Confirmation"
      />
 
   <browser:viewletManager
      name="getpaid.payment.buttons"
-     provides="..interfaces.IPaymentButtonManager"
-     class=".checkout_wizard.PaymentButtonManager"
+     provides=".checkout_wizard.IPaymentProcessorButtonManager"
+     class=".checkout_wizard.PaymentProcessorButtonManager"
      permission="zope2.View"
      />
   
