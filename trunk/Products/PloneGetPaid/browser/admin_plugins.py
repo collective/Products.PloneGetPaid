@@ -1,12 +1,24 @@
 """
-admin plugins
+z3c.form based interface for installing and removing getpaid plugins
 
-$Id: admin_processors.py 3449 2010-04-13 14:46:04Z datakurre $
+See: getpaid.core.interfaces.IPluginManager
+
+FIXME: The current approach could be replaced with a single schema.List
+field form for switching plugins on and off, but it would require almost
+complete rewrite :+)
+
+FIXME: We should prevent uninstalling currently used plugins, e.g.
+enabled payment processors.
 """
+
+__version__ = "$Revision$"
+# $Id$
+# $URL$
+
 from zope import component, interface, schema
 
 from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from z3c.form.interfaces import IFormLayer
 from z3c.form import interfaces, form, button
@@ -26,7 +38,7 @@ class PluginForm(form.Form):
     def __init__(self, context, request, plugin_id, plugin_manager):
         """ Create form, use plugin_id as form prefix, store manager for actions, and update form widgets""" 
         super(PluginForm, self).__init__(context, request)        
-        interface.alsoProvides(request, IFormLayer)
+        interface.alsoProvides(self.request, IFormLayer)
         self.prefix = plugin_id
         self.manager = plugin_manager
         self.update()
@@ -63,9 +75,10 @@ class PluginForm(form.Form):
             self.context.plone_utils.addPortalMessage(_(u"Cannot uninstall plugin."), type='error')
             self.noChangesMessage = _(u"Cannot uninstall plugin.")
 
+
 class PluginsManagerForm(BrowserView):
     """ A browser view, which renders a z3c.form for each found plugin manager """
-    __call__ = ZopeTwoPageTemplateFile("templates/settings-plugins.pt")
+    __call__ = ViewPageTemplateFile("templates/settings-plugins.pt")
 
     def __init__(self, context, request):
         super(PluginsManagerForm, self).__init__(context, request)
