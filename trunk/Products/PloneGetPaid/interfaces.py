@@ -39,10 +39,6 @@ class IGetPaidCartViewletManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for get paid shopping cart ui
     """
 
-class IPaymentButtonManager( zope.viewlet.interfaces.IViewletManager ):
-    """ viewlet manager for get paid payment processor buttons
-    """
-
 class IGetPaidOrderHistoryViewletManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for get paid order history ui
     """
@@ -254,7 +250,7 @@ class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
     payment_processors = schema.List(
         title = _(u"Payment Processor"),
         required = True,
-        default = ['Testing Processor'],
+        default = [u'nullpayment'], # u'nullpayment' == "Testing Processor"
         value_type = schema.Choice( title=u"payment_methods", source="getpaid.payment_methods" )
         )
 
