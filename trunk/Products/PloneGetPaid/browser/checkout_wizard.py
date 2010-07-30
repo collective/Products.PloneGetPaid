@@ -25,6 +25,8 @@ from z3c.form import button, field, group, form
 from z3c.form.interfaces import IFormLayer, IDisplayForm, DISPLAY_MODE, HIDDEN_MODE
 from z3c.form.browser import radio
 
+from collective.z3cform.datetimewidget import MonthYearFieldWidget
+
 # @view.memoize cache values for the lifespan of request
 from plone.memoize import view 
 
@@ -82,7 +84,7 @@ class PaymentProcessorButtonManager(ViewletManagerBase):
         return results
 
     def render(self):
-        return '<div id="payment-buttons">%s</div>' % "".join([b.render() for b in self.viewlets])
+        return "".join([b.render() for b in self.viewlets])
 
 
 class IPaymentProcessorButton(interface.Interface):
@@ -96,7 +98,7 @@ class PaymentProcessorButtonBase(ViewletBase):
     interface.implements(IPaymentProcessorButton)
 
     def __init__(self, context, request, view, manager):
-        self.wizard = view
+        self.wizard = hasattr(view, 'wizard') and view.wizard or view
         super(PaymentProcessorButtonBase, self).__init__(context, request, view, manager)
 
 
@@ -146,21 +148,10 @@ class PaymentGroup(SchemaGroup):
     label = _(u"Payment Information")
     section = 'payment'
 
-#class IOrderId(interface.Interface):
-#    order_id = schema.Text(title=_(u"Order Id"), required=False)
-#
-#class OrderDetails(form.DisplayForm, form.GroupForm):
-#    interface.implements(IOrderId)
-#
-#    groups = (ContactGroup, BillingGroup, ShippingGroup, PaymentGroup)
-#    fields = field.Fields()
-#    render = ViewPageTemplateFile("templates/order-details.pt")
-#
-#    def update(self):
-#        super(OrderDetails, self).update()
-#       
-#    def getContent(self):
-#        content = {}
+    def __init__(self, *args):
+        super(PaymentGroup, self).__init__(*args)
+        self.fields["cc_expiration"].widgetFactory = MonthYearFieldWidget
+
 
 class Customer(wizard.GroupStep):
     prefix = 'details'
@@ -209,6 +200,13 @@ class Review(Customer):
         return self.request.SESSION[self.wizard.sessionKey].get('details', None) \
             and not self.wizard.isOrderAvailable
 
+    def applyChanges(self, data):
+        super(Review, self).applyChanges(data)
+        # Now, when all order details should be collected (and only processor specific 
+        # steps left), create an order and attach it to the session
+        if not self.wizard.isOrderAvailable:
+            self.wizard.session['order_id'] = self.wizard._createOrder()
+
     def getContent(self):
         return self.request.SESSION[self.wizard.sessionKey].get('details')
 
@@ -220,16 +218,15 @@ class Method(wizard.Step):
     weight = 60
 
     fields = field.Fields(
-       schema.Choice(__name__='processor_id', title=_(u"Other payment method"),
+       schema.Choice(__name__='processor_id', title=_(u"Available Payment Methods"),
                      values=[], required=True))
     template = ViewPageTemplateFile("templates/checkout-wizard-step-method.pt")
 
     @property
     def available(self):
-        finance_state = self.wizard.isOrderAvailable \
-            and self.wizard._order.finance_workflow.state().getState() or None
         return super(Method, self).available \
-            and finance_state in [None, wf.order.finance.REVIEWING] 
+            and self.wizard.isOrderAvailable \
+            and self.wizard._order.finance_state == None
 
     def update(self):
         """ Setup widget for stepful payment processors, when processor spesific steps found """
@@ -247,11 +244,6 @@ class Method(wizard.Step):
             self.fields["processor_id"].widgetFactory = radio.RadioFieldWidget
         else:
             self.fields["processor_id"].mode = HIDDEN_MODE
-
-        # Now, when all order details should be collected (and only processor specific 
-        # steps left), create an order and attach it to the session
-        if not self.wizard.isOrderAvailable:
-            self.wizard.session['order_id'] = self.wizard._createOrder()
         super(Method, self).update()
 
     @property
@@ -272,10 +264,9 @@ class Payment(wizard.GroupStep):
 
     @property
     def available(self):
-        finance_state = self.wizard.isOrderAvailable \
-            and self.wizard._order.finance_workflow.state().getState() or None
         return super(Payment, self).available \
-            and finance_state == wf.order.finance.REVIEWING
+            and self.wizard.isOrderAvailable \
+            and self.wizard._order.finance_state == None
 
     @property
     def order_id(self):
@@ -335,7 +326,7 @@ class Confirmation(wizard.GroupStep):
 
     def update(self):
         # For not yet authorized order
-        if self.wizard._order.finance_state == wf.order.finance.REVIEWING \
+        if self.wizard._order.finance_state == None \
                 and self.wizard._authorizeOrder() != interfaces.keys.results_success:
             utils = getToolByName(self.context, 'plone_utils')
             utils.addPortalMessage(_(u"Your payment information couldn't be verified."))
@@ -354,7 +345,7 @@ class CheckoutWizard(wizard.Wizard):
     """ Payment checkout wizard """
     interface.implements(ICheckoutWizard, IDontShowGetPaidPortlets)
 
-    buttons = wizard.Wizard.buttons.copy()
+    buttons = wizard.Wizard.buttons.select('continue', 'back')
     handlers = wizard.Wizard.handlers.copy()
 
     label = _(u"Online Checkout")
@@ -380,14 +371,11 @@ class CheckoutWizard(wizard.Wizard):
             querystring = ZTUtils.make_query(self.request.form)
             self.request.response.redirect('%(url)?%(querystring)s' % vars())
 
-        # Tune z3cform.wizard's default buttons
+        # Configure z3cform.wizard's default buttons
         self.buttons["back"].title = _(u"Back")
         self.buttons["back"].condition = lambda form: form.isBackAvailable
         self.buttons["continue"].title = _(u"Continue")
         self.buttons["continue"].condition = lambda form: form.isContinueAvailable
-        # Hide Finish button until we find use for z3cform.wizards "finish-action"
-        self.buttons["finish"].title = _(u"Finish")
-        self.buttons["finish"].condition = lambda form: False
 
     def update(self):
         """ See: collective.z3cform.wizard.Wizard.update() """
@@ -406,6 +394,7 @@ class CheckoutWizard(wizard.Wizard):
         url = self.request.get('ACTUAL_URL', "").replace("@@", "")
         if not self.isOrderAvailable and referer.startswith('http') \
                 and 'kss_z3cform_inline_validation' not in url \
+                and not referer.endswith('/shopping-cart') \
                 and not utils.location_is_equal(url, referer):
             self.request.SESSION[sessionKey] = {}
         self.session = self.request.SESSION[sessionKey]
@@ -414,25 +403,21 @@ class CheckoutWizard(wizard.Wizard):
         # Query and initialize steps, include processor step if processor selected
         self.activeSteps = []
         for name, step in component.getAdapters((self.context, self.request, self), IStep):
-            if name not in self._processor_names or name == self._selected_processor:
+            if not [p for p in self._processor_names if name.startswith(p)] \
+                    or (self._selected_processor_id and name.startswith(self._selected_processor_id)):
                 step.__name__ = name
                 self.activeSteps.append(step)
         self.activeSteps.sort(lambda x,y: cmp(int(getattr(x, 'weight', 100)), int(getattr(y, 'weight', 100))))
 
-        # Init the session sata, if this wizard hasn't been loaded yet in this session
-        if not len(self.session):
-            self.initialize()
-            self.sync()
-
-        # Select the current step
-        # a) If paid order exist, go to the final step
+        # Selection of the active step:
+        # a) If paid order exist, jump always to the final step
         if self.isOrderAvailable \
-                and self._order.finance_state != wf.order.finance.REVIEWING:
+                and self._order.finance_state not in [None, wf.order.finance.REVIEWING]:
             self.updateCurrentStep(len(self.activeSteps) - 1)
-        # b) or look for explicit (available) step from request
+        # b) othewise, look for explicit (available) step from request
         elif 'step' in self.request.form:
             self.jump(self.request.form['step'])
-        # c) or read the step from the session
+        # c) or let the wizard continue as usual (may also lead to the final step)
         else:
             self.updateCurrentStep(self.session.setdefault('step', 0))
 
@@ -449,6 +434,7 @@ class CheckoutWizard(wizard.Wizard):
         utils = getToolByName(self.context, 'plone_utils')
         utils.addPortalMessage(_(u"Your order has been cancelled."))
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        # FIXME: What's really the most proper action after cancelling order?
         self.request.response.redirect(portal.absolute_url() + "/@@checkout-wizard")
 
     @property
@@ -463,7 +449,7 @@ class CheckoutWizard(wizard.Wizard):
     @property
     def isContinueAvailable(self):
         return not self.onLastStep \
-            and (not self._order or self._stepful_processors)
+            and (not self.isOrderAvailable or self.areStepfulProcessorsAvailable)
 
     @property
     def isCartAvailable(self):
@@ -472,6 +458,10 @@ class CheckoutWizard(wizard.Wizard):
     @property
     def isOrderAvailable(self):
         return self._order and True or False
+
+    @property
+    def areStepfulProcessorsAvailable(self):
+        return self._stepful_processors and True or False
 
     @property
     def isVerifiedCheckoutContinuation(self):
@@ -502,7 +492,7 @@ class CheckoutWizard(wizard.Wizard):
         return order_id and order_id in manager and manager.get(order_id) or None
 
     @property
-    def _selected_processor(self):
+    def _selected_processor_id(self):
         """ selected payment processor, when selected """
         return self.request.form.get('method.widgets.processor_id', [None])[0] \
             or self.session.has_key('method') and self.session['method'].get('processor_id', None) or None
@@ -573,8 +563,6 @@ class CheckoutWizard(wizard.Wizard):
                 # the id was taken, try again
                 pass
 
-        # Fire transition, destroy cart and return id
-        order.finance_workflow.fireTransition('create')
         self._destroyCart()
         return order.order_id
     
@@ -582,7 +570,7 @@ class CheckoutWizard(wizard.Wizard):
         """ Simple authorization for onsite (stepful) payment processors """
 
         order = self._order
-        processor_id = self._selected_processor
+        processor_id = self._selected_processor_id
         processor = component.getUtility(interfaces.IPaymentProcessor, name=processor_id)
 
         # Fill in the payment information
@@ -598,8 +586,11 @@ class CheckoutWizard(wizard.Wizard):
         # to order, if processor doesn't do it
         if processor.authorize(order, payment_information) == interfaces.keys.results_success:
             order.processor_id = processor_id
-            if order.finance_state == wf.order.finance.REVIEWING:
-                order.finance_workflow.fireTransition("authorize")
+            if order.finance_state == None:
+                order.finance_workflow.fireTransition('create')
+            ## Because authorizing will also fire charging, do not do it yet.
+            #if order.finance_state == wf.order.finance.REVIEWING:
+            #    order.finance_workflow.fireTransition("authorize")
             if order.fulfillment_state == None:
                 order.fulfillment_workflow.fireTransition("create")
             return interfaces.keys.results_success

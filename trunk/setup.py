@@ -52,6 +52,7 @@ setup(name='Products.PloneGetPaid',
           'plone.z3cform',
           'plone.z3ctable',
           'collective.z3cform.wizard',
+          'collective.z3cform.datetimewidget',
       ],
       entry_points="""
       # -*- Entry points: -*-

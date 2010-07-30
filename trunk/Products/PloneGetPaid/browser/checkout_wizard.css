@@ -14,6 +14,7 @@ ul.wizard-steps {
 
 .fieldErrorBox .error {
     border: none;
+    margin-top: 0;
     padding: 0;
 }
 
@@ -45,6 +46,10 @@ ul.wizard-steps {
 }
 
 #payment-buttons {
-    margin-bottom: 1em;
-    text-align: center;
+    margin-bottom: 0;
+}
+
+#payment-methods #formfield-method-widgets-processor_id > label,
+#payment-methods #formfield-method-widgets-processor_id > span.required.horizontal {
+    display: none;
 }

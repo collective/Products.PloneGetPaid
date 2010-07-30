@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
-      i18n:domain="Products.PloneGetPaid" omit-tag="">
+      i18n:domain="Products.PloneGetPaid" tal:omit-tag="">
   <tal:cart condition="view/cart">
     <fieldset id="shopping-cart" class="group">
       <legend i18n:translate="">Shopping Cart</legend>

@@ -1,7 +1,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       i18n:domain="Products.PloneGetPaid" tal:omit-tag="">
-  <div tal:replace="structure view/index" />
+  <fieldset id="payment-methods" class="group"
+            tal:condition="view/wizard/areStepfulProcessorsAvailable"
+            tal:define="buttons provider:getpaid.payment.buttons">
+    <legend tal:condition="buttons" i18n:translate="">Other Payment Methods</legend>
+    <legend tal:condition="not:buttons" i18n:translate="">Available Payment Methods</legend>
+    <div tal:replace="structure view/index" />
+  </fieldset>
   <div tal:define="order_id view/order_id"
        tal:replace="structure provider:getpaid.cart" />
 </html>

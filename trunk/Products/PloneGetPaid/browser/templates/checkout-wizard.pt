@@ -5,8 +5,12 @@
     <metal:style fill-slot="style_slot">
       <style type="text/css">#edit-bar { display: none; }</style>
     </metal:style>
+    <!--
+      NOTE: See original collective.z3cform.wizard template.
+      Here we have removed 'finish'-action and kss-validation.
+    -->
     <metal:main fill-slot="main">
-      <h1 class="documentFirstHeading" tal:content="view/label">Title</h1>
+      <h1 class="documentFirstHeading" tal:content="view/label">Checkout Wizard</h1>
       <tal:no-order condition="not:view/isOrderAvailable">
         <tal:cart condition="view/isCartAvailable">
           <div metal:define-macro="checkout-wizard" id="checkout-wizard">
@@ -22,13 +26,6 @@
                 </a>
               </li>
             </ul>
-          
-            <!--
-            <dl class="portalMessage info" tal:condition="view/finished">
-              <dt>Info</dt>
-              <dd tal:content="view/status"></dd>
-            </dl>
-            -->
 
             <div class="form" tal:condition="not:view/finished"
                  tal:attributes="id string:wizard-step-${view/currentStep/prefix}">
@@ -72,9 +69,14 @@
       </tal:no-order>
       <tal:order condition="view/isOrderAvailable">
         <div metal:use-macro="template/macros/checkout-wizard">
-          <metal:buttons fill-slot="payment-buttons" 
+          <metal:buttons fill-slot="payment-buttons"
                          tal:condition="view/canPaymentButtonsBeShown"
-                         tal:replace="structure provider:getpaid.payment.buttons" />
+                         tal:define="raw provider:getpaid.payment.buttons">
+            <fieldset tal:condition="raw" id="online-payment-method" class="group">
+              <legend i18n:translate="">Online Payment Methods</legend>
+              <div id="payment-buttons" tal:content="structure raw" />
+            </fieldset>
+          </metal:buttons>
         </div>
       </tal:order>
       <div class="visualClear"><!----></div>
