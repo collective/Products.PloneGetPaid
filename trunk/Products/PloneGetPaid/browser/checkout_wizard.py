@@ -477,7 +477,7 @@ class CheckoutWizard(wizard.Wizard):
         finance_state = self.isOrderAvailable \
             and self._order.finance_workflow.state().getState() or None
         return self.isOrderAvailable and not self.isBackAvailable \
-            and finance_state in [None, wf.order.finance.REVIEWING]
+            and finance_state is None
 
     @property
     def _cart(self):
@@ -589,8 +589,8 @@ class CheckoutWizard(wizard.Wizard):
             if order.finance_state == None:
                 order.finance_workflow.fireTransition('create')
             ## Because authorizing will also fire charging, do not do it yet.
-            #if order.finance_state == wf.order.finance.REVIEWING:
-            #    order.finance_workflow.fireTransition("authorize")
+            if order.finance_state == wf.order.finance.REVIEWING:
+                order.finance_workflow.fireTransition("authorize")
             if order.fulfillment_state == None:
                 order.fulfillment_workflow.fireTransition("create")
             return interfaces.keys.results_success
