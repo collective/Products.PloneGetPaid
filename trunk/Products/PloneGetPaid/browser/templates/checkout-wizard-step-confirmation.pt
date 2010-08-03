@@ -13,10 +13,10 @@
     <dl>
       <dt i18n:translate="">Your order number is</dt>
       <dd i18n:translate="" tal:content="view/order_id">123456789</dd>
-      <dt i18n:translate="">Your order state is:</dt>
-      <dd i18n:translate="" tal:content="view/fulfillment_state">DELIVERED</dd>
-      <dt i18n:translate="">Your payment state is</dt>
+      <dt i18n:translate="">Your payment is</dt>
       <dd i18n:translate="" tal:content="view/finance_state">CHARGED</dd>
+      <dt i18n:translate="">Your order is:</dt>
+      <dd i18n:translate="" tal:content="view/fulfillment_state">DELIVERED</dd>
     </dl>
   </fieldset>
 
