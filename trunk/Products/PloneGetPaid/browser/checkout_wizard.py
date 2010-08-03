@@ -586,13 +586,23 @@ class CheckoutWizard(wizard.Wizard):
         # to order, if processor doesn't do it
         if processor.authorize(order, payment_information) == interfaces.keys.results_success:
             order.processor_id = processor_id
-            if order.finance_state == None:
-                order.finance_workflow.fireTransition('create')
-            ## Because authorizing will also fire charging, do not do it yet.
-            if order.finance_state == wf.order.finance.REVIEWING:
-                order.finance_workflow.fireTransition("authorize")
             if order.fulfillment_state == None:
                 order.fulfillment_workflow.fireTransition("create")
+
+            # FIXME: This should happen automatically (via subscriber)
+            # when order's "create" transition occurs...
+            for item in order.shopping_cart.values():
+                if item.fulfillment_state is None:
+                    item.fulfillment_workflow.fireTransition("create")
+
+            if order.finance_state == None:
+                order.finance_workflow.fireTransition('create')
+            # I wonder if it's OK to fire "authorize" here, because it also
+            # fires "charge", but since there's no GUI for manually "charge",
+            # I'll leave it here for now...
+            if order.finance_state == wf.order.finance.REVIEWING:
+                order.finance_workflow.fireTransition("authorize")
+
             return interfaces.keys.results_success
         else:
             return False
@@ -600,6 +610,9 @@ class CheckoutWizard(wizard.Wizard):
     def _cancelOrder(self):
         if self.isOrderAvailable:
             order = self._order
+
+            if not hasattr(order, "processor_id"):
+                order.processor_id = None
 
             if order.finance_state is None:
                 order.finance_workflow.fireTransition("create")
@@ -612,6 +625,12 @@ class CheckoutWizard(wizard.Wizard):
                 order.fulfillment_workflow.fireTransition("create")
             if order.fulfillment_state is wf.order.fulfillment.NEW:
                 order.fulfillment_workflow.fireTransition("cancel-new-order")
+
+            for item in order.shopping_cart.values():
+                if item.fulfillment_state is None:
+                    item.fulfillment_workflow.fireTransition("create")
+                if item.fulfillment_state is wf.item.NEW:
+                    item.fulfillment_workflow.fireTransition("cancel")
 
     def _destroyCart(self):
         component.getUtility(interfaces.IShoppingCartUtility).destroy(self.context)
