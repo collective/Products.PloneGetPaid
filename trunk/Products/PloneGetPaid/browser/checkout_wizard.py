@@ -337,8 +337,16 @@ class Confirmation(wizard.GroupStep):
             self.wizard._resetSession()
 
 
+class ITransactionReferenceNumberProvider(interface.Interface):
+    """Transaction reference number provider for orders """
+
+    def new(self):
+        """ Return new unused transaction reference number for an order """
+        raise NotImplementedError
+
+
 class ICheckoutWizard(IWizard):
-    """ Marker interface for wizard steps """
+    """ Marker interface for wizard to adapt steps for it """
 
 
 class CheckoutWizard(wizard.Wizard):
@@ -547,9 +555,16 @@ class CheckoutWizard(wizard.Wizard):
         order.name_on_card = order.billing_address.bill_name
         order.bill_phone_number = order.contact_information.phone_number
 
-        # Shopping cart is attached to the session, but we want to                                                     
-        # switch the storage to the persistent zodb, we pickle to get a                                                
-        # clean copy to store.                                                                                         
+        sm = component.getSiteManager()
+        trans_id = [u[1] for u in sm.getUtilitiesFor(ITransactionReferenceNumberProvider)]
+        if trans_id:
+            # Orders do have badly documented user_payment_info_trans_id property,
+            # which has even its own setter. See: getpaid.core.order
+            order.setOrderTransId(trans_id[0].new())
+
+        # Shopping cart is attached to the session, but we want to
+        # switch the storage to the persistent zodb, we pickle to get a
+        # clean copy to store.
         order.shopping_cart = cPickle.loads(cPickle.dumps(self._cart))
 
         # Store the order
