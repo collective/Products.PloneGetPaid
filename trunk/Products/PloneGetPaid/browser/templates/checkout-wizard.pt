@@ -71,7 +71,7 @@
         <div metal:use-macro="template/macros/checkout-wizard">
           <metal:buttons fill-slot="payment-buttons"
                          tal:condition="view/canPaymentButtonsBeShown"
-                         tal:define="raw provider:getpaid.payment.buttons">
+                         tal:define="raw provider:getpaid.wizard.payment_buttons">
             <fieldset tal:condition="raw" id="online-payment-method" class="group">
               <legend i18n:translate="">Online Payment Methods</legend>
               <div id="payment-buttons" tal:content="structure raw" />

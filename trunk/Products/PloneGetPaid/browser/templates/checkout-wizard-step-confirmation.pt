@@ -2,12 +2,17 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       i18n:domain="Products.PloneGetPaid" tal:omit-tag="">
 
+  <tal:verified condition="view/wizard/isVerifiedCheckoutContinuation">
+    <div tal:define="raw provider:getpaid.wizard.before_confirmation"
+         tal:condition="raw" tal:replace="structure raw" />
+  </tal:verified>
+    
   <div tal:replace="structure view/index" />
 
   <div tal:condition="view/wizard/isVerifiedCheckoutContinuation"
        tal:define="order_id view/order_id"
        tal:replace="structure provider:getpaid.cart" />
-
+  
   <fieldset id="order-status" class="group">
     <legend i18n:translate="">Order Status</legend>
     <dl>
@@ -19,5 +24,10 @@
       <dd i18n:translate="" tal:content="view/fulfillment_state">DELIVERED</dd>
     </dl>
   </fieldset>
+  
+  <tal:verified condition="view/wizard/isVerifiedCheckoutContinuation">
+    <div tal:define="raw provider:getpaid.wizard.after_confirmation"
+         tal:condition="raw" tal:replace="structure raw" />
+  </tal:verified>
 
 </html>

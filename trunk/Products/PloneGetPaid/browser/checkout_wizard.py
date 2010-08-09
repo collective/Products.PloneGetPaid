@@ -45,6 +45,7 @@ from collective.z3cform.wizard import wizard, utils
 class ICheckoutContinuationKey(interface.Interface):
     """ Adapts Order to Checkout Wizard Continuation Key """
 
+
 class CheckoutContinuationKeyAdapter(object):
     """ Adapts Order to Checkout Wizard Continuation Key """
 
@@ -67,6 +68,22 @@ class IPaymentProcessorButtonManager(viewlet.interfaces.IViewletManager):
     """ Viewlet manager for rendering payment buttons for payment processors """
 
 
+class IBeforeConfirmationViewletManager(viewlet.interfaces.IViewletManager):
+    """ Viewlet manager for plugins to add messages before confirmation step details """
+
+
+class IAfterConfirmationViewletManager(viewlet.interfaces.IViewletManager):
+    """ Viewlet manager for plugins to add messages after confirmation step details """
+
+
+class CheckoutWizardViewletBase(ViewletBase):
+    """ Checkout Wizard Payment button base """
+
+    def __init__(self, context, request, view, manager):
+        self.wizard = hasattr(view, 'wizard') and view.wizard or view
+        super(CheckoutWizardViewletBase, self).__init__(context, request, view, manager)
+
+
 class PaymentProcessorButtonManager(ViewletManagerBase):
     """ Viewlet manager for rendering payment buttons for payment processors """
 
@@ -84,22 +101,29 @@ class PaymentProcessorButtonManager(ViewletManagerBase):
         return results
 
     def render(self):
-        return "".join([b.render() for b in self.viewlets])
+        return "".join([b.render() or "" for b in self.viewlets])
 
 
-class IPaymentProcessorButton(interface.Interface):
-    """ Checkout Wizard Payment button """
-    # wizard = ...
+class BeforeConfirmationViewletManager(ViewletManagerBase):
+    """ Viewlet manager for plugins to add messages before confirmation step details """
+
+    def sort (self, viewlets ):
+        """ sort by weight """
+        return sorted(viewlets, lambda x,y: cmp(int(getattr(x[1], 'weight', 100)), int(getattr(y[1], 'weight', 100))))
+
+    def render(self):
+        return "".join([v.render() or "" for v in self.viewlets])
 
 
-class PaymentProcessorButtonBase(ViewletBase):
-    """ Checkout Wizard Payment button base """
+class AfterConfirmationViewletManager(ViewletManagerBase):
+    """ Viewlet manager for plugins to add messages after confirmation step details """
 
-    interface.implements(IPaymentProcessorButton)
+    def sort (self, viewlets ):
+        """ sort by weight """
+        return sorted(viewlets, lambda x,y: cmp(int(getattr(x[1], 'weight', 100)), int(getattr(y[1], 'weight', 100))))
 
-    def __init__(self, context, request, view, manager):
-        self.wizard = hasattr(view, 'wizard') and view.wizard or view
-        super(PaymentProcessorButtonBase, self).__init__(context, request, view, manager)
+    def render(self):
+        return "".join([v.render() or "" for v in self.viewlets])
 
 
 class SchemaGroup(group.Group):

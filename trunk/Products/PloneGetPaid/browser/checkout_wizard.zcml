@@ -59,9 +59,23 @@
      />
 
   <browser:viewletManager
-     name="getpaid.payment.buttons"
+     name="getpaid.wizard.payment_buttons"
      provides=".checkout_wizard.IPaymentProcessorButtonManager"
      class=".checkout_wizard.PaymentProcessorButtonManager"
+     permission="zope2.View"
+     />
+
+  <browser:viewletManager
+     name="getpaid.wizard.before_confirmation"
+     provides=".checkout_wizard.IBeforeConfirmationViewletManager"
+     class=".checkout_wizard.BeforeConfirmationViewletManager"
+     permission="zope2.View"
+     />
+
+  <browser:viewletManager
+     name="getpaid.wizard.after_confirmation"
+     provides=".checkout_wizard.IAfterConfirmationViewletManager"
+     class=".checkout_wizard.AfterConfirmationViewletManager"
      permission="zope2.View"
      />
   
