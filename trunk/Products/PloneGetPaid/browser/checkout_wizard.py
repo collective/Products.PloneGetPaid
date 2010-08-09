@@ -340,7 +340,7 @@ class Confirmation(wizard.GroupStep):
 class ITransactionReferenceNumberProvider(interface.Interface):
     """Transaction reference number provider for orders """
 
-    def new(self):
+    def new(self, order=None):
         """ Return new unused transaction reference number for an order """
         raise NotImplementedError
 
@@ -429,8 +429,9 @@ class CheckoutWizard(wizard.Wizard):
         else:
             self.updateCurrentStep(self.session.setdefault('step', 0))
 
-        self.updateActions()
-        self.actions.execute()
+        if self.currentStep:
+            self.updateActions()
+            self.actions.execute()
         self.updateWidgets()
 
     @button.buttonAndHandler(_(u"Cancel"), name="cancel",
@@ -452,6 +453,7 @@ class CheckoutWizard(wizard.Wizard):
     @property
     def isBackAvailable(self):
         return not self.onFirstStep \
+            and self.currentIndex is not None \
             and self.activeSteps[self.currentIndex - 1].available
     
     @property
@@ -555,13 +557,6 @@ class CheckoutWizard(wizard.Wizard):
         order.name_on_card = order.billing_address.bill_name
         order.bill_phone_number = order.contact_information.phone_number
 
-        sm = component.getSiteManager()
-        trans_id = [u[1] for u in sm.getUtilitiesFor(ITransactionReferenceNumberProvider)]
-        if trans_id:
-            # Orders do have badly documented user_payment_info_trans_id property,
-            # which has even its own setter. See: getpaid.core.order
-            order.setOrderTransId(trans_id[0].new())
-
         # Shopping cart is attached to the session, but we want to
         # switch the storage to the persistent zodb, we pickle to get a
         # clean copy to store.
@@ -577,6 +572,13 @@ class CheckoutWizard(wizard.Wizard):
             except exceptions.DuplicationError:
                 # the id was taken, try again
                 pass
+
+        sm = component.getSiteManager()
+        trans_id = [u[1] for u in sm.getUtilitiesFor(ITransactionReferenceNumberProvider)]
+        if trans_id:
+            # Orders do have badly documented user_payment_info_trans_id property,
+            # which has even its own setter. See: getpaid.core.order
+            order.setOrderTransId(trans_id[0].new(order))
 
         self._destroyCart()
         return order.order_id
