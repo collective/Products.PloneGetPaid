@@ -88,11 +88,8 @@ class IStoreMember( Interface ):
     """ marker interface so we can adapt to members """
 
 class INotificationMailMessage( Interface ):
+    """ a message suitable for passing to a mailhost.send """
 
-    def __call__(settings, store_url, order_contents, template=None):
-        """
-        return a message suitable for passing to a mailhost.send
-        """
 class IConditionalViewlet( Interface ):
 
     def condition( ):

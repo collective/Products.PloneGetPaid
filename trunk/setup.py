@@ -49,6 +49,7 @@ setup(name='Products.PloneGetPaid',
           'zope.interface',
           'zope.component',
           # -*- Extra requirements: -*-
+          'five.globalrequest',
           'plone.z3cform',
           'plone.z3ctable',
           'collective.z3cform.wizard',

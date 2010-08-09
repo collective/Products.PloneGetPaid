@@ -51,17 +51,19 @@ class CheckoutContinuationKeyAdapter(object):
 
     interface.implements(ICheckoutContinuationKey)
 
-    _key = None
+    key = None
 
     def __repr__(self):
-        return self._key
+        if self.key is not None:
+            return self.key
+        return super(CheckoutContinuationKeyAdapter, self).__repr__()
 
     def __init__(self, order):
         key = hashlib.md5()
         key.update(str(order.order_id))
         key.update(str(order.processor_order_id))
         key.update(str(order.creation_date))
-        self._key = key.hexdigest()
+        self.key = key.hexdigest()
 
 
 class IPaymentProcessorButtonManager(viewlet.interfaces.IViewletManager):

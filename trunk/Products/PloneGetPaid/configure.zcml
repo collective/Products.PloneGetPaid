@@ -161,6 +161,8 @@
     factory=".currencyformatter.CurrencyFormatter"/>
 
 <!-- Notifications -->
+<include package="five.globalrequest" />
+
 <subscriber
    for="getpaid.core.interfaces.IOrder
 	hurry.workflow.interfaces.IWorkflowTransitionEvent"
@@ -169,39 +171,45 @@
 
 <!-- Email Notification Templates -->
 <adapter
-   for="getpaid.core.interfaces.IOrder"
    name="merchant-new-order"
-   factory=".notifications.MerchantOrderNotificationMessage"
+   provides=".interfaces.INotificationMailMessage"
+   for="getpaid.core.interfaces.IOrder"
+   factory=".notifications.MerchantNewOrderNotification"
    />
 
 <adapter
-   for="getpaid.core.interfaces.IOrder"
    name="customer-new-order"
-   factory=".notifications.CustomerOrderNotificationMessage"
+   provides=".interfaces.INotificationMailMessage"
+   for="getpaid.core.interfaces.IOrder*"
+   factory=".notifications.CustomerNewOrderNotification"
    />
 
 <adapter
-   for="getpaid.core.interfaces.IOrder"
    name="merchant-charge-order"
-   factory=".notifications.MerchantOrderNotificationMessage"
+   provides=".interfaces.INotificationMailMessage"
+   for="getpaid.core.interfaces.IOrder"
+   factory=".notifications.MerchantChargeOrderNotification"
    />
 
 <adapter
-   for="getpaid.core.interfaces.IOrder"
    name="customer-charge-order"
-   factory=".notifications.CustomerOrderNotificationMessage"
+   provides=".interfaces.INotificationMailMessage"
+   for="getpaid.core.interfaces.IOrder"
+   factory=".notifications.CustomerChargeOrderNotification"
    />
 
 <adapter
-   for="getpaid.core.interfaces.IOrder"
    name="merchant-decline-order"
-   factory=".notifications.MerchantOrderNotificationMessage"
+   provides=".interfaces.INotificationMailMessage"
+   for="getpaid.core.interfaces.IOrder"
+   factory=".notifications.MerchantDeclineOrderNotification"
    />
 
 <adapter
-   for="getpaid.core.interfaces.IOrder"
    name="customer-decline-order"
-   factory=".notifications.CustomerOrderNotificationMessage"
+   provides=".interfaces.INotificationMailMessage"
+   for="getpaid.core.interfaces.IOrder"
+   factory=".notifications.CustomerDeclineOrderNotification"
    />
 
 <!-- Payment -->
