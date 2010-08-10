@@ -223,7 +223,7 @@ class Review(Customer):
 
     @property
     def available(self):
-        return self.request.SESSION[self.wizard.sessionKey].get('details', None) \
+        return self.request.SESSION[self.wizard.sessionKey].get('details', False) \
             and not self.wizard.isOrderAvailable
 
     def applyChanges(self, data):
@@ -232,6 +232,8 @@ class Review(Customer):
         # steps left), create an order and attach it to the session
         if not self.wizard.isOrderAvailable:
             self.wizard.session['order_id'] = self.wizard._createOrder()
+            self.wizard.session['key'] = str(ICheckoutContinuationKey(self.wizard._order))
+            self.wizard.sync()
 
     def getContent(self):
         return self.request.SESSION[self.wizard.sessionKey].get('details')
@@ -250,8 +252,7 @@ class Method(wizard.Step):
 
     @property
     def available(self):
-        return super(Method, self).available \
-            and self.wizard.isOrderAvailable \
+        return self.wizard.isOrderAvailable \
             and self.wizard._order.finance_state == None
 
     def update(self):
@@ -450,14 +451,21 @@ class CheckoutWizard(wizard.Wizard):
             self.updateCurrentStep(len(self.activeSteps) - 1)
         # b) othewise, look for explicit (available) step from request
         elif 'step' in self.request.form:
-            self.jump(self.request.form['step'])
+            try:
+                self.jump(max(min(int(self.request.form['step']), len(self.activeSteps) - 1), 0))
+            except ValueError:
+                pass
         # c) or let the wizard continue as usual (may also lead to the final step)
-        else:
-            self.updateCurrentStep(self.session.setdefault('step', 0))
+        if not self.currentStep:
+            available = [s.available for s in self.activeSteps]
+            try:
+                first = available.index(True)
+            except ValueError:
+                first = 0
+            self.updateCurrentStep(self.session.setdefault('step', first))
 
-        if self.currentStep:
-            self.updateActions()
-            self.actions.execute()
+        self.updateActions()
+        self.actions.execute()
         self.updateWidgets()
 
     @button.buttonAndHandler(_(u"Cancel"), name="cancel",
@@ -501,10 +509,11 @@ class CheckoutWizard(wizard.Wizard):
 
     @property
     def isVerifiedCheckoutContinuation(self):
-        if hasattr(self, "session") and self.session.get("order_id", None):
-            return True
+        if hasattr(self, "session") and self.session.get("key", None):
+            key = str(ICheckoutContinuationKey(self._order))
+            return self.session.get("key") == key
         elif self.isOrderAvailable and self.request.form.has_key("key"):
-            key = str(component.getAdapter(self._order, ICheckoutContinuationKey))
+            key = str(ICheckoutContinuationKey(self._order))
             return self.request.form.get("key") == key
         return False
 
@@ -525,7 +534,12 @@ class CheckoutWizard(wizard.Wizard):
         manager = component.getUtility(interfaces.IOrderManager)
         order_id = hasattr(self, "session") and self.session.get("order_id", None) \
             or self.request.form.get("order_id", None)
-        return order_id and order_id in manager and manager.get(order_id) or None
+        order = order_id and order_id in manager and manager.get(order_id) or None
+        if order is not None and hasattr(self, "session") \
+                and self.session.get("order_id", None) is None:
+            self.session["order_id"] = order_id
+            self.sync()
+        return order
 
     @property
     def _selected_processor_id(self):

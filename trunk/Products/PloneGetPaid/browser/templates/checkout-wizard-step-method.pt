@@ -8,6 +8,8 @@
     <legend tal:condition="not:buttons" i18n:translate="">Available Payment Methods</legend>
     <div tal:replace="structure view/index" />
   </fieldset>
-  <div tal:define="order_id view/order_id"
-       tal:replace="structure provider:getpaid.cart" />
+  <tal:verified condition="view/wizard/isVerifiedCheckoutContinuation">
+    <div tal:define="order_id view/order_id"
+         tal:replace="structure provider:getpaid.cart" />
+  </tal:verified>
 </html>

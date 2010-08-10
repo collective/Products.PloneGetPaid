@@ -2,6 +2,8 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       i18n:domain="Products.PloneGetPaid" tal:omit-tag="">
   <div tal:replace="structure view/index" />
-  <div tal:define="order_id view/order_id"
-       tal:replace="structure provider:getpaid.cart" />
+  <tal:verified condition="view/wizard/isVerifiedCheckoutContinuation">
+    <div tal:define="order_id view/order_id"
+         tal:replace="structure provider:getpaid.cart" />
+  </tal:verified>
 </html>
