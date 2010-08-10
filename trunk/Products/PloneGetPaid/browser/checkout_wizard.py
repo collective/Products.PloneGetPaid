@@ -323,7 +323,7 @@ class Confirmation(wizard.GroupStep):
     def __init__(self, context, request, wizard):
         """ Filter required FormSchema sections """
         if  wizard.isVerifiedCheckoutContinuation \
-                and wizard.session.has_key("order_id"):
+                and wizard.session.has_key("details"):
             # Include shipping information only, when cart
             # contains shippable items
             if len([i for i in wizard._order.shopping_cart.values() \
@@ -509,12 +509,12 @@ class CheckoutWizard(wizard.Wizard):
 
     @property
     def isVerifiedCheckoutContinuation(self):
-        if hasattr(self, "session") and self.session.get("key", None):
+        if self.isOrderAvailable:
             key = str(ICheckoutContinuationKey(self._order))
-            return self.session.get("key") == key
-        elif self.isOrderAvailable and self.request.form.has_key("key"):
-            key = str(ICheckoutContinuationKey(self._order))
-            return self.request.form.get("key") == key
+            if self.request.form.has_key("key"):
+                return self.request.form.get("key") == key
+            elif hasattr(self, "session") and self.session.get("key", None):
+                return self.session.get("key") == key
         return False
 
     @property
@@ -535,8 +535,10 @@ class CheckoutWizard(wizard.Wizard):
         order_id = hasattr(self, "session") and self.session.get("order_id", None) \
             or self.request.form.get("order_id", None)
         order = order_id and order_id in manager and manager.get(order_id) or None
+        # Save the order to the session so that it would be possible
+        # to finish the checkout also with broken session.
         if order is not None and hasattr(self, "session") \
-                and self.session.get("order_id", None) is None:
+               and self.session.get("order_id", None) is None:
             self.session["order_id"] = order_id
             self.sync()
         return order
