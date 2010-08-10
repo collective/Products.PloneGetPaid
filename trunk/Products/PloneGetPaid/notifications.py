@@ -8,6 +8,7 @@ __version__ = "$Revision$"
 
 import logging
 
+import re
 import csv
 
 from email import message_from_string
@@ -30,6 +31,8 @@ from Products.PloneGetPaid.interfaces import ICurrencyFormatter
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
 from Products.PloneGetPaid.interfaces import INotificationMailMessage
 
+from Products.PloneGetPaid.browser.checkout_wizard import ICheckoutContinuationKey
+
 from Products.PloneGetPaid import _
 
 
@@ -41,6 +44,144 @@ class NotificationDialect(csv.Dialect):
     quotechar = '"'
     quoting = csv.QUOTE_ALL
     skipinitialspace = True
+
+
+class IKeyword(interface.Interface):
+    """ A notification keyword """
+
+
+class KeywordBase(object):
+    """ A notification keyword adapter base """
+
+    interface.implements(IKeyword)
+
+    value = None
+
+    def __repr__(self):
+        if getattr(self, "value", None):
+            return unicode(self.value).encode("utf-8")
+        return super(KeywordBase, self).__repr__()
+    
+    def __unicode__(self):
+        if getattr(self, "value", None):
+            return u"%s" % self.value
+        return u""
+
+
+class TotalPrice(KeywordBase):
+    """ total_price """
+
+    def __init__(self, portal, request, order):
+        currency = component.getUtility(ICurrencyFormatter)
+        self.value = currency.format(portal, request, order.getTotalPrice())
+
+
+class ShippingCost(KeywordBase):
+    """ shipping_cost """
+
+    def __init__(self, portal, request, order):
+        currency = component.getUtility(ICurrencyFormatter)
+        self.value = currency.format(portal, request, order.getShippingCost())
+
+
+class StoreURL(KeywordBase):
+    """ store_url """
+
+    def __init__(self, portal, request, order):
+        self.value = portal.absolute_url()
+
+
+class OrderId(KeywordBase):
+    """ order_id """
+
+    def __init__(self, portal, request, order):
+        self.value = order.order_id
+
+
+class OrderContents(KeywordBase):
+    """ order_contents """
+
+    def __init__(self, portal, request, order):
+        currency = component.getUtility(ICurrencyFormatter)
+        self.value = u"\n".join([u" ".join((str(i.quantity),
+                                       i.name,
+                                       u"@ %s" % currency.format(portal, request, i.cost),
+                                       u"%s: %s" % (_(u"Total"), currency.format(portal, request, i.cost*i.quantity))))
+                            for i in order.shopping_cart.values()])
+
+
+class ViewOrderInformation(KeywordBase):
+    """ view_order_information """
+
+    def __init__(self, portal, request, order):
+        self.value = u"\n".join((u"You can view the status of your order here",
+                                 u"",
+                                 u"%s/@@checkout-wizard?order_id=%s&key=%s" \
+                                     % (portal.absolute_url(),
+                                        order.order_id,
+                                        str(ICheckoutContinuationKey(order)))
+                                 ))
+
+class FormattedBagMixin(object):
+    """ formatted IFormSchemas bag mixin """
+
+    def getFormattedBag(self, order, name, format="csv"):
+        schemas = component.getUtility(interfaces.IFormSchemas)
+        bag = schemas.getBagClass(name)()
+        data = getattr(order, name, None)
+        values = [(getattr(field, "title", None), getattr(data, name, None) or u"") \
+                      for name, field in schema.getFieldsInOrder(bag.schema)]
+        if format == "csv":
+            output = StringIO()
+            writer = csv.writer(output, dialect=NotificationDialect)
+            # csv module doesn't support unicode, therefore we have to convert
+            writer.writerow([v[0].encode('utf-8') for v in values]) # unicode -> utf-8
+            writer.writerow([v[1].encode('utf-8') for v in values]) # unicode -> utf-8
+            return unicode(output.getvalue(), 'utf-8') # utf-8 -> unicode
+        else:
+            return u"\n".join([u"%s: %s" % (i[0], i[1]) for i in values])
+
+
+class ContactInformation(KeywordBase, FormattedBagMixin):
+    """ contact_information """
+
+    def __init__(self, portal, request, order):
+        self.value = self.getFormattedBag(order, "contact_information")
+
+
+class ContactInformationCSV(KeywordBase, FormattedBagMixin):
+    """ contact_information_csv """
+
+    def __init__(self, portal, request, order):
+        self.value = self.getFormattedBag(order, "contact_information", format="csv")
+
+
+class BillingAddress(KeywordBase, FormattedBagMixin):
+    """ billing_address """
+
+    def __init__(self, portal, request, order):
+        self.value = self.getFormattedBag(order, "billing_address")
+
+
+class BillingAddressCSV(KeywordBase, FormattedBagMixin):
+    """ billing_address_csv """
+
+    def __init__(self, portal, request, order):
+        self.value = self.getFormattedBag(order, "billing_address", format="csv")
+
+
+class ShippingAddress(KeywordBase, FormattedBagMixin):
+    """ shipping_address """
+
+    def __init__(self, portal, request, order):
+        self.value = self.getFormattedBag(order, "shipping_address")
+
+
+class ShippingAddressCSV(KeywordBase, FormattedBagMixin):
+    """ shipping_address_csv """
+
+    def __init__(self, portal, request, order):
+        self.value = self.getFormattedBag(order, "shipping_address", format="csv")
 
 
 class OrderNotificationBase(object):
@@ -72,81 +213,32 @@ class OrderNotificationBase(object):
         default_charset = properties.get("site_properties").default_charset
         return default_charset
 
-    @property
-    def isAnonymousUser(self):
-        mtool = getToolByName(self.portal, "portal_membership")
-        return mtool.isAnonymousUser()
-
-    def __str__(self):
-        if getattr(self, "message"):
-            return self.message.__str__()
-        return super(OrderNotificationBase, self).__str__()
+    def __repr__(self):
+        if getattr(self, "message", None):
+            return str(self.message)
+        return super(OrderNotificationBase, self).__repr__()
 
     def __init__(self, template, mapping):
         super(OrderNotificationBase, self).__init__()
-        message = _(template, mapping=mapping)
-        message = message_from_string(translate(message).encode(self.default_charset))
+        message = translate(_(template, mapping=mapping)) # substitution pass
+        message = "\n".join([line.rstrip() for line in message.split("\n")]) # 1st trim pass
+        message = re.compile("\n{2,}").sub("\n\n", message) # 2nd trim pass
+        message = message_from_string(message.encode(self.default_charset))
         message.replace_header("Subject", Header(message["Subject"], self.default_charset))
         message.set_charset(self.default_charset)
         self.message = message
 
-    def getFormattedArguments(self, order):
+    def getSubstitutionKeywords(self, order):
         request = globalrequest.getRequest()
-        currency = self.site.getUtility(ICurrencyFormatter)
-
-        view_order = not self.isAnonymousUser and \
-            u"\n".join((
-                u"You can view the status of your order here",
-                u"",
-                u"${store_url}/@@getpaid-order/${order_id}"
-                )) or ""
-
-        return {
-            'total_price': currency.format(self.portal, request, order.getTotalPrice()),
-            'shipping_cost': currency.format(self.portal, request, order.getShippingCost()),
-            'store_url': self.portal.absolute_url(),
-            'order_id': order.order_id,
-            'order_contents': self.getFormattedContents(order),
-            'view_order_information': view_order,
-            'contact_information': self.getFormattedBag(order, "contact_information"),
-            'contact_information_csv': self.getFormattedBag(order, "contact_information", format="csv"),
-            'billing_address': self.getFormattedBag(order, "billing_address"),
-            'billing_address_csv': self.getFormattedBag(order, "billing_address", format="csv"),
-            'shipping_address': self.getFormattedBag(order, "shipping_address"),
-            'shipping_address_csv': self.getFormattedBag(order, "shipping_address", format="csv")
-            }
-
-    def getFormattedContents(self, order):
-        request = globalrequest.getRequest()
-        currency = self.site.getUtility(ICurrencyFormatter)
-        return u"\n".join([u" ".join((str(i.quantity),
-                                      i.name,
-                                      u"@ %s" % currency.format(self.portal, request, i.cost),
-                                      u"%s: %s" % (_(u"Total"), currency.format(self.portal, request, i.cost*i.quantity))))
-                           for i in order.shopping_cart.values()])
-    
-    def getFormattedBag(self, order, name, format=None):
-        schemas = component.getUtility(interfaces.IFormSchemas)
-        bag = schemas.getBagClass(name)()
-        data = getattr(order, name)
-        values = [(getattr(field, "title"), getattr(data, name) or u"") \
-                      for name, field in schema.getFieldsInOrder(bag.schema)]
-        if format == "csv":
-            output = StringIO()
-            writer = csv.writer(output, dialect=NotificationDialect)
-            # csv module doesn't support unicode, therefore we have to convert
-            writer.writerow([v[0].encode('utf-8') for v in values]) # unicode -> utf-8
-            writer.writerow([v[1].encode('utf-8') for v in values]) # unicode -> utf-8
-            return unicode(output.getvalue(), 'utf-8') # utf-8 -> unicode
-        else:
-            return u"\n".join([u"%s: %s" % (i[0], i[1]) for i in values])
+        return dict([(name, unicode(value)) for name, value \
+                         in component.getAdapters((self.portal, request, order), IKeyword)])
 
 
 class MerchantNewOrderNotification(OrderNotificationBase):
     """ merchant-new-order """
 
     def __init__(self, order):
-        kwargs = self.getFormattedArguments(order)
+        kwargs = self.getSubstitutionKeywords(order)
         kwargs.update({
                 'to_name': str(Header(self.settings.store_name, self.default_charset)),
                 'to_email': self.settings.contact_email,
@@ -161,7 +253,7 @@ class CustomerNewOrderNotification(OrderNotificationBase):
     """ customer-new-order """
 
     def __init__(self, order):
-        kwargs = self.getFormattedArguments(order)
+        kwargs = self.getSubstitutionKeywords(order)
         kwargs.update({
                 'to_name': str(Header(order.contact_information.name, self.default_charset)),
                 'to_email': order.contact_information.email,
@@ -176,12 +268,12 @@ class MerchantDeclineOrderNotification(OrderNotificationBase):
     """ merchant-decline-order """
 
     def __init__(self, order):
-        kwargs = self.getFormattedArguments(order)
+        kwargs = self.getSubstitutionKeywords(order)
         kwargs.update({
-                'to_name': str(Header(order.contact_information.name, self.default_charset)),
-                'to_email': order.contact_information.email,
-                'from_name': str(Header(self.settings.store_name, self.default_charset)),
-                'from_email': self.settings.contact_email
+                'to_name': str(Header(self.settings.store_name, self.default_charset)),
+                'to_email': self.settings.contact_email,
+                'from_name': str(Header(order.contact_information.name, self.default_charset)),
+                'from_email': order.contact_information.email,
                 })
         template = self.settings.merchant_decline_email_notification_template
         super(MerchantDeclineOrderNotification, self).__init__(template, mapping=kwargs)
@@ -191,7 +283,7 @@ class CustomerDeclineOrderNotification(OrderNotificationBase):
     """ customer-decline-order """
 
     def __init__(self, order):
-        kwargs = self.getFormattedArguments(order)
+        kwargs = self.getSubstitutionKeywords(order)
         kwargs.update({
                 'to_name': str(Header(order.contact_information.name, self.default_charset)),
                 'to_email': order.contact_information.email,
@@ -206,12 +298,12 @@ class MerchantChargeOrderNotification(OrderNotificationBase):
     """ merchant-charge-order """
 
     def __init__(self, order):
-        kwargs = self.getFormattedArguments(order)
+        kwargs = self.getSubstitutionKeywords(order)
         kwargs.update({
-                'to_name': str(Header(order.contact_information.name, self.default_charset)),
-                'to_email': order.contact_information.email,
-                'from_name': str(Header(self.settings.store_name, self.default_charset)),
-                'from_email': self.settings.contact_email
+                'to_name': str(Header(self.settings.store_name, self.default_charset)),
+                'to_email': self.settings.contact_email,
+                'from_name': str(Header(order.contact_information.name, self.default_charset)),
+                'from_email': order.contact_information.email,
                 })
         template = self.settings.merchant_charge_email_notification_template
         super(MerchantChargeOrderNotification, self).__init__(template, mapping=kwargs)
@@ -221,7 +313,7 @@ class CustomerChargeOrderNotification(OrderNotificationBase):
     """ customer-charge-order """
 
     def __init__(self, order):
-        kwargs = self.getFormattedArguments(order)
+        kwargs = self.getSubstitutionKeywords(order)
         kwargs.update({
                 'to_name': str(Header(order.contact_information.name, self.default_charset)),
                 'to_email': order.contact_information.email,
