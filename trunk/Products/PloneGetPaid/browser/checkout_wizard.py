@@ -397,7 +397,7 @@ class CheckoutWizard(wizard.Wizard):
         mtool = getToolByName(self.context, 'portal_membership')
         site = getToolByName(self.context, 'portal_url').getPortalObject()
         if mtool.isAnonymousUser() and not IGetPaidManagementOptions(site).allow_anonymous_checkout:
-            self.request.response.redirect('login_form?came_from=@@getpaid-checkout-wizard')
+            self.request.response.redirect('login_form?came_from=@@checkout')
 
         # Redirect http:// to https:// when required
         url = self.request.getURL()
@@ -478,7 +478,7 @@ class CheckoutWizard(wizard.Wizard):
         utils.addPortalMessage(_(u"Your order has been cancelled."))
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
         # FIXME: What's really the most proper action after cancelling order?
-        self.request.response.redirect(portal.absolute_url() + "/@@checkout-wizard")
+        self.request.response.redirect(portal.absolute_url() + "/@@checkout")
 
     @property
     def onLastStep(self):

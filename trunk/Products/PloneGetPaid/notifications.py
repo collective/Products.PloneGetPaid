@@ -116,7 +116,7 @@ class ViewOrderInformation(KeywordBase):
     def __init__(self, portal, request, order):
         self.value = u"\n".join((u"You can view the status of your order here",
                                  u"",
-                                 u"%s/@@checkout-wizard?order_id=%s&key=%s" \
+                                 u"%s/@@checkout?order_id=%s&key=%s" \
                                      % (portal.absolute_url(),
                                         order.order_id,
                                         str(ICheckoutContinuationKey(order)))

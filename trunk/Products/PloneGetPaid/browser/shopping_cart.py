@@ -407,4 +407,4 @@ class ShoppingCartForm(ShoppingCart, LineItemContainerEditForm):
     def handleCheckout(self, action):
         portal_url = getToolByName(self.context, "portal_url")
         site = portal_url.getPortalObject()
-        self.request.response.redirect(site.absolute_url() + "/@@checkout-wizard")
+        self.request.response.redirect(site.absolute_url() + "/@@checkout")

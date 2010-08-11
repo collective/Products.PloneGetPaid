@@ -10,7 +10,7 @@
      file="checkout_wizard.css"/>
   
   <browser:page
-     name="checkout-wizard"
+     name="checkout"
      for="getpaid.core.interfaces.IStore"
      class=".checkout_wizard.CheckoutWizard"
      permission="zope2.View"

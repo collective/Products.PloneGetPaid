@@ -15,7 +15,7 @@
         <ul>
           <li><a href="" tal:attributes="href string:${context/portal_url}/@@shopping-cart"
                  i18n:translate="label_manage_cart">Manage Cart</a></li>
-          <li><a href="" tal:attributes="href string:${context/portal_url}/@@checkout-wizard"
+          <li><a href="" tal:attributes="href string:${context/portal_url}/@@checkout"
                  i18n:translate="">Checkout</a></li>
         </ul>
       </metal:body>
