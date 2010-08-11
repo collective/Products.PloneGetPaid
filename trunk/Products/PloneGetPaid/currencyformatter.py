@@ -6,7 +6,7 @@ __version__ = "$Revision$"
 # $Id$
 # $URL$
 
-from zope import component
+from zope import component, globalrequest
 
 from Products.PloneGetPaid.interfaces import IGetPaidManagementCurrencyOptions
 
@@ -14,8 +14,11 @@ from zope.i18n import translate
 
 class CurrencyFormatter(object):
 
-    def format(self, context, request, value):
-        portal_state = component.getMultiAdapter((context, request), name=u'plone_portal_state')
+    def format(self, value):
+        site = component.getSiteManager()
+        request = globalrequest.getRequest()
+
+        portal_state = component.getMultiAdapter((site, request), name=u"plone_portal_state")
         language = portal_state.language()
 
         decimal_symbol = translate("decimal_symbol", domain="Products.PloneGetPaid", default=",",

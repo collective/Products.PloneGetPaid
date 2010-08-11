@@ -10,6 +10,7 @@ import logging
 
 import re
 import csv
+import math
 
 from email import message_from_string
 from email.Header import Header
@@ -46,21 +47,21 @@ class NotificationDialect(csv.Dialect):
     skipinitialspace = True
 
 
-class IKeyword(interface.Interface):
+class ISubstitutionKeyword(interface.Interface):
     """ A notification keyword """
 
 
-class KeywordBase(object):
+class SubstitutionKeywordBase(object):
     """ A notification keyword adapter base """
 
-    interface.implements(IKeyword)
+    interface.implements(ISubstitutionKeyword)
 
     value = None
 
     def __repr__(self):
         if getattr(self, "value", None):
             return unicode(self.value).encode("utf-8")
-        return super(KeywordBase, self).__repr__()
+        return super(SubstitutionKeywordBase, self).__repr__()
     
     def __unicode__(self):
         if getattr(self, "value", None):
@@ -68,52 +69,75 @@ class KeywordBase(object):
         return u""
 
 
-class TotalPrice(KeywordBase):
+class TotalPrice(SubstitutionKeywordBase):
     """ total_price """
 
-    def __init__(self, portal, request, order):
+    def __init__(self, order):
         currency = component.getUtility(ICurrencyFormatter)
-        self.value = currency.format(portal, request, order.getTotalPrice())
+        self.value = currency.format(order.getTotalPrice())
 
 
-class ShippingCost(KeywordBase):
+class SubTotalPrice(SubstitutionKeywordBase):
+    """ sub_total_price """
+
+    def __init__(self, order):
+        currency = component.getUtility(ICurrencyFormatter)
+        self.value = currency.format(order.getSubTotalPrice())
+
+
+class ShippingCost(SubstitutionKeywordBase):
     """ shipping_cost """
 
-    def __init__(self, portal, request, order):
+    def __init__(self, order):
         currency = component.getUtility(ICurrencyFormatter)
-        self.value = currency.format(portal, request, order.getShippingCost())
+        self.value = currency.format(order.getShippingCost())
 
 
-class StoreURL(KeywordBase):
+class TaxCost(SubstitutionKeywordBase):
+    """ tax_cost """
+
+    def __init__(self, order):
+        currency = component.getUtility(ICurrencyFormatter)
+        self.value = ""
+        for tax in [t for t in order.getTaxCost() if t['value']]:
+            self.value += u"%s %s\n" % \
+                (tax['name'], currency.format(math.fabs(tax['value'])))
+
+
+class StoreURL(SubstitutionKeywordBase):
     """ store_url """
 
-    def __init__(self, portal, request, order):
+    def __init__(self, order):
+        site = component.getSiteManager()
+        portal = getToolByName(site, "portal_url").getPortalObject()
         self.value = portal.absolute_url()
 
 
-class OrderId(KeywordBase):
+class OrderId(SubstitutionKeywordBase):
     """ order_id """
 
-    def __init__(self, portal, request, order):
+    def __init__(self, order):
         self.value = order.order_id
 
 
-class OrderContents(KeywordBase):
+class OrderContents(SubstitutionKeywordBase):
     """ order_contents """
 
-    def __init__(self, portal, request, order):
+    def __init__(self, order):
         currency = component.getUtility(ICurrencyFormatter)
         self.value = u"\n".join([u" ".join((str(i.quantity),
                                        i.name,
-                                       u"@ %s" % currency.format(portal, request, i.cost),
-                                       u"%s: %s" % (_(u"Total"), currency.format(portal, request, i.cost*i.quantity))))
+                                       u"@ %s" % currency.format(i.cost),
+                                       u"%s: %s" % (_(u"Total"), currency.format(i.cost*i.quantity))))
                             for i in order.shopping_cart.values()])
 
 
-class ViewOrderInformation(KeywordBase):
+class ViewOrderInformation(SubstitutionKeywordBase):
     """ view_order_information """
 
-    def __init__(self, portal, request, order):
+    def __init__(self, order):
+        site = component.getSiteManager()
+        portal = getToolByName(site, "portal_url").getPortalObject()
         self.value = u"\n".join((u"You can view the status of your order here",
                                  u"",
                                  u"%s/@@checkout?order_id=%s&key=%s" \
@@ -142,45 +166,45 @@ class FormattedBagMixin(object):
             return u"\n".join([u"%s: %s" % (i[0], i[1]) for i in values])
 
 
-class ContactInformation(KeywordBase, FormattedBagMixin):
+class ContactInformation(SubstitutionKeywordBase, FormattedBagMixin):
     """ contact_information """
 
-    def __init__(self, portal, request, order):
+    def __init__(self, order):
         self.value = self.getFormattedBag(order, "contact_information")
 
 
-class ContactInformationCSV(KeywordBase, FormattedBagMixin):
+class ContactInformationCSV(SubstitutionKeywordBase, FormattedBagMixin):
     """ contact_information_csv """
 
-    def __init__(self, portal, request, order):
+    def __init__(self, order):
         self.value = self.getFormattedBag(order, "contact_information", format="csv")
 
 
-class BillingAddress(KeywordBase, FormattedBagMixin):
+class BillingAddress(SubstitutionKeywordBase, FormattedBagMixin):
     """ billing_address """
 
-    def __init__(self, portal, request, order):
+    def __init__(self, order):
         self.value = self.getFormattedBag(order, "billing_address")
 
 
-class BillingAddressCSV(KeywordBase, FormattedBagMixin):
+class BillingAddressCSV(SubstitutionKeywordBase, FormattedBagMixin):
     """ billing_address_csv """
 
-    def __init__(self, portal, request, order):
+    def __init__(self, order):
         self.value = self.getFormattedBag(order, "billing_address", format="csv")
 
 
-class ShippingAddress(KeywordBase, FormattedBagMixin):
+class ShippingAddress(SubstitutionKeywordBase, FormattedBagMixin):
     """ shipping_address """
 
-    def __init__(self, portal, request, order):
+    def __init__(self, order):
         self.value = self.getFormattedBag(order, "shipping_address")
 
 
-class ShippingAddressCSV(KeywordBase, FormattedBagMixin):
+class ShippingAddressCSV(SubstitutionKeywordBase, FormattedBagMixin):
     """ shipping_address_csv """
 
-    def __init__(self, portal, request, order):
+    def __init__(self, order):
         self.value = self.getFormattedBag(order, "shipping_address", format="csv")
 
 
@@ -220,7 +244,7 @@ class OrderNotificationBase(object):
 
     def __init__(self, template, mapping):
         super(OrderNotificationBase, self).__init__()
-        message = translate(_(template, mapping=mapping)) # substitution pass
+        message = translate(_(template, mapping=mapping)) # substitution pass (not localization!)
         message = "\n".join([line.rstrip() for line in message.split("\n")]) # 1st trim pass
         message = re.compile("\n{2,}").sub("\n\n", message) # 2nd trim pass
         message = message_from_string(message.encode(self.default_charset))
@@ -231,7 +255,7 @@ class OrderNotificationBase(object):
     def getSubstitutionKeywords(self, order):
         request = globalrequest.getRequest()
         return dict([(name, unicode(value)) for name, value \
-                         in component.getAdapters((self.portal, request, order), IKeyword)])
+                         in component.getAdapters((order,), ISubstitutionKeyword)])
 
 
 class MerchantNewOrderNotification(OrderNotificationBase):

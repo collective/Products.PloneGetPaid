@@ -172,111 +172,101 @@
 <!-- Notification Keywords -->
 <adapter
    name="total_price"
-   provides=".notifications.IKeyword"
-   for="getpaid.core.interfaces.IStore
-        zope.publisher.interfaces.browser.IBrowserRequest
-        getpaid.core.interfaces.IOrder"
+   provides=".notifications.ISubstitutionKeyword"
+   for="getpaid.core.interfaces.IOrder"
    factory=".notifications.TotalPrice"
    />
 
 <adapter
+   name="sub_total_price"
+   provides=".notifications.ISubstitutionKeyword"
+   for="getpaid.core.interfaces.IOrder"
+   factory=".notifications.SubTotalPrice"
+   />
+
+<adapter
    name="shipping_cost"
-   provides=".notifications.IKeyword"
-   for="getpaid.core.interfaces.IStore
-        zope.publisher.interfaces.browser.IBrowserRequest
-        getpaid.core.interfaces.IOrder"
+   provides=".notifications.ISubstitutionKeyword"
+   for="getpaid.core.interfaces.IOrder"
    factory=".notifications.ShippingCost"
    />
 
 <adapter
+   name="tax_cost"
+   provides=".notifications.ISubstitutionKeyword"
+   for="getpaid.core.interfaces.IOrder"
+   factory=".notifications.TaxCost"
+   />
+
+<adapter
    name="store_url"
-   provides=".notifications.IKeyword"
-   for="getpaid.core.interfaces.IStore
-        zope.publisher.interfaces.browser.IBrowserRequest
-        getpaid.core.interfaces.IOrder"
+   provides=".notifications.ISubstitutionKeyword"
+   for="getpaid.core.interfaces.IOrder"
    factory=".notifications.StoreURL"
    />
 
 <adapter
    name="order_id"
-   provides=".notifications.IKeyword"
-   for="getpaid.core.interfaces.IStore
-        zope.publisher.interfaces.browser.IBrowserRequest
-        getpaid.core.interfaces.IOrder"
+   provides=".notifications.ISubstitutionKeyword"
+   for="getpaid.core.interfaces.IOrder"
    factory=".notifications.OrderId"
    />
 
 <adapter
    name="order_contents"
-   provides=".notifications.IKeyword"
-   for="getpaid.core.interfaces.IStore
-        zope.publisher.interfaces.browser.IBrowserRequest
-        getpaid.core.interfaces.IOrder"
+   provides=".notifications.ISubstitutionKeyword"
+   for="getpaid.core.interfaces.IOrder"
    factory=".notifications.OrderContents"
    />
 
 <adapter
    name="view_order_information"
-   provides=".notifications.IKeyword"
-   for="getpaid.core.interfaces.IStore
-        zope.publisher.interfaces.browser.IBrowserRequest
-        getpaid.core.interfaces.IOrder"
+   provides=".notifications.ISubstitutionKeyword"
+   for="getpaid.core.interfaces.IOrder"
    factory=".notifications.ViewOrderInformation"
    />
 
 <adapter
    name="contact_information"
-   provides=".notifications.IKeyword"
-   for="getpaid.core.interfaces.IStore
-        zope.publisher.interfaces.browser.IBrowserRequest
-        getpaid.core.interfaces.IOrder"
+   provides=".notifications.ISubstitutionKeyword"
+   for="getpaid.core.interfaces.IOrder"
    factory=".notifications.ContactInformation"
    />
 
 <adapter
    name="contact_information_csv"
-   provides=".notifications.IKeyword"
-   for="getpaid.core.interfaces.IStore
-        zope.publisher.interfaces.browser.IBrowserRequest
-        getpaid.core.interfaces.IOrder"
+   provides=".notifications.ISubstitutionKeyword"
+   for="getpaid.core.interfaces.IOrder"
    factory=".notifications.ContactInformationCSV"
    />
 
 <adapter
    name="billing_address"
-   provides=".notifications.IKeyword"
-   for="getpaid.core.interfaces.IStore
-        zope.publisher.interfaces.browser.IBrowserRequest
-        getpaid.core.interfaces.IOrder"
+   provides=".notifications.ISubstitutionKeyword"
+   for="getpaid.core.interfaces.IOrder"
    factory=".notifications.BillingAddress"
    />
 
 
 <adapter
    name="billing_address_csv"
-   provides=".notifications.IKeyword"
-   for="getpaid.core.interfaces.IStore
-        zope.publisher.interfaces.browser.IBrowserRequest
-        getpaid.core.interfaces.IOrder"
+   provides=".notifications.ISubstitutionKeyword"
+   for="getpaid.core.interfaces.IOrder"
    factory=".notifications.BillingAddressCSV"
    />
 
 
 <adapter
    name="shipping_address"
-   provides=".notifications.IKeyword"
-   for="getpaid.core.interfaces.IStore
-        zope.publisher.interfaces.browser.IBrowserRequest
-        getpaid.core.interfaces.IOrder"
+   provides=".notifications.ISubstitutionKeyword"
+   for="getpaid.core.interfaces.IOrder"
    factory=".notifications.ShippingAddress"
    />
 
 <adapter
    name="shipping_address_csv"
-   provides=".notifications.IKeyword"
-   for="getpaid.core.interfaces.IStore
-        zope.publisher.interfaces.browser.IBrowserRequest
-        getpaid.core.interfaces.IOrder"
+   provides=".notifications.ISubstitutionKeyword"
+   for="getpaid.core.interfaces.IOrder"
    factory=".notifications.ShippingAddressCSV"
    />
 

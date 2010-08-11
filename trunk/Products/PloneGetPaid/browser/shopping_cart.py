@@ -89,14 +89,14 @@ class LineItemDisplayAdapter(object):
     def price(self):
         cost = getattr(self.item, "cost")
         currency = component.getUtility(ICurrencyFormatter)
-        return currency.format(self.context, self.request, cost)
+        return currency.format(cost)
 
     @property
     def total(self):
         cost = getattr(self.item, "cost")
         quantity = getattr(self.item, "quantity")
         currency = component.getUtility(ICurrencyFormatter)
-        return currency.format(self.context, self.request, cost * quantity)
+        return currency.format(cost * quantity)
 
 
 class LineItemFormDisplayAdapter(LineItemDisplayAdapter):
@@ -349,11 +349,11 @@ class ShoppingCart(LineItemContainerTable):
         totals = interfaces.ILineContainerTotals(self.container)
         currency = component.getUtility(ICurrencyFormatter)
         return {
-            'subtotal': currency.format(self.context, self.request, totals.getSubTotalPrice()),
-            'taxes': [{'value': currency.format(self.context, self.request, math.fabs(t['value'])),
+            'subtotal': currency.format(totals.getSubTotalPrice()),
+            'taxes': [{'value': currency.format(math.fabs(t['value'])),
                        'id': t['id'], 'name': t['name']} for t in totals.getTaxCost()],
-            'shipping': currency.format(self.context, self.request, math.fabs(totals.getShippingCost())),
-            'total': currency.format(self.context, self.request, totals.getTotalPrice())
+            'shipping': currency.format(totals.getShippingCost()),
+            'total': currency.format(totals.getTotalPrice())
             }
 
 
