@@ -202,10 +202,12 @@ class Customer(wizard.GroupStep):
         # contains shippable items
         elif len([i for i in wizard._cart.values() \
                   if interfaces.IShippableLineItem.providedBy(i)]):
-            self.groups = (ContactGroup, BillingGroup, ShippingGroup)
+            self.groups = (ContactGroup, ShippingGroup)
+            # self.groups = (ContactGroup, BillingGroup, ShippingGroup)
         # By default, include
         else:
-            self.groups = (ContactGroup, BillingGroup)
+            self.groups = (ContactGroup,)
+            # elf.groups = (ContactGroup, BillingGroup)
         super(Customer, self).__init__(context, request, wizard)
 
 
@@ -328,10 +330,12 @@ class Confirmation(wizard.GroupStep):
             # contains shippable items
             if len([i for i in wizard._order.shopping_cart.values() \
                         if interfaces.IShippableLineItem.providedBy(i)]):
-                self.groups = (ContactGroup, BillingGroup, ShippingGroup)
+                self.groups = (ContactGroup, ShippingGroup)
+                # self.groups = (ContactGroup, BillingGroup, ShippingGroup)
             # By default, include
             else:
-                self.groups = (ContactGroup, BillingGroup)
+                self.groups = (ContactGroup,)
+                # self.groups = (ContactGroup, BillingGroup)
         else:
             self.groups = ()
         super(Confirmation, self).__init__(context, request, wizard)
