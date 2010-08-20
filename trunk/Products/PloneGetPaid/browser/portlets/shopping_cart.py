@@ -77,7 +77,7 @@ class Renderer(base.Renderer):
 
     @property
     def size(self):
-        return len(self.cart)
+        return self.cart and len(self.cart)
 
     @property
     def totals(self):

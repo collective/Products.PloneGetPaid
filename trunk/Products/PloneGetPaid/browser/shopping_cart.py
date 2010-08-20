@@ -317,6 +317,7 @@ class EmptyShoppingCart(object):
 class IOrderId(interface.Interface):
     order_id = schema.Text(title=_(u"Order Id"), required=False)
 
+
 class IShowEditLink(interface.Interface):
     show_edit_link = schema.Text(title=_(u"Show Edit Link"), required=False)
 
@@ -385,8 +386,9 @@ class ShoppingCartForm(ShoppingCart, LineItemContainerEditForm):
  
     @button.buttonAndHandler(_("Cancel"), name='cancel')
     def handleCancel(self, action):
-        self.ignoreRequest = True
-        self._updateForm()
+        self.request.response.redirect(self.refererURL)
+#        self.ignoreRequest = True
+#        self._updateForm()
         
     @button.buttonAndHandler(_("Save changes"), name='save')
     def handleApply(self, action):
@@ -398,10 +400,14 @@ class ShoppingCartForm(ShoppingCart, LineItemContainerEditForm):
                 del self.container[group.getContent().item_id]
             self.groups = [g for g in self.groups if g not in removables]
             self._updateForm()
+        # Redirect to referer when if the has been emptied
+        if not self.cart:
+            utils = getToolByName(self.context, 'plone_utils')
+            utils.addPortalMessage(_(u"Your shopping cart is now empty."))
+            self.request.response.redirect(self.refererURL)
 
-    @button.buttonAndHandler(_("Continue shopping"), name='continue')
-    def handleContinue(self, action):
-        self.request.response.redirect(self.refererURL)
+#    @button.buttonAndHandler(_("Continue shopping"), name='continue')
+#    def handleContinue(self, action):
 
     @button.buttonAndHandler(_("Checkout"), name='checkout')
     def handleCheckout(self, action):
