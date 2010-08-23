@@ -6,6 +6,10 @@
   
   <include package="plone.z3ctable" />
 
+  <browser:resource
+     name="Products.PloneGetPaid.browser.shopping_cart.css"
+     file="shopping_cart.css"/>
+  
   <!-- Shopping Cart Edit Form -->
   <browser:page
      name="shopping-cart"

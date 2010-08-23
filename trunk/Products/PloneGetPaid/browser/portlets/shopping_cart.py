@@ -1,3 +1,5 @@
+import math
+
 from zope import component, interface, formlib, schema
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile

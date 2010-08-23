@@ -48,7 +48,7 @@ setup(name='Products.PloneGetPaid',
           'zc.table',
           'zope.interface',
           'zope.component',
-          # -*- Extra requirements: -*-
+          # -*- Experimental requirements: -*-
           'five.globalrequest',
           'plone.z3cform',
           'plone.z3ctable',
@@ -57,5 +57,7 @@ setup(name='Products.PloneGetPaid',
       ],
       entry_points="""
       # -*- Entry points: -*-
+      [z3c.autoinclude.plugin]
+      target = plone
       """,
       )
