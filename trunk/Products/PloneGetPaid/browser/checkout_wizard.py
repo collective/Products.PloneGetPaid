@@ -186,7 +186,7 @@ class ContactGroup(SchemaGroup):
             verify_email.interface = None
             verify_email.__name__ = "verify_email"
             verify_email.title = _(u"Verify E-mail Address")
-            verify_email.description = _(u"Please, re-enter your email-address")
+            verify_email.description = _(u"Please, re-enter your e-mail address")
             self.fields += field.Fields(verify_email)
 
     def updateWidgets(self):
