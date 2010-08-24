@@ -5,10 +5,12 @@
     <metal:style fill-slot="style_slot">
       <style type="text/css">#edit-bar { display: none; }</style>
     </metal:style>
-    <!--
-      NOTE: See original collective.z3cform.wizard template.
-      Here we have removed 'finish'-action and kss-validation.
-    -->
+    <tal:comment replace="nothing">
+      NOTE: See also the original collective.z3cform.wizard template.
+      Here we have removed 'finish'-action and kss-validation, and
+      added a slot for payment button (forms) before the form of the
+      current step.
+    </tal:comment>
     <metal:main fill-slot="main">
       <h1 class="documentFirstHeading" tal:content="view/label">Checkout Wizard</h1>
       <tal:no-order condition="not:view/isOrderAvailable">

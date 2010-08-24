@@ -1,6 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
-      i18n:domain="Products.PloneGetPaid" tal:omit-tag="">
+      i18n:domain="Products.PloneGetPaid" tal:omit-tag=""
+      tal:condition="python:view == view.wizard.currentStep">  
   <fieldset id="payment-methods" class="group"
             tal:condition="view/wizard/areStepfulProcessorsAvailable"
             tal:define="buttons provider:getpaid.wizard.payment_buttons">
@@ -8,6 +9,9 @@
     <legend tal:condition="not:buttons" i18n:translate="">Available Payment Methods</legend>
     <div tal:replace="structure view/index" />
   </fieldset>
+  <tal:verified condition="view/wizard/isVerifiedCheckoutContinuation">
+    <div tal:replace="structure provider:getpaid.wizard.previous_steps" />
+  </tal:verified>
   <tal:verified condition="view/wizard/isVerifiedCheckoutContinuation">
     <div tal:define="order_id view/order_id"
          tal:replace="structure provider:getpaid.cart" />

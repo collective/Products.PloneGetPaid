@@ -22,7 +22,7 @@ from Products.Five.viewlet.viewlet import ViewletBase
 from Products.CMFCore.utils import getToolByName
 
 from z3c.form import button, field, group, form
-from z3c.form.interfaces import IFormLayer, IDisplayForm, DISPLAY_MODE, HIDDEN_MODE
+from z3c.form.interfaces import IFormLayer, IDisplayForm, INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
 from z3c.form.browser import radio
 
 from collective.z3cform.datetimewidget import MonthYearFieldWidget
@@ -89,7 +89,7 @@ class CheckoutWizardViewletBase(ViewletBase):
 class PaymentProcessorButtonManager(ViewletManagerBase):
     """ Viewlet manager for rendering payment buttons for payment processors """
 
-    def sort (self, viewlets ):
+    def sort(self, viewlets):
         """ sort by weight """
         return sorted(viewlets, lambda x,y: cmp(int(getattr(x[1], 'weight', 100)), int(getattr(y[1], 'weight', 100))))
 
@@ -103,29 +103,44 @@ class PaymentProcessorButtonManager(ViewletManagerBase):
         return results
 
     def render(self):
-        return "".join([b.render() or "" for b in self.viewlets])
+        return "\n".join([b.render().strip() or "" for b in self.viewlets]).strip()
 
 
 class BeforeConfirmationViewletManager(ViewletManagerBase):
     """ Viewlet manager for plugins to add messages before confirmation step details """
 
-    def sort (self, viewlets ):
+    def sort(self, viewlets):
         """ sort by weight """
         return sorted(viewlets, lambda x,y: cmp(int(getattr(x[1], 'weight', 100)), int(getattr(y[1], 'weight', 100))))
 
     def render(self):
-        return "".join([v.render() or "" for v in self.viewlets])
+        return "\n".join([v.render().strip() or "" for v in self.viewlets]).strip()
 
 
 class AfterConfirmationViewletManager(ViewletManagerBase):
     """ Viewlet manager for plugins to add messages after confirmation step details """
 
-    def sort (self, viewlets ):
+    def sort(self, viewlets):
         """ sort by weight """
         return sorted(viewlets, lambda x,y: cmp(int(getattr(x[1], 'weight', 100)), int(getattr(y[1], 'weight', 100))))
 
     def render(self):
-        return "".join([v.render() or "" for v in self.viewlets])
+        return "\n".join([v.render().strip() or "" for v in self.viewlets]).strip()
+
+
+class ICheckoutWizardStepDisplayViewletManager(viewlet.interfaces.IViewletManager):
+    """ Viewlet manager for rendering results from checkout wizard steps """
+
+
+class CheckoutWizardStepDisplayViewletManager(ViewletManagerBase):
+    """ Viewlet manager for rendering results from checkout wizard steps """
+
+    def sort(self, viewlets):
+        """ sort by weight """
+        return sorted(viewlets, lambda x,y: cmp(int(getattr(x[1], 'weight', 100)), int(getattr(y[1], 'weight', 100))))
+
+    def render(self):
+        return "\n".join([v.render().strip() or "" for v in self.viewlets]).strip()
 
 
 class SchemaGroup(group.Group):
@@ -155,9 +170,37 @@ class SchemaGroup(group.Group):
         return self.parentForm.getContent()
 
 
+class DifferentEmail(schema.interfaces.ValidationError):
+    __doc__ = _(u"Re-entered email address did not match the first one.")
+
+
 class ContactGroup(SchemaGroup):
     label = _(u"Contact Information")
     section = 'contact_information'
+
+    def __init__(self, context, request, parentForm):
+        super(ContactGroup, self).__init__(context, request, parentForm)
+        if "email" in self.fields.keys() and self.parentForm.mode == INPUT_MODE:
+            verify_email = self.fields["email"].field.__class__.__new__(self.fields["email"].field.__class__)
+            verify_email.__dict__.update(self.fields["email"].field.__dict__)
+            verify_email.interface = None
+            verify_email.__name__ = "verify_email"
+            verify_email.title = _(u"Verify E-mail Address")
+            verify_email.description = _(u"Please, re-enter your email-address")
+            self.fields += field.Fields(verify_email)
+
+    def updateWidgets(self):
+        if "verify_email" in self.fields.keys() and self.parentForm.mode == DISPLAY_MODE:
+            self.fields["verify_email"].mode = HIDDEN_MODE
+        super(ContactGroup, self).updateWidgets()
+        if "verify_email" in self.widgets.keys():
+            self.widgets["verify_email"].field.constraint = lambda x: self.verifyEmail(x)
+
+    def verifyEmail(self, email):
+        if "email" in self.widgets.keys():
+            if email != self.widgets["email"].extract():
+                raise DifferentEmail
+        return True
 
 
 class BillingGroup(SchemaGroup):
@@ -182,7 +225,7 @@ class PaymentGroup(SchemaGroup):
 class Customer(wizard.GroupStep):
     prefix = 'details'
     label  = _(u"Customer details")
-    description = _(u"Please, enter Your contact and billing information")
+    description = _(u"Please, enter the requested customer information for your order")
     weight = 20
 
     groups = None
@@ -191,54 +234,53 @@ class Customer(wizard.GroupStep):
 
     @property
     def available(self):
-        return super(Customer, self).available and not self.wizard.isOrderAvailable
+        return super(Customer, self).available \
+            and not self.wizard.isOrderAvailable
     
     def __init__(self, context, request, wizard):
         """ Filter required FormSchema sections """
+        # Find the cart
+        cart = wizard.isCartAvailable and wizard._cart \
+            or wizard.isOrderAvailable and wizard._order.shopping_cart \
+            or None
         # No groups when cart is empty
-        if not wizard.isCartAvailable:
+        if cart is None:
             self.groups = ()
         # Include shipping information only, when cart
         # contains shippable items
-        elif len([i for i in wizard._cart.values() \
+        elif len([i for i in cart.values() \
                   if interfaces.IShippableLineItem.providedBy(i)]):
             self.groups = (ContactGroup, ShippingGroup)
             # self.groups = (ContactGroup, BillingGroup, ShippingGroup)
         # By default, include
         else:
             self.groups = (ContactGroup,)
-            # elf.groups = (ContactGroup, BillingGroup)
+            # self.groups = (ContactGroup, BillingGroup)
         super(Customer, self).__init__(context, request, wizard)
 
 
-class Review(Customer):
+class Review(wizard.Step):
     prefix = 'review'
     label  = _(u"Review order")
-    description = _(u"Please, review Your order information")
+    description = _(u"Please, review your order information before continuing the checkout")
     weight = 40
-
-    interface.implements(IDisplayForm)
-    mode = DISPLAY_MODE
-    ignoreRequest = True
 
     template = ViewPageTemplateFile("templates/checkout-wizard-step-review.pt")
 
     @property
     def available(self):
-        return self.request.SESSION[self.wizard.sessionKey].get('details', False) \
+        return super(Review, self).available \
             and not self.wizard.isOrderAvailable
 
     def applyChanges(self, data):
         super(Review, self).applyChanges(data)
         # Now, when all order details should be collected (and only processor specific 
         # steps left), create an order and attach it to the session
-        if not self.wizard.isOrderAvailable:
+        if not self.wizard.isOrderAvailable \
+                and "form.buttons.back" not in self.request.form.keys():
             self.wizard.session['order_id'] = self.wizard._createOrder()
             self.wizard.session['key'] = str(ICheckoutContinuationKey(self.wizard._order))
             self.wizard.sync()
-
-    def getContent(self):
-        return self.request.SESSION[self.wizard.sessionKey].get('details')
 
 
 class Method(wizard.Step):
@@ -284,7 +326,7 @@ class Payment(wizard.GroupStep):
     """ A default payment information step, must be explicitly included by payment processor """
     prefix = 'payment'
     label  = _(u"Payment details")
-    description = _(u"Please, enter your payment information")
+    description = _(u"Please, enter your payment information for the order")
     weight = 70
 
     groups = (PaymentGroup,)
@@ -302,18 +344,13 @@ class Payment(wizard.GroupStep):
         return self.wizard._order.order_id
 
 
-class Confirmation(wizard.GroupStep):
+class Confirmation(wizard.Step):
     """ Order confirmation view """
     prefix = 'confirmation'
     label  = _(u"Confirmation")
-    description = _(u"Here's the confirmation for your order")
+    description = _(u"The confirmation for your order is printed below")
     weight = 80
 
-    interface.implements(IDisplayForm)
-    mode = DISPLAY_MODE
-    ignoreRequest = True
-
-    groups = None
     fields = field.Fields()
     template = ViewPageTemplateFile("templates/checkout-wizard-step-confirmation.pt")
 
@@ -321,27 +358,6 @@ class Confirmation(wizard.GroupStep):
     def available(self):
         return super(Confirmation, self).available \
             and self.wizard.isOrderAvailable
-
-    def __init__(self, context, request, wizard):
-        """ Filter required FormSchema sections """
-        if  wizard.isVerifiedCheckoutContinuation \
-                and wizard.session.has_key("details"):
-            # Include shipping information only, when cart
-            # contains shippable items
-            if len([i for i in wizard._order.shopping_cart.values() \
-                        if interfaces.IShippableLineItem.providedBy(i)]):
-                self.groups = (ContactGroup, ShippingGroup)
-                # self.groups = (ContactGroup, BillingGroup, ShippingGroup)
-            # By default, include
-            else:
-                self.groups = (ContactGroup,)
-                # self.groups = (ContactGroup, BillingGroup)
-        else:
-            self.groups = ()
-        super(Confirmation, self).__init__(context, request, wizard)
-
-    def getContent(self):
-        return self.request.SESSION[self.wizard.sessionKey].get('details')
 
     @property
     def order_id(self):
@@ -365,7 +381,30 @@ class Confirmation(wizard.GroupStep):
         # For orders in other state
         else:
             super(Confirmation, self).update()
-            self.wizard._resetSession()
+
+
+class PreviousStepsDisplayProvider(object):
+    """ Content provider for rendering previous steps as display forms """
+
+    previous = []
+
+    def __init__(self, context, request, view):
+        self.context = context
+        self.request = request
+        self.wizard = hasattr(view, 'wizard') and view.wizard or view
+
+    def update(self):
+        # Include all previous steps, whose data is found found on the session
+        self.previous = [s for s in self.wizard.activeSteps[:self.wizard.currentIndex]
+                         if self.wizard.session.get(s.prefix, None) or None is not None]
+        for previous in self.previous:
+            interface.alsoProvides(previous, IDisplayForm)
+            previous.mode = DISPLAY_MODE
+            previous.ignoreRequest = True
+            previous.update()
+
+    def render(self):
+        return "\n".join([p.render().strip() for p in self.previous]).strip()
 
 
 class ITransactionReferenceNumberProvider(interface.Interface):
@@ -459,7 +498,7 @@ class CheckoutWizard(wizard.Wizard):
                 self.jump(max(min(int(self.request.form['step']), len(self.activeSteps) - 1), 0))
             except ValueError:
                 pass
-        # c) or let the wizard continue as usual (may also lead to the final step)
+        # c) or let the wizard continue as usual (which may also lead to the final step)
         if not self.currentStep:
             available = [s.available for s in self.activeSteps]
             try:
@@ -467,10 +506,17 @@ class CheckoutWizard(wizard.Wizard):
             except ValueError:
                 first = 0
             self.updateCurrentStep(self.session.setdefault('step', first))
-
+        # Perform regular z3c.form update cycle
         self.updateActions()
         self.actions.execute()
         self.updateWidgets()
+
+    def render(self):
+        raw = super(CheckoutWizard, self).render()
+        # Reset the session after the final step has been rendered
+        if self.currentStep == self.activeSteps[-1]:
+            self._resetSession()
+        return raw
 
     @button.buttonAndHandler(_(u"Cancel"), name="cancel",
                              condition=lambda form: not form.onLastStep)
@@ -481,8 +527,8 @@ class CheckoutWizard(wizard.Wizard):
         utils = getToolByName(self.context, 'plone_utils')
         utils.addPortalMessage(_(u"Your order has been cancelled."))
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
-        # FIXME: What's really the most proper action after cancelling order?
-        self.request.response.redirect(portal.absolute_url() + "/@@checkout")
+        # FIXME: What'd be the most proper action after cancelling order?
+        self.request.response.redirect(portal.absolute_url())
 
     @property
     def onLastStep(self):

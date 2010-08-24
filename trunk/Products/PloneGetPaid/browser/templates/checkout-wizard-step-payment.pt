@@ -1,7 +1,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
-      i18n:domain="Products.PloneGetPaid" tal:omit-tag="">
+      i18n:domain="Products.PloneGetPaid" tal:omit-tag=""
+      tal:condition="python:view == view.wizard.currentStep">
   <div tal:replace="structure view/index" />
+  <tal:verified condition="view/wizard/isVerifiedCheckoutContinuation">
+    <div tal:replace="structure provider:getpaid.wizard.previous_steps" />
+  </tal:verified>
   <tal:verified condition="view/wizard/isVerifiedCheckoutContinuation">
     <div tal:define="order_id view/order_id"
          tal:replace="structure provider:getpaid.cart" />

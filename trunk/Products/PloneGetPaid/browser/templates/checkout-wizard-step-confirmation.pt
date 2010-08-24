@@ -9,9 +9,13 @@
     
   <div tal:replace="structure view/index" />
 
-  <div tal:condition="view/wizard/isVerifiedCheckoutContinuation"
-       tal:define="order_id view/order_id"
-       tal:replace="structure provider:getpaid.cart" />
+  <tal:verified condition="view/wizard/isVerifiedCheckoutContinuation">
+    <div tal:condition="python:view == view.wizard.currentStep"
+         tal:replace="structure provider:getpaid.wizard.previous_steps" />
+    <div tal:condition="python:view == view.wizard.currentStep"
+         tal:define="order_id view/order_id"
+         tal:replace="structure provider:getpaid.cart" />
+  </tal:verified>
   
   <fieldset id="order-status" class="group">
     <legend i18n:translate="">Order Status</legend>

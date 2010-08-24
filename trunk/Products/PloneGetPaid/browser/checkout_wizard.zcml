@@ -20,8 +20,8 @@
      provides=".checkout_wizard.ICheckoutContinuationKey"
      for="getpaid.core.interfaces.IOrder"
      factory=".checkout_wizard.CheckoutContinuationKeyAdapter"
-     />
-  
+     /> 
+
   <adapter
      name="customer"
      provides="collective.z3cform.wizard.interfaces.IStep"
@@ -58,6 +58,15 @@
      factory=".checkout_wizard.Confirmation"
      />
 
+  <adapter
+     name="getpaid.wizard.previous_steps"
+     provides="zope.contentprovider.interfaces.IContentProvider"
+     for="zope.interface.Interface
+          zope.publisher.interfaces.browser.IDefaultBrowserLayer
+          zope.interface.Interface"
+     factory=".checkout_wizard.PreviousStepsDisplayProvider"
+     />
+  
   <browser:viewletManager
      name="getpaid.wizard.payment_buttons"
      provides=".checkout_wizard.IPaymentProcessorButtonManager"

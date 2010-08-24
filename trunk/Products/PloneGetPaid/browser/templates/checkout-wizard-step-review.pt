@@ -1,7 +1,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       i18n:domain="Products.PloneGetPaid" tal:omit-tag="">
+  <div tal:condition="python:view == view.wizard.currentStep"
+       tal:replace="structure provider:getpaid.wizard.previous_steps" />
   <div tal:replace="structure view/index" />
-  <div tal:define="show_edit_link python:True"
+  <div tal:condition="python:view == view.wizard.currentStep"
+       tal:define="show_edit_link python:True"
        tal:replace="structure provider:getpaid.cart" />
 </html>

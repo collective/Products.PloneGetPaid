@@ -1,12 +1,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       i18n:domain="Products.PloneGetPaid" tal:omit-tag="">
-  <!--
-     We haven't developed yet z3c.form.widgets for country and state selections.
-     That's why the similar behavior is achieved by hiding states for other than the
-     selected country using jQuery.
-  -->
-  <script type="text/javascript">
+  <tal:comment replace="nothing">
+    We haven't developed yet z3c.form.widgets for country and state selections.
+    That's why the similar behavior is achieved by hiding states for other than the
+    selected country using jQuery.
+  </tal:comment>
+  <script tal:condition="python:view == view.wizard.currentStep" type="text/javascript">
   $(document).ready(function() {
     $("#billing_address-widgets-bill_country, #billing_address-widgets-ship_country").bind("change", function() {
       var states = null;
@@ -24,6 +24,7 @@
   });
   </script>
   <div tal:replace="structure view/index" />
-  <div tal:define="show_edit_link python:True"
+  <div tal:condition="python:view == view.wizard.currentStep"
+       tal:define="show_edit_link python:True"
        tal:replace="structure provider:getpaid.cart" />
 </html>
