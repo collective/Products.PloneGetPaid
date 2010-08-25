@@ -313,15 +313,6 @@
    factory=".notifications.CustomerDeclineOrderNotification"
    />
 
-<!-- Payment -->
-<adapter
-   for="*"
-   provides="getpaid.core.interfaces.ICreditCardTypeEnumerator"
-   factory=".payment.CreditCardTypeEnumerator"
-   />
-
-
-
 <subscriber
     for="*
          getpaid.core.interfaces.IPayableCreationEvent"
