@@ -49,6 +49,12 @@ ul.wizard-steps {
     margin-bottom: 0;
 }
 
+#payment-buttons input {
+    margin: 0.25em 0.25em 0 0;
+    padding: 0.1em 0.5em;
+    font-size: 200%;
+}
+
 #payment-methods #formfield-method-widgets-processor_id > label,
 #payment-methods #formfield-method-widgets-processor_id > span.required.horizontal {
     display: none;

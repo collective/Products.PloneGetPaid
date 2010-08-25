@@ -286,7 +286,7 @@ class Review(wizard.Step):
 class Method(wizard.Step):
     prefix = 'method'
     label  = _(u"Payment method")
-    description = _(u"Please, select Your payment method to pay the order")
+    description = _(u"Please, select the payment method to pay your order")
     weight = 60
 
     fields = field.Fields(
