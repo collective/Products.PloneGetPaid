@@ -4,7 +4,7 @@
   <dl class="portlet shopping-cart" tal:condition="not:view/data/omit_border">
     <dt class="portletHeader" tal:condition="not:view/data/omit_header">
       <span class="portletTopLeft"></span>
-      <span class="portletTopMiddle" i18n:translate="">Your Cart</span>
+      <span class="portletTopMiddle" i18n:translate="">Your shopping cart</span>
       <span class="portletTopRight"></span>
     </dt>
     <dd class="portletItem odd">
