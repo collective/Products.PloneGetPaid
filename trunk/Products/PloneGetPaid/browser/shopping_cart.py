@@ -215,7 +215,7 @@ class LineItemContainerTable(table.SequenceTable):
         cols = list(component.getAdapters(
             (self.container, self.request, self), IColumn))
         # use the adapter name as column name                                                
-        return [table.nameColumn(col, name) for name, col in cols]
+        return [table.nameColumn(col, name) for name, col in cols if col.weight < 100]
 
 
 class LineItemContainerEditForm(LineItemContainerTable, group.GroupForm, form.EditForm):
