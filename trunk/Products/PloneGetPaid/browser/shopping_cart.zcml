@@ -75,16 +75,6 @@
      />
   
   <!-- Columns for LineItemContainerTable -->
-  <!--
-  <adapter
-     name="selected"
-     for="getpaid.core.interfaces.ILineItemContainer
-          zope.publisher.interfaces.browser.IBrowserRequest
-          z3c.table.interfaces.ITable"
-     provides="z3c.table.interfaces.IColumn"
-     factory=".shopping_cart.SelectionColumn"
-     />
-  -->
   <adapter
      name="description"
      provides="z3c.table.interfaces.IColumn"
@@ -121,4 +111,12 @@
      factory=".shopping_cart.TotalColumn"
      />
 
+  <adapter
+     name="removable"
+     for="getpaid.core.interfaces.ILineItemContainer
+          zope.publisher.interfaces.browser.IBrowserRequest
+          z3c.table.interfaces.ITable"
+     provides="z3c.table.interfaces.IColumn"
+     factory=".shopping_cart.RemovableColumn"
+     />
 </configure>

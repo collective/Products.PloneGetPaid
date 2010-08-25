@@ -146,16 +146,6 @@ class LineItemFormGroup(group.Group):
         return self.line_item
 
 
-#class SelectionColumn(column.CheckBoxColumn):
-#    weight = 10
-#    header = u""
-#
-#    def isSelected(self, item):
-#        if self.table.ignoreRequest:
-#            return False
-#        else:
-#            return super(SelectionColumn, self).isSelected(item)
-
 class LinkColumn(column.LinkColumn):
     weight = 20
     header = _(u"Title")
@@ -170,21 +160,35 @@ class LinkColumn(column.LinkColumn):
             (self.context, self.request, item), ILineItemDisplayAdapter)
         return "reference_catalog/lookupObject?uuid=%s" % (getattr(adapted_item, "uid"))
 
+
 class QuantityColumn(WidgetColumn):
     weight = 30
     header = _(u"Quantity")
     attrName = u"quantity"
     editable = True
 
+
 class PriceColumn(GetAdaptedAttrColumn):
     weight = 40
     header = _(u"Price")
     attrName = u"price"
 
+
 class TotalColumn(GetAdaptedAttrColumn):
     weight = 50
     header = _(u"Total")
     attrName = u"total"
+
+
+class RemovableColumn(column.CheckBoxColumn):
+    weight = 100
+    header = _(u"Remove")
+
+    def isSelected(self, item):
+        if self.table.ignoreRequest:
+            return False
+        else:
+            return super(RemovableColumn, self).isSelected(item)
 
 
 class LineItemContainerTable(table.SequenceTable):
@@ -361,28 +365,19 @@ class ShoppingCart(LineItemContainerTable):
 class ShoppingCartForm(ShoppingCart, LineItemContainerEditForm):
     render = ViewPageTemplateFile("templates/shopping-cart-form.pt")
 
+    successMessage = _(u"Shopping cart successfully updated.")
+
     @property
     def refererURL(self):
         portal_url = getToolByName(self.context, "portal_url")
         site = portal_url.getPortalObject()
-        return self.request.get('GETPAID_REFERER', self.request.environ.get('HTTP_REFERER', site.absolute_url()))
+        referer = self.request.get('GETPAID_REFERER', self.request.environ.get('HTTP_REFERER', None))
+        return referer or site.absolute_url()
 
     def _updateForm(self):
         self.updateWidgets()
         for group in self.groups:
             group.update()
-
-#    @button.buttonAndHandler(_("Remove"), name='remove')
-#    def handleRemove(self, action):
-#        table.SequenceTable.update(self)
-#        if self.selectedItems:
-#            for group in self.selectedItems:
-#                del self.container[group.getContent().item_id]
-#            self.groups = [g for g in self.groups if g not in self.selectedItems]
-#            self.status = self.successMessage
-#            self._updateForm()
-#        else:
-#            self.status = self.noChangesMessage
  
     @button.buttonAndHandler(_("Cancel"), name='cancel')
     def handleCancel(self, action):
@@ -395,10 +390,14 @@ class ShoppingCartForm(ShoppingCart, LineItemContainerEditForm):
         form.EditForm.handleApply(self, action)
         # Remove items with zero quantity from the shopping cart
         removables = [g for g in self.groups if g.line_item.quantity == 0]
+        # Remove items marked as removables from the shopping cart
+        table.SequenceTable.update(self)
+        removables.extend(self.selectedItems)
         if removables:
             for group in removables:
                 del self.container[group.getContent().item_id]
             self.groups = [g for g in self.groups if g not in removables]
+            self.status = self.successMessage
             self._updateForm()
         # Redirect to referer when if the has been emptied
         if not self.cart:
@@ -406,8 +405,9 @@ class ShoppingCartForm(ShoppingCart, LineItemContainerEditForm):
             utils.addPortalMessage(_(u"Your shopping cart is now empty."))
             self.request.response.redirect(self.refererURL)
 
-#    @button.buttonAndHandler(_("Continue shopping"), name='continue')
-#    def handleContinue(self, action):
+    @button.buttonAndHandler(_("Continue shopping"), name='continue')
+    def handleContinue(self, action):
+        self.request.response.redirect(self.refererURL)
 
     @button.buttonAndHandler(_("Checkout"), name='checkout')
     def handleCheckout(self, action):
