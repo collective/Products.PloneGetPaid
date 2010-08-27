@@ -16,23 +16,23 @@
               <table class="vertical listing" tal:define="totals view/totals">
                 <tr>
                   <th i18n:translate="">SubTotal</th>
-                  <td tal:content="totals/subtotal"></td>
+                  <td class="currency" tal:content="totals/subtotal"></td>
                 </tr>
                 <tal:comment replace="nothing">
                 <!--
                    <tr>
                      <th i18n:translate="">Shipping</th>
-                     <td tal:content="view/shipping_price"></td>
+                     <td class="currency" tal:content="view/shipping_price"></td>
                    </tr>
                 -->
                 </tal:comment>
                 <tr tal:repeat="tax totals/taxes">
                   <th tal:content="tax/name" i18n:translate=""></th>
-                  <td tal:content="tax/value"></td>
+                  <td class="currency" tal:content="tax/value"></td>
                 </tr>
                 <tr>
                   <th i18n:translate="">Total</th>
-                  <td tal:content="totals/total"></td>
+                  <td class="currency" tal:content="totals/total"></td>
                 </tr>
               </table>
             </div>

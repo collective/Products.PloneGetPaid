@@ -84,6 +84,7 @@
                          tal:define="raw provider:getpaid.wizard.payment_buttons">
             <fieldset tal:condition="raw" id="online-payment-method" class="group">
               <legend i18n:translate="">Online Payment Methods</legend>
+              <p i18n:translate="">You may pay your order by clicking an online payment method below:</p>
               <div id="payment-buttons" tal:content="structure raw" />
             </fieldset>
           </metal:buttons>

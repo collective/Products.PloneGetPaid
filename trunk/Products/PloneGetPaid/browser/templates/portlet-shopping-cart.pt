@@ -9,10 +9,15 @@
     </dt>
     <dd class="portletItem odd">
       <metal:body define-macro="body">
-        <p i18n:translate="text_contains_items">
-          Contains <span tal:content="view/size" i18n:name="size"> 5 </span> Items
+        <p class="getpaid-cart-items" i18n:translate="text_contains_item"
+           tal:define="size view/size" tal:condition="python:size == 1">
+          Contains <span tal:content="size" i18n:name="size"> 1 </span> item
         </p>
-        <p>
+        <p class="getpaid-cart-items" i18n:translate="text_contains_items"
+           tal:define="size view/size" tal:condition="python:size > 1">
+          Contains <span tal:content="size" i18n:name="size"> 5 </span> items
+        </p>
+        <p class="getpaid-cart-total">
           <span i18n:translate="">Total</span> <span tal:content="view/totals/total">$ 10.00</span>
         </p>
         <p tal:condition="view/data/omit_border">

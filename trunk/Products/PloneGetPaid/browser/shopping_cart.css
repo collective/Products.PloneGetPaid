@@ -3,7 +3,10 @@
 #shopping-cart table.listing td {
     vertical-align: middle;
 }
-
+#shopping-cart td.currency {
+    text-align: right;
+    white-space: nowrap;
+}
 #shopping-cart .formControls input {
     margin: 0.25em 0.25em 0 0;
     padding: 0.1em 0.5em;

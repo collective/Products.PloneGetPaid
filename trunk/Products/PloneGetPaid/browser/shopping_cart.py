@@ -172,12 +172,14 @@ class PriceColumn(GetAdaptedAttrColumn):
     weight = 40
     header = _(u"Price")
     attrName = u"price"
+    cssClasses = {'td': u"currency"}
 
 
 class TotalColumn(GetAdaptedAttrColumn):
     weight = 50
     header = _(u"Total")
     attrName = u"total"
+    cssClasses = {'td': u"currency"}
 
 
 class RemovableColumn(column.CheckBoxColumn):
@@ -365,7 +367,7 @@ class ShoppingCart(LineItemContainerTable):
 class ShoppingCartForm(ShoppingCart, LineItemContainerEditForm):
     render = ViewPageTemplateFile("templates/shopping-cart-form.pt")
 
-    successMessage = _(u"Shopping cart successfully updated.")
+    successMessage = _(u"Shopping cart was updated.")
 
     @property
     def refererURL(self):
