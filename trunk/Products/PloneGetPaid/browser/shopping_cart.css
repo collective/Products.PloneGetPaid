@@ -1,3 +1,4 @@
+/* @begin Shopping Cart */
 #shopping-cart table.listing th,
 #shopping-cart table.listing td {
     vertical-align: middle;
@@ -8,7 +9,10 @@
     padding: 0.1em 0.5em;
     font-size: 125%;
 }
+/* @end Shopping Cart */
 
+/* @begin Cart Portlet */
 .portlet.shopping-cart p:last-child {
     margin-bottom: 0;
 }
+/* @end Cart Portlet */

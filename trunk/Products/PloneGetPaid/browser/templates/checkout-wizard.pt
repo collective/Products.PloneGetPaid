@@ -36,10 +36,18 @@
                    tal:condition="view/description"
                    tal:content="structure view/description">Form description</div>
               
-              <dl class="portalMessage info" tal:condition="view/status">
-                <dt>Info</dt>
-                <dd tal:content="view/status"></dd>
-              </dl>
+              <tal:message tal:condition="view/status">
+                <dl class="portalMessage error"
+                    tal:condition="python:view.status == view.formErrorsMessage">
+                  <dt>Error</dt>
+                  <dd tal:content="view/status"></dd>
+                </dl>
+                <dl class="portalMessage info"
+                    tal:condition="python:view.status != view.formErrorsMessage">
+                  <dt>Info</dt>
+                  <dd tal:content="view/status"></dd>
+                </dl>
+              </tal:message>
               
               <tal:form define="form nocall:view/currentStep">
                 <h2 tal:condition="form/label" tal:content="form/label">

@@ -16,24 +16,28 @@
           <span i18n:translate="">Total</span> <span tal:content="view/totals/total">$ 10.00</span>
         </p>
         <p tal:condition="view/data/omit_border">
-          <a href="" tal:attributes="href string:${context/portal_url}/@@shopping-cart"
+          <a href="#" class="getpaid-cart-link"
+             tal:attributes="href string:${context/portal_url}/@@shopping-cart"
              i18n:translate="label_manage_cart">Manage Cart</a>
         </p>
         <p tal:condition="view/data/omit_border">
-          <a href="" tal:attributes="href string:${context/portal_url}/@@checkout"
+          <a href="#" class="getpaid-checkout-link"
+             tal:attributes="href string:${context/portal_url}/@@checkout"
              i18n:translate="">Checkout</a>
         </p>
       </metal:body>
     </dd>
     <dd class="portletFooter">
       <span class="portletBottomLeft"></span>
-      <a href="" tal:attributes="href string:${context/portal_url}/@@shopping-cart"
+      <a href="#" class="getpaid-cart-link"
+         tal:attributes="href string:${context/portal_url}/@@shopping-cart"
          i18n:translate="label_manage_cart">Manage Cart</a>
       <span class="portletBottomRight"></span>
     </dd>
     <dd class="portletFooter">
       <span class="portletBottomLeft"></span>
-      <a href="" tal:attributes="href string:${context/portal_url}/@@checkout"
+      <a href="#" class="getpaid-checkout-link"
+         tal:attributes="href string:${context/portal_url}/@@checkout"
          i18n:translate="">Checkout</a>
       <span class="portletBottomRight"></span>
     </dd>

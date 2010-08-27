@@ -1,8 +1,9 @@
-ul.wizard-steps {
+/* @begin Checkout Wizard */
+.wizard-steps {
     text-align: center;
 }
 
-#content ul.wizard-steps li {
+.wizard-steps li {
     display: inline;
     margin-right: 1em;
 }
@@ -12,7 +13,16 @@ ul.wizard-steps {
     font-size: 120%;
 }
 
-.fieldErrorBox .error {
+#checkout-wizard form fieldset {
+    float: left;
+    margin-right: 1em;
+}
+
+#checkout-wizard form fieldset .row {
+    float: none;
+}
+
+#checkout-wizard .fieldErrorBox .error {
     border: none;
     margin-top: 0;
     padding: 0;
@@ -30,32 +40,19 @@ ul.wizard-steps {
     float: right;
 }
 
-#content .wizard-buttons input {
+.wizard-buttons input,
+#payment-buttons input {
     margin: 0.25em 0 0 0.25em;
     padding: 0.1em 0.5em;
     font-size: 200%;
-}
-
-#checkout-wizard form fieldset {
-    float: left;
-    margin-right: 1em;
-}
-
-#checkout-wizard form fieldset .row {
-    float: none;
 }
 
 #payment-buttons {
     margin-bottom: 0;
 }
 
-#payment-buttons input {
-    margin: 0.25em 0.25em 0 0;
-    padding: 0.1em 0.5em;
-    font-size: 200%;
-}
-
 #payment-methods #formfield-method-widgets-processor_id > label,
 #payment-methods #formfield-method-widgets-processor_id > span.required.horizontal {
     display: none;
 }
+/* @end Checkout Wizard */
