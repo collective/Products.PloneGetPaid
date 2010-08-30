@@ -411,7 +411,7 @@ class ShoppingCartForm(ShoppingCart, LineItemContainerEditForm):
     def handleContinue(self, action):
         self.request.response.redirect(self.refererURL)
 
-    @button.buttonAndHandler(_("Checkout"), name='checkout')
+    @button.buttonAndHandler(_("Checkout order"), name='checkout')
     def handleCheckout(self, action):
         portal_url = getToolByName(self.context, "portal_url")
         site = portal_url.getPortalObject()

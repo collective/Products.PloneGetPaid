@@ -224,7 +224,7 @@ class PaymentGroup(SchemaGroup):
 
 class Customer(wizard.GroupStep):
     prefix = 'details'
-    label  = _(u"Customer details")
+    label  = _(u"Customer information")
     description = _(u"Please, enter the requested customer information for your order")
     weight = 20
 

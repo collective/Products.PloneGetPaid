@@ -9,41 +9,39 @@
     </dt>
     <dd class="portletItem odd">
       <metal:body define-macro="body">
-        <p class="getpaid-cart-items" i18n:translate="text_contains_item"
+        <p i18n:translate="text_contains_item"
            tal:define="size view/size" tal:condition="python:size == 1">
           Contains <span tal:content="size" i18n:name="size"> 1 </span> item
         </p>
-        <p class="getpaid-cart-items" i18n:translate="text_contains_items"
+        <p i18n:translate="text_contains_items"
            tal:define="size view/size" tal:condition="python:size > 1">
           Contains <span tal:content="size" i18n:name="size"> 5 </span> items
         </p>
-        <p class="getpaid-cart-total">
+        <p>
           <span i18n:translate="">Total</span> <span tal:content="view/totals/total">$ 10.00</span>
         </p>
-        <p tal:condition="view/data/omit_border">
-          <a href="#" class="getpaid-cart-link"
-             tal:attributes="href string:${context/portal_url}/@@shopping-cart"
-             i18n:translate="label_manage_cart">Manage Cart</a>
-        </p>
-        <p tal:condition="view/data/omit_border">
-          <a href="#" class="getpaid-checkout-link"
-             tal:attributes="href string:${context/portal_url}/@@checkout"
-             i18n:translate="">Checkout</a>
-        </p>
+        <form tal:condition="view/data/omit_border"
+              tal:attributes="action string:${context/portal_url}/@@shopping-cart">
+          <input type="submit" value="Manage Cart" i18n:attributes="value" />
+        </form>
+        <form tal:condition="view/data/omit_border"
+              tal:attributes="action string:${context/portal_url}/@@checkout">
+          <input type="submit" value="Checkout" i18n:attributes="value" />
+        </form>
       </metal:body>
     </dd>
     <dd class="portletFooter">
       <span class="portletBottomLeft"></span>
-      <a href="#" class="getpaid-cart-link"
-         tal:attributes="href string:${context/portal_url}/@@shopping-cart"
-         i18n:translate="label_manage_cart">Manage Cart</a>
+      <form tal:attributes="action string:${context/portal_url}/@@shopping-cart">
+        <input type="submit" value="Manage cart" i18n:attributes="value" />
+      </form>
       <span class="portletBottomRight"></span>
     </dd>
     <dd class="portletFooter">
       <span class="portletBottomLeft"></span>
-      <a href="#" class="getpaid-checkout-link"
-         tal:attributes="href string:${context/portal_url}/@@checkout"
-         i18n:translate="">Checkout</a>
+      <form tal:attributes="action string:${context/portal_url}/@@checkout">
+        <input type="submit" value="Checkout order" i18n:attributes="value" />
+      </form>
       <span class="portletBottomRight"></span>
     </dd>
   </dl>

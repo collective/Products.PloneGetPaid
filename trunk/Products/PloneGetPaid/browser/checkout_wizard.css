@@ -22,6 +22,10 @@
     float: none;
 }
 
+#checkout-wizard fieldset#order-status dl {
+    margin: 0;
+}
+
 #checkout-wizard .fieldErrorBox .error {
     border: none;
     margin-top: 0;
