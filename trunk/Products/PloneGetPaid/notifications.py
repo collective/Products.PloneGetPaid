@@ -100,7 +100,7 @@ class TaxCost(SubstitutionKeywordBase):
         currency = component.getUtility(ICurrencyFormatter)
         self.value = ""
         for tax in [t for t in order.getTaxCost() if t['value']]:
-            self.value += u"%s %s\n" % \
+            self.value += u"%s: %s\n" % \
                 (tax['name'], currency.format(math.fabs(tax['value'])))
 
 
