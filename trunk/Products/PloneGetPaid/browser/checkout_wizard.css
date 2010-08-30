@@ -3,7 +3,7 @@
     text-align: center;
 }
 
-.wizard-steps li {
+#content .wizard-steps li {
     display: inline;
     margin-right: 1em;
 }
