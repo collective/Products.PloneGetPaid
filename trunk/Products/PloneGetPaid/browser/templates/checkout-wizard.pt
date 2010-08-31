@@ -63,10 +63,9 @@
                   <div tal:define="raw form/render;
                                    raw python:raw.replace('z3cformInlineValidation ', '')"
                        tal:replace="structure raw" />
-                  <div class="wizard-buttons">
-                    <div class="action" tal:repeat="action view/actions/values">
-                      <input type="submit" tal:replace="structure action/render"/>
-                    </div>
+                  <div class="formControls">
+                    <input type="submit" tal:replace="structure action/render"
+                           tal:repeat="action view/actions/values"/>
                   </div>
                 </form>
               </tal:form>
@@ -82,10 +81,10 @@
           <metal:buttons fill-slot="payment-buttons"
                          tal:condition="view/canPaymentButtonsBeShown"
                          tal:define="raw provider:getpaid.wizard.payment_buttons">
-            <fieldset tal:condition="raw" id="online-payment-method" class="group">
+            <fieldset tal:condition="raw" id="online-payment-methods" class="group">
               <legend i18n:translate="">Online Payment Methods</legend>
               <p i18n:translate="">You may pay your order by clicking an online payment method below:</p>
-              <div id="payment-buttons" tal:content="structure raw" />
+              <div tal:replace="structure raw" />
             </fieldset>
           </metal:buttons>
         </div>

@@ -1,58 +1,57 @@
 /* @begin Checkout Wizard */
-.wizard-steps {
+#checkout-wizard .wizard-steps {
     text-align: center;
 }
-
-#content .wizard-steps li {
+#checkout-wizard .wizard-steps li {
     display: inline;
     margin-right: 1em;
 }
-
-.wizard-step-link.selected {
+#checkout-wizard .wizard-steps .selected {
     font-weight: bold;
     font-size: 120%;
 }
 
-#checkout-wizard form fieldset {
+#checkout-wizard fieldset {
     float: left;
     margin-right: 1em;
 }
-
-#checkout-wizard form fieldset .row {
+#checkout-wizard fieldset .row {
     float: none;
 }
 
-#checkout-wizard fieldset#order-status dl {
+#checkout-wizard #order-status dl {
     margin: 0;
 }
-
 #checkout-wizard .fieldErrorBox .error {
     border: none;
     margin-top: 0;
     padding: 0;
 }
 
-.wizard-buttons {
+#checkout-wizard .formControls {
     clear: both;
     border-color: #329FD7;
     border-style: solid none none none;
     border-width: 0.1em;
     text-align: right;
 }
-
-.wizard-buttons .action {
+#checkout-wizard .formControls input {
     float: right;
-}
-
-.wizard-buttons input,
-#payment-buttons input {
     margin: 0.25em 0 0 0.25em;
     padding: 0.1em 0.5em;
     font-size: 200%;
 }
 
-#payment-buttons {
+#online-payment-methods {
     margin-bottom: 0;
+}
+#online-payment-methods form {
+    float: left;
+}
+#online-payment-methods form input {
+    margin: 0 0.25em 0.25em 0;
+    padding: 0.1em 0.5em;
+    font-size: 200%;
 }
 
 #payment-methods #formfield-method-widgets-processor_id > label,
