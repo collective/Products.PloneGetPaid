@@ -91,7 +91,7 @@ Test donation checkout, which should go directly to checkout screen from the por
 
 Continue where we left of after clicking Donate.
 
-	>>> browser.getLink('Checkout').click()
+	>>> browser.getControl('Checkout').click()
 	>>> browser.getControl('Your Name').value = 'Test'
 	>>> browser.getControl('Phone Number').value = '1234567'
 	>>> browser.getControl('Phone Number').value = '12345678'
