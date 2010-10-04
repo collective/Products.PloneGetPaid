@@ -559,7 +559,7 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         formSchemas = component.getUtility(interfaces.IFormSchemas)
         # edit widgets for payment info
         self.widgets = form.setUpEditWidgets(
-            self.form_fields.select( *schema.getFieldNames(formSchemas.getInterface('payment'))),
+            self.form_fields.select( *schema.getFieldNamesInOrder(formSchemas.getInterface('payment'))),
             self.prefix, self.context, self.request,
             adapters=adapters, ignore_request=ignore_request
             )

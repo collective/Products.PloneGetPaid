@@ -252,9 +252,11 @@ class CartFormatter( table.StandaloneSortFormatter ):
         totals = self.getTotals()
 
         self.tax_list = totals.getTaxCost()
-        self.shipping_price = totals.getShippingCost()
-        self.subtotal_price = totals.getSubTotalPrice()
-        self.total_price = totals.getTotalPrice()
+        for tax in self.tax_list:
+            tax['value'] = '%0.2f' % tax['value']
+        self.shipping_price = '%0.2f' % totals.getShippingCost()
+        self.subtotal_price = '%0.2f' % totals.getSubTotalPrice()
+        self.total_price = '%0.2f' % totals.getTotalPrice()
         self.extra = super(CartFormatter, self).renderExtra()
         self.translate = lambda msg: utranslate(domain='plonegetpaid',
                                            msgid=msg,

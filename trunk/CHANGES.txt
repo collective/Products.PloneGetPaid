@@ -2,8 +2,18 @@
 CHANGES
 =======
 
-0.10.2 (XXXX-XX-XX)
+0.10.3 (unreleased)
 -------------------
+
+
+0.10.2 (2010-10-01)
+-------------------
+
+- Fix ordering of credit card fields in the CheckoutReviewAndPay form.
+  [davisagli]
+
+- Make sure amounts are formatted with 2 decimal digits in the cart listing.
+  [davisagli]
 
 0.10.1 (2010-06-28)
 -------------------
