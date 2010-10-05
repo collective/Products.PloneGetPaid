@@ -247,7 +247,7 @@ class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
     payment_processors = schema.List(
         title = _(u"Payment Processor"),
         required = True,
-        default = [u'getpaid.nullpayment'], # u'getpaid.nullpayment' == "Testing Processor"
+        default = [],
         value_type = schema.Choice( title=u"payment_methods", source="getpaid.payment_methods" )
         )
 
