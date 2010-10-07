@@ -2,7 +2,7 @@
            xmlns:browser="http://namespaces.zope.org/browser"
            xmlns:i18n="http://xml.zope.org/namespaces/i18n"
            i18n_domain="Products.PloneGetPaid">
-  
+
   <browser:page
      for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-payment-options"
@@ -15,8 +15,8 @@
   <adapter
      name="enabled_processors"
      provides="z3c.form.interfaces.IGroup"
-     for="zope.interface.Interface                                                                                  
-          zope.publisher.interfaces.browser.IBrowserRequest                                                         
+     for="zope.interface.Interface
+          zope.publisher.interfaces.browser.IBrowserRequest
           .admin_processors.IPaymentProcessorOptions"
      factory=".admin_processors.EnabledPaymentProcessors"
      />
