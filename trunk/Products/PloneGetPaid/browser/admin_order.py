@@ -564,7 +564,7 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
         return self.order.order_id
 
     def getProcessorId( self ):
-        return self.order.processor_id
+        return getattr(self.order, "processor_id", None)
 
     def getUserId( self ):
         return self.order.user_id
@@ -712,7 +712,10 @@ def renderItemId( item, formatter ):
     return item.product_code
 
 def renderItemName( item, formatter ):
-    content = item.resolve()
+    try:
+        content = item.resolve()
+    except:
+        content = None
     if not content:
         return item.name
     content_url = content.absolute_url()
