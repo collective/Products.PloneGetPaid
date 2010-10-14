@@ -20,7 +20,7 @@
   <fieldset id="order-status" class="group">
     <legend i18n:translate="">Order status</legend>
     <dl>
-      <dt i18n:translate="">Your order date</dt>
+      <dt i18n:translate="">Your order date is</dt>
       <dd i18n:translate="" tal:content="view/order_date">10.10.2010</dd>
       <dt i18n:translate="">Your order number is</dt>
       <dd i18n:translate="" tal:content="view/order_id">123456789</dd>
