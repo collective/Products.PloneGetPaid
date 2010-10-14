@@ -348,7 +348,7 @@ class Payment(wizard.GroupStep):
 class Confirmation(wizard.Step):
     """ Order confirmation view """
     prefix = 'confirmation'
-    label  = _(u"Confirmation of Order")
+    label  = _(u"Order Confirmation")
     description = _(u"Thank you for your order.")
     weight = 80
 
