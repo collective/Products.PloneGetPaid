@@ -3,22 +3,23 @@
       i18n:domain="Products.PloneGetPaid" tal:omit-tag="">
   <tal:cart condition="view/cart">
     <fieldset id="shopping-cart" class="group">
-      <legend i18n:translate="">Shopping Cart</legend>
-      <tal:replace replace="structure view/renderTable" />
+      <legend tal:condition="view/show_edit_link|nothing"
+              i18n:translate="">Shopping cart</legend>
+      <legend tal:condition="not:view/show_edit_link|nothing"
+              i18n:translate="">Order contents</legend>
+      <tal:replace replace="structure view/renderTable"/>
       <div class="getpaid-totals">
         <table class="vertical listing" tal:define="totals view/totals">
           <tr>
-            <th i18n:translate="">SubTotal</th>
+            <th i18n:translate="">Subtotal</th>
             <td class="currency" tal:content="totals/subtotal"></td>
           </tr>
-          <tal:comment replace="nothing">
-          <!--
-             <tr>
-               <th i18n:translate="">Shipping</th>
-               <td class="currency" tal:content="view/shipping_price"></td>
-             </tr>
-          -->
-          </tal:comment>
+          <tr replace="nothing">
+            <!--
+            <th i18n:translate="">Shipping</th>
+            <td class="currency" tal:content="view/shipping_price"></td>
+            -->
+          </tr>
           <tr tal:repeat="tax totals/taxes">
             <th tal:content="tax/name" i18n:translate=""></th>
             <td class="currency" tal:content="tax/value"></td>

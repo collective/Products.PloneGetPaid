@@ -12,7 +12,7 @@
       current step.
     </tal:comment>
     <metal:main fill-slot="main">
-      <h1 class="documentFirstHeading" tal:content="view/label">Checkout Wizard</h1>
+      <h1 class="documentFirstHeading" tal:content="view/label" i18n:translate="">Checkout</h1>
       <tal:no-order condition="not:view/isOrderAvailable">
         <tal:cart condition="view/isCartAvailable">
           <div metal:define-macro="checkout-wizard" id="checkout-wizard">
@@ -28,7 +28,7 @@
                 </a>
               </li>
             </ul>
-
+            
             <div class="form" tal:condition="not:view/finished"
                  tal:attributes="id string:wizard-step-${view/currentStep/prefix}">
               
@@ -64,6 +64,7 @@
                                    raw python:raw.replace('z3cformInlineValidation ', '')"
                        tal:replace="structure raw" />
                   <div class="formControls">
+                    <input name="GETPAID_REFERER" type="hidden" tal:attributes="value view/refererURL" />
                     <input type="submit" tal:replace="structure action/render"
                            tal:repeat="action view/actions/values"/>
                   </div>
@@ -82,8 +83,8 @@
                          tal:condition="view/canPaymentButtonsBeShown"
                          tal:define="raw provider:getpaid.wizard.payment_buttons">
             <fieldset tal:condition="raw" id="online-payment-methods" class="group">
-              <legend i18n:translate="">Online Payment Methods</legend>
-              <p i18n:translate="">You may pay your order by clicking an online payment method below:</p>
+              <legend i18n:translate="">Online payment methods</legend>
+              <p class="discreet" i18n:translate="">Please, click a payment method below to pay your order.</p>
               <div tal:replace="structure raw" />
             </fieldset>
           </metal:buttons>

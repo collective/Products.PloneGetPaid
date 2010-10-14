@@ -6,6 +6,7 @@ __version__ = "$Revision$"
 # $Id$
 # $URL$
 
+import time
 import types
 import hashlib
 import cPickle
@@ -185,7 +186,7 @@ class ContactGroup(SchemaGroup):
             verify_email.__dict__.update(self.fields["email"].field.__dict__)
             verify_email.interface = None
             verify_email.__name__ = "verify_email"
-            verify_email.title = _(u"Verify E-mail Address")
+            verify_email.title = _(u"Verify E-mail address")
             verify_email.description = _(u"Please, re-enter your e-mail address")
             self.fields += field.Fields(verify_email)
 
@@ -204,17 +205,17 @@ class ContactGroup(SchemaGroup):
 
 
 class BillingGroup(SchemaGroup):
-    label = _(u"Billing Information")
+    label = _(u"Billing information")
     section = 'billing_address'
 
 
 class ShippingGroup(SchemaGroup):
-    label = _(u"Shipping Information")
+    label = _(u"Shipping information")
     section = 'shipping_address'
 
 
 class PaymentGroup(SchemaGroup):
-    label = _(u"Payment Information")
+    label = _(u"Payment information")
     section = 'payment'
 
     def __init__(self, *args):
@@ -224,8 +225,8 @@ class PaymentGroup(SchemaGroup):
 
 class Customer(wizard.GroupStep):
     prefix = 'details'
-    label  = _(u"Customer information")
-    description = _(u"Please, enter the requested customer information for your order")
+    label  = _(u"Enter Customer Details")
+    description = _(u"Please, enter the requested customer information for your order.")
     weight = 20
 
     groups = None
@@ -261,8 +262,8 @@ class Customer(wizard.GroupStep):
 
 class Review(wizard.Step):
     prefix = 'review'
-    label  = _(u"Review order")
-    description = _(u"Please, review your order information before continuing the checkout")
+    label  = _(u"Review Order")
+    description = _(u"Please, review your order information before continuing the checkout.")
     weight = 40
 
     template = ViewPageTemplateFile("templates/checkout-wizard-step-review.pt")
@@ -285,12 +286,12 @@ class Review(wizard.Step):
 
 class Method(wizard.Step):
     prefix = 'method'
-    label  = _(u"Payment method")
-    description = _(u"Please, select the payment method to pay your order")
+    label  = _(u"Select Payment Method")
+    description = _(u"Please, select a method to pay the order.")
     weight = 60
 
     fields = field.Fields(
-       schema.Choice(__name__='processor_id', title=_(u"Available Payment Methods"),
+       schema.Choice(__name__='processor_id', title=_(u"Available payment methods"),
                      values=[], required=True))
     template = ViewPageTemplateFile("templates/checkout-wizard-step-method.pt")
 
@@ -325,8 +326,8 @@ class Method(wizard.Step):
 class Payment(wizard.GroupStep):
     """ A default payment information step, must be explicitly included by payment processor """
     prefix = 'payment'
-    label  = _(u"Payment details")
-    description = _(u"Please, enter your payment information for the order")
+    label  = _(u"Payment Details")
+    description = _(u"Please, enter your payment information for the order.")
     weight = 70
 
     groups = (PaymentGroup,)
@@ -347,8 +348,8 @@ class Payment(wizard.GroupStep):
 class Confirmation(wizard.Step):
     """ Order confirmation view """
     prefix = 'confirmation'
-    label  = _(u"Confirmation")
-    description = _(u"The confirmation for your order is printed below")
+    label  = _(u"Confirmation of Order")
+    description = _(u"Thank you for your order.")
     weight = 80
 
     fields = field.Fields()
@@ -359,6 +360,12 @@ class Confirmation(wizard.Step):
         return super(Confirmation, self).available \
             and self.wizard.isOrderAvailable
 
+    @property
+    def order_date(self):
+        util = getToolByName(self.context, "translation_service")
+        return util.ulocalized_time(time.mktime(self.wizard._order.creation_date.timetuple()),
+                                    False, None, context=self.context,
+                                    domain='plonelocales', request=self.request)
     @property
     def order_id(self):
         return self.wizard._order.order_id
@@ -426,7 +433,7 @@ class CheckoutWizard(wizard.Wizard):
     buttons = wizard.Wizard.buttons.select('continue', 'back')
     handlers = wizard.Wizard.handlers.copy()
 
-    label = _(u"Online Checkout")
+    label = _(u"Checkout")
 
     # the overwritten collective.z3cform.wizard is found at self.index
     template = ViewPageTemplateFile("templates/checkout-wizard.pt")
@@ -518,7 +525,7 @@ class CheckoutWizard(wizard.Wizard):
             self._resetSession()
         return raw
 
-    @button.buttonAndHandler(_(u"Cancel"), name="cancel",
+    @button.buttonAndHandler(_(u"Cancel order"), name="cancel",
                              condition=lambda form: not form.onLastStep)
     def handleCancel(self, action):
         self._cancelOrder()
@@ -528,7 +535,7 @@ class CheckoutWizard(wizard.Wizard):
         utils.addPortalMessage(_(u"Your order has been cancelled."))
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
         # FIXME: What'd be the most proper action after cancelling order?
-        self.request.response.redirect(portal.absolute_url())
+        self.request.response.redirect(self.refererURL)
 
     @property
     def onLastStep(self):
@@ -564,7 +571,7 @@ class CheckoutWizard(wizard.Wizard):
             if self.request.form.has_key("key"):
                 return self.request.form.get("key") == key
             elif hasattr(self, "session") and self.session.get("key", None):
-                return self.session.get("key") == key
+                return str(self.session.get("key")) == key
         return False
 
     @property
@@ -573,6 +580,15 @@ class CheckoutWizard(wizard.Wizard):
             and self._order.finance_workflow.state().getState() or None
         return self.isOrderAvailable and not self.isBackAvailable \
             and finance_state is None
+
+    @property
+    def refererURL(self):
+        if self.session.has_key("cancel_url"):
+            return self.session.get("cancel_url")
+        portal_url = getToolByName(self.context, "portal_url")
+        site = portal_url.getPortalObject()
+        referer = self.request.get('GETPAID_REFERER', self.request.environ.get('HTTP_REFERER', None))
+        return referer or site.absolute_url()
 
     @property
     def _cart(self):

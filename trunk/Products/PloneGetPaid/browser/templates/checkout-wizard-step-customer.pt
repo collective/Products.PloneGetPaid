@@ -4,7 +4,7 @@
   <tal:comment replace="nothing">
     We haven't developed yet z3c.form.widgets for country and state selections.
     That's why the similar behavior is achieved by hiding states for other than the
-    selected country using jQuery.
+    selected country by using jQuery.
   </tal:comment>
   <script tal:condition="python:view == view.wizard.currentStep" type="text/javascript">
   $(document).ready(function() {

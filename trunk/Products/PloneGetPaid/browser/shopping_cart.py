@@ -160,6 +160,12 @@ class LinkColumn(column.LinkColumn):
             (self.context, self.request, item), ILineItemDisplayAdapter)
         return "reference_catalog/lookupObject?uuid=%s" % (getattr(adapted_item, "uid"))
 
+    def renderCell(self, item):
+        if interfaces.IPayableLineItem.providedBy(item):
+            return '<a href="%s"%s%s>%s</a>' % (self.getLinkURL(item),
+                self.getLinkTarget(item), self.getLinkCSS(item),
+                self.getLinkContent(item))
+        return self.getLinkContent(item)
 
 class QuantityColumn(WidgetColumn):
     weight = 30
@@ -384,8 +390,6 @@ class ShoppingCartForm(ShoppingCart, LineItemContainerEditForm):
     @button.buttonAndHandler(_("Cancel"), name='cancel')
     def handleCancel(self, action):
         self.request.response.redirect(self.refererURL)
-#        self.ignoreRequest = True
-#        self._updateForm()
         
     @button.buttonAndHandler(_("Save changes"), name='save')
     def handleApply(self, action):
@@ -411,7 +415,7 @@ class ShoppingCartForm(ShoppingCart, LineItemContainerEditForm):
     def handleContinue(self, action):
         self.request.response.redirect(self.refererURL)
 
-    @button.buttonAndHandler(_("Checkout order"), name='checkout')
+    @button.buttonAndHandler(_("Checkout"), name='checkout')
     def handleCheckout(self, action):
         portal_url = getToolByName(self.context, "portal_url")
         site = portal_url.getPortalObject()

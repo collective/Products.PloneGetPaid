@@ -1,6 +1,8 @@
 /* @begin Checkout Wizard */
 #checkout-wizard .wizard-steps {
     text-align: center;
+    text-transform: lowercase;
+    margin: 0 0 1em 0;
 }
 #checkout-wizard .wizard-steps li {
     display: inline;
@@ -34,6 +36,7 @@
     border-style: solid none none none;
     border-width: 0.1em;
     text-align: right;
+    margin: 0 0 0 0;
 }
 #checkout-wizard .formControls input {
     float: right;

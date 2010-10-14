@@ -5,8 +5,8 @@
   <fieldset id="payment-methods" class="group"
             tal:condition="view/wizard/areStepfulProcessorsAvailable"
             tal:define="buttons provider:getpaid.wizard.payment_buttons">
-    <legend tal:condition="buttons" i18n:translate="">Other Payment Methods</legend>
-    <legend tal:condition="not:buttons" i18n:translate="">Available Payment Methods</legend>
+    <legend tal:condition="buttons" i18n:translate="">Other payment methods</legend>
+    <legend tal:condition="not:buttons" i18n:translate="">Payment methods</legend>
     <div tal:replace="structure view/index" />
   </fieldset>
   <tal:verified condition="view/wizard/isVerifiedCheckoutContinuation">

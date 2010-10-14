@@ -15,17 +15,15 @@
             <div class="getpaid-totals">
               <table class="vertical listing" tal:define="totals view/totals">
                 <tr>
-                  <th i18n:translate="">SubTotal</th>
+                  <th i18n:translate="">Subtotal</th>
                   <td class="currency" tal:content="totals/subtotal"></td>
                 </tr>
-                <tal:comment replace="nothing">
-                <!--
-                   <tr>
-                     <th i18n:translate="">Shipping</th>
-                     <td class="currency" tal:content="view/shipping_price"></td>
-                   </tr>
-                -->
-                </tal:comment>
+                <tr replace="nothing">
+                  <!--
+                  <th i18n:translate="">Shipping</th>
+                  <td class="currency" tal:content="view/shipping_price"></td>
+                  -->
+                </tr>
                 <tr tal:repeat="tax totals/taxes">
                   <th tal:content="tax/name" i18n:translate=""></th>
                   <td class="currency" tal:content="tax/value"></td>
