@@ -146,7 +146,7 @@ class CheckoutWizardStepDisplayViewletManager(ViewletManagerBase):
 
 class SchemaGroup(group.Group):
     """ z3c.form.group, which extracts its fields from getpaid FormSchemas """
-    label = _(u"Abstract Schema Group")
+    label = _(u"Abstract schema group")
     section = None # see getpaid.core.interfaces.IFormSchemas for options
 
     def __init__(self, context, request, parentForm):
@@ -176,7 +176,7 @@ class DifferentEmail(schema.interfaces.ValidationError):
 
 
 class ContactGroup(SchemaGroup):
-    label = _(u"Contact Information")
+    label = _(u"Contact information")
     section = 'contact_information'
 
     def __init__(self, context, request, parentForm):
@@ -287,7 +287,7 @@ class Review(wizard.Step):
 class Method(wizard.Step):
     prefix = 'method'
     label  = _(u"Select Payment Method")
-    description = _(u"Please, select a method to pay the order.")
+    description = _(u"Please, select a method to pay your order.")
     weight = 60
 
     fields = field.Fields(
