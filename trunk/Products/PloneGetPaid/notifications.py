@@ -125,11 +125,21 @@ class OrderContents(SubstitutionKeywordBase):
 
     def __init__(self, order):
         currency = component.getUtility(ICurrencyFormatter)
-        self.value = u"\n".join([u" ".join((str(i.quantity),
-                                       i.name,
-                                       u"@ %s" % currency.format(i.cost),
-                                       u"%s: %s" % (_(u"Total"), currency.format(i.cost*i.quantity))))
-                            for i in order.shopping_cart.values()])
+        rows = []
+        # FIXME: That's just too complex.
+        for item in order.shopping_cart.values():
+            totals = interfaces.ILineContainerTotals(item)
+            rows.append(u" ".join((
+                        str(item.quantity),
+                        item.name,
+                        u"@ %s" % currency.format(item.cost),
+                        u"%s: %s" % (_(u"Total"), currency.format(totals.getTotalPrice())),
+                        u"(%s %s)" % (_(u"incl. "),
+                                      ", ".join(["%s: %s" % (tax['name'],
+                                                             currency.format(math.sqrt(math.pow(tax['value'],2))))
+                                                 for tax in totals.getTaxCost()]))
+                        )))
+        self.value = u"\n".join(rows)
 
 
 class ViewOrderInformation(SubstitutionKeywordBase):
@@ -138,13 +148,9 @@ class ViewOrderInformation(SubstitutionKeywordBase):
     def __init__(self, order):
         site = component.getSiteManager()
         portal = getToolByName(site, "portal_url").getPortalObject()
-        self.value = u"\n".join((u"You can view the status of your order here",
-                                 u"",
-                                 u"%s/@@checkout?order_id=%s&key=%s" \
-                                     % (portal.absolute_url(),
-                                        order.order_id,
-                                        str(ICheckoutContinuationKey(order)))
-                                 ))
+        self.value =  u"%s/@@checkout?order_id=%s&key=%s" % (portal.absolute_url(),
+                                                             order.order_id,
+                                                             str(ICheckoutContinuationKey(order)))
 
 class FormattedBagMixin(object):
     """ formatted IFormSchemas bag mixin """
