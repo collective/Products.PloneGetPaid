@@ -71,6 +71,14 @@ class IPaymentProcessorButtonManager(viewlet.interfaces.IViewletManager):
     """ Viewlet manager for rendering payment buttons for payment processors """
 
 
+class IBeforePaymentMethodsViewletManager(viewlet.interfaces.IViewletManager):
+    """ Viewlet manager for plugins to add messages before payment method step details """
+
+
+class IAfterPaymentMethodsViewletManager(viewlet.interfaces.IViewletManager):
+    """ Viewlet manager for plugins to add messages after payment method step details """
+
+
 class IBeforeConfirmationViewletManager(viewlet.interfaces.IViewletManager):
     """ Viewlet manager for plugins to add messages before confirmation step details """
 
@@ -105,6 +113,28 @@ class PaymentProcessorButtonManager(ViewletManagerBase):
 
     def render(self):
         return "\n".join([b.render().strip() or "" for b in self.viewlets]).strip()
+
+
+class BeforePaymentMethodsViewletManager(ViewletManagerBase):
+    """ Viewlet manager for plugins to add messages before payment method step details """
+
+    def sort(self, viewlets):
+        """ sort by weight """
+        return sorted(viewlets, lambda x,y: cmp(int(getattr(x[1], 'weight', 100)), int(getattr(y[1], 'weight', 100))))
+
+    def render(self):
+        return "\n".join([v.render().strip() or "" for v in self.viewlets]).strip()
+
+
+class AfterPaymentMethodsViewletManager(ViewletManagerBase):
+    """ Viewlet manager for plugins to add messages after payment method step details """
+
+    def sort(self, viewlets):
+        """ sort by weight """
+        return sorted(viewlets, lambda x,y: cmp(int(getattr(x[1], 'weight', 100)), int(getattr(y[1], 'weight', 100))))
+
+    def render(self):
+        return "\n".join([v.render().strip() or "" for v in self.viewlets]).strip()
 
 
 class BeforeConfirmationViewletManager(ViewletManagerBase):
@@ -712,21 +742,22 @@ class CheckoutWizard(wizard.Wizard):
         if processor.authorize(order, payment_information) == interfaces.keys.results_success:
             order.processor_id = processor_id
             if order.fulfillment_state == None:
-                order.fulfillment_workflow.fireTransition("create")
+                order.fulfillment_workflow.fireTransition("create", u("Order created by wizard."))
 
             # FIXME: This should happen automatically (via subscriber)
             # when order's "create" transition occurs...
             for item in order.shopping_cart.values():
                 if item.fulfillment_state is None:
-                    item.fulfillment_workflow.fireTransition("create")
+                    item.fulfillment_workflow.fireTransition("create", _(u"Order created by wizard."))
 
             if order.finance_state == None:
-                order.finance_workflow.fireTransition('create')
+                order.finance_workflow.fireTransition('create', _(u"Order created by wizard."))
             # I wonder if it's OK to fire "authorize" here, because it also
             # fires "charge", but since there's no GUI for manually "charge",
             # I'll leave it here for now...
             if order.finance_state == wf.order.finance.REVIEWING:
-                order.finance_workflow.fireTransition("authorize")
+                order.finance_workflow.fireTransition("authorize",
+                                                      _(u"Order self-authorized without by wizard."))
 
             return interfaces.keys.results_success
         else:
@@ -740,22 +771,29 @@ class CheckoutWizard(wizard.Wizard):
                 order.processor_id = None
 
             if order.finance_state is None:
-                order.finance_workflow.fireTransition("create")
+                order.finance_workflow.fireTransition("create",
+                                                      _(u"Order cancelled by customer."))
             if order.finance_state is wf.order.finance.REVIEWING:
-                order.finance_workflow.fireTransition("reviewing-declined")
+                order.finance_workflow.fireTransition("reviewing-declined",
+                                                      _(u"Order cancelled by customer."))
             if order.finance_state is wf.order.finance.PAYMENT_DECLINED:
-                order.finance_workflow.fireTransition("cancel-declined")
+                order.finance_workflow.fireTransition("cancel-declined",
+                                                      _(u"Order cancelled by customer."))
 
             if order.fulfillment_state is None:
-                order.fulfillment_workflow.fireTransition("create")
+                order.fulfillment_workflow.fireTransition("create",
+                                                          _(u"Order cancelled by customer."))
             if order.fulfillment_state is wf.order.fulfillment.NEW:
-                order.fulfillment_workflow.fireTransition("cancel-new-order")
-
+                order.fulfillment_workflow.fireTransition("cancel-new-order",
+                                                          _(u"Order cancelled by customer."))
+                
             for item in order.shopping_cart.values():
                 if item.fulfillment_state is None:
-                    item.fulfillment_workflow.fireTransition("create")
+                    item.fulfillment_workflow.fireTransition("create",
+                                                             _(u"Order cancelled by customer."))
                 if item.fulfillment_state is wf.item.NEW:
-                    item.fulfillment_workflow.fireTransition("cancel")
+                    item.fulfillment_workflow.fireTransition("cancel",
+                                                             _(u"Order cancelled by customer."))
 
     def _destroyCart(self):
         component.getUtility(interfaces.IShoppingCartUtility).destroy(self.context)

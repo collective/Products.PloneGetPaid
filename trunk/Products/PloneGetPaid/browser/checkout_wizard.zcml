@@ -75,6 +75,20 @@
      />
 
   <browser:viewletManager
+     name="getpaid.wizard.before_methods"
+     provides=".checkout_wizard.IBeforePaymentMethodsViewletManager"
+     class=".checkout_wizard.BeforePaymentMethodsViewletManager"
+     permission="zope2.View"
+     />
+
+  <browser:viewletManager
+     name="getpaid.wizard.after_methods"
+     provides=".checkout_wizard.IAfterPaymentMethodsViewletManager"
+     class=".checkout_wizard.AfterPaymentMethodsViewletManager"
+     permission="zope2.View"
+     />
+
+  <browser:viewletManager
      name="getpaid.wizard.before_confirmation"
      provides=".checkout_wizard.IBeforeConfirmationViewletManager"
      class=".checkout_wizard.BeforeConfirmationViewletManager"

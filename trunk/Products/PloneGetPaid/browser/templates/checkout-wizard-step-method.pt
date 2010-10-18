@@ -2,6 +2,10 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       i18n:domain="Products.PloneGetPaid" tal:omit-tag=""
       tal:condition="python:view == view.wizard.currentStep">  
+  <tal:verified condition="view/wizard/isVerifiedCheckoutContinuation">
+    <div tal:define="raw provider:getpaid.wizard.before_methods"
+         tal:condition="raw" tal:replace="structure raw" />
+  </tal:verified>
   <fieldset id="payment-methods" class="group"
             tal:condition="view/wizard/areStepfulProcessorsAvailable"
             tal:define="buttons provider:getpaid.wizard.payment_buttons">
@@ -15,5 +19,9 @@
   <tal:verified condition="view/wizard/isVerifiedCheckoutContinuation">
     <div tal:define="order_id view/order_id"
          tal:replace="structure provider:getpaid.cart" />
+  </tal:verified>
+  <tal:verified condition="view/wizard/isVerifiedCheckoutContinuation">
+    <div tal:define="raw provider:getpaid.wizard.after_methods"
+         tal:condition="raw" tal:replace="structure raw" />
   </tal:verified>
 </html>
