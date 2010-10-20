@@ -187,6 +187,18 @@ class TotalColumn(GetAdaptedAttrColumn):
     attrName = u"total"
     cssClasses = {'td': u"currency"}
 
+    def renderCell(self, item):
+        taxes = interfaces.ILineContainerTotals(item).getTaxCost()
+        if taxes:
+            currency = component.getUtility(ICurrencyFormatter)
+            adapted_item = component.getMultiAdapter(
+                (self.context, self.request, item), ILineItemDisplayAdapter)
+            return "<abbr title=\"%s\">%s</abbr>" \
+                % (_(u"incl. ") \
+                       + ", ".join(["%s: %s" % (tax['name'], currency.format(math.fabs(tax['value']))) for tax in taxes]),
+                          getattr(adapted_item, "total"))
+        return GetAdaptedAttrColumn.renderCell(self, item)
+
 
 class RemovableColumn(column.CheckBoxColumn):
     weight = 100

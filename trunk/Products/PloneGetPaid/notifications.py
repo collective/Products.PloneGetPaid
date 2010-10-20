@@ -136,7 +136,7 @@ class OrderContents(SubstitutionKeywordBase):
                         u"%s: %s" % (_(u"Total"), currency.format(totals.getTotalPrice())),
                         u"(%s %s)" % (_(u"incl. "),
                                       ", ".join(["%s: %s" % (tax['name'],
-                                                             currency.format(math.sqrt(math.pow(tax['value'],2))))
+                                                             currency.format(math.fabs(tax['value'])))
                                                  for tax in totals.getTaxCost()]))
                         )))
         self.value = u"\n".join(rows)
