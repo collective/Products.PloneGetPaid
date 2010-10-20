@@ -129,17 +129,19 @@ class OrderContents(SubstitutionKeywordBase):
         # FIXME: That's just too complex.
         for item in order.shopping_cart.values():
             totals = interfaces.ILineContainerTotals(item)
+            taxes = totals.getTaxCost()
             rows.append(u" ".join((
                         str(item.quantity),
                         item.name,
                         u"@ %s" % currency.format(item.cost),
                         u"%s: %s" % (_(u"Total"), currency.format(totals.getTotalPrice())),
-                        u"(%s %s)" % (_(u"incl. "),
-                                      ", ".join(["%s: %s" % (tax['name'],
-                                                             currency.format(math.fabs(tax['value'])))
-                                                 for tax in totals.getTaxCost()]))
+                        taxes and u"(%s %s)" % \
+                            (_(u"incl. "),
+                             ", ".join(["%s: %s" % (tax['name'],
+                                                    currency.format(math.fabs(tax['value'])))
+                                        for tax in taxes])) or ''
                         )))
-        self.value = u"\n".join(rows)
+        self.value = u"\n".join(rows).strip()
 
 
 class ViewOrderInformation(SubstitutionKeywordBase):
