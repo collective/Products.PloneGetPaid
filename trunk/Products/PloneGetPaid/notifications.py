@@ -12,6 +12,7 @@ import re
 import csv
 import math
 
+from rfc822 import AddressList
 from email import message_from_string
 from email.Header import Header
 from StringIO import StringIO
@@ -369,10 +370,19 @@ def sendNotification(order, event):
 
     def notify(action):
         try:
-            mailer.send(str(component.getAdapter(order, INotificationMailMessage, action)),
-                        charset="utf-8")
+            message = component.getAdapter(order, INotificationMailMessage, action)
+            senders = [a for n, a in AddressList(message.message.get("from")).addresslist if a]
+            recipients = [a for n, a in AddressList(message.message.get("to")).addresslist if a]
+            if senders and recipients:
+                mailer.send(str(message), charset="utf-8")
+            elif not senders:
+                logging.info("E-mail notification skipped for order %s in lack of sender addresses." \
+                                 % (order.order_id))
+            elif not recipients:
+                logging.info("E-mail notification skipped for order %s in lack of recipient addresses." \
+                                 % (order.order_id))
         except Exception, e:
-            logging.fatal("Notification failed for order %s: %s" % (order.order_id, str(e)))
+            logging.fatal("E-mail notification failed for order %s: %s" % (order.order_id, str(e)))
         
     # Auth
     if event.destination == wf.order.finance.CHARGEABLE and \
