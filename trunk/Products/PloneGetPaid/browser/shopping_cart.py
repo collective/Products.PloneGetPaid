@@ -25,6 +25,8 @@ from z3c.table.interfaces import IColumn
 
 from getpaid.core import interfaces
 
+from getpaid.core.cart import CartItemTotals
+
 from Products.PloneGetPaid.interfaces import ICurrencyFormatter
 from Products.PloneGetPaid.browser.interfaces import IDontShowGetPaidPortlets
 from Products.PloneGetPaid import _
@@ -121,8 +123,13 @@ class WidgetColumn(GetAdaptedAttrColumn):
         return super(WidgetColumn, self).renderCell(item)
 
 
+class ILineItemFormGroup(interface.Interface):
+    """ a z3c.form group.Group representing a single ILineItem """
+
+
 class LineItemFormGroup(group.Group):
     """ a z3c.form group.Group representing a single ILineItem """
+    interface.implements(ILineItemFormGroup)
     fields = field.Fields(interfaces.ILineItem).select(u"quantity")
     line_item = None
 
@@ -144,6 +151,13 @@ class LineItemFormGroup(group.Group):
 
     def getContent(self):
         return self.line_item
+
+
+class LineItemFormGroupTotals(CartItemTotals):
+    """ ILineContainerTotals for a single ILineItemFormGroup """
+
+    def __init__(self, group):
+        self.shopping_cart = { group.line_item.item_id: group.line_item }
 
 
 class LinkColumn(column.LinkColumn):

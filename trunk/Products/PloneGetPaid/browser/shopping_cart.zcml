@@ -57,6 +57,13 @@
      editview=".portlets.shopping_cart.EditForm"
      />
 
+  <!-- ILineContainerTotals adapter for ILineItemFormGroup -->
+  <adapter
+     provides="getpaid.core.interfaces.ILineContainerTotals"
+     for=".shopping_cart.ILineItemFormGroup"
+     factory=".shopping_cart.LineItemFormGroupTotals"
+     />
+
   <!-- Display adapters for table columns to render ILineItems -->
   <adapter
      provides=".shopping_cart.ILineItemDisplayAdapter"
