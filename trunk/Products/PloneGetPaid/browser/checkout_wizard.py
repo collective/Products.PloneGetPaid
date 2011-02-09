@@ -484,7 +484,7 @@ class CheckoutWizard(wizard.Wizard):
         if IGetPaidManagementOptions(site).use_ssl_for_checkout and not "https://" in url:
             url = url.replace("http://", "https://")
             querystring = ZTUtils.make_query(self.request.form)
-            self.request.response.redirect('%(url)?%(querystring)s' % vars())
+            self.request.response.redirect('%s?%s' % (url, querystring))
 
         # Configure z3cform.wizard's default buttons
         self.buttons["back"].title = _(u"Back")
