@@ -13,7 +13,10 @@ from zope.i18n.locales import locales, LoadLocaleError
 from ZTUtils import make_hidden_input
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.Five.formlib import formbase
+try:
+    from five.formlib import formbase
+except ImportError:
+    from Products.Five.formlib import formbase
 
 from zope.formlib import form
 from Products.Five.viewlet import viewlet

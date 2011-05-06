@@ -7,7 +7,10 @@ so we patch it to only happen once in the request.
 
 """
 
-from Products.Five.formlib.formbase import FiveFormlibMixin
+try:
+    from five.formlib.formbase import FiveFormlibMixin
+except ImportError:
+    from Products.Five.formlib.formbase import FiveFormlibMixin
 from Products.Five.browser import decode
 
 def update( self ):

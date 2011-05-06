@@ -5,6 +5,9 @@ CHANGES
 0.10.3 (unreleased)
 -------------------
 
+- Update formlib imports to work on Zope 2.13.
+  [davisagli]
+
 - Remove monkeypatch that is no longer needed in supported versions of Zope.
   [davisagli]
 

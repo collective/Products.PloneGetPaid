@@ -8,9 +8,13 @@ import os
 
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.Five.browser import BrowserView
-from Products.Five.formlib import formbase
 from Products.Five.viewlet import manager
 from Products.PloneGetPaid import interfaces
+
+try:
+    from five.formlib import formbase
+except ImportError:
+    from Products.Five.formlib import formbase
 
 from zope import component
 from zope.formlib import form
