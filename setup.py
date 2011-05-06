@@ -50,6 +50,10 @@ setup(name='Products.PloneGetPaid',
           'zope.component',
           # -*- Extra requirements: -*-
       ],
+      extras_require = {
+          # we should be able to get rid of this
+          'test':  ['zope.app.testing'],
+      },
       entry_points="""
       # -*- Entry points: -*-
       """,

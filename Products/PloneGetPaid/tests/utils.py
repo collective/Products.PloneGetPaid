@@ -1,6 +1,6 @@
 import doctest
 
-from zope.app.testing import placelesssetup
+from zope.component.testing import setUp, tearDown
 
 from zope.configuration.xmlconfig import XMLConfig
 
@@ -14,7 +14,7 @@ def configurationSetUp(self):
     """Set up Zope 3 test environment
     """
     
-    placelesssetup.setUp()
+    setUp()
     
     # Ensure that the ZCML registrations in PloneGetPaid are in effect
     # Also ensure the Five directives and permissions are available
@@ -31,4 +31,4 @@ def configurationTearDown(self):
     """Tear down Zope 3 test environment
     """
     
-    placelesssetup.tearDown()
+    tearDown()
