@@ -6,7 +6,6 @@ import datetime, os, inspect, StringIO, csv
 import time
 
 from zope import component, schema, interface
-from zope.app import zapi
 from zope.schema.interfaces import IContextSourceBinder
 from zope.schema import vocabulary
 from zope.viewlet.interfaces import IViewlet
@@ -185,7 +184,7 @@ class OrderEmailsCSVComponent(core.ComponentViewlet):
         writer.writerow([cname for cname in columns ])
         unique_emails = set()
 
-        manager = zapi.getUtility(IOrderManager)
+        manager = component.getUtility(IOrderManager)
         for order in manager.storage.values():
             email = order.contact_information.email.lower()
             if email not in unique_emails:
@@ -548,7 +547,7 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
             if 'Anonymous' in user.getRoles() or user_id != self.getUserId():
                 raise Unauthorized, "Arbitrary Order Access Only for Managers"
 
-        utility = zapi.getUtility(ICountriesStates)
+        utility = component.getUtility(ICountriesStates)
         self.vocab_countries = TitledVocabulary.fromTitles(utility.countries)
         self.vocab_states = TitledVocabulary.fromTitles(utility.states())
         return self.__of__( self.__parent__ ).template()

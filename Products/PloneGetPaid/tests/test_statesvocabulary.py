@@ -16,10 +16,10 @@ class TestStatesVocabulary(PloneGetPaidTestCase):
     def test_columbia_district(self):
         """Test that asking for US states contains Columbia as an example
 
-        >>> from zope.app import zapi
+        >>> from zope.component import getUtility
         >>> from Products.PloneGetPaid.interfaces import ICountriesStates
 
-        >>> utility = zapi.getUtility(ICountriesStates)
+        >>> utility = getUtility(ICountriesStates)
         >>> states = utility.states(country='US')
         >>> ('US-DC', u'District of Columbia') in states
         True
@@ -33,15 +33,15 @@ class TestStatesVocabulary(PloneGetPaidTestCase):
     def test_special_values(self):
         """Test that there is 3 different special values for States
 
-        >>> from zope.app import zapi
+        >>> from zope.component import getUtility
         >>> from Products.PloneGetPaid.interfaces import ICountriesStates
-        >>> utility = zapi.getUtility(ICountriesStates)
+        >>> utility = getUtility(ICountriesStates)
 
         >>> len(utility.special_values)
         3
 
         >>> from zope.schema.interfaces import IVocabularyFactory
-        >>> factory = zapi.getUtility(IVocabularyFactory,name=u'getpaid.states')
+        >>> factory = getUtility(IVocabularyFactory,name=u'getpaid.states')
         >>> all_states_vocabulary = factory(None)
         >>> len(all_states_vocabulary)
         3752

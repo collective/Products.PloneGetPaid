@@ -7,7 +7,6 @@ from Products.PloneGetPaid import interfaces
 from getpaid.core.interfaces import IShoppingCartUtility
 from Products.PloneGetPaid.interfaces import ICountriesStates
 from zope import component
-from zope.app import zapi
 try:
     from json import JSONEncoder
 except ImportError:
@@ -18,7 +17,7 @@ class StatesAjax(BrowserView):
     def __call__(self):
         country = self.request.get('country')
         required = self.request.get('required','').lower().strip() == 'true'
-        utility = zapi.getUtility(ICountriesStates)
+        utility = component.getUtility(ICountriesStates)
         jsonEncoder = JSONEncoder()
         return jsonEncoder.encode(utility.states(country=country,
                                                  allow_no_values=not required))

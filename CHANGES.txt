@@ -5,6 +5,9 @@ CHANGES
 0.10.3 (unreleased)
 -------------------
 
+- Remove use of zope.app.zapi.
+  [davisagli]
+
 - Update formlib imports to work on Zope 2.13.
   [davisagli]
 

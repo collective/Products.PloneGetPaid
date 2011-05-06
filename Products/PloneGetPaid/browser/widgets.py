@@ -1,4 +1,4 @@
-from zope.app import zapi
+from zope.component import getUtility
 from zope.app.form.browser import RadioWidget
 from zope.app.form.browser import FloatWidget
 from zope.app.form.browser.widget import SimpleInputWidget, renderElement
@@ -112,7 +112,7 @@ class StateSelectionInputWidget(DropdownWidget):
         return rendered_items
 
     def filteredVocabulary(self):
-        utility = zapi.getUtility(ICountriesStates)
+        utility = getUtility(ICountriesStates)
         # Remeber that this widget must work for browsers without javascript
         # So, by default, there is no country selected, and all possible states
         # must be displayed.
@@ -144,11 +144,11 @@ class StateSelectionInputWidget(DropdownWidget):
 class CCExpirationDateWidget(WithTemplateWidget,DateWidget):
     template = ViewPageTemplateFile('templates/cc-expiration-date-widget.pt')
     def months(self):
-        utility = zapi.getUtility(IMonthsAndYears)
+        utility = getUtility(IMonthsAndYears)
         return utility.months
 
     def years(self):
-        utility = zapi.getUtility(IMonthsAndYears)
+        utility = getUtility(IMonthsAndYears)
         return utility.years
 
     def getFormMonth(self):

@@ -3,13 +3,10 @@ email notifications for store admins and customers.
 """
 
 from zope import component, interface
-from zope.app import zapi
 from getpaid.core.interfaces import workflow_states
 from Products.CMFCore.utils import getToolByName
 
 import interfaces
-
-from DocumentTemplate.DT_HTML import HTML
 
 from interfaces import _
 from zope.i18n import translate

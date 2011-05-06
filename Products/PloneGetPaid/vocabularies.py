@@ -6,7 +6,6 @@ vocabularies for getpaid
 
 from zope import component
 from zope.interface import implements
-from zope.app import zapi
 from os import path
 import datetime
 
@@ -178,11 +177,11 @@ class CountriesStatesFromFile(object):
         return self._allowed_no_values + self._not_aplicable + all_states
 
 def Countries( context ):
-    utility = zapi.getUtility(ICountriesStates)
+    utility = component.getUtility(ICountriesStates)
     return TitledVocabulary.fromTitles(utility.countries)
 
 def States( context ):
-    utility = zapi.getUtility(ICountriesStates)
+    utility = component.getUtility(ICountriesStates)
     return TitledVocabulary.fromTitles(utility.allStateValues())
 
 class MonthsAndYears(object):
@@ -201,12 +200,3 @@ class MonthsAndYears(object):
         end = start + 30
         return self.tuple_unicode_range(start, end)
     years = property(years)
-
-
-#def Months( context ):
-    #utility = zapi.getUtility(IMonthsAndYears)
-    #return vocabulary.SimpleVocabulary.fromValues(utility.months)
-
-#def Years( context ):
-    #utility = zapi.getUtility(IMonthsAndYears)
-    #return vocabulary.SimpleVocabulary.fromValues(utility.years)
