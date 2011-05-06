@@ -2,16 +2,12 @@
 CHANGES
 =======
 
-0.10.3 (unreleased)
+0.10.3 (2011-05-06)
 -------------------
 
-- Remove use of zope.app.zapi.
-  [davisagli]
-
-- Update formlib imports to work on Zope 2.13.
-  [davisagli]
-
-- Remove monkeypatch that is no longer needed in supported versions of Zope.
+- Now compatible with Zope 2.13 / Plone 4.1. Removed use of zope.app.zapi.
+  Updated formlib imports to work on Zope 2.13. Removed monkeypatch that
+  is no longer needed in supported versions of Zope.
   [davisagli]
 
 0.10.2 (2010-10-01)
