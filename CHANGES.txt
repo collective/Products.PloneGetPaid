@@ -5,6 +5,8 @@ CHANGES
 0.10.3 (unreleased)
 -------------------
 
+- Remove monkeypatch that is no longer needed in supported versions of Zope.
+  [davisagli]
 
 0.10.2 (2010-10-01)
 -------------------
