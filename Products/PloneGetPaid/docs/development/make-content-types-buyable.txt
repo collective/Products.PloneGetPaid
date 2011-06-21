@@ -61,10 +61,9 @@ getpaid/configure.zcml::
        xmlns:five="http://namespaces.zope.org/five"
        >
 
-      <five:implements
-         class="..content.book.Book"
-         interface="Products.PloneGetPaid.interfaces.IBuyableMarker"
-         />
+      <class class="..content.book.Book">
+           <implements interface="Products.PloneGetPaid.interfaces.IBuyableMarker"/>
+      </class>
 
       <adapter
          for="..content.interfaces.IBook"
@@ -75,7 +74,7 @@ getpaid/configure.zcml::
     </configure>
 
 
-The ``<five:implements>`` entry marks our custom content with the
+The ``<implements />`` entry marks our custom content with the
 ``IBuyableMarker`` interface so that get paid core knows that books
 are buyable.
 

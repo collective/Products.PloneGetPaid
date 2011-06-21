@@ -5,6 +5,15 @@ CHANGES
 0.10.4 (unreleased)
 -------------------
 
+- Make the CreditCardTypeEnumerator be a bit more flexible in what it can adapt.
+  [davisagli]
+
+- Updated occurrences of five:implements to use the ``class`` directive.
+  [davisagli]
+
+- Added a IPaymentProcessor adapter factory with name=u'' to simplify getting
+  the default payment processor.
+  [davisagli]
 
 0.10.3 (2011-05-06)
 -------------------

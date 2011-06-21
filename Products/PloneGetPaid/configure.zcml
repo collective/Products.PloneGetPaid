@@ -26,13 +26,13 @@
 -->
 
 
-<five:implements
-    class="Products.CMFPlone.Portal.PloneSite"
-    interface="zope.annotation.interfaces.IAttributeAnnotatable" />
+<class class="Products.CMFPlone.Portal.PloneSite">
+    <implements interface="zope.annotation.interfaces.IAttributeAnnotatable" />
+</class>
 
-<five:implements
-    class="Products.Archetypes.public.BaseContent"
-    interface="zope.annotation.interfaces.IAttributeAnnotatable" />
+<class class="Products.Archetypes.public.BaseContent">
+    <implements interface="zope.annotation.interfaces.IAttributeAnnotatable" />
+</class>
 
 <!-- UI -->
 <include package=".browser" />
@@ -117,10 +117,9 @@
    />
 
 <!-- Contact Information from Members -->
-<five:implements
-	class="Products.PluggableAuthService.PropertiedUser.PropertiedUser"
-	interface=".interfaces.IStoreMember"
-	/>
+<class class="Products.PluggableAuthService.PropertiedUser.PropertiedUser">
+    <implements interface=".interfaces.IStoreMember" />
+</class>
 
 <adapter
 	for=".interfaces.IStoreMember"
@@ -142,6 +141,11 @@
 	factory=".member.memberShipAddressInfo"
     />
 
+<!-- Default payment processor factory -->
+<adapter
+    provides="getpaid.core.interfaces.IPaymentProcessor"
+    factory=".payment.DefaultPaymentProcessorAdapterFactory"
+    />
 
 <!-- Utilities -->
 <utility
