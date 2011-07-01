@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-0.10.4 (unreleased)
+0.10.4 (2011-06-30)
 -------------------
 
 - Make the CreditCardTypeEnumerator be a bit more flexible in what it can adapt.
