@@ -33,7 +33,7 @@ $Id$
 """
 
 from zope import interface, component
-from zope.app.intid.interfaces import IIntIds
+from zope.intid.interfaces import IIntIds
 
 from getpaid.core import interfaces, item
 from getpaid.core import options

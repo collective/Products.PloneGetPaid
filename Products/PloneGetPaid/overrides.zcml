@@ -22,4 +22,10 @@
       file="overrides.zcml"
       />
 
+  <includeOverrides
+      zcml:condition="installed getpaid.ogone"
+      package="getpaid.ogone"
+      file="overrides.zcml"
+      />
+
 </configure>
