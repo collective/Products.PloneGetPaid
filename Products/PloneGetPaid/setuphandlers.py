@@ -1,7 +1,5 @@
 from StringIO import StringIO
 
-from five.intid.site import add_intids
-
 from Products.PloneGetPaid.Extensions.install import notify_install
 from Products.PloneGetPaid.Extensions.install import setup_site
 from Products.PloneGetPaid.Extensions.install import setup_store
@@ -58,9 +56,6 @@ def setupVarious(context):
     
     print >> out, "Configure default payment options"
     setup_payment_options(site)
-    
-    print >> out, "Installing IntId Utility"
-    add_intids(site)
     
     print >> out, "Setting up update facility"
     setup_software_generation( site )

@@ -12,12 +12,6 @@
 <include package="zope.annotation" />
 <include zcml:condition="installed plone.indexer" package="plone.indexer" />
 
-<!-- using five.intid ... by default this
-     introduces subscribers for all persistent
-     objects. -->
-<include package="five.intid" file="base.zcml"/>
-<include file="intid.zcml" />
-
 <!-- permissions -->
 <include file="permissions.zcml" />
 

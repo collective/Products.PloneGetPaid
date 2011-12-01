@@ -104,7 +104,7 @@ msgstr ""
 #: ./browser/cart.py:370
 #: ./browser/templates/portlet-cart.pt:29
 msgid "Checkout"
-msgstr "zur Kassa"
+msgstr "zur Kasse"
 
 #: ./browser/admin.py:456
 msgid "Checkout Options"
@@ -798,7 +798,7 @@ msgstr ""
 #: ./browser/templates/checkout-review-pay.pt:12
 #: ./browser/templates/checkout-shipping-method.pt:3
 msgid "heading_checkout"
-msgstr "Kassa"
+msgstr "Kasse"
 
 #. Default: "Disclaimer"
 #: ./browser/templates/disclaimer.pt:5

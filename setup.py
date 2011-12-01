@@ -39,7 +39,7 @@ setup(name='Products.PloneGetPaid',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'five.intid',
+          'plone.app.intid',
           'getpaid.core>=0.9.0',
           'getpaid.nullpayment>=0.5.0',
           'getpaid.wizard',
