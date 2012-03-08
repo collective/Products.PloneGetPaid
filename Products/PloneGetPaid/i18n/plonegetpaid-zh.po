@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
-"POT-Creation-Date: 2009-05-19 07:24+0000\n"
+"POT-Creation-Date: 2012-03-08 18:24+0000\n"
 "PO-Revision-Date: 2009-11-15 06:56+0800\n"
 "Last-Translator: adam tang <yuejun.tang@gmail.com>\n"
 "Language-Team: http://315ok.org/ <admins@315ok.org>\n"
@@ -17,20 +17,20 @@ msgstr ""
 "Domain: plonegetpaid\n"
 "X-Is-Fallback-For: zh-cn zh-hk zh-mo zh-sg\n"
 
-#: ./interfaces.py:393
+#: ./interfaces.py:462
 msgid "A list of countries"
 msgstr "国家列表"
 
-#: ./interfaces.py:397
+#: ./interfaces.py:466
 msgid "A list of states"
 msgstr "各省列表"
 
-#: ./interfaces.py:407
+#: ./interfaces.py:476
 msgid "A list of years"
 msgstr "年份列表"
 
 #. Default: "A name you can remember this order template by."
-#: ./browser/templates/checkout-review-pay.pt:63
+#: ./browser/templates/checkout-review-pay.pt:60
 msgid "A name you can remember this order template by."
 msgstr "保存这个订单模板的一个名称"
 
@@ -39,15 +39,15 @@ msgstr "保存这个订单模板的一个名称"
 msgid "A name you remember this address by. Will not appear on shipping label."
 msgstr "标识该地址信息的一个名称，该名称不会出现在送货单上。"
 
-#: ./browser/checkout.py:466
+#: ./browser/checkout.py:485
 msgid "A new address has been saved"
 msgstr "一个新的地址信息已保存。"
 
-#: ./interfaces.py:253
+#: ./interfaces.py:258
 msgid "Accepted Credit Cards"
 msgstr "接受的信任卡"
 
-#: ./browser/content.py:87
+#: ./browser/content.py:90
 msgid "Activate"
 msgstr "激活"
 
@@ -56,11 +56,11 @@ msgstr "激活"
 msgid "Addressbook entry name"
 msgstr "地址薄条目名称"
 
-#: ./interfaces.py:248
+#: ./interfaces.py:254
 msgid "Allow Anonymous Checkout"
 msgstr "允许匿名用户购买"
 
-#: ./interfaces.py:104
+#: ./interfaces.py:107
 msgid "Amount"
 msgstr "数量"
 
@@ -69,68 +69,71 @@ msgstr "数量"
 msgid "Apply"
 msgstr "应用"
 
-#: ./browser/checkout.py:592
+#: ./browser/checkout.py:671
 msgid "Back"
 msgstr "后退"
 
 #. Default: "Billing Address"
-#: ./browser/templates/order-summary.pt:53
+#: ./browser/templates/checkout-address.pt:36
+#: ./browser/templates/checkout-review-pay.pt:30
+#: ./browser/templates/order-summary.pt:73
 msgid "Billing Address"
 msgstr "发票地址"
 
-#: ./browser/portlets/buy.py:22
+#: ./browser/portlets/buy.py:23
 msgid "Buyable"
 msgstr "可购买的"
 
-#: ./interfaces.py:194
+#: ./interfaces.py:200
 msgid "Buyable Content delivered through the web/virtually"
 msgstr "可发布在网上，供在线销售的商品"
 
-#: ./interfaces.py:191
+#: ./interfaces.py:197
 msgid "Buyable Types"
 msgstr "可卖的商品"
 
-#: ./browser/checkout.py:468
+#: ./browser/checkout.py:492
 msgid "Cancel"
 msgstr "撤销"
 
-#: ./browser/admin_order.py:94
+#: ./browser/admin_order.py:95
 msgid "Card Phone#"
 msgstr "信任卡电话"
 
-#: ./browser/cart.py:321
+#: ./browser/cart.py:372
+#: ./browser/templates/portlet-cart.pt:29
 msgid "Checkout"
 msgstr "支付"
 
-#: ./browser/admin.py:314
+#: ./browser/admin.py:460
 msgid "Checkout Options"
 msgstr "支付选项"
 
-#: ./interfaces.py:147
+#: ./interfaces.py:153
 msgid "Contact Address"
 msgstr "联系地址"
 
-#: ./interfaces.py:152
+#: ./interfaces.py:158
 msgid "Contact Address2"
 msgstr "联系地址（详细）"
 
-#: ./interfaces.py:157
+#: ./interfaces.py:163
 msgid "Contact City"
 msgstr "所在城市"
 
-#: ./interfaces.py:142
+#: ./interfaces.py:148
 msgid "Contact Company"
 msgstr "所在公司"
 
-#: ./interfaces.py:162
+#: ./interfaces.py:168
 msgid "Contact Country"
 msgstr "国家"
 
-#: ./interfaces.py:137
+#: ./interfaces.py:143
 msgid "Contact Email"
 msgstr "联系邮件"
 
-#: ./interfaces.py:183
+#: ./interfaces.py:189
 msgid "Contact Fax"
 msgstr "联系传真"
 
@@ -140,80 +143,93 @@ msgid "Contact Information"
 msgstr "联系信息"
 
 #. Default: "Contact Name"
-#: ./browser/templates/order-summary.pt:42
+#: ./browser/templates/order-summary.pt:62
+#: ./interfaces.py:138
 msgid "Contact Name"
 msgstr "联系人"
 
-#: ./interfaces.py:177
+#: ./interfaces.py:183
 msgid "Contact Phone"
 msgstr "联系电话"
 
-#: ./interfaces.py:167
+#: ./interfaces.py:173
 msgid "Contact State/Province"
 msgstr "所在省份"
 
-#: ./interfaces.py:172
+#: ./interfaces.py:178
 msgid "Contact Zip/Postal Code"
 msgstr "邮政编码"
 
-#: ./browser/admin.py:77
+#: ./browser/admin.py:81
 msgid "Content Types"
 msgstr "商品类型"
 
-#: ./interfaces.py:210
+#: ./interfaces.py:216
 msgid "Content Types available for donation"
 msgstr "促销赠品"
 
-#: ./interfaces.py:202
+#: ./interfaces.py:208
 msgid "Content Types only available to premium memberships"
 msgstr "该商品只对会员资格有效"
 
-#: ./interfaces.py:218
+#: ./interfaces.py:224
 msgid "Content Types that represent goods that can be purchased and shipped"
 msgstr "可以销售并送货的商品"
 
-#: ./browser/admin_order.py:760
+#: ./browser/admin_order.py:794
 msgid "Contents"
 msgstr "内容"
 
-#: ./browser/checkout.py:474
+#: ./browser/checkout.py:487
 msgid "Continue"
 msgstr "继续"
 
-#: ./browser/cart.py:301
+#: ./browser/cart.py:352
 msgid "Continue Shopping"
 msgstr "继续挑选商品"
 
-#: ./browser/cart.py:383
+#: ./browser/cart.py:434
 msgid "Could not find order"
 msgstr "找不到订单"
 
-#: ./browser/admin_order.py:98
+#: ./browser/admin_order.py:99
 msgid "Created"
 msgstr "订单已提交"
 
 #. Default: "Credit Card Last 4"
-#: ./browser/templates/order-summary.pt:34
+#: ./browser/templates/order-summary.pt:54
 msgid "Credit Card Last 4"
 msgstr "信任卡最后4位"
 
-#: ./interfaces.py:256
+#: ./interfaces.py:261
 msgid "Credit cards accepted for payment"
 msgstr "接受的信任卡"
 
-#: ./interfaces.py:300
+#: ./browser/admin.py:295
+msgid "Currency Configuration"
+msgstr ""
+
+#: ./interfaces.py:305
 msgid "Currency Symbol"
 msgstr "货币"
 
-#: ./interfaces.py:348
-msgid "Customer Email Notifications"
-msgstr "客户邮件通知"
+#: ./interfaces.py:359
+msgid "Customer Authorization Email Template"
+msgstr ""
 
-#: ./browser/admin_order.py:90
+#: ./interfaces.py:376
+msgid "Customer Charge Email Template"
+msgstr ""
+
+#: ./interfaces.py:393
+msgid "Customer Decline Email Template"
+msgstr ""
+
+#: ./browser/admin_order.py:91
 msgid "Customer Id"
 msgstr "客户ID编号"
 
-#: ./interfaces.py:325
+#: ./interfaces.py:330
 msgid "Decimal Symbol"
 msgstr "小数位数"
 
@@ -221,189 +237,232 @@ msgstr "小数位数"
 msgid "Delete"
 msgstr "删除"
 
-#: ./interfaces.py:315
+#: ./interfaces.py:320
 msgid "Digit Grouping Symbol"
 msgstr "条码"
 
 #. Default: "Disclaimer"
 #: ./browser/templates/legal-disclaimers-links.pt:14
+#: ./interfaces.py:423
 msgid "Disclaimer"
 msgstr "免责申明"
 
-#: ./interfaces.py:368
+#: ./interfaces.py:435
 msgid "Display 'Contact me with offers' option on Checkout page"
 msgstr "在支付页显示'有新的供货联系我'"
 
-#: ./vocabularies.py:91
+#: ./browser/widgets.py:211
+msgid "Do Not Send"
+msgstr ""
+
+#: ./vocabularies.py:90
 msgid "Do not send customer email notification of a completed transaction"
 msgstr "完成后，不发送客户通知邮件"
 
-#: ./vocabularies.py:99
+#: ./vocabularies.py:98
 msgid "Do not send merchant email notification of a completed transaction"
 msgstr "完成后，不发送商家通知邮件"
 
-#: ./browser/portlets/donate.py:22
+#: ./browser/portlets/donate.py:23
 msgid "Donatable"
 msgstr "标记为赠品"
 
-#: ./interfaces.py:207
+#: ./interfaces.py:213
 msgid "Donatable Content Types"
 msgstr "赠品类型"
 
-#: ./interfaces.py:103
+#: ./interfaces.py:106
 msgid "Donation Level Name"
 msgstr "折扣等级名称"
 
-#: ./interfaces.py:108
+#: ./interfaces.py:111
 msgid "Donation Levels"
 msgstr "折扣级别"
 
 #. Default: "E-mail"
-#: ./browser/templates/order-summary.pt:44
+#: ./browser/templates/order-summary.pt:64
 msgid "E-mail"
 msgstr "邮件"
 
-#: ./browser/admin.py:298
+#: ./browser/admin.py:444
 msgid "Email Notifications"
 msgstr "邮件通知"
 
-#: ./browser/admin_order.py:171
+#: ./interfaces.py:360
+msgid "Email sent to the customer following the authorization of a new order (prior to the charge being completed)."
+msgstr ""
+
+#: ./interfaces.py:394
+msgid "Email sent to the customer following the decline of a new order."
+msgstr ""
+
+#: ./interfaces.py:377
+msgid "Email sent to the customer following the successful charge of a new order."
+msgstr ""
+
+#: ./interfaces.py:353
+msgid "Email sent to the merchant following the authorization of a new order (prior to the charge being completed)."
+msgstr ""
+
+#: ./interfaces.py:387
+msgid "Email sent to the merchant following the decline of a new order."
+msgstr ""
+
+#: ./interfaces.py:370
+msgid "Email sent to the merchant following the successful charge of a new order."
+msgstr ""
+
+#: ./browser/admin_order.py:174
 msgid "Export All"
 msgstr "导出所有"
 
-#: ./browser/admin_order.py:138
+#: ./browser/admin_order.py:141
 msgid "Export Search"
 msgstr "导出查询"
 
-#: ./browser/cart.py:372
+#: ./browser/cart.py:423
 msgid "Fill"
 msgstr "填充"
 
-#: ./browser/admin_order.py:246
+#: ./browser/admin_order.py:261
 msgid "Filter"
 msgstr "刷选"
 
-#: ./browser/admin_order.py:96
+#: ./browser/admin_order.py:97
 msgid "Fulfillment"
 msgstr "确认提交"
 
-#: ./browser/admin_order.py:747
+#: ./browser/admin_order.py:781
 msgid "Item Id"
 msgstr "项目ID"
 
-#: ./browser/admin_order.py:91
+#: ./browser/admin_order.py:92
 msgid "Last4"
 msgstr "后四位"
 
-#: ./browser/admin.py:306
+#: ./browser/admin.py:452
 msgid "Legal Disclaimers"
 msgstr "法律申明"
 
 #. Default: "Mailing Address"
-#: ./browser/templates/order-summary.pt:63
+#: ./browser/templates/checkout-address.pt:43
+#: ./browser/templates/checkout-review-pay.pt:38
+#: ./browser/templates/order-summary.pt:83
 msgid "Mailing Address"
 msgstr "邮寄地址"
 
-#: ./browser/checkout.py:596
+#: ./browser/checkout.py:607
 msgid "Make Payment"
 msgstr "开始付款"
 
-#: ./interfaces.py:344
-msgid "Merchant Email Notifications"
-msgstr "商家邮件通知"
+#: ./interfaces.py:352
+msgid "Merchant Authorization Email Template"
+msgstr ""
 
-#: ./browser/checkout.py:721
+#: ./interfaces.py:369
+msgid "Merchant Charge Email Template"
+msgstr ""
+
+#: ./interfaces.py:386
+msgid "Merchant Decline Email Template"
+msgstr ""
+
+#: ./browser/checkout.py:748
 msgid "Misconfigured Store - No Shipping Method Activated"
 msgstr "错误配置——没有配置送货方法"
 
-#: ./browser/admin_order.py:586
+#: ./browser/admin_order.py:606
+#: ./browser/checkout.py:585
 msgid "N/A"
 msgstr "无效"
 
-#: ./browser/admin_order.py:748
+#: ./browser/admin_order.py:782
+#: ./browser/cart.py:292
+#: ./browser/checkout.py:541
 msgid "Name"
 msgstr "名称"
 
-#: ./browser/admin_order.py:93
+#: ./browser/admin_order.py:94
 msgid "Name on Card"
 msgstr "card上名称"
 
-#: ./interfaces.py:310
+#: ./interfaces.py:315
 msgid "Negative Currency Format"
 msgstr "不采用的货币"
 
-#: ./browser/admin_order.py:114
+#: ./browser/admin_order.py:117
 msgid "No orders found for your filter."
 msgstr "没有搜索到订单"
 
-#: ./interfaces.py:330
+#: ./interfaces.py:335
 msgid "Number of Digits After Decimal"
 msgstr "小数位数"
 
-#: ./interfaces.py:320
+#: ./interfaces.py:325
 msgid "Number of Digits in Group"
 msgstr "数字个数"
 
-#: ./interfaces.py:178
+#: ./interfaces.py:184
 msgid "Only digits allowed"
 msgstr "仅仅采用十进制"
 
-#: ./browser/order.py:123
+#: ./browser/order.py:121
 msgid "Order Details"
 msgstr "订单详情"
 
 #: ./browser/admin_order.py:89
+#: ./interfaces.py:513
 msgid "Order Id"
 msgstr "订单编号"
 
-#: ./browser/cart.py:334
+#: ./browser/cart.py:385
 msgid "Order Templates"
 msgstr "订单模板"
 
 #. Default: "Order template name"
-#: ./browser/templates/checkout-review-pay.pt:62
+#: ./browser/templates/checkout-review-pay.pt:59
 msgid "Order template name"
 msgstr "订单模板名称"
 
 #. Default: "Payment Details"
-#: ./browser/templates/checkout-review-pay.pt:81
+#: ./browser/templates/checkout-review-pay.pt:74
 msgid "Payment Details"
 msgstr "支付明细"
 
-#: ./browser/admin.py:211
+#: ./browser/admin.py:215
 msgid "Payment Options"
 msgstr "支付选项"
 
-#: ./interfaces.py:244
+#: ./interfaces.py:250
 msgid "Payment Processor"
 msgstr "付款处理"
 
-#: ./browser/admin.py:227
+#: ./browser/admin.py:231
 msgid "Payment Processor Settings"
 msgstr "付款设置"
 
 #. Default: "Phone Number"
-#: ./browser/templates/order-summary.pt:46
+#: ./browser/templates/order-summary.pt:66
 msgid "Phone Number"
 msgstr "电话号码"
 
-#: ./browser/admin.py:238
+#: ./browser/admin.py:242
 msgid "Please Select Payment Processor in Payment Options Settings"
 msgstr "请选择支付方式"
 
-#: ./interfaces.py:305
+#: ./interfaces.py:310
 msgid "Positive Currency Format"
 msgstr "可接受的货币"
 
-#: ./vocabularies.py:68
+#: ./vocabularies.py:67
 msgid "Pounds"
 msgstr "磅"
 
-#: ./browser/portlets/premium.py:22
+#: ./browser/portlets/premium.py:23
 msgid "Premium"
 msgstr "额外费用"
 
-#: ./interfaces.py:199
+#: ./interfaces.py:205
 msgid "Premium Content Types"
 msgstr "订单确认"
 
@@ -412,38 +471,56 @@ msgstr "订单确认"
 msgid "Premium not implemented yet"
 msgstr "暂不收取附加费用"
 
-#: ./browser/cart.py:399
+#: ./browser/cart.py:450
 msgid "Previous Order Loaded into Cart"
 msgstr "先前的订单已调入购物车"
 
-#: ./browser/admin_order.py:97
+#: ./browser/admin_order.py:98
+#: ./browser/cart.py:293
+#: ./browser/checkout.py:542
 msgid "Price"
 msgstr "价格"
 
 #. Default: "Privacy Policy"
 #: ./browser/templates/legal-disclaimers-links.pt:7
+#: ./interfaces.py:427
 msgid "Privacy Policy"
 msgstr "隐私保护"
 
-#: ./browser/admin_order.py:92
+#: ./browser/admin_order.py:90
+msgid "Proc Id"
+msgstr ""
+
+#: ./browser/admin_order.py:93
 msgid "Proc Trans Id"
 msgstr "进程事务id"
 
-#: ./browser/admin_order.py:746
+#: ./browser/admin_order.py:780
+#: ./browser/cart.py:291
+#: ./browser/checkout.py:540
 msgid "Quantity"
 msgstr "数量"
 
-#: ./browser/admin.py:283
+#: ./browser/portlets/recurring.py:23
+msgid "Recurring Payment"
+msgstr ""
+
+#. Default: "You will be billed for this product every ${value_interval} ${value_unit}, for a total of ${value_total_occurrences} payments."
+#: ./browser/templates/cart-listing-extras.pt:4
+msgid "RecurringCartSummary"
+msgstr ""
+
+#: ./browser/admin.py:287
 msgid "Sales Tax Configuration"
 msgstr "销售税务设置"
 
 #. Default: "Same as billing"
-#: ./browser/templates/order-summary.pt:72
+#: ./browser/templates/order-summary.pt:92
 msgid "Same as billing"
 msgstr "和发票相同"
 
 #. Default: "Save this order as a template"
-#: ./browser/templates/checkout-review-pay.pt:70
+#: ./browser/templates/checkout-review-pay.pt:65
 msgid "Save this order as a template"
 msgstr "保存这个订单作为一个模板"
 
@@ -452,7 +529,7 @@ msgstr "保存这个订单作为一个模板"
 msgid "Save to address book"
 msgstr "保存到通讯录"
 
-#: ./browser/cart.py:335
+#: ./browser/cart.py:386
 msgid "Select a previous order to fill your cart."
 msgstr "调入前一订单的商品到购物车。"
 
@@ -461,15 +538,47 @@ msgstr "调入前一订单的商品到购物车。"
 msgid "Select a shipping rate:"
 msgstr "选择一个送货服务"
 
-#: ./vocabularies.py:92
+#: ./browser/templates/cart-order-template.pt:7
+msgid "Select one previous order:"
+msgstr ""
+
+#: ./browser/widgets.py:211
+msgid "Send"
+msgstr ""
+
+#: ./interfaces.py:363
+msgid "Send Customer Authorization Email?"
+msgstr ""
+
+#: ./interfaces.py:380
+msgid "Send Customer Charge Email?"
+msgstr ""
+
+#: ./interfaces.py:397
+msgid "Send Customer Decline Email?"
+msgstr ""
+
+#: ./interfaces.py:356
+msgid "Send Merchant Authorization Email?"
+msgstr ""
+
+#: ./interfaces.py:373
+msgid "Send Merchant Charge Email?"
+msgstr ""
+
+#: ./interfaces.py:390
+msgid "Send Merchant Decline Email?"
+msgstr ""
+
+#: ./vocabularies.py:91
 msgid "Send customer email notification of a completed transaction"
 msgstr "完成后，发送客户邮件通知"
 
-#: ./vocabularies.py:100
+#: ./vocabularies.py:99
 msgid "Send merchant email notification when a transaction happens"
 msgstr "完成后，发送商家邮件通知"
 
-#: ./interfaces.py:283
+#: ./interfaces.py:288
 msgid "Session Timeout"
 msgstr "连接超时"
 
@@ -477,89 +586,97 @@ msgstr "连接超时"
 msgid "Settings"
 msgstr "设置"
 
-#: ./browser/portlets/ship.py:22
+#: ./browser/portlets/ship.py:23
 msgid "Shippable"
 msgstr "可送货"
 
-#: ./interfaces.py:215
+#: ./interfaces.py:221
 msgid "Shippable Product Types"
 msgstr "可送货的商品类型"
 
-#: ./browser/cart.py:220
+#: ./browser/templates/cart-listing-extras.pt:15
 msgid "Shipping"
 msgstr "送货"
 
-#: ./browser/admin.py:182
+#: ./browser/admin.py:186
+#: ./interfaces.py:232
 msgid "Shipping Methods"
 msgstr "送货方式"
 
-#: ./interfaces.py:234
+#: ./interfaces.py:240
 msgid "Shipping Rate Service"
 msgstr "送货服务"
 
-#: ./interfaces.py:229
+#: ./interfaces.py:235
 msgid "Shipping methods to offer for orders in your store"
 msgstr "商店提供的送货方式"
 
-#: ./interfaces.py:237
+#: ./interfaces.py:243
 msgid "Shipping services to offer for orders in your store"
 msgstr "商店提供的送货服务"
 
 #. Default: "Shopping Cart"
+#: ./browser/portlets/cart.py:21
 #: ./browser/templates/checkout-review-pay.pt:53
 msgid "Shopping Cart"
 msgstr "购物车"
 
-#: ./interfaces.py:285
+#: ./interfaces.py:290
 msgid "Shopping cart session timeout (in seconds)"
 msgstr "购物车连接超时"
 
-#: ./browser/admin.py:68
+#: ./browser/admin.py:72
 msgid "Site Profile"
 msgstr "站点配置"
 
-#: ./browser/admin_order.py:95
+#: ./browser/admin_order.py:96
 msgid "Status"
 msgstr "省份"
 
-#: ./interfaces.py:127
+#: ./interfaces.py:133
 msgid "Store/Organization Name"
 msgstr "商家名称"
 
-#: ./browser/cart.py:216
+#: ./browser/templates/cart-listing-extras.pt:11
 msgid "SubTotal"
 msgstr "小计"
 
-#: ./interfaces.py:292
+#: ./interfaces.py:297
 msgid "Tax Method"
 msgstr "付税方式"
 
-#: ./browser/admin.py:248
+#: ./interfaces.py:437
+msgid "Text to use for opt in checkbox"
+msgstr ""
+
+#: ./browser/admin.py:252
 msgid "The currently configured Payment Processor cannot be found; please check if the corresponding package is installed correctly."
 msgstr "支付处理程序没有找到"
 
-#: ./interfaces.py:403
+#: ./interfaces.py:472
 msgid "The list of months"
 msgstr "月份列表"
 
-#: ./browser/admin_order.py:750
+#: ./browser/admin_order.py:784
+#: ./browser/cart.py:294
+#: ./browser/checkout.py:543
 msgid "Total"
 msgstr "总计"
 
 #. Default: "Transaction ID"
-#: ./browser/templates/order-summary.pt:30
+#: ./browser/templates/order-summary.pt:50
 msgid "Transaction ID"
 msgstr "事务ID"
 
-#: ./interfaces.py:335
+#: ./interfaces.py:340
 msgid "US Currency Formatting"
 msgstr "美国货币格式"
 
-#: ./vocabularies.py:71
+#: ./vocabularies.py:70
 msgid "US Dollars"
 msgstr "美元"
 
-#: ./browser/cart.py:268
+#: ./browser/cart.py:319
 msgid "Update"
 msgstr "更新"
 
@@ -583,15 +700,15 @@ msgstr "更新日志"
 msgid "Upgrade to Latest"
 msgstr "更新到最新"
 
-#: ./interfaces.py:250
+#: ./interfaces.py:256
 msgid "Use SSL for checkout"
 msgstr "采用SSL加密支付"
 
-#: ./browser/admin_order.py:230
+#: ./browser/admin_order.py:243
 msgid "User Id"
 msgstr "用户id"
 
-#: ./browser/portlets/variableamountdonate.py:22
+#: ./browser/portlets/variableamountdonate.py:23
 msgid "Variable Amount Donation"
 msgstr "随意捐赠"
 
@@ -600,7 +717,7 @@ msgstr "随意捐赠"
 msgid "We are sorry but your credit card was declined."
 msgstr "对不起，你的信任卡已过期。"
 
-#: ./interfaces.py:276
+#: ./interfaces.py:281
 msgid "Weight Units"
 msgstr "重量单位"
 
@@ -620,11 +737,11 @@ msgid "Your Installation of GetPaid is Current"
 msgstr "你的安装版本是最新的"
 
 #. Default: "You can check the status of your order ${status_url}"
-#: ./browser/templates/checkout-thank-you.pt:34
+#: ./browser/templates/checkout-thank-you.pt:32
 msgid "box_order_status_url_description"
 msgstr "你可以检查订单状态"
 
-#: ./interfaces.py:392
+#: ./interfaces.py:461
 msgid "countries"
 msgstr "国家"
 
@@ -640,6 +757,7 @@ msgstr "当前软件版本"
 
 #. Default: "Documentation on GetPaid can be found at ${label_plone_documentation} ."
 #: ./browser/templates/admin-overview.pt:17
+#: ./browser/templates/upgrade.pt:6
 msgid "description_getpaid_setup_documentation"
 msgstr "该文档找不到"
 
@@ -679,6 +797,8 @@ msgid "heading_changed_by"
 msgstr "变更由"
 
 #. Default: "Checkout"
+#: ./browser/templates/checkout-address.pt:12
+#: ./browser/templates/checkout-review-pay.pt:12
 #: ./browser/templates/checkout-shipping-method.pt:3
 msgid "heading_checkout"
 msgstr "支付"
@@ -694,7 +814,7 @@ msgid "heading_checkout_privacy_policy"
 msgstr "隐私保护"
 
 #. Default: "Thank you for your order"
-#: ./browser/templates/checkout-thank-you.pt:8
+#: ./browser/templates/checkout-thank-you.pt:9
 msgid "heading_checkout_thank_you"
 msgstr "感谢您的购物！"
 
@@ -728,10 +848,16 @@ msgstr "履约状态"
 msgid "heading_general_information"
 msgstr "通常信息"
 
-#. Default: "Site Orders"
-#: ./browser/templates/orders-template.pt:44
+#. Default: "GetPaid Setup"
+#: ./browser/templates/settings-template.pt:38
+#, fuzzy
 msgid "heading_getpaid_setup"
 msgstr "站点订单"
+
+#. Default: "Site Orders"
+#: ./browser/templates/orders-template.pt:46
+msgid "heading_getpaid_setup_orders"
+msgstr ""
 
 #. Default: "new state"
 #: ./browser/templates/order-workflow-log.pt:9
@@ -769,17 +895,24 @@ msgid "heading_your_orders"
 msgstr "你的订单"
 
 #. Default: "here"
-#: ./browser/templates/checkout-thank-you.pt:35
+#: ./browser/templates/checkout-thank-you.pt:33
 msgid "here"
 msgstr "这儿"
 
 #. Default: "Add to Cart"
-#: ./browser/templates/portlet-content-shippable.pt:44
+#: ./browser/templates/portlet-content-buyable.pt:44
+#: ./browser/templates/portlet-content-premium.pt:40
+#: ./browser/templates/portlet-content-recurringpayment.pt:52
 msgid "label_add_to_cart"
 msgstr "加到购物车"
 
 #. Default: "Donate!"
-#: ./browser/templates/portlet-content-variableamountdonatable.pt:72
+#: ./browser/templates/portlet-content-variableamountdonatable.pt:44
+msgid "label_donate"
+msgstr ""
+
+#. Default: "Donate!"
+#: ./browser/templates/portlet-content-donatable.pt:40
 msgid "label_donate!"
 msgstr "打折"
 
@@ -799,7 +932,8 @@ msgid "label_organization_name"
 msgstr "商家名称"
 
 #. Default: "Up to GetPaid Setup"
-#: ./browser/templates/orders-template.pt:47
+#: ./browser/templates/orders-template.pt:49
+#: ./browser/templates/settings-template.pt:41
 msgid "label_up_to_getpaid_setup"
 msgstr "去到GetPaid设置"
 
@@ -858,11 +992,11 @@ msgstr "搜查订单"
 msgid "legend_summary"
 msgstr "订单摘要"
 
-#: ./interfaces.py:402
+#: ./interfaces.py:471
 msgid "months"
 msgstr "月份"
 
-#: ./interfaces.py:396
+#: ./interfaces.py:465
 msgid "states"
 msgstr "状态"
 
@@ -872,47 +1006,53 @@ msgid "text_contains_items"
 msgstr "购物车商品"
 
 #. Default: "The Context ${portal} Does Not Support this Operation."
-#: ./browser/templates/payable-form.pt:25
+#: ./browser/templates/payable-form.pt:17
 msgid "text_context_does_not_support_operation"
 msgstr "该操作不允许"
 
 #. Default: "Creation Date"
-#: ./browser/templates/order-summary.pt:14
+#: ./browser/templates/order-summary.pt:34
 msgid "text_creation_date"
 msgstr "创建日期"
 
 #. Default: "Current Status"
+#: ./browser/templates/order-finance.pt:5
 #: ./browser/templates/order-fulfillment.pt:5
 msgid "text_current_status"
 msgstr "当前状态"
 
 #. Default: "Customer Id"
-#: ./browser/templates/order-summary.pt:10
+#: ./browser/templates/order-summary.pt:30
 msgid "text_customer_id"
 msgstr "客户ID"
 
+#. Default: "Donation: ${value_currency} ${value_price}"
+#: ./browser/templates/portlet-content-variableamountdonatable.pt:33
+msgid "text_donate_price"
+msgstr ""
+
 #. Default: "Finance Status"
-#: ./browser/templates/order-summary.pt:18
+#: ./browser/templates/order-summary.pt:38
 msgid "text_finance_status"
 msgstr "财务状态"
 
 #. Default: "Shipping Service"
-#: ./browser/templates/order-summary.pt:80
+#: ./browser/templates/order-summary.pt:100
 msgid "text_fulfillment_shipping_method"
 msgstr "送货方式"
 
 #. Default: "Shipment Tracking Numbers:"
-#: ./browser/templates/order-summary.pt:89
+#: ./browser/templates/order-summary.pt:109
 msgid "text_fulfillment_shipping_track_number"
 msgstr "货单号"
 
 #. Default: "Shipment Weight"
-#: ./browser/templates/order-summary.pt:84
+#: ./browser/templates/order-summary.pt:104
 msgid "text_fulfillment_shipping_weight"
 msgstr "送货重量"
 
 #. Default: "Fulfillment Status"
-#: ./browser/templates/order-summary.pt:22
+#: ./browser/templates/order-summary.pt:42
 msgid "text_fulfillment_status"
 msgstr "实施状态"
 
@@ -921,18 +1061,58 @@ msgstr "实施状态"
 msgid "text_order_id"
 msgstr "订单编号"
 
+#. Default: "Interval"
+#: ./browser/templates/order-summary.pt:16
+msgid "text_order_interval"
+msgstr ""
+
+#. Default: "Total Occurrences"
+#: ./browser/templates/order-summary.pt:20
+msgid "text_order_occurrences"
+msgstr ""
+
+#. Default: "Recurring Order"
+#: ./browser/templates/order-summary.pt:14
+msgid "text_order_recurring"
+msgstr ""
+
+#. Default: "Non-recurring Order"
+#: ./browser/templates/order-summary.pt:11
+msgid "text_order_standard"
+msgstr ""
+
+#. Default: "Order Type"
+#: ./browser/templates/order-summary.pt:10
+msgid "text_order_type"
+msgstr ""
+
+#. Default: "Price: ${value_currency} ${value_price}"
+#: ./browser/templates/portlet-content-buyable.pt:33
+#: ./browser/templates/portlet-content-donatable.pt:33
+#: ./browser/templates/portlet-content-recurringpayment.pt:34
 msgid "text_price"
 msgstr "价格：￥${value_price}"
 
-#. Default: "<script type=\"text/javascript\"> function submitDonation() { /* This will probably need work for international since I remove ',' and assume '.' seperates the decimal */ var input = jq(\"#donation_amount\")[0].value; input = input.replace(/[^0-9.]+/g, ''); var amount = parseFloat(input); if (amount == NaN) { alert(\"Invalid input:\" + input); } else { var url = window.location.toString(); if (url.charAt(url.length - 1) != '/') { url += '/'; } window.location = url + \"@@getpaid-cart-add?add_item=True&amount=\" + amount; } } </script> <form action=\"javascript:submitDonation();\"> Donation: $ ${value_price} </form>"
+#. Default: "Processor Id"
+#: ./browser/templates/order-summary.pt:26
+msgid "text_processor_id"
+msgstr ""
+
 #. Default: "Product Details"
-#: ./browser/templates/portlet-content-variableamountdonatable.pt:59
-#: ./browser/templates/portlet-content-variableamountdonatable.pt:12
+#: ./browser/templates/portlet-content-buyable.pt:12
+#: ./browser/templates/portlet-content-donatable.pt:12
+#: ./browser/templates/portlet-content-premium.pt:12
+#, fuzzy
 msgid "text_product_details"
 msgstr "商品详细情况"
 
+#. Default: "You will be billed for this product every ${value_interval} month(s), for a total of ${value_occurrences} months."
+#: ./browser/templates/portlet-content-recurringpayment.pt:41
+msgid "text_recurrence"
+msgstr ""
+
 #. Default: "Total Price"
-#: ./browser/templates/order-summary.pt:26
+#: ./browser/templates/order-summary.pt:46
 msgid "text_total_price"
 msgstr "总价"
 
@@ -941,17 +1121,17 @@ msgstr "总价"
 msgid "text_your_cart"
 msgstr "购物车"
 
-#: ./interfaces.py:406
+#: ./interfaces.py:475
 msgid "years"
 msgstr "年份"
 
 #. Default: "Your finance state is"
-#: ./browser/templates/checkout-thank-you.pt:13
+#: ./browser/templates/checkout-thank-you.pt:14
 msgid "your_finance_state_is"
 msgstr "你的支付状态"
 
 #. Default: "Your order id is"
-#: ./browser/templates/checkout-thank-you.pt:19
+#: ./browser/templates/checkout-thank-you.pt:20
 msgid "your_order_id"
 msgstr "你的订单编号是"
 

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2010-06-04 10:01+0000\n"
+"POT-Creation-Date: 2012-03-08 18:24+0000\n"
 "PO-Revision-Date: 2010-06-04 12:32+0200\n"
 "Last-Translator: Harald Friessnegger <harald@webmeisterei.com>\n"
 "Language-Team: Deutsch <kde-i18n-de@kde.org>\n"
@@ -30,7 +30,7 @@ msgstr ""
 msgid "A list of years"
 msgstr ""
 
-#: ./browser/checkout.py:483
+#: ./browser/checkout.py:485
 msgid "A new address has been saved"
 msgstr ""
 
@@ -62,7 +62,7 @@ msgstr ""
 msgid "Accepted Credit Cards"
 msgstr ""
 
-#: ./browser/content.py:86
+#: ./browser/content.py:90
 msgid "Activate"
 msgstr ""
 
@@ -79,7 +79,7 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: ./browser/checkout.py:669
+#: ./browser/checkout.py:671
 msgid "Back"
 msgstr ""
 
@@ -99,11 +99,11 @@ msgstr ""
 msgid "Buyable portlet"
 msgstr "Kaufbarer Artikel"
 
-#: ./browser/checkout.py:490
+#: ./browser/checkout.py:492
 msgid "Cancel"
 msgstr ""
 
-#: ./browser/admin_order.py:96
+#: ./browser/admin_order.py:95
 msgid "Card Phone#"
 msgstr ""
 
@@ -111,11 +111,11 @@ msgstr ""
 msgid "Cart portlet"
 msgstr "Warenkorb"
 
-#: ./browser/cart.py:370
+#: ./browser/cart.py:372
 msgid "Checkout"
 msgstr ""
 
-#: ./browser/admin.py:456
+#: ./browser/admin.py:460
 msgid "Checkout Options"
 msgstr ""
 
@@ -163,7 +163,7 @@ msgstr ""
 msgid "Contact Zip/Postal Code"
 msgstr ""
 
-#: ./browser/admin.py:77
+#: ./browser/admin.py:81
 msgid "Content Types"
 msgstr ""
 
@@ -179,23 +179,23 @@ msgstr ""
 msgid "Content Types that represent goods that can be purchased and shipped"
 msgstr ""
 
-#: ./browser/admin_order.py:795
+#: ./browser/admin_order.py:794
 msgid "Contents"
 msgstr ""
 
-#: ./browser/checkout.py:485
+#: ./browser/checkout.py:487
 msgid "Continue"
 msgstr ""
 
-#: ./browser/cart.py:350
+#: ./browser/cart.py:352
 msgid "Continue Shopping"
 msgstr ""
 
-#: ./browser/cart.py:432
+#: ./browser/cart.py:434
 msgid "Could not find order"
 msgstr ""
 
-#: ./browser/admin_order.py:100
+#: ./browser/admin_order.py:99
 msgid "Created"
 msgstr ""
 
@@ -203,7 +203,7 @@ msgstr ""
 msgid "Credit cards accepted for payment"
 msgstr ""
 
-#: ./browser/admin.py:291
+#: ./browser/admin.py:295
 msgid "Currency Configuration"
 msgstr ""
 
@@ -223,7 +223,7 @@ msgstr ""
 msgid "Customer Decline Email Template"
 msgstr ""
 
-#: ./browser/admin_order.py:92
+#: ./browser/admin_order.py:91
 msgid "Customer Id"
 msgstr ""
 
@@ -251,11 +251,11 @@ msgstr ""
 msgid "Do Not Send"
 msgstr ""
 
-#: ./vocabularies.py:91
+#: ./vocabularies.py:90
 msgid "Do not send customer email notification of a completed transaction"
 msgstr ""
 
-#: ./vocabularies.py:99
+#: ./vocabularies.py:98
 msgid "Do not send merchant email notification of a completed transaction"
 msgstr ""
 
@@ -279,7 +279,7 @@ msgstr ""
 msgid "Donation Levels"
 msgstr ""
 
-#: ./browser/admin.py:440
+#: ./browser/admin.py:444
 msgid "Email Notifications"
 msgstr ""
 
@@ -307,35 +307,35 @@ msgstr ""
 msgid "Email sent to the merchant following the successful charge of a new order."
 msgstr ""
 
-#: ./browser/admin_order.py:175
+#: ./browser/admin_order.py:174
 msgid "Export All"
 msgstr ""
 
-#: ./browser/admin_order.py:142
+#: ./browser/admin_order.py:141
 msgid "Export Search"
 msgstr ""
 
-#: ./browser/cart.py:421
+#: ./browser/cart.py:423
 msgid "Fill"
 msgstr ""
 
-#: ./browser/admin_order.py:262
+#: ./browser/admin_order.py:261
 msgid "Filter"
 msgstr ""
 
-#: ./browser/admin_order.py:98
+#: ./browser/admin_order.py:97
 msgid "Fulfillment"
 msgstr ""
 
-#: ./browser/admin_order.py:782
+#: ./browser/admin_order.py:781
 msgid "Item Id"
 msgstr ""
 
-#: ./browser/admin_order.py:93
+#: ./browser/admin_order.py:92
 msgid "Last4"
 msgstr ""
 
-#: ./browser/admin.py:448
+#: ./browser/admin.py:452
 msgid "Legal Disclaimers"
 msgstr ""
 
@@ -359,7 +359,7 @@ msgstr ""
 msgid "Make Not Shippable Product"
 msgstr ""
 
-#: ./browser/checkout.py:605
+#: ./browser/checkout.py:607
 msgid "Make Payment"
 msgstr ""
 
@@ -403,22 +403,22 @@ msgstr ""
 msgid "Merchant Decline Email Template"
 msgstr ""
 
-#: ./browser/checkout.py:746
+#: ./browser/checkout.py:748
 msgid "Misconfigured Store - No Shipping Method Activated"
 msgstr ""
 
-#: ./browser/admin_order.py:607
-#: ./browser/checkout.py:583
+#: ./browser/admin_order.py:606
+#: ./browser/checkout.py:585
 msgid "N/A"
 msgstr ""
 
-#: ./browser/admin_order.py:783
-#: ./browser/cart.py:290
-#: ./browser/checkout.py:539
+#: ./browser/admin_order.py:782
+#: ./browser/cart.py:292
+#: ./browser/checkout.py:541
 msgid "Name"
 msgstr ""
 
-#: ./browser/admin_order.py:95
+#: ./browser/admin_order.py:94
 msgid "Name on Card"
 msgstr ""
 
@@ -426,7 +426,7 @@ msgstr ""
 msgid "Negative Currency Format"
 msgstr ""
 
-#: ./browser/admin_order.py:118
+#: ./browser/admin_order.py:117
 msgid "No orders found for your filter."
 msgstr ""
 
@@ -446,12 +446,12 @@ msgstr ""
 msgid "Order Details"
 msgstr ""
 
-#: ./browser/admin_order.py:90
+#: ./browser/admin_order.py:89
 #: ./interfaces.py:513
 msgid "Order Id"
 msgstr ""
 
-#: ./browser/cart.py:383
+#: ./browser/cart.py:385
 msgid "Order Templates"
 msgstr ""
 
@@ -459,7 +459,7 @@ msgstr ""
 msgid "Payable"
 msgstr "Zahloptionen"
 
-#: ./browser/admin.py:211
+#: ./browser/admin.py:215
 msgid "Payment Options"
 msgstr ""
 
@@ -467,11 +467,11 @@ msgstr ""
 msgid "Payment Processor"
 msgstr ""
 
-#: ./browser/admin.py:227
+#: ./browser/admin.py:231
 msgid "Payment Processor Settings"
 msgstr ""
 
-#: ./browser/admin.py:238
+#: ./browser/admin.py:242
 msgid "Please Select Payment Processor in Payment Options Settings"
 msgstr ""
 
@@ -479,7 +479,7 @@ msgstr ""
 msgid "Positive Currency Format"
 msgstr ""
 
-#: ./vocabularies.py:68
+#: ./vocabularies.py:67
 msgid "Pounds"
 msgstr ""
 
@@ -495,13 +495,13 @@ msgstr ""
 msgid "Premium portlet"
 msgstr ""
 
-#: ./browser/cart.py:448
+#: ./browser/cart.py:450
 msgid "Previous Order Loaded into Cart"
 msgstr ""
 
-#: ./browser/admin_order.py:99
-#: ./browser/cart.py:291
-#: ./browser/checkout.py:540
+#: ./browser/admin_order.py:98
+#: ./browser/cart.py:293
+#: ./browser/checkout.py:542
 msgid "Price"
 msgstr ""
 
@@ -514,17 +514,17 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr ""
 
-#: ./browser/admin_order.py:91
+#: ./browser/admin_order.py:90
 msgid "Proc Id"
 msgstr ""
 
-#: ./browser/admin_order.py:94
+#: ./browser/admin_order.py:93
 msgid "Proc Trans Id"
 msgstr ""
 
-#: ./browser/admin_order.py:781
-#: ./browser/cart.py:289
-#: ./browser/checkout.py:538
+#: ./browser/admin_order.py:780
+#: ./browser/cart.py:291
+#: ./browser/checkout.py:540
 msgid "Quantity"
 msgstr ""
 
@@ -536,11 +536,11 @@ msgstr ""
 msgid "Recurring Payment portlet"
 msgstr ""
 
-#: ./browser/admin.py:283
+#: ./browser/admin.py:287
 msgid "Sales Tax Configuration"
 msgstr ""
 
-#: ./browser/cart.py:384
+#: ./browser/cart.py:386
 msgid "Select a previous order to fill your cart."
 msgstr ""
 
@@ -572,11 +572,11 @@ msgstr ""
 msgid "Send Merchant Decline Email?"
 msgstr ""
 
-#: ./vocabularies.py:92
+#: ./vocabularies.py:91
 msgid "Send customer email notification of a completed transaction"
 msgstr ""
 
-#: ./vocabularies.py:100
+#: ./vocabularies.py:99
 msgid "Send merchant email notification when a transaction happens"
 msgstr ""
 
@@ -600,7 +600,7 @@ msgstr ""
 msgid "Shippable portlet"
 msgstr "Lieferbarer Artikel"
 
-#: ./browser/admin.py:182
+#: ./browser/admin.py:186
 #: ./interfaces.py:232
 msgid "Shipping Methods"
 msgstr ""
@@ -625,11 +625,11 @@ msgstr ""
 msgid "Shopping cart session timeout (in seconds)"
 msgstr ""
 
-#: ./browser/admin.py:68
+#: ./browser/admin.py:72
 msgid "Site Profile"
 msgstr ""
 
-#: ./browser/admin_order.py:97
+#: ./browser/admin_order.py:96
 msgid "Status"
 msgstr ""
 
@@ -645,7 +645,7 @@ msgstr ""
 msgid "Text to use for opt in checkbox"
 msgstr ""
 
-#: ./browser/admin.py:248
+#: ./browser/admin.py:252
 msgid "The currently configured Payment Processor cannot be found; please check if the corresponding package is installed correctly."
 msgstr ""
 
@@ -653,9 +653,9 @@ msgstr ""
 msgid "The list of months"
 msgstr ""
 
-#: ./browser/admin_order.py:785
-#: ./browser/cart.py:292
-#: ./browser/checkout.py:541
+#: ./browser/admin_order.py:784
+#: ./browser/cart.py:294
+#: ./browser/checkout.py:543
 msgid "Total"
 msgstr ""
 
@@ -663,11 +663,11 @@ msgstr ""
 msgid "US Currency Formatting"
 msgstr ""
 
-#: ./vocabularies.py:71
+#: ./vocabularies.py:70
 msgid "US Dollars"
 msgstr ""
 
-#: ./browser/cart.py:317
+#: ./browser/cart.py:319
 msgid "Update"
 msgstr ""
 
@@ -675,7 +675,7 @@ msgstr ""
 msgid "Use SSL for checkout"
 msgstr ""
 
-#: ./browser/admin_order.py:244
+#: ./browser/admin_order.py:243
 msgid "User Id"
 msgstr ""
 
@@ -721,5 +721,4 @@ msgstr ""
 #: ./interfaces.py:475
 msgid "years"
 msgstr ""
-
 

@@ -3,9 +3,9 @@
 # JAVIER MANSILLA <javier@except.com.ar>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-01-20 17:36+0000\n"
-"PO-Revision-Date: 2012-01-24 20:26-0600\n"
+"Project-Id-Version: Plone Getpaid\n"
+"POT-Creation-Date: 2012-03-08 18:24+0000\n"
+"PO-Revision-Date: 2012-03-08 12:13-0600\n"
 "Last-Translator: Noe Nieto <nnieto@noenieto.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -534,12 +534,16 @@ msgstr "Salvar a libro de direcciones"
 
 #: ./browser/cart.py:386
 msgid "Select a previous order to fill your cart."
-msgstr "Selecciones una orden previa para llenar su carrito"
+msgstr "Seleccione una orden previa para llenar su carrito"
 
 #. Default: "Select a shipping rate:"
 #: ./browser/templates/checkout-shipping-method.pt:19
 msgid "Select a shipping rate:"
 msgstr "Seleccione un tipo de envío"
+
+#: ./browser/templates/cart-order-template.pt:7
+msgid "Select one previous order:"
+msgstr "Seleccione una orden previa"
 
 #: ./browser/widgets.py:211
 msgid "Send"
@@ -724,7 +728,7 @@ msgstr "Unidades de Peso"
 #. Default: "You must confirm your shopping cart modifications by clicking 'Update' below."
 #: ./browser/templates/cart-listing.pt:5
 msgid "You must confirm your shopping cart modifications by clicking 'Update' below."
-msgstr ""
+msgstr "Usted puede modificar las cantidades de artículos en su carrito. No olvide presionar el botón 'Actualizar' para preservar los cambios."
 
 #. Default: "Your Installation Needs Upgrading"
 #: ./browser/templates/upgrade.pt:37
