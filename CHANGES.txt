@@ -5,6 +5,9 @@ CHANGES
 0.10.5 (unreleased)
 -------------------
 
+- plone 4.1 compatibility
+  [vangheem]
+
 
 0.10.4 (2011-06-30)
 -------------------
