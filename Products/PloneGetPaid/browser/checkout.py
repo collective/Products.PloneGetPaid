@@ -205,7 +205,6 @@ class BaseCheckoutForm( BaseFormView ):
         try:
             IGetPaidManagementOptions(portal).use_contact_me_with_offers
         except AttributeError:
-            print 'use_contact_me_with_offers is not in IGetPaidManagementOptions'
             return True
         else:
             # If there was more than just a boolean in the CheckoutOptions,
@@ -306,8 +305,8 @@ class CheckoutWizard( Wizard ):
             user_id = getSecurityManager().getUser().getId()
             if user_id != 'Anonymous':
                 results = order_manager.query( user_id = user_id,
-                                               order_id = order_id,
                                                creation_date = timedelta(1) )
+                results = [x for x in results if x.order_id == order_id]
                 if len(results) == 1:
                     base_url = self.context.absolute_url()
                     url = base_url + '/@@getpaid-thank-you?order_id=%s' %(order_id)
