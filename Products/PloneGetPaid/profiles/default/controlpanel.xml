@@ -3,7 +3,7 @@
  <configlet title="GetPaid" action_id="getpaid" appId="PloneGetPaid"
     category="Products" condition_expr=""
     icon_expr="string:${portal_url}/++resource++getpaid.png"
-    url_expr="string:${portal_url}/@@manage-getpaid-overview" visible="True">
-  <permission>Manage portal</permission>
+    url_expr="string:${portal_url}/@@manage-getpaid-orders" visible="True">
+  <permission>PloneGetPaid: Manage Orders</permission>
  </configlet>
 </object>

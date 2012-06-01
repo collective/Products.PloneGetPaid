@@ -49,7 +49,8 @@
             <a href=""
                class="link-parent"
                tal:attributes="href string:$portal_url/@@manage-getpaid-overview"
-               i18n:translate="label_up_to_getpaid_setup">
+               i18n:translate="label_up_to_getpaid_setup"
+               tal:condition="python: here.portal_membership.checkPermission('cmf.ManagePortal', here)">
                   Up to GetPaid Setup
             </a>
 	    </metal:block>
