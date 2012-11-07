@@ -1,4 +1,4 @@
-<div xmls:tal="http://xml.zpope.org/namespaces/tal">
+<div xmlns:tal="http://xml.zpope.org/namespaces/tal">
 
 <tal:widget tal:define="name python:view.name">
 

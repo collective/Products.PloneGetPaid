@@ -5,6 +5,9 @@ CHANGES
 0.10.5 (unreleased)
 -------------------
 
+- Fix a couple template errors that broke compatibility with Chameleon.
+  [davisagli]
+
 - plone 4.1 compatibility
   [vangheem]
 

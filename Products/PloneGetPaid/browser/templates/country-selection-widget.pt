@@ -1,4 +1,4 @@
-<div xmls:tal="http://xml.zope.org/namespaces/tal">
+<div xmlns:tal="http://xml.zope.org/namespaces/tal">
 
 <script type="text/javascript" src="++resource++country-states-selection.js">
 </script>
