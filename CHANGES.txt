@@ -9,7 +9,7 @@ CHANGES
   [davisagli]
 
 - plone 4.1 compatibility
-  [vangheem]
+  [vangheem, fRiSi]
 
 
 0.10.4 (2011-06-30)
