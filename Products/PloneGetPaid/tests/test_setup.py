@@ -4,7 +4,7 @@ try:
 except ImportError:
     # For Plone-3
     from zope.app.component.interfaces import ISite
-from zope.app.intid.interfaces import IIntIds
+from zope.intid.interfaces import IIntIds
 from zope.component import getUtility
 
 from getpaid.core.interfaces import IOrderManager, IStore
