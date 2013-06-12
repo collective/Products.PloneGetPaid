@@ -95,7 +95,7 @@ class TestNotification(PloneGetPaidTestCase):
         Extensions/install.py takes already care, that there is a LocalSite.
         However, setHooks still needs to be called - normally done by Five.
 
-        >>> from zope.app.component.hooks import setHooks
+        >>> from zope.component.hooks import setHooks
         >>> setHooks()
 
         Call sendNotification with the mockups

@@ -10,8 +10,8 @@ from urllib import urlencode
 from zope import component, interface
 from zope.formlib import form
 from zc.table import column, table
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
-from zope.app.component.hooks import getSite
+from zope.pagetemplate.pagetemplatefile import PageTemplateFile
+from zope.component.hooks import getSite
 
 from ore.viewlet.container import ContainerViewlet
 from ore.viewlet.core import FormViewlet
@@ -239,7 +239,7 @@ def lineItemTotal( item, formatter ):
 _marker = object()
 class CartFormatter( table.StandaloneSortFormatter ):
 
-    renderExtra = ViewPageTemplateFile('templates/cart-listing-extras.pt')
+    renderExtra = PageTemplateFile('templates/cart-listing-extras.pt')
 
     def __init__(self, context, request, items, visible_column_names=None,
                  batch_start=None, batch_size=None, prefix=None, columns=None):

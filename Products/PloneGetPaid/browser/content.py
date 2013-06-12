@@ -26,7 +26,7 @@ except ImportError:
 
 from base import BaseFormView
 
-from zope.app.component.hooks import getSite
+from zope.component.hooks import getSite
 
 import widgets
 

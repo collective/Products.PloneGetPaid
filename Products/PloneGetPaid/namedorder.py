@@ -3,7 +3,7 @@ from BTrees.OOBTree import OOBTree
 from zope import interface, schema
 
 #from getpaid.core import interfaces
-from zope.app.container.btree import BTreeContainer
+from zope.container.btree import BTreeContainer
 
 import interfaces
 

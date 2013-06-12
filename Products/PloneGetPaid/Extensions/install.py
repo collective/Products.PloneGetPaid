@@ -7,7 +7,7 @@ from Products.CMFCore.utils import getToolByName
 
 from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
 from zope.event import notify
-from zope.app.component.hooks import setSite
+from zope.component.hooks import setSite
 from Products.PloneGetPaid import generations, preferences, addressbook, namedorder
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, IAddressBookUtility, INamedOrderUtility
 from Products.PloneGetPaid.cart import ShoppingCartUtility
@@ -65,7 +65,7 @@ def install_plone3_portlets(self):
     """
 
     # Do the imports here, as we only need them here
-    from zope.app.container.interfaces import INameChooser
+    from zope.container.interfaces import INameChooser
     from zope.component import getUtility, getMultiAdapter
     from plone.portlets.interfaces import IPortletManager, IPortletAssignmentMapping
     from Products.PloneGetPaid.browser import portlets
