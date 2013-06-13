@@ -7,7 +7,7 @@ from zope.app.form.browser.objectwidget import ObjectWidgetView as ObjectWidgetV
 from zope.app.form.browser.objectwidget import ObjectWidget as ObjectWidgetBase
 from zope.app.form.browser.textwidgets import DateWidget
 from zope.app.form.browser.itemswidgets import OrderedMultiSelectWidget as BaseSelection
-from zope.pagetemplate.pagetemplatefile import PageTemplateFile
+from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
 
 from zope.schema import vocabulary
 
@@ -22,7 +22,7 @@ from Products.PloneGetPaid.vocabularies import TitledVocabulary
 from Products.Five.browser import decode
 
 class ObjectWidgetView( ObjectWidgetViewBase ):    
-    template = PageTemplateFile('templates/objectwidget.pt')
+    template = ViewPageTemplateFile('templates/objectwidget.pt')
 
 class ObjectWidget( ObjectWidgetBase ):    
     def __init__( self, *args, **kw):
@@ -47,7 +47,7 @@ class WithTemplateWidget(SimpleInputWidget):
     
 
 class CountrySelectionWidget(WithTemplateWidget):
-    template = PageTemplateFile('templates/country-selection-widget.pt')
+    template = ViewPageTemplateFile('templates/country-selection-widget.pt')
 
     def getVocabulary(self):
         return self.context.vocabulary
@@ -142,7 +142,7 @@ class StateSelectionInputWidget(DropdownWidget):
         return TitledVocabulary.fromTitles(states)
 
 class CCExpirationDateWidget(WithTemplateWidget,DateWidget):
-    template = PageTemplateFile('templates/cc-expiration-date-widget.pt')
+    template = ViewPageTemplateFile('templates/cc-expiration-date-widget.pt')
     def months(self):
         utility = getUtility(IMonthsAndYears)
         return utility.months
@@ -191,7 +191,7 @@ def SelectWidgetFactory( field, request ):
     return OrderedMultiSelectionWidget( field, vocab, request ) 
 
 class OrderedMultiSelectionWidget(BaseSelection):
-    template = PageTemplateFile('templates/ordered-selection.pt')
+    template = ViewPageTemplateFile('templates/ordered-selection.pt')
 
     def selected(self):
         """Return a list of tuples (text, value) that are selected."""
