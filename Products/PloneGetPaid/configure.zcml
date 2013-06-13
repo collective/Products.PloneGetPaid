@@ -163,7 +163,7 @@
 <!-- Notifications -->
 <subscriber
    for="getpaid.core.interfaces.IOrder
-	getpaid.hurry.workflow.interfaces.IWorkflowTransitionEvent"
+	hurry.workflow.interfaces.IWorkflowTransitionEvent"
    handler=".notifications.sendNotification"
    />
 

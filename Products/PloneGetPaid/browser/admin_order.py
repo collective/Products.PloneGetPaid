@@ -18,7 +18,7 @@ from ore.viewlet import core
 from getpaid.core import interfaces
 from getpaid.core.order import OrderQuery as query
 from getpaid.core.interfaces import IOrderManager
-from getpaid.hurry.workflow.interfaces import IWorkflowInfo
+from hurry.workflow.interfaces import IWorkflowInfo
 
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.i18nl10n import utranslate

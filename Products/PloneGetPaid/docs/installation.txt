@@ -1,8 +1,5 @@
 **Installing GetPaid for Plone**
 
-XXX: FIXME: this documentation is seriously outdated
-
-
 There are currently three ways to get going with GetPaid:
 
 1. If you downloaded GetPaid as a bundle, the README.txt included in
