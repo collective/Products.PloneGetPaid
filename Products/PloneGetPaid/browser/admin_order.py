@@ -13,7 +13,7 @@ from zope.formlib import form
 
 from zExceptions import Unauthorized
 from zc.table import table, column
-from ore.viewlet import core
+from getpaid.ore.viewlet import core
 
 from getpaid.core import interfaces
 from getpaid.core.order import OrderQuery as query
@@ -33,7 +33,7 @@ from Products.PloneGetPaid.interfaces import ICountriesStates
 from Products.PloneGetPaid.vocabularies import TitledVocabulary
 from Products.PloneGetPaid.browser.cart import formatLinkCell
 
-from yoma.batching import BatchingMixin, RenderNav
+from getpaid.yoma.batching import BatchingMixin, RenderNav
 
 from order import OrderRoot
 

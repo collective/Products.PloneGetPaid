@@ -13,8 +13,8 @@ from zc.table import column, table
 from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
 from zope.component.hooks import getSite
 
-from ore.viewlet.container import ContainerViewlet
-from ore.viewlet.core import FormViewlet
+from getpaid.ore.viewlet.container import ContainerViewlet
+from getpaid.ore.viewlet.core import FormViewlet
 
 from getpaid.core import interfaces
 

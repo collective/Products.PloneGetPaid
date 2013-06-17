@@ -1,6 +1,7 @@
 import os
 from setuptools import setup, find_packages
 
+
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
@@ -9,7 +10,7 @@ version = '0.10.5dev'
 setup(name='Products.PloneGetPaid',
       version=version,
       description="E-commerce framework for Plone",
-      long_description = (
+      long_description=(
         read('README.txt')
         + '\n' +
         read('CHANGES.txt')
@@ -17,7 +18,6 @@ setup(name='Products.PloneGetPaid',
         'Download\n'
         '**********************\n'
         ),
-      # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Plone",
         "Programming Language :: Python",
@@ -43,14 +43,14 @@ setup(name='Products.PloneGetPaid',
           'getpaid.core>=0.9.0',
           'getpaid.nullpayment>=0.5.0',
           'getpaid.wizard',
-          'ore.viewlet',
-          'yoma.batching',
+          'getpaid.ore.viewlet',
+          'getpaid.yoma.batching',
           'zc.table',
           'zope.interface',
           'zope.component',
           # -*- Extra requirements: -*-
       ],
-      extras_require = {
+      extras_require={
           # we should be able to get rid of this
           'test':  ['zope.app.testing'],
       },
