@@ -150,7 +150,7 @@ class VariableAmountLineItemFactory(LineItemFactory):
         nitem = item.PayableLineItem()
 
         itemCount = 1
-        uuid = getUID(self.context)
+        uuid = getUID(self.content)
         for item_id in self.cart.keys():
             # See if this item, or item-itemCount already exists in the cart
             if uuid == item_id[:-4]:
