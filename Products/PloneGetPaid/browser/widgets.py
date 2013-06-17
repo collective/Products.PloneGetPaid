@@ -7,7 +7,8 @@ from zope.app.form.browser.objectwidget import ObjectWidgetView as ObjectWidgetV
 from zope.app.form.browser.objectwidget import ObjectWidget as ObjectWidgetBase
 from zope.app.form.browser.textwidgets import DateWidget
 from zope.app.form.browser.itemswidgets import OrderedMultiSelectWidget as BaseSelection
-from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
+from zope.browserpage import ViewPageTemplateFile
+from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 
 from zope.schema import vocabulary
 
@@ -21,30 +22,34 @@ from Products.PloneGetPaid.vocabularies import TitledVocabulary
 
 from Products.Five.browser import decode
 
-class ObjectWidgetView( ObjectWidgetViewBase ):    
+
+class ObjectWidgetView(ObjectWidgetViewBase):
     template = ViewPageTemplateFile('templates/objectwidget.pt')
 
-class ObjectWidget( ObjectWidgetBase ):    
-    def __init__( self, *args, **kw):
-        super( ObjectWidget, self).__init__( *args, **kw )
-        self.view = ObjectWidgetView( self, self.request)
 
-class SequenceObjectWidget( ObjectWidgetBase ):
-    def __init__( self, context, value_type, request, factory, **kw):
-        super( ObjectWidget, self).__init__( context, request, factory, **kw )
-        self.view = ObjectWidgetView( self, self.request)    
-        
+class ObjectWidget(ObjectWidgetBase):
+    def __init__(self, *args, **kw):
+        super(ObjectWidget, self).__init__(*args, **kw)
+        self.view = ObjectWidgetView(self, self.request)
+
+
+class SequenceObjectWidget(ObjectWidgetBase):
+    def __init__(self, context, value_type, request, factory, **kw):
+        super(ObjectWidget, self).__init__(context, request, factory, **kw)
+        self.view = ObjectWidgetView(self, self.request)
+
+
 class WithTemplateWidget(SimpleInputWidget):
-    def __call__( self ):
-        # XXX dirty hack to make the values coming out of here encoded properly,
-        # by default please fix me.
-        envadapter = IUserPreferredCharsets( self.request)
+    def __call__(self):
+        # XXX dirty hack to make the values coming out of here
+        # encoded properly, by default please fix me.
+        envadapter = IUserPreferredCharsets(self.request)
         charsets = envadapter.getPreferredCharsets() or ['utf-8']
         value = self.template()
         if not isinstance(value, unicode):
-            value = decode._decode( self.template(), charsets )
+            value = decode._decode(self.template(), charsets)
         return value
-    
+
 
 class CountrySelectionWidget(WithTemplateWidget):
     template = ViewPageTemplateFile('templates/country-selection-widget.pt')
@@ -55,8 +60,10 @@ class CountrySelectionWidget(WithTemplateWidget):
     def required(self):
         return self.context.required
 
+
 def StateSelectionWidget(field, request):
     return StateSelectionInputWidget(field, field.vocabulary, request)
+
 
 class StateSelectionInputWidget(DropdownWidget):
     """State selection widget for non-Javascript.
@@ -72,7 +79,7 @@ class StateSelectionInputWidget(DropdownWidget):
         contents = []
 
         value = self._div('value', self.renderValue(value))
-        value_wraped = renderElement('div',id=self.name+'_container',
+        value_wraped = renderElement('div', id=self.name + '_container',
                                            contents=value)
         contents.append(value_wraped)
         contents.append(self._emptyMarker())
@@ -84,7 +91,7 @@ class StateSelectionInputWidget(DropdownWidget):
         """Mark the form if the field is required or not, needed for ajax
         refreshes."""
         return '<input name="%s" type="hidden" value="%s" />' % (
-            self.name+'_required_marker',self.context.required)
+            self.name + '_required_marker', self.context.required)
 
     def renderItemsWithValues(self, values):
         """Render the list of possible values, with those found in
@@ -141,8 +148,11 @@ class StateSelectionInputWidget(DropdownWidget):
         states = utility.states(country,allow_no_values=not self.context.required)
         return TitledVocabulary.fromTitles(states)
 
-class CCExpirationDateWidget(WithTemplateWidget,DateWidget):
-    template = ViewPageTemplateFile('templates/cc-expiration-date-widget.pt')
+
+class CCExpirationDateWidget(WithTemplateWidget, DateWidget):
+    template = ZopeTwoPageTemplateFile(
+        'templates/cc-expiration-date-widget.pt')
+
     def months(self):
         utility = getUtility(IMonthsAndYears)
         return utility.months
@@ -158,15 +168,16 @@ class CCExpirationDateWidget(WithTemplateWidget,DateWidget):
         return self.request.get('%s_year' % self.name)
 
     def _getFormInput(self):
-        return ('%s-%s'%(self.getFormYear(),self.getFormMonth()))
+        return ('%s-%s' % (self.getFormYear(), self.getFormMonth()))
 
-    def _toFieldValue(self,input):
+    def _toFieldValue(self, input):
         return super(CCExpirationDateWidget, self)._toFieldValue(input)
 
     def hasInput(self):
         return self.getFormMonth() and self.getFormYear()
         #return self.getFormMonth() in self.months() and\
                #self.getFormYear() in self.years()
+
 
 class PriceWidget(FloatWidget):
     """ This is a widget for rendering the price.
@@ -185,10 +196,10 @@ class PriceWidget(FloatWidget):
             return '%.2f' % value
 
 
-
-def SelectWidgetFactory( field, request ):
+def SelectWidgetFactory(field, request):
     vocab = field.value_type.vocabulary
-    return OrderedMultiSelectionWidget( field, vocab, request ) 
+    return OrderedMultiSelectionWidget(field, vocab, request)
+
 
 class OrderedMultiSelectionWidget(BaseSelection):
     template = ViewPageTemplateFile('templates/ordered-selection.pt')
@@ -199,14 +210,15 @@ class OrderedMultiSelectionWidget(BaseSelection):
         values = self._getFormValue()
         # Not all content objects must necessarily support the attributes
         if hasattr(self.context.context, self.context.__name__):
-            # merge in values from content 
+            # merge in values from content
             for value in self.context.get(self.context.context):
                 if value not in values:
                     values.append(value)
         terms = [self.vocabulary.getTerm(value)
-                 for value in values if value in self.vocabulary ]
+                 for value in values if value in self.vocabulary]
         return [{'text': self.textForValue(term), 'value': term.token}
                 for term in terms]
+
 
 def SendDontSendWidget(field, request, true=_('Send'), false=_('Do Not Send')):
     vocab = vocabulary.SimpleVocabulary.fromItems(((true, True),

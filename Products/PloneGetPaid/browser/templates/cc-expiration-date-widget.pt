@@ -1,5 +1,3 @@
-<div xmlns:tal="http://xml.zpope.org/namespaces/tal">
-
 <tal:widget tal:define="name python:view.name">
 
     <div class="widget">
@@ -24,7 +22,3 @@
     </div>
 
 </tal:widget>
-</div>
-
-
-
