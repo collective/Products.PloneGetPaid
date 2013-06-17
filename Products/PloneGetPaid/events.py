@@ -1,5 +1,3 @@
-from getpaid.core.interfaces import IPayableCreationEvent
-
 
 def payable_created(object, event):
     # Reindex the object.  Particularly, in Plone 3 this means that

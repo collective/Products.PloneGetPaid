@@ -44,11 +44,7 @@ from getpaid.core import options
 from interfaces import IDonationLevel, IPayableMarker
 from Products.PloneGetPaid import sessions
 
-try:
-    from plone.uuid.interfaces import IUUID
-except ImportError:
-    def IUUID(context, default=None):
-        raise TypeError
+from plone.uuid.interfaces import IUUID
 
 
 def getUID(obj):
@@ -126,6 +122,7 @@ class LineItemFactory(object):
         nitem.product_code = payable.product_code
 
         return nitem
+
 
 class VariableAmountLineItemFactory(LineItemFactory):
     """
