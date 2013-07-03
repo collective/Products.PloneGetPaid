@@ -56,6 +56,7 @@ setup(name='Products.PloneGetPaid',
           'test':  ['zope.app.testing'],
       },
       entry_points="""
-      # -*- Entry points: -*-
-      """,
+      [z3c.autoinclude.plugin]
+      target = plone
+""",
       )
