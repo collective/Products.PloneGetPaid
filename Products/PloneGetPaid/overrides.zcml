@@ -1,6 +1,15 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:zcml="http://namespaces.zope.org/zcml">
 
+<!-- Payment -->
+<adapter
+   for="*"
+   provides="getpaid.core.interfaces.ICreditCardTypeEnumerator"
+   factory=".payment.CreditCardTypeEnumerator"
+   />
+
+
+
   <includeOverrides zcml:condition="installed getpaid.ogone"
       package="getpaid.ogone" />
 
