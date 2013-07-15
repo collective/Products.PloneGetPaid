@@ -638,7 +638,7 @@ msgstr "Nom du magasin/de l'organisation"
 
 #: ./browser/templates/cart-listing-extras.pt:11
 msgid "SubTotal"
-msgstr ""
+msgstr "Sous-total"
 
 #: ./interfaces.py:297
 msgid "Tax Method"
@@ -723,7 +723,7 @@ msgstr "Unités de mesure"
 #. Default: "You must confirm your shopping cart modifications by clicking 'Update' below."
 #: ./browser/templates/cart-listing.pt:5
 msgid "You must confirm your shopping cart modifications by clicking 'Update' below."
-msgstr ""
+msgstr "Vous devez confirmer les modifications apportées à votre panier d'achat en cliquant sur le bouton 'Actualiser' ci-dessous."
 
 #. Default: "Your Installation Needs Upgrading"
 #: ./browser/templates/upgrade.pt:37
