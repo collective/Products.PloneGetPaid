@@ -598,7 +598,7 @@ msgstr "Verzendbare product types"
 
 #: ./browser/templates/cart-listing-extras.pt:15
 msgid "Shipping"
-msgstr ""
+msgstr "Portkosten"
 
 #: ./browser/admin.py:186
 #: ./interfaces.py:232
@@ -641,7 +641,7 @@ msgstr "Winkel/Organisatienaam"
 
 #: ./browser/templates/cart-listing-extras.pt:11
 msgid "SubTotal"
-msgstr ""
+msgstr "Subtotaal"
 
 #: ./interfaces.py:297
 msgid "Tax Method"
@@ -726,7 +726,7 @@ msgstr "Gewichtseenheid"
 #. Default: "You must confirm your shopping cart modifications by clicking 'Update' below."
 #: ./browser/templates/cart-listing.pt:5
 msgid "You must confirm your shopping cart modifications by clicking 'Update' below."
-msgstr ""
+msgstr "Bevestig de wijzigingen in uw winkelmandje met een klik op onderstaande knop 'Bijwerken'."
 
 #. Default: "Your Installation Needs Upgrading"
 #: ./browser/templates/upgrade.pt:37
