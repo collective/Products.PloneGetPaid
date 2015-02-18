@@ -228,7 +228,9 @@ class LineItemColumn( object ):
         return value
 
 def lineItemURL( item, formatter ):
-    return '<a href="reference_catalog/lookupObject?uuid=%s">%s</a>'  % (item.item_id, safe_unicode(item.name))
+    # Account for variable payable item ids
+    item_id = item.item_id.split('-')[0]
+    return '<a href="resolveuid/%s">%s</a>'  % (item_id, safe_unicode(item.name))
 
 def lineItemPrice( item, formatter ):
     return "%0.2f" % (LineItemColumn("cost")(item, formatter))
@@ -362,7 +364,10 @@ class ShoppingCartActions( FormViewlet ):
             if not last_item:
                 payable = getToolByName(self.context, 'portal_url').getPortalObject()
             else:
+                # Remove any variable payment indicator from UID
+                last_item = last_item.split('-')[0]
                 payable = getToolByName( self.context, 'reference_catalog').lookupObject( last_item )
+
             if not self.request.get('came_from'):
                 next_url = payable.absolute_url()
             else:

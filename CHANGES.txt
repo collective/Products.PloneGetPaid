@@ -2,6 +2,13 @@
 CHANGES
 =======
 
+0.10.6 (development)
+--------------------
+
+- Ensure UID-based urls for variable payment items work correctly.
+  [alecm]
+
+
 0.10.5 (2013-09-11)
 -------------------
 
