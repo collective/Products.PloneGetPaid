@@ -11,6 +11,8 @@ import datetime
 
 from zope.schema import vocabulary
 from getpaid.core import interfaces
+from plone.registry.interfaces import IRegistry
+from Products.CMFPlone.interfaces import ISearchSchema
 
 from iso3166 import CountriesStatesParser
 from Products.PloneGetPaid.interfaces import ICountriesStates, IMonthsAndYears
@@ -34,8 +36,12 @@ def ContentTypes( context ):
     types = filter( lambda x: x.global_allow, portal_types.objectValues() )
 
     properties = getToolByName( context.context, 'portal_properties')
-    types_not_searched = set( properties.site_properties.types_not_searched )
-
+    if hasattr(properties.site_properties, 'types_not_searched'):
+        types_not_searched = set( properties.site_properties.types_not_searched )
+    else:
+        registry = component.getUtility(IRegistry)
+        settings = registry.forInterface(ISearchSchema, prefix="plone")
+        types_not_searched = set( settings.types_not_searched )
     for type in portal_types.objectValues():
         if type.getId() in types_not_searched:
             continue
